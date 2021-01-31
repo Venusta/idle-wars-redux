@@ -1,4 +1,3 @@
-import { rootStore } from "app/stores/appContext";
 import { TIMBER, CLAY } from "./constants";
 
 const queueTypes = {
@@ -103,21 +102,21 @@ const exampleTown = [
   }
 ]
 
-const checkTime = (queue: { endTime: number, item: number; }[]) => {
-  const time = new Date().valueOf();
-  if (queue.length > 0) {
-    if (queue[0].endTime <= time) {
-      console.log(`${queue[0].item} completed`);
-      rootStore.userStore.constructBuilding2(0, queue[0].item) // lvl up 
-      queue.pop();                
-    }
-  }
-}
+// const checkTime = (queue: { endTime: number, item: number; }[]) => {
+//   const time = new Date().valueOf();
+//   if (queue.length > 0) {
+//     if (queue[0].endTime <= time) {
+//       console.log(`${queue[0].item} completed`);
+//       rootStore.userStore.constructBuilding2(0, queue[0].item) // lvl up 
+//       queue.pop();                
+//     }
+//   }
+// }
 
-export const processQueue = () => {
-  exampleTown.forEach((town) => {
-    const { hqQueue, stableQueue, barracksQueue } = town;
-    console.log(hqQueue);
-    checkTime(hqQueue);
-  })
-}
+// export const processQueue = () => {
+//   exampleTown.forEach((town) => {
+//     const { hqQueue, stableQueue, barracksQueue } = town;
+//     console.log(hqQueue);
+//     checkTime(hqQueue);
+//   })
+// }

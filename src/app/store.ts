@@ -1,4 +1,5 @@
-import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
+import { configureStore, ThunkAction, Action, AnyAction, Dispatch } from '@reduxjs/toolkit';
+import { useDispatch } from 'react-redux';
 import { reducer } from "./slices/index"
 
 export const store = configureStore({
@@ -12,3 +13,6 @@ export type AppThunk<ReturnType = void> = ThunkAction<
   unknown,
   Action<string>
 >;
+
+export type AppDispatch = typeof store.dispatch;
+export const useAppDispatch = (): Dispatch<AnyAction> => useDispatch<AppDispatch>();

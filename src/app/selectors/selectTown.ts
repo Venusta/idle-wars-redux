@@ -4,6 +4,6 @@ import { RootState } from "../store";
 /**
  * Selects the Town from state based on id
  * @param state RootState
- * @param id town id
+ * @param townId town id
  */
-export const selectTown = (state: RootState, id: number): Town => (state.towns[id]);
+export const selectTown = (state: RootState, townId: number): Town => (state.towns[townId]);

@@ -15,7 +15,7 @@ export const BuildingTable = ({ townId = 0 }) => {
       <BuildingTableRow
         key={buildingType}
         level={level}
-        type={buildingType}
+        buildingId={buildingType}
         townId={townId}
       />
     ));
