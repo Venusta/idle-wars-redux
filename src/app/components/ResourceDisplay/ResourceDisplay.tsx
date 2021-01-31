@@ -1,14 +1,15 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
-import { Resources } from '../../../types/types'
-import { selectPopulation } from '../../selectors/selectPopulation';
-import { selectResources } from '../../selectors/selectResources'
 import { RootState } from '../../store';
+import { selectTown } from "../../selectors"
 
 export const ResourceDisplay = () => {
-  const { timber, clay, iron, }: Resources = useSelector((state: RootState) => selectResources(state, 0))
+  const town = useSelector((state: RootState) => selectTown(state, 0))
+  const { timber, clay, iron } = town.resources;
+  const population = town.population;
   //  storageCapacity, population, maxPopulation
-  const population: number = useSelector((state: RootState) => selectPopulation(state, 0))
+  // const population: number = useSelector((state: RootState) => selectPopulation(state, 0))
+
   return (
     <div>
       <table className="Buildings">

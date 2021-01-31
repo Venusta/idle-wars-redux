@@ -1,4 +1,4 @@
-import { Unit } from "../unit";
+import { Unit } from "./base/unit";
 
 export const axeMan = new Unit({
   id: 2,

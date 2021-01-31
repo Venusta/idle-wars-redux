@@ -1,4 +1,4 @@
-import { Unit } from "../unit";
+import { Unit } from "./base/unit";
 
 export const spearFighter = new Unit({
   id: 0,

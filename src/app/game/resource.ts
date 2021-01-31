@@ -1,4 +1,4 @@
-import { ResourceProps } from "./types";
+import { ResourceProps } from "../../types/types";;
 
 export class Resource {
   id: number;

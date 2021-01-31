@@ -1,8 +1,8 @@
-import { TIMBERCAMP } from "../constants";
-import { ResourceBuilding } from "../resourceBuilding";
+import { BuildingId } from "../constants";
+import { ResourceBuilding } from "./base/resourceBuilding";
 
 export const timberCamp = new ResourceBuilding({
-  id: TIMBERCAMP,
+  id: BuildingId.TimberCamp,
   name: "Timber Camp",
   cost: {
     timber: 50,
@@ -11,8 +11,5 @@ export const timberCamp = new ResourceBuilding({
     population: 5,
   },
   maxLevel: 30,
-  buildTime: 8,
-  generate: {
-    timber: 5
-  },
+  buildTime: 8
 })

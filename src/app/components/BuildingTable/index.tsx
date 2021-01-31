@@ -11,11 +11,11 @@ export const BuildingTable = ({ townId = 0 }) => {
   const buildings: Building[] = useSelector((state: RootState) => selectBuildings(state, townId))
 
   const renderRows = () => {
-    return buildings.map(({ buildingType, level }) => (
+    return buildings.map(({ buildingId, level }) => (
       <BuildingTableRow
-        key={buildingType}
+        key={buildingId}
         level={level}
-        buildingId={buildingType}
+        buildingId={buildingId}
         townId={townId}
       />
     ));

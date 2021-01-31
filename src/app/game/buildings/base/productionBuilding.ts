@@ -1,5 +1,5 @@
 import { Building } from "./building";
-import { ProductionBuildingProps, ResourceGenProps } from "./types";
+import { ProductionBuildingProps, ResourceGenProps } from "../../../../types/types";
 
 export class ProductionBuilding extends Building {
   creates: ResourceGenProps;

@@ -1,6 +1,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { resourceCost, constructBuilding } from "../../../slices/towns"
+import { constructBuilding } from "../../../slices/towns"
+import { getBuildingData } from "../../../game/buildings"
 
 interface BuildingTableRowProps {
   level: number;
@@ -10,10 +11,12 @@ interface BuildingTableRowProps {
 
 export const BuildingTableRow: React.FC<BuildingTableRowProps> = ({ level, townId, buildingId }) => {
   const dispatch = useDispatch();
+  const buildingData = getBuildingData(buildingId);
+  const headquarterLevel = 1;
 
-  const { timber, clay, iron } = resourceCost(level);
-  // const formattedTime = new Date(constructionTime * 1000).toISOString().substr(11, 8);
-  const formattedTime = new Date(4 * 1000).toISOString().substr(11, 8);
+  const { resources: { timber, clay, iron }, population } = buildingData!.getCost(level)
+  const constructionTime = buildingData!.getBuildTime(level, headquarterLevel);
+  const formattedTime = new Date(constructionTime * 1000).toISOString().substr(11, 8);
 
   return (
     <tr>
@@ -22,12 +25,11 @@ export const BuildingTableRow: React.FC<BuildingTableRowProps> = ({ level, townI
         <a href="/game.php?village=3955&amp;screen=main">{`name`}</a>
         <span style={{ fontSize: "0.9em" }}>Level {level}</span>
       </td>
-      <td>{timber}</td>
-      <td>{clay}</td>
-      <td>{iron}</td>
+      <td>{Math.round(timber)}</td>
+      <td>{Math.round(clay)}</td>
+      <td>{Math.round(iron)}</td>
       <td>{formattedTime}</td>
-      <td>{-345893745}</td>
-      {/* <td>{-population}</td> */}
+      <td>{Math.round(population)}</td>
       <td><button onClick={() => dispatch(constructBuilding({ townId, buildingId }))}>Construct</button></td>
     </tr>
   );

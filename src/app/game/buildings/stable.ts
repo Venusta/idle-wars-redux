@@ -1,8 +1,8 @@
-import { STABLE } from "../constants";
-import { ProductionBuilding } from "../productionBuilding";
+import { BuildingId } from "../constants";
+import { ProductionBuilding } from "./base/productionBuilding";
 
 export const Stable = new ProductionBuilding({
-  id: STABLE,
+  id: BuildingId.Stable,
   name: "Stable",
   cost: {
     timber: 270,

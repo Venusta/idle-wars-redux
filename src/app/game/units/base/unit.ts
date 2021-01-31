@@ -1,4 +1,4 @@
-import { ResourcesProps } from "./types";
+import { ResourcesProps } from "../../../../types/types";;
 
 interface UnitProps {
   id: number;
