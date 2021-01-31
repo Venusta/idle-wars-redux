@@ -1,0 +1,37 @@
+.warn {
+  color: #dc0000;
+}
+
+.large {
+  font-size: 50px;
+}
+
+.icon {
+	width: 18px;
+	height: 18px;
+	display: inline-block;
+	margin: auto 2px auto 0;
+	overflow: hidden;
+	background-repeat: no-repeat;
+	vertical-align: -4px;
+}
+
+.cost_stone{
+	background-color: aqua;
+	color: blueviolet;
+}
+
+.icon.header {
+	background-image: url('https://dsuk.innogamescdn.com/asset/ee33fc3d/graphic/icons/header.png');
+}
+
+span.wood {
+	background-image: url(https://dsuk.innogamescdn.com/asset/ee33fc3d/graphic/holz.png);
+}
+.wood {
+	background-image: url(https://dsuk.innogamescdn.com/asset/ee33fc3d/graphic/holz.png);
+}
+
+.header.wood {
+	background-position: -18px 0px;
+}
