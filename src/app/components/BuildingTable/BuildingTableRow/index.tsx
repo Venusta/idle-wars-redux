@@ -2,6 +2,7 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { buildings } from '../../../game/buildings';
 import { BuildingId } from '../../../game/constants';
+import { enqueue } from '../../../slices/queue';
 import { constructBuilding } from "../../../slices/towns"
 
 interface BuildingTableRowProps {
@@ -19,6 +20,9 @@ export const BuildingTableRow: React.FC<BuildingTableRowProps> = ({ level, townI
   const constructionTime = buildingData.getBuildTime(level, headquarterLevel);
   const formattedTime = new Date(constructionTime * 1000).toISOString().substr(11, 8);
 
+
+  const payload = { townId, buildingId: BuildingId.Headquarters, item: buildingId, completionTime: constructionTime }
+
   return (
     <tr>
       <td>
@@ -31,7 +35,7 @@ export const BuildingTableRow: React.FC<BuildingTableRowProps> = ({ level, townI
       <td>{Math.round(iron)}</td>
       <td>{formattedTime}</td>
       <td>{Math.round(population)}</td>
-      <td><button onClick={() => dispatch(constructBuilding({ townId, buildingId }))}>Construct</button></td>
+      <td><button onClick={() => {dispatch(constructBuilding({ townId, buildingId })); dispatch(enqueue(payload))}}>Construct</button></td>
     </tr>
   );
 };

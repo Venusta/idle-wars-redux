@@ -20,8 +20,6 @@ export interface Cost {
   population: number;
 }
 
-export type Population = number
-
 // export type BuildingList = {
 //   [x in BuildingId]: Building;
 // } & {
@@ -29,7 +27,7 @@ export type Population = number
 // };
 
 export type BuildingList = {
-  [x in BuildingId]: Building
+  [id in BuildingId]: Building
 };
 
 

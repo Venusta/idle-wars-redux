@@ -1,11 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { Resources, Town } from "../../types/types";
-import { selectTown } from "../selectors";
-import { selectBuilding } from "../selectors/selectBuilding";
 import { BuildingId } from "../game/constants";
 import { buildings } from "../game/buildings";
 
-const initialState: Town[] = [
+const initialState: Town[] = [ 
+  // TODO make this an object and index them by id
   {
     // id
     // coords
@@ -63,13 +62,13 @@ export const townSlice = createSlice({
     },
 
     constructBuilding: (towns, { payload: { townId, buildingId } }: constructBuildingPayload) => {
-      const building = selectBuilding({ towns }, townId, buildingId);
-      const town = selectTown({ towns }, townId);
+      const town = towns[townId]
+      const building = town.buildings[buildingId]
       const cost = buildings[buildingId].getCost(building.level);
       // TODO check cost 
       // TODO check pop
       // TODO check requirements
-      building.level += 1;
+      // building.level += 1;
       for (const [k, v] of Object.entries(cost.resources)) {
         town.resources[k as keyof Resources] -= v;
       }
