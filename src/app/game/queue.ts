@@ -16,15 +16,24 @@ const something = () => {
   dispatch(enqueue(payload));
 }
 
-const updateQueue = () => {
+export const updateQueue = () => {
   const state = store.getState();
   const dispatch = store.dispatch;
 
   const { queue } = state
 
-  const x = Object.keys(queue);
-  console.log(x);
-  
+  Object.keys(queue).forEach((townQueue) => {
+    console.log(townQueue);
+
+    Object.values(queue[townQueue]).forEach((buildingQueue) => {
+      buildingQueue?.forEach((item) => { 
+        console.log(item);        
+      });
+      
+    })
+    
+        
+  })
 
   // state.queue.forEach((individualQueue) => {
   //   // const queues = selectTownQueue(state, townId); // probably shouldn't be used idk
@@ -33,4 +42,4 @@ const updateQueue = () => {
 
 }
 
-updateQueue();
+
