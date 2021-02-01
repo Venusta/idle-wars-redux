@@ -7,6 +7,9 @@ import { buildings } from "../game/buildings";
 
 const initialState: Town[] = [
   {
+    // id
+    // coords
+    // name?
     resources: {
       timber: 500,
       clay: 500,
@@ -62,8 +65,7 @@ export const townSlice = createSlice({
     constructBuilding: (towns, { payload: { townId, buildingId } }: constructBuildingPayload) => {
       const building = selectBuilding({ towns }, townId, buildingId);
       const town = selectTown({ towns }, townId);
-      const buildingData = buildings[buildingId];
-      const cost = buildingData.getCost(building.level);
+      const cost = buildings[buildingId].getCost(building.level);
       // TODO check cost 
       // TODO check pop
       // TODO check requirements
