@@ -1,4 +1,4 @@
-import { Building } from "../../types/types";
+import { BuildingList } from "../../types/types";
 import { RootState } from "../store";
 
 /**
@@ -6,4 +6,4 @@ import { RootState } from "../store";
  * @param state RootState
  * @param townId town id
  */
-export const selectBuildings = (state: RootState, townId: number): Building[] => (state.towns[townId].buildings);
+export const selectBuildings = (state: RootState, townId: number): BuildingList => (state.towns[townId].buildings);

@@ -3,33 +3,7 @@ import { Resources, Town } from "../../types/types";
 import { selectTown } from "../selectors";
 import { selectBuilding } from "../selectors/selectBuilding";
 import { BuildingId } from "../game/constants";
-import { getBuildingData } from "../game/buildings"
-
-// const initialState: Town[] = [
-//   {
-//     resources: {
-//       timber: 500,
-//       clay: 500,
-//       iron: 500,
-//     },
-//     population: 0,
-//     buildings: [
-//       {
-//         buildingId: BuildingId.TimberCamp,
-//         level: 0,
-//       },
-//       {
-//         buildingId: BuildingId.ClayPit,
-//         level: 0,
-//       },
-//       {
-//         buildingId: BuildingId.IronMine,
-//         level: 0,
-//       }
-//     ]
-//   }
-// ];
-
+import { buildings } from "../game/buildings";
 
 const initialState: Town[] = [
   {
@@ -39,6 +13,8 @@ const initialState: Town[] = [
       iron: 500,
     },
     population: 0,
+    maxPopulation: 5600,
+    storageCapacity: 20000,
     buildings: {
       [BuildingId.TimberCamp]: {
         buildingId: BuildingId.TimberCamp,
@@ -60,19 +36,19 @@ const initialState: Town[] = [
         buildingId: BuildingId.Barracks,
         level: 0,
       },
-      [BuildingId.Headquarters]: {
-        buildingId: BuildingId.Headquarters,
+      [BuildingId.Stable]: {
+        buildingId: BuildingId.Stable,
         level: 0,
       },
     },
-    buildingKeys: [ BuildingId.TimberCamp, BuildingId.ClayPit, BuildingId.IronMine]
+    // keys: [BuildingId.TimberCamp, BuildingId.ClayPit, BuildingId.IronMine]
   }
 ];
 
 interface constructBuildingPayload {
   payload: {
     townId: number
-    buildingId: number,
+    buildingId: BuildingId,
   }
 }
 
@@ -85,16 +61,17 @@ export const townSlice = createSlice({
 
     constructBuilding: (towns, { payload: { townId, buildingId } }: constructBuildingPayload) => {
       const building = selectBuilding({ towns }, townId, buildingId);
-      const town = selectTown({ towns}, townId);      
-      const buildingData = getBuildingData(buildingId);
-      const cost = buildingData!.getCost(building.level);
-      
-      // if (resources.isEnough) { 
+      const town = selectTown({ towns }, townId);
+      const buildingData = buildings[buildingId];
+      const cost = buildingData.getCost(building.level);
+      // TODO check cost 
+      // TODO check pop
+      // TODO check requirements
       building.level += 1;
-      for (const [k, v] of Object.entries(cost)) {
+      for (const [k, v] of Object.entries(cost.resources)) {
         town.resources[k as keyof Resources] -= v;
       }
-      // }
+      town.population += cost.population;
     }
   },
 });

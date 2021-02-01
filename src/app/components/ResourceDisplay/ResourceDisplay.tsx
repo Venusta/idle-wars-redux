@@ -6,9 +6,7 @@ import { selectTown } from "../../selectors"
 export const ResourceDisplay = () => {
   const town = useSelector((state: RootState) => selectTown(state, 0))
   const { timber, clay, iron } = town.resources;
-  const population = town.population;
-  //  storageCapacity, population, maxPopulation
-  // const population: number = useSelector((state: RootState) => selectPopulation(state, 0))
+  const { population, maxPopulation, storageCapacity } = town;
 
   return (
     <div>
@@ -18,8 +16,8 @@ export const ResourceDisplay = () => {
             <td>{timber}</td>
             <td>{clay}</td>
             <td>{iron}</td>
-            {/* <td>{storageCapacity}</td> */}
-            <td>{`${population}/${500}`}</td>
+            <td>{storageCapacity}</td>
+            <td>{`${population}/${maxPopulation}`}</td>
           </tr>
         </tbody>
       </table>

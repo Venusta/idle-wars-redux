@@ -4,14 +4,14 @@ import { BuildingTableRow } from './BuildingTableRow';
 import { selectBuildings } from '../../selectors';
 import { RootState } from "../../store";
 import { useSelector } from 'react-redux';
-import { Building } from '../../../types/types';
+import { BuildingList } from '../../../types/types';
 
 
 export const BuildingTable = ({ townId = 0 }) => {
-  const buildings: Building[] = useSelector((state: RootState) => selectBuildings(state, townId))
+  const buildings: BuildingList = useSelector((state: RootState) => selectBuildings(state, townId))
 
   const renderRows = () => {
-    return buildings.map(({ buildingId, level }) => (
+    return Object.values(buildings).map(({ buildingId, level }) => (
       <BuildingTableRow
         key={buildingId}
         level={level}

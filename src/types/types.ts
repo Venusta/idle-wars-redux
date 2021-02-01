@@ -22,26 +22,23 @@ export interface Cost {
 
 export type Population = number
 
-// export interface BuildingListtest {
+// export type BuildingList = {
+//   [x in BuildingId]: Building;
+// } & {
 //   keys: Array<BuildingId>;
-//   [x: BuildingId]: Building;
-// }
+// };
 
-
-// export interface BuildingListtest {
-//   keys: Array<BuildingId>;
-//   [x: BuildingId]: Building;
-// }
 export type BuildingList = {
-  [x in BuildingId]: Building;
+  [x in BuildingId]: Building
 };
 
 
 export interface Town {
   resources: Resources;
   population: number;
+  maxPopulation: number;
+  storageCapacity: number;
   buildings: BuildingList
-  buildingKeys: 
 }
 
 export interface ResourcesProps {
