@@ -23,8 +23,8 @@ export const BuildingTable = ({ townId = "0" }) => {
   }
 
   return (
-    <div>
-      <table className="Buildings">
+    <div className="tableHeaderColour">
+      <table className="test">
         <tbody>
           <tr>
             <th style={{ width: "23%" }}>Buildings</th>

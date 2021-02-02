@@ -1,4 +1,4 @@
-.warn {
+/* .warn {
   color: #dc0000;
 }
 
@@ -34,4 +34,8 @@ span.wood {
 
 .header.wood {
 	background-position: -18px 0px;
+} */
+
+.tableHeaderColour {
+  background-color: rgb(193, 162, 100);
 }

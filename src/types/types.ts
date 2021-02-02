@@ -29,11 +29,11 @@ export interface Cost {
 // };
 
 export type BuildingList = {
-  [id in BuildingId]: Building
+  [id in BuildingId]: Building;
 };
 
 export interface Towns {
-  [id: string]: Town
+  [id: string]: Town;
 }
 
 export interface Town {
@@ -41,7 +41,7 @@ export interface Town {
   population: number;
   maxPopulation: number;
   storageCapacity: number;
-  buildings: BuildingList
+  buildings: BuildingList;
 }
 
 export interface ResourcesProps {
