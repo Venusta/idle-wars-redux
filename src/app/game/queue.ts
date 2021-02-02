@@ -1,7 +1,7 @@
 import { store } from "../../app/store";
 import { selectBuilding } from "../selectors/selectBuilding";
 // import { selectTownQueue } from "../selectors/selectTownQueue";
-import { enqueue } from "../slices/queue";
+import { enqueue, pop } from "../slices/queue";
 import { BuildingId } from "./constants";
 
 const something = () => {
@@ -22,24 +22,18 @@ export const updateQueue = () => {
 
   const { queue } = state
 
-  Object.keys(queue).forEach((townQueue) => {
-    console.log(townQueue);
+  Object.keys(queue).forEach((townId: number) => {
+    console.log(townId);
 
-    Object.values(queue[townQueue]).forEach((buildingQueue) => {
-      buildingQueue?.forEach((item) => { 
-        console.log(item);        
+    Object.values(queue[townId]).forEach((buildingQueue) => {
+      buildingQueue?.forEach((item: BuildingId) => { 
+        console.log(item);  
+        dispatch(pop({ townId, buildingId: item }))      
       });
       
-    })
-    
+    })   
         
   })
-
-  // state.queue.forEach((individualQueue) => {
-  //   // const queues = selectTownQueue(state, townId); // probably shouldn't be used idk
-  //   // stuff
-  // })
-
 }
 
 

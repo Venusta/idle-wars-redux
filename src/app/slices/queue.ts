@@ -2,9 +2,9 @@ import { createSlice } from "@reduxjs/toolkit";
 import { BuildingId } from "../game/constants";
 
 interface QueueItem {
-    item: number;
-    completionTime: number;
-    amount: number;
+  item: number;
+  completionTime: number;
+  amount: number;
 }
 
 // export type Queue = {
@@ -14,13 +14,13 @@ interface QueueItem {
 // };
 
 export interface Queue {
-  [key: string]: {
+  [key: number]: {
     [id in BuildingId]?: Array<QueueItem>
   }
 }
 
 const initialState: Queue = {
-  "town Id": {
+  22: {
     [BuildingId.Barracks]: [
       { item: 0, completionTime: 5938973, amount: 1 },
       { item: 0, completionTime: 593894473, amount: 1 }
@@ -29,7 +29,7 @@ const initialState: Queue = {
       { item: 0, completionTime: 345345, amount: 1 }
     ],
   },
-  "town Id 2": {
+  33: {
     [BuildingId.Barracks]: [
       { item: 0, completionTime: 5938973, amount: 1 },
       { item: 0, completionTime: 593894473, amount: 1 }
@@ -65,27 +65,41 @@ interface QueuePayload {
   }
 }
 
+interface PopPayload {
+  payload: {
+    townId: number
+    buildingId: BuildingId
+  }
+}
+
 export const queueSlice = createSlice({
   name: "queue",
   initialState,
   reducers: {
-    enqueue: (state, { payload: { townId, buildingId, item, completionTime, amount = 1 } }: QueuePayload) => {
-      const townQueue = state[townId];
+    enqueue: (queue, { payload: { townId, buildingId, item, completionTime, amount = 1 } }: QueuePayload) => {
+      const townQueue = queue[townId];
 
       if (townQueue !== undefined) {
         const buildingQueue = townQueue[buildingId];
         if (buildingQueue !== undefined) {
           buildingQueue.push({ item, completionTime, amount });
           console.log("yeet");
-          
+
         } else {
           //create it
         }
       }
     },
+    pop: (queue, { payload: { townId, buildingId } }: PopPayload) => {
+      queue[townId][buildingId]?.pop();
+      console.log(`removing ${townId} ${buildingId}`);
+      console.log(queue);
+      
+    }
   },
 });
 
 export const {
   enqueue,
+  pop,
 } = queueSlice.actions;
