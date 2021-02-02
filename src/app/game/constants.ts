@@ -3,7 +3,7 @@ export const CLAY = 1;
 export const IRON = 2;
 export const POPULATION = 3;
 
-export const WorldSpeed = 3;
+export const WorldSpeed = 6;
 
 export enum BuildingId {
   Headquarters = 0,

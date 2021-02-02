@@ -1,8 +1,10 @@
 import { BuildingId } from "../app/game/constants";
+import { townSlice } from "../app/slices/towns";
 
 export interface Building {
-  buildingId: number
-  level: number
+  buildingId: number;
+  level: number;
+  queuedLevel: number;
 }
 
 export interface Resources {
@@ -30,6 +32,9 @@ export type BuildingList = {
   [id in BuildingId]: Building
 };
 
+export interface Towns {
+  [id: string]: Town
+}
 
 export interface Town {
   resources: Resources;

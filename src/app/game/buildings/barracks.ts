@@ -11,7 +11,7 @@ export const barracks = new ProductionBuilding({
     population: 8,
   },
   maxLevel: 30,
-  buildTime: 8,
+  buildTime: 300,
   creates: {
     //light cavalry 
     //mounted archer

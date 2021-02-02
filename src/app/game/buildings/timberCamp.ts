@@ -11,5 +11,5 @@ export const timberCamp = new ResourceBuilding({
     population: 5,
   },
   maxLevel: 30,
-  buildTime: 8
+  buildTime: 300
 })

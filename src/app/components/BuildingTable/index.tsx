@@ -7,14 +7,15 @@ import { useSelector } from 'react-redux';
 import { BuildingList } from '../../../types/types';
 
 
-export const BuildingTable = ({ townId = 0 }) => {
+export const BuildingTable = ({ townId = "0" }) => {
   const buildings: BuildingList = useSelector((state: RootState) => selectBuildings(state, townId))
 
   const renderRows = () => {
-    return Object.values(buildings).map(({ buildingId, level }) => (
+    return Object.values(buildings).map(({ buildingId, level, queuedLevel }) => (
       <BuildingTableRow
         key={buildingId}
-        level={level}
+        actualLevel={level}
+        queuedLevel={queuedLevel}
         buildingId={buildingId}
         townId={townId}
       />

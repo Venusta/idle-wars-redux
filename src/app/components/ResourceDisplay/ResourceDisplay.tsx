@@ -4,7 +4,7 @@ import { RootState } from '../../store';
 import { selectTown } from "../../selectors"
 
 export const ResourceDisplay = () => {
-  const town = useSelector((state: RootState) => selectTown(state, 0))
+  const town = useSelector((state: RootState) => selectTown(state, "0"))
   const { timber, clay, iron } = town.resources;
   const { population, maxPopulation, storageCapacity } = town;
 
