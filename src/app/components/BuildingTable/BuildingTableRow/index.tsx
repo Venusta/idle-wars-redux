@@ -51,7 +51,7 @@ export const BuildingTableRow: React.FC<BuildingTableRowProps> = ({ actualLevel,
   const startConstruction = (townId: string, buildingId: BuildingId, constructionTime: number) => {
     dispatch(startBuildSomething({ townId, buildingId }));
     // TODO un-hardcode
-    dispatch(enqueue({ townId, buildingId: BuildingId.Headquarters, item: buildingId, duration: constructionTime }));
+    // dispatch(enqueue({ townId, buildingId: BuildingId.Headquarters, item: buildingId, duration: constructionTime }));
   };
 
   const enoughResource = (buildingResource: number, townResource: number): string => {
