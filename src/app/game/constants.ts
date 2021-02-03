@@ -23,3 +23,12 @@ export enum BuildingId {
   // HidingPlace = 14,
   // Wall = 15
 }
+
+// export const BuildingNamesDictionary = {
+//   [BuildingId.Headquarters]: "Headquarters",
+//   [BuildingId.TimberCamp]: "Timber camp",
+//   [BuildingId.ClayPit]: "Clay pit",
+//   [BuildingId.IronMine]: "Iron mine",
+//   [BuildingId.Barracks]: "Bararcks",
+//   [BuildingId.Stable]: "Stable"
+// }

@@ -1,10 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { baseBuildings } from "../game/buildings";
 import { BuildingId } from "../game/constants";
-import { townSlice } from "./towns";
 
 interface QueueItem {
   item: number;
+  duration: number;
   completionTime: number;
   amount: number;
 }
@@ -23,7 +22,23 @@ export interface Queue {
 
 const initialState: Queue = {
   "0": {
-    [BuildingId.Headquarters]: []
+    [BuildingId.Headquarters]: [
+      // { 
+      //   item: 0,
+      //   duration: 600,
+      //   completionTime: 593896666666666,
+      //   amount: 1,
+      // },
+      // { 
+      //   item: 1,
+      //   duration: 600,
+      //   completionTime: 593896666666668,
+      //   amount: 3,
+      // }
+    ],
+  },
+  "1": {
+    [BuildingId.Headquarters]: [],
   },
   // "22": {
   //   [BuildingId.Barracks]: [
@@ -113,7 +128,7 @@ export const queueSlice = createSlice({
             console.log(`Queue done at: ${buildingQueue[queueLength - 1].completionTime} Added ${duration * 1000} seconds.`);
           }
 
-          buildingQueue.push({ item, completionTime, amount });
+          buildingQueue.push({ item, duration: duration * 1000, completionTime, amount });
           console.log(buildingQueue);
 
         } else {
@@ -134,23 +149,23 @@ export const queueSlice = createSlice({
       // refund resources and shit
     },
   },
-  extraReducers: builder => {
-    builder.addCase(townSlice.actions.startBuildSomething, (state, { payload }) => {
-      console.log("Lets build!");
-      console.log(payload);
-      const { townId, buildingId } = payload
+  // extraReducers: builder => {
+  //   builder.addCase(townSlice.actions.startBuildSomething, (state, { payload }) => {
+  //     console.log("Lets build!");
+  //     console.log(payload);
+  //     const { townId, buildingId } = payload
 
-      const building = baseBuildings[buildingId];
+  //     const building = baseBuildings[buildingId];
 
 
 
-      const constructionTime = building.getBuildTime(0, 1);
-      // const constructionTime = building.getBuildTime(queuedLevel, 1);
-      const payload2 = { townId, buildingId: 0, item: buildingId, duration: constructionTime }
-      queueSlice.caseReducers.enqueue(state, { payload: payload2 })
+  //     const constructionTime = building.getBuildTime(0, 1);
+  //     // const constructionTime = building.getBuildTime(queuedLevel, 1);
+  //     const payload2 = { townId, buildingId: 0, item: buildingId, duration: constructionTime }
+  //     queueSlice.caseReducers.enqueue(state, { payload: payload2 })
 
-    })
-  }
+  //   })
+  // }
 });
 
 export const {

@@ -2,7 +2,6 @@ import { createSlice } from "@reduxjs/toolkit";
 import { Resources, Towns } from "../../types/types";
 import { baseBuildings } from "../game/buildings";
 import { BuildingId } from "../game/constants";
-import { queueSlice } from "./queue";
 
 const initialState: Towns = {
   // TODO make this an object and index them by id

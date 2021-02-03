@@ -18,10 +18,11 @@ interface BuildingTableRowProps {
 }
 
 
+
 export const BuildingTableRow: React.FC<BuildingTableRowProps> = ({ actualLevel, queuedLevel, townId, buildingId }) => {
   const dispatch = useDispatch();
 
-  const store: RootState = useStore().getState()
+  const state: RootState = useStore().getState() // TODO FIX
 
   const town = useSelector((state: RootState) => selectTown(state, townId))
   const { timber: townTimber, clay: townClay, iron: townIron } = town.resources;
@@ -33,10 +34,11 @@ export const BuildingTableRow: React.FC<BuildingTableRowProps> = ({ actualLevel,
   const constructionTime = building.getBuildTime(queuedLevel, headquarterLevel);
   const formattedTime = new Date(constructionTime * 1000).toISOString().substr(11, 8);
 
-
+  console.log("Rendered");
+  
   const reqsMet = (/*store: RootState,*/ townId: string, buildingId: BuildingId): boolean => {
     // todo move / ignore this
-    const town = store.towns[townId];
+    const town = state.towns[townId];
     const building = town.buildings[buildingId]
     const cost = baseBuildings[buildingId].getCost(building.queuedLevel);
 
@@ -49,19 +51,19 @@ export const BuildingTableRow: React.FC<BuildingTableRowProps> = ({ actualLevel,
     return false;
   };
 
-  const startConstructionConfusion = (dispatch: Dispatch<any>, townId: string, buildingId: BuildingId, constructionTime: number) => {
-    return () => {
+  const startConstructionBatch = (townId: string, buildingId: BuildingId, constructionTime: number) => {  
+    return (dispatch: Dispatch<any>) => {
       batch(() => {
         dispatch(startBuildSomething({ townId, buildingId }));
         dispatch(enqueue({ townId, buildingId: BuildingId.Headquarters, item: buildingId, duration: constructionTime }));
       })
     }
-  }
+  };
 
   const startConstruction = (townId: string, buildingId: BuildingId, constructionTime: number) => {
     dispatch(startBuildSomething({ townId, buildingId }));
     // TODO un-hardcode
-    // dispatch(enqueue({ townId, buildingId: BuildingId.Headquarters, item: buildingId, duration: constructionTime }));
+    dispatch(enqueue({ townId, buildingId: BuildingId.Headquarters, item: buildingId, duration: constructionTime }));
   };
 
   const enoughResource = (buildingResource: number, townResource: number): string => {
@@ -80,7 +82,8 @@ export const BuildingTableRow: React.FC<BuildingTableRowProps> = ({ actualLevel,
       <td className={enoughResource(iron, townIron)}>{Math.round(iron)}</td>
       <td>{formattedTime}</td>
       <td className={enoughResource(population, town.maxPopulation - town.population)}>{Math.round(population)}</td>
-      <td><button onClick={() => startConstruction(townId, buildingId, constructionTime)}>Construct level {queuedLevel + 1}</button></td>
+      <td><button onClick={() => startConstruction(townId, buildingId, constructionTime)}>non-batch Construct level {queuedLevel + 1}</button></td>
+      <td><button onClick={() => startConstructionBatch(townId, buildingId, constructionTime)(dispatch)}>batch Construct level {queuedLevel + 1}</button></td>
     </tr>
   );
 };
