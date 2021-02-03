@@ -1,7 +1,8 @@
+import { Dispatch } from '@reduxjs/toolkit';
 import React from 'react';
-import { useDispatch, useSelector, useStore } from 'react-redux';
+import { useDispatch, useSelector, useStore, batch } from 'react-redux';
 import { Resources } from '../../../../types/types';
-import { buildings } from '../../../game/buildings';
+import { baseBuildings } from '../../../game/buildings';
 import { BuildingId } from '../../../game/constants';
 import { selectTown } from '../../../selectors';
 import { enqueue } from '../../../slices/queue';
@@ -25,7 +26,7 @@ export const BuildingTableRow: React.FC<BuildingTableRowProps> = ({ actualLevel,
   const town = useSelector((state: RootState) => selectTown(state, townId))
   const { timber: townTimber, clay: townClay, iron: townIron } = town.resources;
 
-  const building = buildings[buildingId];
+  const building = baseBuildings[buildingId];
   const headquarterLevel = 1; // TODO un-hardcode
 
   const { resources: { timber, clay, iron }, population } = building.getCost(queuedLevel)
@@ -37,7 +38,7 @@ export const BuildingTableRow: React.FC<BuildingTableRowProps> = ({ actualLevel,
     // todo move / ignore this
     const town = store.towns[townId];
     const building = town.buildings[buildingId]
-    const cost = buildings[buildingId].getCost(building.queuedLevel);
+    const cost = baseBuildings[buildingId].getCost(building.queuedLevel);
 
     for (const [k, v] of Object.entries(cost.resources)) {
       if (town.resources[k as keyof Resources] < v) {
@@ -47,6 +48,15 @@ export const BuildingTableRow: React.FC<BuildingTableRowProps> = ({ actualLevel,
 
     return false;
   };
+
+  const startConstructionConfusion = (dispatch: Dispatch<any>, townId: string, buildingId: BuildingId, constructionTime: number) => {
+    return () => {
+      batch(() => {
+        dispatch(startBuildSomething({ townId, buildingId }));
+        dispatch(enqueue({ townId, buildingId: BuildingId.Headquarters, item: buildingId, duration: constructionTime }));
+      })
+    }
+  }
 
   const startConstruction = (townId: string, buildingId: BuildingId, constructionTime: number) => {
     dispatch(startBuildSomething({ townId, buildingId }));

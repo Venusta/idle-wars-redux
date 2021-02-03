@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { buildings } from "../game/buildings";
+import { baseBuildings } from "../game/buildings";
 import { BuildingId } from "../game/constants";
 import { townSlice } from "./towns";
 
@@ -43,6 +43,22 @@ const initialState: Queue = {
   //     { item: 0, completionTime: 345345, amount: 1 }
   //   ],
   // },
+}
+const initialS44tate = {
+  "22": {
+    [BuildingId.Barracks]: [
+      {
+        item: 0,
+        completionTime: 5938973,
+        amount: 1,
+        level: 8,
+      },
+      { item: 0, completionTime: 593894473, amount: 1 }
+    ],
+    [BuildingId.Stable]: [
+      { item: 0, completionTime: 345345, amount: 1 }
+    ],
+  },
 }
 
 // const initialState: Queue[] = [
@@ -114,7 +130,7 @@ export const queueSlice = createSlice({
       console.log(queue);
 
     },
-    cancel: (queue, { payload: { } }) => {
+    cancel: (queue, { payload }) => {
       // refund resources and shit
     },
   },
@@ -124,9 +140,9 @@ export const queueSlice = createSlice({
       console.log(payload);
       const { townId, buildingId } = payload
 
-      const building = buildings[buildingId];
+      const building = baseBuildings[buildingId];
 
-      
+
 
       const constructionTime = building.getBuildTime(0, 1);
       // const constructionTime = building.getBuildTime(queuedLevel, 1);

@@ -6,7 +6,7 @@ import { barracks } from "./barracks";
 import { headquarters } from "./headquarters";
 import { BuildingId } from "../constants";
 
-export const buildings = {
+export const baseBuildings = {
   [BuildingId.TimberCamp]: timberCamp,
   [BuildingId.ClayPit]: clayPit,
   [BuildingId.IronMine]: ironMine,

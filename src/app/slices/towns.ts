@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { Resources, Towns } from "../../types/types";
-import { buildings } from "../game/buildings";
+import { baseBuildings } from "../game/buildings";
 import { BuildingId } from "../game/constants";
 import { queueSlice } from "./queue";
 
@@ -99,7 +99,7 @@ export const townSlice = createSlice({
     startBuildSomething: (towns, { payload: { townId, buildingId } }: StartBuildSomethingPayload) => {
       const town = towns[townId];
       const building = town.buildings[buildingId]
-      const cost = buildings[buildingId].getCost(building.queuedLevel);
+      const cost = baseBuildings[buildingId].getCost(building.queuedLevel);
 
     // Check if there is enough resources + population
     // Check if any building/research requirements are met
