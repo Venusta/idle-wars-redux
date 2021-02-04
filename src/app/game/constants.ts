@@ -24,6 +24,25 @@ export enum BuildingId {
   // Wall = 15
 }
 
+export enum UnitId {
+  SpearFighter = 0,
+  Swordsman = 1,
+  Axeman = 2,
+}
+
+export enum ResourceId {
+  Timber = 0,
+  Clay = 1,
+  Iron = 2,
+}
+
+export enum TechLevel {
+  Locked = 0,
+  Level1 = 1,
+  Level2 = 2,
+  Level3 = 3
+}
+
 // export const BuildingNamesDictionary = {
 //   [BuildingId.Headquarters]: "Headquarters",
 //   [BuildingId.TimberCamp]: "Timber camp",

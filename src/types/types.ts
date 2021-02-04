@@ -1,4 +1,4 @@
-import { BuildingId } from "../app/game/constants";
+import { BuildingId, TechLevel, UnitId } from "../app/game/constants";
 import { townSlice } from "../app/slices/towns";
 
 export interface Building {
@@ -32,6 +32,14 @@ export type BuildingList = {
   [id in BuildingId]: Building;
 };
 
+export type ResearchList = {
+  [id in UnitId]?: TechLevel;
+}
+
+export type UnitList = {
+  [id in UnitId]?: { town: number, total: number };
+}
+
 export interface Towns {
   [id: string]: Town;
 }
@@ -42,6 +50,8 @@ export interface Town {
   maxPopulation: number;
   storageCapacity: number;
   buildings: BuildingList;
+  units: UnitList;
+  unlocked: ResearchList;
 }
 
 export interface ResourcesProps {

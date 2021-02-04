@@ -11,7 +11,7 @@ import { RootState } from '../../../store';
 import "./style.css";
 
 interface BuildingTableRowProps {
-  actualLevel: number;
+  level: number;
   queuedLevel: number;
   buildingId: BuildingId;
   townId: string;
@@ -19,7 +19,7 @@ interface BuildingTableRowProps {
 
 
 
-export const BuildingTableRow: React.FC<BuildingTableRowProps> = ({ actualLevel, queuedLevel, townId, buildingId }) => {
+export const BuildingTableRow: React.FC<BuildingTableRowProps> = ({ level, queuedLevel, townId, buildingId }) => {
   const dispatch = useDispatch();
 
   const state: RootState = useStore().getState() // TODO FIX
@@ -68,14 +68,14 @@ export const BuildingTableRow: React.FC<BuildingTableRowProps> = ({ actualLevel,
 
   const enoughResource = (buildingResource: number, townResource: number): string => {
     return `${buildingResource >= townResource ? "red" : "blue"}`
-  } // todo prob return boolean
+  }; // todo prob return boolean
 
   return (
     <tr className="rowColour">
       <td>
         <img src="https://dsuk.innogamescdn.com/asset/ee33fc3d/graphic/buildings/mid/main1.png" title="Headquarters" alt="" className="bmain_list_img" />
         <a href="/game.php?village=3955&amp;screen=main">{building.name}</a>
-        <span style={{ fontSize: "0.9em" }}>Level {actualLevel}</span>
+        <span style={{ fontSize: "0.9em" }}>Level {level}</span>
       </td>
       <td className={enoughResource(timber, townTimber)}>{Math.round(timber)}</td>
       <td className={enoughResource(clay, townClay)}>{Math.round(clay)}</td>

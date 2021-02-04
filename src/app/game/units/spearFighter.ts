@@ -1,7 +1,8 @@
+import { UnitId } from "../constants";
 import { Unit } from "./base/unit";
 
 export const spearFighter = new Unit({
-  id: 0,
+  id: UnitId.SpearFighter,
   name: "Spear Fighter",
   cost: {
     timber: 50,

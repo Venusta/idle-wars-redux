@@ -1,12 +1,23 @@
+import { Dispatch } from "@reduxjs/toolkit";
+import { batch } from "react-redux";
 import { store } from "../../app/store";
 import { pop } from "../slices/queue";
 import { incrementActualBuildingLevel } from "../slices/towns";
 import { BuildingId } from "./constants";
 
+const levelBuildingAndRemoveFromQueue = (townId: string, buildingWithQueue: BuildingId, queuedBuilding: BuildingId) => {  
+  return (dispatch: Dispatch<any>) => {
+    batch(() => {
+      dispatch(pop({ townId, buildingId: buildingWithQueue }));
+      dispatch(incrementActualBuildingLevel({ townId, buildingId: queuedBuilding }));
+    })
+  }
+};
+
 export const updateQueue = () => {
   const state = store.getState();
   const dispatch = store.dispatch;
-
+  
   const { queue } = state
 
   Object.keys(queue).forEach((townId) => {
@@ -15,12 +26,15 @@ export const updateQueue = () => {
       buildingQueue?.forEach((queueItem) => { 
         if (Date.now() > queueItem.completionTime) {
           console.log(queueItem);
-          dispatch(pop({ townId, buildingId: BuildingId.Headquarters }));
-          dispatch(incrementActualBuildingLevel({ townId, buildingId: queueItem.item }));
+          // TODO BATCH THIS
+          // dispatch(pop({ townId, buildingId: BuildingId.Headquarters }));
+          // dispatch(incrementActualBuildingLevel({ townId, buildingId: queueItem.item }));
+          levelBuildingAndRemoveFromQueue(townId, BuildingId.Headquarters, queueItem.item)(dispatch);
         }
       });      
     })    
   })
 }
+
 
 

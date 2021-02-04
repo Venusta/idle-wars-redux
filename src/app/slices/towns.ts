@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { Resources, Towns } from "../../types/types";
 import { baseBuildings } from "../game/buildings";
-import { BuildingId } from "../game/constants";
+import { BuildingId, TechLevel, UnitId } from "../game/constants";
 
 const initialState: Towns = {
   // TODO make this an object and index them by id
@@ -14,9 +14,24 @@ const initialState: Towns = {
       clay: 500,
       iron: 500,
     },
-    population: 0,
-    maxPopulation: 5600,
+    population: 400,
+    maxPopulation: 900,
     storageCapacity: 20000,
+    unlocked: { // units / buildings maybe
+      [UnitId.SpearFighter]: 1,
+      [UnitId.Swordsman]: 0,
+      [UnitId.Axeman]: 0,
+    },
+    units: {
+      [UnitId.SpearFighter]: {
+        town: 100,
+        total: 200,
+      },
+      [UnitId.Swordsman]: {
+        town: 200,
+        total: 200,
+      },
+    },
     buildings: {
       [BuildingId.TimberCamp]: {
         buildingId: BuildingId.TimberCamp,
@@ -100,8 +115,8 @@ export const townSlice = createSlice({
       const building = town.buildings[buildingId]
       const cost = baseBuildings[buildingId].getCost(building.queuedLevel);
 
-    // Check if there is enough resources + population
-    // Check if any building/research requirements are met
+      // Check if there is enough resources + population
+      // Check if any building/research requirements are met
 
       for (const [k, v] of Object.entries(cost.resources)) {
         town.resources[k as keyof Resources] -= v;
