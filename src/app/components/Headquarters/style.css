@@ -37,5 +37,9 @@ span.wood {
 } */
 
 .tableHeaderColour {
-  background-color: rgb(193, 162, 100);
+  /* background-color: rgb(193, 162, 100); */
+	background: #E5C27E;
+	background: -moz-linear-gradient(top, #E5C27E 0%, #C1A264 100%);
+	background: -webkit-linear-gradient(top, #E5C27E 0%, #C1A264 100%);
+	background: linear-gradient(to bottom, #E5C27E 0%, #C1A264 100%);
 }

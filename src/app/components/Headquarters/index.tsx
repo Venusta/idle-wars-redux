@@ -24,7 +24,7 @@ export const Headquarters = ({ townId = "0" }) => {
 
   const Header = () => {
     return (
-      <thead>
+      <thead className="tableHeaderColour">
         <tr>
           <th style={{ width: "23%" }}>Buildings</th>
           <th colSpan={5}>Requirements</th>
@@ -35,7 +35,7 @@ export const Headquarters = ({ townId = "0" }) => {
   }
 
   return (
-    <div className="tableHeaderColour">
+    <div >
       <table>
         <Header />
         <tbody>

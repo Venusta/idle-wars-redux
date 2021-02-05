@@ -1,37 +1,42 @@
-.warn {
-  color: #dc0000;
+.flex-container {
+  display: flex;
+  background-color: #dacc9e;
 }
 
-.large {
-  font-size: 50px;
+.wrapper {
+  display: grid;
+  grid-template-columns: repeat(5, auto);
+  background-color: #e0c182;
+  grid-gap: 3px;
+  /* padding: 2px; */
+  margin: 10px;
+  border: 1px solid #7d510f;
+	-webkit-box-shadow: 2px 2px 4px 0px rgba(0,0,0,0.5); 
+	box-shadow: 2px 2px 4px 0px rgba(0,0,0,0.5);
+}
+
+.inner {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  border-right: 1px solid #7d510f;
+  padding: 2px;
 }
 
 .icon {
-	width: 18px;
-	height: 18px;
-	display: inline-block;
-	margin: auto 2px auto 0;
-	overflow: hidden;
-	background-repeat: no-repeat;
-	vertical-align: -4px;
+  margin: 0px 1px;
+  align-self: center;
 }
 
-.cost_stone{
-	background-color: aqua;
-	color: blueviolet;
+.display {
+  margin: 0px 2px;
+  font-family: "Verdana", Courier, monospace;
+  font-size: 12px;
 }
 
-.icon.header {
-	background-image: url('https://dsuk.innogamescdn.com/asset/ee33fc3d/graphic/icons/header.png');
-}
-
-span.wood {
-	background-image: url(https://dsuk.innogamescdn.com/asset/ee33fc3d/graphic/holz.png);
-}
-.wood {
-	background-image: url(https://dsuk.innogamescdn.com/asset/ee33fc3d/graphic/holz.png);
-}
-
-.header.wood {
-	background-position: -18px 0px;
+.inner-end {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  padding: 2px;
 }

@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import './App.css';
 import { Barracks } from './app/components/Barracks';
+import { BuildingRequirements } from './app/components/BuildingResourceDisplay';
 import { Headquarters } from './app/components/Headquarters';
 import { Queue } from './app/components/Queue';
 import { ResourceDisplay } from './app/components/ResourceDisplay/ResourceDisplay';
@@ -19,6 +20,7 @@ function App() {
 
   return (
     <div className="App">
+      <BuildingRequirements />
       <ResourceDisplay />
       <Queue />
       <Headquarters />

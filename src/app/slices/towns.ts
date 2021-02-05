@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { Resources, Towns } from "../../types/types";
 import { baseBuildings } from "../game/buildings";
-import { BuildingId, TechLevel, UnitId } from "../game/constants";
+import { BuildingId, UnitId } from "../game/constants";
 
 const initialState: Towns = {
   // TODO make this an object and index them by id

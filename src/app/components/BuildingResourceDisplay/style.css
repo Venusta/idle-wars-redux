@@ -1,0 +1,18 @@
+.brd-flex-container {
+  display: flex;
+  justify-content: space-around;
+  /* background-color: #f0e2be; */
+  /* max-width: 400px; */
+  font-family: "Verdana", Courier, monospace;
+  font-size: 12px;
+}
+
+.brd-group {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.brd-group > img {
+  margin: 0px 3px;
+}
