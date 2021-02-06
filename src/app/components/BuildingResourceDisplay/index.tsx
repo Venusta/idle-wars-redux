@@ -11,7 +11,7 @@ interface Props {
 }
 
 export const BuildingRequirements = (/*{ timber, clay, iron, pop, time} : Props*/) => {
-  const amount = 1;
+  const amount = 10;
   const timber = 50 * amount;
   const clay = 30 * amount;
   const iron = 10 * amount;
