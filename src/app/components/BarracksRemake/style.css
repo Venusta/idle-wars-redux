@@ -1,0 +1,47 @@
+.barracks-container {
+  display: flex;
+  background-color: #dacc9e;
+  padding: 5px;
+  flex-direction: column;
+}
+
+.barracks-build-wrapper {
+  background-color: rgba(0, 0, 0, 0.479);
+  display: grid;
+  grid-template-columns: minmax(50px, 200px) minmax(400px, 1fr) 150px 150px;
+  /* grid-template-columns: 1fr 4fr 2fr 1fr; */
+  /* column-gap: 10px;
+  row-gap: 15px; */
+  color: aqua;
+  margin: 0 auto;
+  box-shadow: 0 5px 15px 0 rgba(0, 0, 0, 0.2);
+}
+
+.barracks-header {
+  text-align: center;
+  background-color: rgba(0, 0, 0, 0.404);
+
+}
+
+.barracks-row {
+  text-align: left;
+  display: grid;
+  grid-template-columns: minmax(50px, 200px) minmax(400px, 1fr) 1fr 1fr;
+  column-gap: 10px;
+  row-gap: 15px;
+  margin: 0 auto;
+  background-color: rgba(42, 165, 89, 0.534);
+}
+
+.barracks-build-wrapper > div {
+  /* background-color: rgba(42, 165, 89, 0.534); */
+}
+
+.table-rows {
+  display: grid;
+  grid-template-columns: minmax(50px, 200px) minmax(400px, 1fr) 1fr 1fr;
+  column-gap: 10px;
+  row-gap: 15px;
+  margin: 0 auto;
+  background-color: rgba(42, 165, 89, 0.534);
+}

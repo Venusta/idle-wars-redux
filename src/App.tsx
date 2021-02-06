@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import './App.css';
 import { Barracks } from './app/components/Barracks';
+import { BarracksRemake } from './app/components/BarracksRemake';
 import { BuildingRequirements } from './app/components/BuildingResourceDisplay';
 import { Headquarters } from './app/components/Headquarters';
 import { Queue } from './app/components/Queue';
@@ -22,9 +23,10 @@ function App() {
     <div className="App">
       <BuildingRequirements />
       <ResourceDisplay />
-      <Queue />
-      <Headquarters />
+      {/* <Queue />
+      <Headquarters /> */}
       <Barracks />
+      <BarracksRemake />
     </div>
   );
 }

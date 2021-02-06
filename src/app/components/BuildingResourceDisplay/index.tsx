@@ -11,10 +11,11 @@ interface Props {
 }
 
 export const BuildingRequirements = (/*{ timber, clay, iron, pop, time} : Props*/) => {
-  const timber = 50;
-  const clay = 30;
-  const iron = 10;
-  const pop = 1;
+  const amount = 1;
+  const timber = 50 * amount;
+  const clay = 30 * amount;
+  const iron = 10 * amount;
+  const pop = 1 * amount;
   const time = "0:03:22"
 
   // todo move
