@@ -36,13 +36,6 @@ export enum ResourceId {
   Iron = "iron",
 }
 
-export enum TechLevel {
-  Locked = 0,
-  Level1 = 1,
-  Level2 = 2,
-  Level3 = 3
-}
-
 // export const BuildingNamesDictionary = {
 //   [BuildingId.Headquarters]: "Headquarters",
 //   [BuildingId.TimberCamp]: "Timber camp",

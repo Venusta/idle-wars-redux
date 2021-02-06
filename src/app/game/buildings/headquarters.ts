@@ -20,4 +20,4 @@ export const headquarters = new ProductionBuilding({
     //heavy cavalry
     //scout
   },
-})
+});

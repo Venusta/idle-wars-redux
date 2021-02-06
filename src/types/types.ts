@@ -1,4 +1,4 @@
-import { BuildingId, TechLevel, UnitId, ResourceId } from "../app/game/constants";
+import { BuildingId, UnitId, ResourceId } from "../app/game/constants";
 
 export interface Building {
   id: BuildingId;
@@ -22,7 +22,7 @@ export type BuildingList = {
 };
 
 export type ResearchList = {
-  [id in UnitId]?: TechLevel;
+  [id in UnitId]?: number;
 }
 
 export type UnitList = {
