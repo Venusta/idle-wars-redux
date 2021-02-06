@@ -3,45 +3,87 @@
   background-color: #dacc9e;
   padding: 5px;
   flex-direction: column;
+  font-family: "Verdana", Courier, monospace;
+  font-size: 12px;
 }
 
 .barracks-build-wrapper {
-  background-color: rgba(0, 0, 0, 0.479);
+  /* background-color: rgba(0, 0, 0, 0.479); */
+  background-color: #ecd7ac;
   display: grid;
-  grid-template-columns: minmax(50px, 200px) minmax(400px, 1fr) 150px 150px;
+  grid-template-columns: minmax(50px, 200px) minmax(400px, 1fr) 100px 150px;
   /* grid-template-columns: 1fr 4fr 2fr 1fr; */
-  /* column-gap: 10px;
-  row-gap: 15px; */
-  color: aqua;
+  column-gap: 2px;
+  row-gap: 2px;
+
   margin: 0 auto;
-  box-shadow: 0 5px 15px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 2px 2px 4px 0px rgba(0, 0, 0, 0.5);
 }
 
 .barracks-header {
-  text-align: center;
-  background-color: rgba(0, 0, 0, 0.404);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3px;
+  font-weight: bold;
+  /* background-color: rgb(193, 162, 100); */
+  background: #e5c27e;
+  background: -moz-linear-gradient(top, #e5c27e 0%, #c1a264 100%);
+  background: -webkit-linear-gradient(top, #e5c27e 0%, #c1a264 100%);
+  background: linear-gradient(to bottom, #e5c27e 0%, #c1a264 100%);
 
+  /* background-color: rgba(0, 0, 0, 0.404); */
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.brown {
+  color: #603000;
+}
+
+.link {
+  font-weight: 700;
+  text-decoration: none;
+  color: rgb(96, 48, 0);
+}
+
+.smoll {
+  font-size: 10.8px;
 }
 
 .barracks-row {
-  text-align: left;
+  display: flex;
+  padding: 3px;
+  background-color: #f4e4bc;
+}
+
+.first-column-container {
+  display: flex;
+  align-items: flex-start;
+}
+
+.first-column-img {
+  margin-right: 5px;
+}
+
+.first-column-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.third-column {
+  align-items: center;
+  justify-content: center;
+}
+
+/* .table-rows {
   display: grid;
   grid-template-columns: minmax(50px, 200px) minmax(400px, 1fr) 1fr 1fr;
   column-gap: 10px;
   row-gap: 15px;
   margin: 0 auto;
   background-color: rgba(42, 165, 89, 0.534);
-}
-
-.barracks-build-wrapper > div {
-  /* background-color: rgba(42, 165, 89, 0.534); */
-}
-
-.table-rows {
-  display: grid;
-  grid-template-columns: minmax(50px, 200px) minmax(400px, 1fr) 1fr 1fr;
-  column-gap: 10px;
-  row-gap: 15px;
-  margin: 0 auto;
-  background-color: rgba(42, 165, 89, 0.534);
-}
+} */

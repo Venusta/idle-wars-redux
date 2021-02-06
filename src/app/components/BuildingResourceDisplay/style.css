@@ -5,6 +5,7 @@
   /* max-width: 400px; */
   font-family: "Verdana", Courier, monospace;
   font-size: 12px;
+  flex: 1;
 }
 
 .brd-group {
