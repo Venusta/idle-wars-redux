@@ -1,7 +1,8 @@
-import { ResourceProps } from "../../types/types";;
+import { ResourceProps } from "../../types/types";
+import { ResourceId } from "./constants";
 
 export class Resource {
-  id: number;
+  id: ResourceId;
   name: string;
 
   constructor({ id, name }: ResourceProps) {

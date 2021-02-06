@@ -4,6 +4,7 @@ import { store } from "../../app/store";
 import { pop } from "../slices/queue";
 import { incrementActualBuildingLevel } from "../slices/towns";
 import { BuildingId } from "./constants";
+import { isBuildingId } from "./utility";
 
 const levelBuildingAndRemoveFromQueue = (townId: string, buildingWithQueue: BuildingId, queuedBuilding: BuildingId) => {  
   return (dispatch: Dispatch<any>) => {
@@ -29,7 +30,9 @@ export const updateQueue = () => {
           // TODO BATCH THIS
           // dispatch(pop({ townId, buildingId: BuildingId.Headquarters }));
           // dispatch(incrementActualBuildingLevel({ townId, buildingId: queueItem.item }));
-          levelBuildingAndRemoveFromQueue(townId, BuildingId.Headquarters, queueItem.item)(dispatch);
+          if (isBuildingId(queueItem.item)) {
+            levelBuildingAndRemoveFromQueue(townId, BuildingId.Headquarters, queueItem.item)(dispatch);
+          }
         }
       });      
     })    

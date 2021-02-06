@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { BuildingId } from "../game/constants";
 
 interface QueueItem {
-  item: number;
+  item: string;
   duration: number;
   completionTime: number;
   amount: number;
@@ -95,7 +95,7 @@ interface QueuePayload {
   payload: {
     townId: string;
     buildingId: BuildingId;
-    item: number;
+    item: string;
     duration: number;
     amount?: number;
   }

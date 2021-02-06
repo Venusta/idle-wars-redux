@@ -16,11 +16,11 @@ export const ResourceDisplay = () => {
       <table>
         <tbody>
           <tr>
-            <img src={`${process.env.PUBLIC_URL}/resources/${0}.png`} />
+            <img src={`${process.env.PUBLIC_URL}/resources/timber.png`} />
             <td>{timber}</td>
-            <img src={`${process.env.PUBLIC_URL}/resources/${1}.png`} />
+            <img src={`${process.env.PUBLIC_URL}/resources/clay.png`} />
             <td>{clay}</td>
-            <img src={`${process.env.PUBLIC_URL}/resources/${2}.png`} />
+            <img src={`${process.env.PUBLIC_URL}/resources/iron.png`} />
             <td>{iron}</td>
             <td>{storageCapacity}</td>
             <td>{`${population}/${maxPopulation}`}</td>
@@ -35,15 +35,15 @@ export const ResourceDisplay = () => {
       <div className="flex-container">
         <div className="wrapper">
           <div className="inner">
-            <img className="icon" src={`${process.env.PUBLIC_URL}/resources/${0}.png`} />
+            <img className="icon" src={`${process.env.PUBLIC_URL}/resources/timber.png`} />
             <div className="display">{`${timber} (50/s)`}</div>
           </div>
           <div className="inner">
-            <img className="icon" src={`${process.env.PUBLIC_URL}/resources/${1}.png`} />
+            <img className="icon" src={`${process.env.PUBLIC_URL}/resources/clay.png`} />
             <div className="display">{`${clay} (50/s)`}</div>
           </div>
           <div className="inner">
-            <img className="icon" src={`${process.env.PUBLIC_URL}/resources/${2}.png`} />
+            <img className="icon" src={`${process.env.PUBLIC_URL}/resources/iron.png`} />
             <div className="display">{`${iron} (50/s)`}</div>
           </div>
           <div className="inner">

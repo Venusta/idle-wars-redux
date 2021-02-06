@@ -5,9 +5,11 @@ export const spearFighter = new Unit({
   id: UnitId.SpearFighter,
   name: "Spear Fighter",
   cost: {
-    timber: 50,
-    clay: 30,
-    iron: 10,
+    resources: {
+      timber: 50,
+      clay: 30,
+      iron: 10
+    },
     population: 1
   },
   buildTime: 680,

@@ -34,32 +34,32 @@ const initialState: Towns = {
     },
     buildings: {
       [BuildingId.TimberCamp]: {
-        buildingId: BuildingId.TimberCamp,
+        id: BuildingId.TimberCamp,
         level: 0,
         queuedLevel: 0,
       },
       [BuildingId.ClayPit]: {
-        buildingId: BuildingId.ClayPit,
+        id: BuildingId.ClayPit,
         level: 0,
         queuedLevel: 0,
       },
       [BuildingId.IronMine]: {
-        buildingId: BuildingId.IronMine,
+        id: BuildingId.IronMine,
         level: 0,
         queuedLevel: 0,
       },
       [BuildingId.Headquarters]: {
-        buildingId: BuildingId.Headquarters,
+        id: BuildingId.Headquarters,
         level: 0,
         queuedLevel: 0,
       },
       [BuildingId.Barracks]: {
-        buildingId: BuildingId.Barracks,
+        id: BuildingId.Barracks,
         level: 0,
         queuedLevel: 0,
       },
       [BuildingId.Stable]: {
-        buildingId: BuildingId.Stable,
+        id: BuildingId.Stable,
         level: 0,
         queuedLevel: 0,
       },
@@ -122,7 +122,7 @@ export const townSlice = createSlice({
         town.resources[k as keyof Resources] -= v;
       }
       building.queuedLevel += 1;
-      town.population += cost.population;
+      town.population += cost.population || 0;
     },
   },
 });

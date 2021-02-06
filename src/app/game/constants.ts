@@ -6,34 +6,34 @@ export const POPULATION = 3;
 export const WorldSpeed = 6;
 
 export enum BuildingId {
-  Headquarters = 0,
-  TimberCamp = 1,
-  ClayPit = 2,
-  IronMine = 3,
-  Barracks = 4,
-  Stable = 5,
-  // Workshop = 6,
-  // Academy = 7,
-  // Smithy = 8,
-  // RallyPoint = 9,
-  // Statue = 10,
-  // Market = 11,
-  // Farm  = 12,
-  // Warehouse = 13,
-  // HidingPlace = 14,
-  // Wall = 15
+  Headquarters = "headquarters",
+  TimberCamp = "timber",
+  ClayPit = "clay",
+  IronMine = "iron",
+  Barracks = "barracks",
+  Stable = "stable",
+  // Workshop = "workshop",
+  // Academy =  "academy",
+  // Smithy = "smithy",
+  // RallyPoint = "rally",
+  // Statue = "statue",
+  // Market = "market",
+  // Farm  = "farm",
+  // Warehouse = "warehouse",
+  // HidingPlace = "hiding",
+  // Wall = "wall"
 }
 
 export enum UnitId {
-  SpearFighter = 0,
-  Swordsman = 1,
-  Axeman = 2,
+  SpearFighter = "spear",
+  Swordsman = "sword",
+  Axeman = "axe",
 }
 
 export enum ResourceId {
-  Timber = 0,
-  Clay = 1,
-  Iron = 2,
+  Timber = "timber",
+  Clay = "clay",
+  Iron = "iron",
 }
 
 export enum TechLevel {

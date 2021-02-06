@@ -8,15 +8,15 @@ import { BuildingList } from '../../../types/types';
 
 
 export const Headquarters = ({ townId = "0" }) => {
-  const buildings: BuildingList = useSelector((state: RootState) => selectBuildings(state, townId))
+  const buildings: BuildingList = useSelector((state: RootState) => selectBuildings(state, townId));
 
   const renderRows = () => {
-    return Object.values(buildings).map(({ buildingId, level, queuedLevel }) => (
+    return Object.entries(buildings).map(([key, { id, level, queuedLevel }]) => (
       <BuildingTableRow
-        key={buildingId}
+        key={key}
         level={level}
         queuedLevel={queuedLevel}
-        buildingId={buildingId}
+        buildingId={id}
         townId={townId}
       />
     ));

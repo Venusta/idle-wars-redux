@@ -81,7 +81,7 @@ export const BuildingTableRow: React.FC<BuildingTableRowProps> = ({ level, queue
       <td className={enoughResource(clay, townClay)}>{Math.round(clay)}</td>
       <td className={enoughResource(iron, townIron)}>{Math.round(iron)}</td>
       <td>{formattedTime}</td>
-      <td className={enoughResource(population, town.maxPopulation - town.population)}>{Math.round(population)}</td>
+      <td className={enoughResource(population || 0, town.maxPopulation - town.population)}>{Math.round(population || 0)}</td>
       <td><button onClick={() => startConstruction(townId, buildingId, constructionTime)}>non-batch Construct level {queuedLevel + 1}</button></td>
       <td><button onClick={() => startConstructionBatch(townId, buildingId, constructionTime)(dispatch)}>batch Construct level {queuedLevel + 1}</button></td>
     </tr>

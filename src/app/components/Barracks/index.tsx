@@ -6,6 +6,7 @@ import { ResourceId, UnitId } from '../../game/constants';
 import { baseResources } from '../../game/resources';
 import { baseUnits } from '../../game/units';
 import { Unit } from '../../game/units/base/unit';
+import { isResourceId, isUnitId } from '../../game/utility';
 import { selectTown } from '../../selectors';
 import { RootState } from '../../store';
 
@@ -36,10 +37,13 @@ export const Barracks = () => {
     }
 
     const RecruitRequirements = ({ unit }: { unit: Unit }) => {
-      const costComponent = Object.entries(unit.cost).map(([key, res], index) => {
-        //todo don't use index
-        const x = baseResources[index as ResourceId]?.id;
-        return <SingleResource resourceId={x} amount={res}></SingleResource>
+      const costComponent = Object.entries(unit.cost.resources).map(([key, res]) => {
+        if (isResourceId(key)) {
+          const x = baseResources[key]?.id;
+          return <SingleResource resourceId={x} amount={res}></SingleResource>
+        } else {
+          return <div></div>;
+        }
       });
       // TODO add time and pop too
       return (
@@ -52,33 +56,39 @@ export const Barracks = () => {
     }
 
     const UnitRows = () => {
-      return Object.keys(unlocked).map((k, index) => {
-        const x = parseInt(k);
-        const unit = baseUnits[x as UnitId] // TODO bad cast
-        const exists = town.units[x as UnitId] // TODO bad cast
-
-        const howManyCanWeMake = 10; // todo actually calc it
-
-        return (
-          <tr>
-            <td>
-              <a href="#">
-                <img src={`${process.env.PUBLIC_URL}/units/${unit.id}.png`} style={{ verticalAlign: "middle" }} />
-                {unit.name}
-              </a>
-            </td>
-            <RecruitRequirements unit={unit} />
-            <td style={{ textAlign: "center" }}>{exists ? `${exists.town} / ${exists.total}` : `0/0`}</td>
-
-            <td>
-              <span>
-                <input type="text" style={{ width: "50px", color: "black" }} maxLength={5} tabIndex={index} />
-                <a href="unit_build_block.set_max('spear')">({howManyCanWeMake})</a>
-              </span>
-              <span id="spear_0_afford_hint" className="inactive" style={{ textAlign: "center", fontSize: " 11px", display: "none" }}>Resources available in x</span>
-            </td>
-          </tr>
-        )
+      return Object.keys(unlocked).map((key, index) => {
+        if (isUnitId(key)) {
+          const unit = baseUnits[key]
+          console.log(unit);          
+          const exists = town.units[key]
+          console.log(exists);
+  
+          const howManyCanWeMake = 10; // todo actually calc it
+  
+          return (
+            <tr>
+              <td>
+                <a href="#">
+                  <img src={`${process.env.PUBLIC_URL}/units/${unit.id}.png`} style={{ verticalAlign: "middle" }} />
+                  {unit.name}
+                </a>
+              </td>
+              <RecruitRequirements unit={unit} />
+              <td style={{ textAlign: "center" }}>{exists ? `${exists.town} / ${exists.total}` : `0/0`}</td>
+  
+              <td>
+                <span>
+                  <input type="text" style={{ width: "50px", color: "black" }} maxLength={5} tabIndex={index} />
+                  <a href="unit_build_block.set_max('spear')">({howManyCanWeMake})</a>
+                </span>
+                <span id="spear_0_afford_hint" className="inactive" style={{ textAlign: "center", fontSize: " 11px", display: "none" }}>Resources available in x</span>
+              </td>
+            </tr>
+          )
+        } else {
+          console.log(`${key} was not a unit id.`);          
+          return <div></div>;
+        }
       })
     }
 

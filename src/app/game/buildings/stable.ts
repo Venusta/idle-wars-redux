@@ -5,10 +5,12 @@ export const stable = new ProductionBuilding({
   id: BuildingId.Stable,
   name: "Stable",
   cost: {
-    timber: 270,
-    clay: 240,
-    iron: 260,
-    population: 8,
+    resources: {
+      timber: 270,
+      clay: 240,
+      iron: 260
+    },
+    population: 8
   },
   maxLevel: 30,
   buildTime: 300,

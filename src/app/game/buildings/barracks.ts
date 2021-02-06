@@ -5,10 +5,12 @@ export const barracks = new ProductionBuilding({
   id: BuildingId.Barracks,
   name: "Barracks",
   cost: {
-    timber: 270,
-    clay: 240,
-    iron: 260,
-    population: 8,
+    resources: {
+      timber: 270,
+      clay: 240,
+      iron: 260
+    },
+    population: 8    
   },
   maxLevel: 30,
   buildTime: 300,

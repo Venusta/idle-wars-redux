@@ -30,11 +30,11 @@ export const BuildingRequirements = (/*{ timber, clay, iron, pop, time} : Props*
 
   return (
     <div className="brd-flex-container">
-      <SingleBuildingRequirements data={timber} imgId="0"></SingleBuildingRequirements>
-      <SingleBuildingRequirements data={clay} imgId="1"></SingleBuildingRequirements>
-      <SingleBuildingRequirements data={iron} imgId="2"></SingleBuildingRequirements>
-      <SingleBuildingRequirements data={pop} imgId="2"></SingleBuildingRequirements>
-      <SingleBuildingRequirements data={time} imgId="2"></SingleBuildingRequirements>
+      <SingleBuildingRequirements data={timber} imgId="timber"></SingleBuildingRequirements>
+      <SingleBuildingRequirements data={clay} imgId="clay"></SingleBuildingRequirements>
+      <SingleBuildingRequirements data={iron} imgId="iron"></SingleBuildingRequirements>
+      <SingleBuildingRequirements data={pop} imgId="timber"></SingleBuildingRequirements>
+      <SingleBuildingRequirements data={time} imgId="timber"></SingleBuildingRequirements>
     </div>
   )
 }

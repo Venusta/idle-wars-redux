@@ -5,9 +5,11 @@ export const swordsman = new Unit({
   id: UnitId.Swordsman,
   name: "Swordsman",
   cost: {
-    timber: 30,
-    clay: 30,
-    iron: 70,
+    resources: {
+      timber: 30,
+      clay: 30,
+      iron: 70
+    },
     population: 1
   },
   buildTime: 500,

@@ -1,10 +1,10 @@
 import { BuildingProps, Cost } from "../../../../types/types";
-import { WorldSpeed } from "../../constants"
+import { BuildingId, WorldSpeed } from "../../constants"
 
 export class Building {
-  id: number;
+  id: BuildingId;
   name: string;
-  cost: any;
+  cost: Cost;
   maxLevel: number;
   buildTime: number;
   requirements: any;
@@ -19,14 +19,17 @@ export class Building {
   }
 
   getCost(level: number): Cost { 
-    const timber = this.cost.timber * (1.26 ** level);
-    const clay = this.cost.clay * (1.275 ** level);
-    const iron = this.cost.iron * (1.25 ** level);
-    let population = this.cost.population * (1.17 ** level);
-    if (level > 0) {
-      population -= this.cost.population * (1.17 ** (level - 1));
+    const timber = this.cost.resources.timber * (1.26 ** level);
+    const clay = this.cost.resources.clay * (1.275 ** level);
+    const iron = this.cost.resources.iron * (1.25 ** level);
+    if (this.cost.population) {
+      let population = this.cost.population * (1.17 ** level);
+      if (level > 0) {
+        population -= this.cost.population * (1.17 ** (level - 1));
+      }
+      return { resources: { timber, clay, iron  }, population };
     }
-    return { resources: { timber, clay, iron  }, population };
+    return { resources: { timber, clay, iron  } };
   }
 
   getBuildTime(buildingLevel: number, headquarterLevel: number): number {

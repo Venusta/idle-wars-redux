@@ -5,9 +5,11 @@ export const axeman = new Unit({
   id: UnitId.Axeman,
   name: "Axeman",
   cost: {
-    timber: 60,
-    clay: 30,
-    iron: 40,
+    resources: {
+      timber: 60,
+      clay: 30,
+      iron: 40
+    },
     population: 1
   },
   buildTime: 680,
@@ -19,9 +21,11 @@ export const axeman = new Unit({
   defArc: 10,
   carries: 10,
   researchCost: {
-    timber: 700,
-    clay: 840,
-    iron: 820
+    resources: {
+      timber: 700,
+      clay: 840,
+      iron: 820
+    }
   },
   requirements: {
     smithy: 2,

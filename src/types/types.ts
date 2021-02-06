@@ -1,8 +1,7 @@
-import { BuildingId, TechLevel, UnitId } from "../app/game/constants";
-import { townSlice } from "../app/slices/towns";
+import { BuildingId, TechLevel, UnitId, ResourceId } from "../app/game/constants";
 
 export interface Building {
-  buildingId: number;
+  id: BuildingId;
   level: number;
   queuedLevel: number;
 }
@@ -14,19 +13,9 @@ export interface Resources {
 }
 
 export interface Cost {
-  resources: {
-    timber: number;
-    clay: number;
-    iron: number;
-  },
-  population: number;
+  resources: Resources;
+  population?: number;
 }
-
-// export type BuildingList = {
-//   [x in BuildingId]: Building;
-// } & {
-//   keys: Array<BuildingId>;
-// };
 
 export type BuildingList = {
   [id in BuildingId]: Building;
@@ -54,14 +43,8 @@ export interface Town {
   unlocked: ResearchList;
 }
 
-export interface ResourcesProps {
-  timber?: number;
-  clay?: number;
-  iron?: number;
-  population?: number;
-}
 export interface ResourceProps {
-  id: number;
+  id: ResourceId;
   name: string;
 }
 
@@ -72,9 +55,9 @@ export interface ResourceGenProps {
 }
 
 export interface BuildingProps {
-  id: number;
+  id: BuildingId;
   name: string;
-  cost: ResourcesProps;
+  cost: Cost;
   maxLevel: number;
   buildTime: number;
   requirements?: any;

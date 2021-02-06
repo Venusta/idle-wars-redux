@@ -1,7 +1,7 @@
-import { TIMBER } from "../constants";
+import { ResourceId } from "../constants";
 import { Resource } from "../resource";
 
 export const timber = new Resource({
-  id: TIMBER,
+  id: ResourceId.Timber,
   name: "Timber",
 })
