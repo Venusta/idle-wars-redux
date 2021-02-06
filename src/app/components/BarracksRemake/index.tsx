@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-/* eslint-disable jsx-a11y/alt-text */
 import React from 'react'
 import { BuildingRequirements } from '../BuildingResourceDisplay';
+import { ConstructButton } from '../Buttons';
 import "./style.css";
 
 export const BarracksRemake = () => {
@@ -15,34 +15,68 @@ export const BarracksRemake = () => {
     </div>
   );
 
-  const BuildThingy = () => (
-    <div className="barracks-build-wrapper">
-      <div className="barracks-header">Buildings</div>
-      <div className="barracks-header">Requirements</div>
-      <div className="barracks-header">Construct</div>
-      <div className="barracks-item">
-        <div className="first-column-container">
-          <img className="first-column-img" src={`${process.env.PUBLIC_URL}/buildings/main1.png`} title="Headquarters" />
-          <div className="first-column-info">
-            <a href="#" className="link">Headquarters</a>
-            <div className="smoll">Level 3</div>
-          </div>
+  const levelUp = (int: number) => {
+    console.log("yeet " + int);
+    // TODO dispatch level up queue shit blah
+  }
+
+  const FirstElement = ({ name, level = 0 }: { name: string, level?: number }) => (
+    <div className="barracks-item">
+      <div className="first-column-container">
+        <img className="first-column-img" src={`${process.env.PUBLIC_URL}/buildings/main1.png`} title={name} alt="" />
+        <div className="first-column-info">
+          <a href="#" className="link">{name}</a>
+          <div className="smoll">{`Level ${level}`}</div>
         </div>
       </div>
-      <div className="barracks-item">
-        <BuildingRequirements />
-      </div>
-      <div className="barracks-item third-column">
-        <button className="button-style">Level 4</button>
-      </div>
-      <div className="barracks-item">test4</div>
-      <div className="barracks-item fully-constructed">Building fully constructed</div>
-      <div className="barracks-item">test5</div>
-      <div className="barracks-item">test6</div>
-      <div className="barracks-item inactive">Queue is currently full</div>
-      <div className="barracks-item">test8</div>
-      <div className="barracks-item">test9</div>
-      <div className="barracks-item inactive">Resources available in 0:00:09</div>
+    </div>
+  );
+
+  const SecondElement = () => (
+    <div className="barracks-item">
+      <BuildingRequirements />
+    </div>
+  )
+
+  const ThirdElement = () => (
+    <div className="barracks-item third-column">
+      <ConstructButton text="Level 4" handleClick={() => levelUp(4)} />
+    </div>
+  )
+
+  const FullyElement = () => (
+    <div className="barracks-item fully-constructed">Building fully constructed</div>
+  )
+
+  const InactiveElement = ({ text }: { text: string }) => (
+    <div className="barracks-item inactive">{text}</div>
+  )
+
+  const HeaderElement = ({ text }: { text: string }) => (
+    <div className="barracks-header">{text}</div>
+  )
+
+  const BuildThingy = () => (
+    <div className="barracks-build-wrapper">
+      <HeaderElement text="Buildings" />
+      <HeaderElement text="Requirements" />
+      <HeaderElement text="Construct" />
+
+      <FirstElement name="Headquarters" /> 
+      <SecondElement />
+      <ThirdElement />
+
+      <FirstElement name="Barracks" />
+      <FullyElement />
+
+      <FirstElement name="Stable" />
+      <SecondElement />
+      <InactiveElement text="Queue is currently full" />
+
+      <FirstElement name="Rally Point"/>
+      <SecondElement />
+      <InactiveElement text="Resources available in 0:00:09" />
+
       <div className="barracks-item">test11</div>
       <div className="barracks-item">test12</div>
       <div className="barracks-item">testddddddddddddddddd</div>

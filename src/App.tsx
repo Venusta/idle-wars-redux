@@ -25,7 +25,7 @@ function App() {
       <ResourceDisplay />
       {/* <Queue />
       <Headquarters /> */}
-      <Barracks />
+      {/* <Barracks /> */}
       <BarracksRemake />
     </div>
   );

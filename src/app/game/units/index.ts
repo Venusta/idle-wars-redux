@@ -1,5 +1,5 @@
 import { UnitId } from "../constants"
-import { axeman } from "./axeman"
+import { axeman } from "./axeman";
 import { spearFighter } from "./spearFighter"
 import { swordsman } from "./swordsman"
 
