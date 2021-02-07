@@ -1,9 +1,10 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react'
+import { selectTown } from '../../selectors';
+import { useParams, Link } from "react-router-dom";
 import { useSelector } from 'react-redux';
 import { baseBuildings } from '../../game/buildings';
 import { BuildingId } from '../../game/constants';
-import { selectTown } from '../../selectors';
 import { RootState } from '../../store';
 import { BuildingResourceDisplay } from '../BuildingResourceDisplay/Requirements';
 import { ConstructButton } from '../Buttons';
@@ -11,12 +12,13 @@ import "./style.css";
 
 // TODO this is actually HQ
 
-interface Props {
-  pageBuildingId: BuildingId;
-};
-
-const BuildingHeader = ({ buildingId, level }: { buildingId: BuildingId, level: number }) => { // TODO new file
+export const BuildingHeader = () => { // TODO new file
+  const { townId, buildingId } = useParams<{ townId: string, buildingId: BuildingId }>();
+  const town = useSelector((state: RootState) => selectTown(state, townId))
+  const level = town.buildings[buildingId].level
   const { name, description } = baseBuildings[buildingId];
+  console.log("AHHHHHHHHHHHHHHH");
+  
   return (
     <div className="building-title">
       <h2>{name} (Level {level})</h2>
@@ -27,10 +29,10 @@ const BuildingHeader = ({ buildingId, level }: { buildingId: BuildingId, level: 
   );
 };
 
-export const BuildingPage = ({ pageBuildingId }: Props) => {
-  const townId = "0"
+export const BuildingPage = () => {
+  const { townId, buildingId } = useParams<{ townId: string, buildingId: BuildingId }>();
   const town = useSelector((state: RootState) => selectTown(state, townId))
-  const pageBuildingLevel = town.buildings[pageBuildingId].level
+  const pageBuildingLevel = town.buildings[buildingId].level
 
   const levelUp = (id: BuildingId) => {
     console.log("yeet " + id);
@@ -44,7 +46,8 @@ export const BuildingPage = ({ pageBuildingId }: Props) => {
         <div className="building-info-container">
           <img className="building-info-img" src={`${process.env.PUBLIC_URL}/buildings/${buildingId}.png`} title={name} alt="" />
           <div className="building-info-info">
-            <a href="#" className="link">{name}</a>
+            {/* <a href="#" className="link">{name}</a> */}
+            <Link to={`/town/${townId}/${buildingId}`} className="link">{name}</Link>
             <div className="smoll">{`Level ${level}`}</div>
           </div>
         </div>
@@ -97,7 +100,9 @@ export const BuildingPage = ({ pageBuildingId }: Props) => {
       <HeaderElement text="Construct" />
 
       <BuildingRow buildingId={BuildingId.Headquarters} />
+      <BuildingRow buildingId={BuildingId.TimberCamp} />
       <BuildingRow buildingId={BuildingId.ClayPit} />
+      <BuildingRow buildingId={BuildingId.IronMine} />
 
       <BuildingInfo buildingId={BuildingId.Barracks} level={4} />
       <FullyElement />
@@ -118,7 +123,7 @@ export const BuildingPage = ({ pageBuildingId }: Props) => {
 
   return (
     <div className="building-container">
-      <BuildingHeader buildingId={pageBuildingId} level={pageBuildingLevel} />
+      {/* <BuildingHeader buildingId={pageBuildingId} level={pageBuildingLevel} /> */}
       <BuildThingy />
     </div>
   )

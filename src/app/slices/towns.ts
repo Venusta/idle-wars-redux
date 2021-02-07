@@ -8,7 +8,7 @@ const initialState: Towns = {
   "0": {
     // id
     // coords
-    // name?
+    name: "Kora is the best Town",
     resources: {
       timber: 500,
       clay: 500,
@@ -45,8 +45,8 @@ const initialState: Towns = {
       },
       [BuildingId.IronMine]: {
         id: BuildingId.IronMine,
-        level: 0,
-        queuedLevel: 0,
+        level: 23,
+        queuedLevel: 23,
       },
       [BuildingId.Headquarters]: {
         id: BuildingId.Headquarters,

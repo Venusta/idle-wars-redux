@@ -14,7 +14,7 @@ export const handleResourceGeneration = () => {
       const buildingData = baseBuildings[building.id];
       if (buildingData instanceof ResourceBuilding) {
         buildingData.creates.forEach((resource) => {
-          generated[resource] += buildingData.getResourceGeneration(building.level) / 3600; // per second
+          generated[resource] += buildingData.getResourceGeneration(building.level); // per second
         });
       };
     });

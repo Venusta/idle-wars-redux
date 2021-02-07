@@ -1,10 +1,10 @@
 import { Building } from "./building";
 import { BuildingProps } from "../../../types/types";
-import { ResourceId } from "../constants"
+import { ResourceId, WorldSpeed } from "../constants"
 
 interface Props extends BuildingProps {
   creates: ResourceId[]
-}
+};
 
 export class ResourceBuilding extends Building {
   creates: ResourceId[];
@@ -17,8 +17,8 @@ export class ResourceBuilding extends Building {
   getResourceGeneration(level: number): number {
     let resourceAmount = 5;
     if (level > 0) {
-      resourceAmount = 30 * 1.163118 ^ (level - 1)
+      resourceAmount = (30 * 1.163118 ** (level - 1))
     }
-    return resourceAmount;
+    return resourceAmount * WorldSpeed / 3600;
   }
 };

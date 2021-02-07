@@ -34,6 +34,7 @@ export interface Towns {
 }
 
 export interface Town {
+  name: string;
   resources: Resources;
   population: number;
   maxPopulation: number;
