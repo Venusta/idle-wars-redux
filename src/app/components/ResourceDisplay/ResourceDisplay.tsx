@@ -6,66 +6,45 @@ import { selectTown } from "../../selectors"
 import './style.css';
 import { baseBuildings } from '../../game/buildings';
 import { BuildingId } from '../../game/constants';
+import { useParams } from 'react-router-dom';
 
 export const ResourceDisplay = () => {
-  const townId = "0" // TODO don't hardcode
+  const { townId } = useParams<{ townId: string }>();
+
   const town = useSelector((state: RootState) => selectTown(state, townId))
   const { timber, clay, iron } = town.resources;
   const { population, maxPopulation, storageCapacity } = town;
 
   const timberPerSecond = baseBuildings[BuildingId.TimberCamp].getResourceGeneration(town.buildings.timbercamp.level);
   const clayPerSecond = baseBuildings[BuildingId.ClayPit].getResourceGeneration(town.buildings.claypit.level);
-  const ironPerSecond = baseBuildings[BuildingId.IronMine].getResourceGeneration(town.buildings.ironmine.level); 
+  const ironPerSecond = baseBuildings[BuildingId.IronMine].getResourceGeneration(town.buildings.ironmine.level);
 
-  const ResDisplay1 = () => {
+  const ResourceDisplay = () => {
     return (
-      <table>
-        <tbody>
-          <tr>
-            <img src={`${process.env.PUBLIC_URL}/resources/timber.png`} />
-            <td>{timber}</td>
-            <img src={`${process.env.PUBLIC_URL}/resources/clay.png`} />
-            <td>{clay}</td>
-            <img src={`${process.env.PUBLIC_URL}/resources/iron.png`} />
-            <td>{iron}</td>
-            <td>{storageCapacity}</td>
-            <td>{`${population}/${maxPopulation}`}</td>
-          </tr>
-        </tbody>
-      </table>
-    )
-  };
-
-  const ResDisplay2 = () => {    
-    return (
-      <div className="flex-container">
-        <div className="wrapper">
-          <div className="inner">
-            <img className="icon" src={`${process.env.PUBLIC_URL}/resources/timber.png`} />
-            <div className="display">{`${(timber).toFixed(0)} (${timberPerSecond.toFixed(2)}/s)`}</div>
-          </div>
-          <div className="inner">
-            <img className="icon" src={`${process.env.PUBLIC_URL}/resources/clay.png`} />
-            <div className="display">{`${(clay).toFixed(0)} (${clayPerSecond.toFixed(2)}/s)`}</div>
-          </div>
-          <div className="inner">
-            <img className="icon" src={`${process.env.PUBLIC_URL}/resources/iron.png`} />
-            <div className="display">{`${(iron).toFixed(0)} (${ironPerSecond.toFixed(2)}/s)`}</div>
-          </div>
-          <div className="inner">
-            <div className="display">{storageCapacity}</div>
-          </div>
-          <div className="inner-end">
-            <div className="display">{`${population}/${maxPopulation}`}</div>
-          </div>
+      <div className="res-display-wrapper">
+        <div className="res-display-inner">
+          <img className="icon" src={`${process.env.PUBLIC_URL}/resources/timber.png`} />
+          <div className="res-display-text">{`${(timber).toFixed(0)} (${timberPerSecond.toFixed(2)}/s)`}</div>
+        </div>
+        <div className="res-display-inner">
+          <img className="res-display-icon" src={`${process.env.PUBLIC_URL}/resources/clay.png`} />
+          <div className="res-display-text">{`${(clay).toFixed(0)} (${clayPerSecond.toFixed(2)}/s)`}</div>
+        </div>
+        <div className="res-display-inner">
+          <img className="icon" src={`${process.env.PUBLIC_URL}/resources/iron.png`} />
+          <div className="res-display-text">{`${(iron).toFixed(0)} (${ironPerSecond.toFixed(2)}/s)`}</div>
+        </div>
+        <div className="res-display-inner">
+          <div className="res-display-text">{storageCapacity}</div>
+        </div>
+        <div className="res-display-inner">
+          <div className="res-display-text">{`${population}/${maxPopulation}`}</div>
         </div>
       </div>
     )
   }
 
   return (
-    <div>
-      <ResDisplay2 />
-    </div>
+    <ResourceDisplay />
   )
 }

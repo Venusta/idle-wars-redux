@@ -4,67 +4,74 @@ import { baseBuildings } from "../game/buildings";
 import { BuildingId, UnitId } from "../game/constants";
 import { isResourceId } from "../game/utility";
 
+
+const testTown = {
+  // id
+  // coords
+  name: "Test village",
+  resources: {
+    timber: 500,
+    clay: 500,
+    iron: 500,
+  },
+  population: 400,
+  maxPopulation: 900,
+  storageCapacity: 20000,
+  unlocked: { // units / buildings maybe
+    [UnitId.SpearFighter]: 1,
+    [UnitId.Swordsman]: 0,
+    [UnitId.Axeman]: 0,
+  },
+  units: {
+    [UnitId.SpearFighter]: {
+      town: 100,
+      total: 200,
+    },
+    [UnitId.Swordsman]: {
+      town: 200,
+      total: 200,
+    },
+  },
+  buildings: {
+    [BuildingId.TimberCamp]: {
+      id: BuildingId.TimberCamp,
+      level: 0,
+      queuedLevel: 0,
+    },
+    [BuildingId.ClayPit]: {
+      id: BuildingId.ClayPit,
+      level: 6,
+      queuedLevel: 6,
+    },
+    [BuildingId.IronMine]: {
+      id: BuildingId.IronMine,
+      level: 23,
+      queuedLevel: 23,
+    },
+    [BuildingId.Headquarters]: {
+      id: BuildingId.Headquarters,
+      level: 20,
+      queuedLevel: 20,
+    },
+    [BuildingId.Barracks]: {
+      id: BuildingId.Barracks,
+      level: 15,
+      queuedLevel: 15,
+    },
+    [BuildingId.Stable]: {
+      id: BuildingId.Stable,
+      level: 0,
+      queuedLevel: 0,
+    },
+  },
+}
+
 const initialState: Towns = {
-  "0": {
-    // id
-    // coords
-    name: "Kora is the best Town",
-    resources: {
-      timber: 500,
-      clay: 500,
-      iron: 500,
-    },
-    population: 400,
-    maxPopulation: 900,
-    storageCapacity: 20000,
-    unlocked: { // units / buildings maybe
-      [UnitId.SpearFighter]: 1,
-      [UnitId.Swordsman]: 0,
-      [UnitId.Axeman]: 0,
-    },
-    units: {
-      [UnitId.SpearFighter]: {
-        town: 100,
-        total: 200,
-      },
-      [UnitId.Swordsman]: {
-        town: 200,
-        total: 200,
-      },
-    },
-    buildings: {
-      [BuildingId.TimberCamp]: {
-        id: BuildingId.TimberCamp,
-        level: 0,
-        queuedLevel: 0,
-      },
-      [BuildingId.ClayPit]: {
-        id: BuildingId.ClayPit,
-        level: 6,
-        queuedLevel: 6,
-      },
-      [BuildingId.IronMine]: {
-        id: BuildingId.IronMine,
-        level: 23,
-        queuedLevel: 23,
-      },
-      [BuildingId.Headquarters]: {
-        id: BuildingId.Headquarters,
-        level: 20,
-        queuedLevel: 20,
-      },
-      [BuildingId.Barracks]: {
-        id: BuildingId.Barracks,
-        level: 15,
-        queuedLevel: 15,
-      },
-      [BuildingId.Stable]: {
-        id: BuildingId.Stable,
-        level: 0,
-        queuedLevel: 0,
-      },
-    },
-  }
+  "0": testTown,
+  // "1": {
+  //   ...testTown,
+  //   name: "Kora sucks",
+  // }
 };
 
 

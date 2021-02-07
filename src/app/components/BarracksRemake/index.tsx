@@ -9,30 +9,26 @@ import { RootState } from '../../store';
 import { BuildingResourceDisplay } from '../BuildingResourceDisplay/Requirements';
 import { ConstructButton } from '../Buttons';
 import "./style.css";
+import { selectBuildingLevel } from '../../selectors/selectBuildingLevel';
 
 // TODO this is actually HQ
 
 export const BuildingHeader = () => { // TODO new file
   const { townId, buildingId } = useParams<{ townId: string, buildingId: BuildingId }>();
-  const town = useSelector((state: RootState) => selectTown(state, townId))
-  const level = town.buildings[buildingId].level
   const { name, description } = baseBuildings[buildingId];
-  console.log("AHHHHHHHHHHHHHHH");
-  
+  const level = useSelector((state: RootState) => selectBuildingLevel(state, townId, buildingId))
+
   return (
     <div className="building-title">
       <h2>{name} (Level {level})</h2>
-      <div className="building-description">
-        {description}
-      </div>
+      {description}
     </div>
   );
 };
 
 export const BuildingPage = () => {
-  const { townId, buildingId } = useParams<{ townId: string, buildingId: BuildingId }>();
+  const { townId } = useParams<{ townId: string }>();
   const town = useSelector((state: RootState) => selectTown(state, townId))
-  const pageBuildingLevel = town.buildings[buildingId].level
 
   const levelUp = (id: BuildingId) => {
     console.log("yeet " + id);
@@ -58,7 +54,7 @@ export const BuildingPage = () => {
   const BuildingRequirements = ({ buildingId }: { buildingId: BuildingId }) => (
     // todo pass down the cost or id + level?
     <div className="building-grid-item">
-      <BuildingResourceDisplay buildingId={buildingId}/>
+      <BuildingResourceDisplay buildingId={buildingId} />
     </div>
   )
 
@@ -87,7 +83,7 @@ export const BuildingPage = () => {
     return (
       <>
         <BuildingInfo buildingId={buildingId} level={level} />
-        <BuildingRequirements buildingId={buildingId}/>
+        <BuildingRequirements buildingId={buildingId} />
         <BuildingConstruct buildingId={buildingId} queuedLevel={queuedLevel + 1} />
       </>
     );
@@ -108,11 +104,11 @@ export const BuildingPage = () => {
       <FullyElement />
 
       <BuildingInfo buildingId={BuildingId.Stable} level={7} />
-      <BuildingRequirements buildingId={BuildingId.Stable}/>
+      <BuildingRequirements buildingId={BuildingId.Stable} />
       <InactiveElement text="Queue is currently full" />
 
       <BuildingInfo buildingId={BuildingId.IronMine} level={15} />
-      <BuildingRequirements buildingId={BuildingId.IronMine}/>
+      <BuildingRequirements buildingId={BuildingId.IronMine} />
       <InactiveElement text="Resources available in 0:00:09" />
 
       <div className="building-grid-item">test11</div>

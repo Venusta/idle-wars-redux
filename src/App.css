@@ -1,39 +1,63 @@
 .App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-float infinite 3s ease-in-out;
-  }
-}
-
-.App-header {
-  min-height: 100vh;
-  display: flex;
+  font-family: "Verdana", Courier, monospace;
+  font-size: 12px;
   flex-direction: column;
-  align-items: center;
+  background-color: #dacc9e;
+  display: grid;
+  grid-template-columns: minmax(100px, 150px) 1fr minmax(100px, 150px);
+  grid-auto-rows: minmax(min-content, 30px) auto;
+  height: 100vh;
+}
+
+.App-Main {
+  background-color: rgba(16, 19, 19, 0.1);
+  grid-column-start: 2;
+  grid-row-start: 2;
+  padding: 10px;
+  border: 1px solid #7d510f;
+}
+
+.App-Header {
+  grid-column-start: 2;
+  display: grid;
+  grid-template-columns: 1fr max-content;
+}
+
+.App-Title {
+  display: flex;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  align-items: center;
+  font-size: 20px;
+  font-weight: bold;
+  background-color: rgba(0, 0, 0, 0.3);
 }
 
-.App-link {
-  color: rgb(112, 76, 182);
+.Sidebar-Left {
+  text-decoration: none;
+  grid-row-start: 2;
+  background-color: rgba(39, 39, 39, 0.103);
+  -webkit-box-shadow: 2px 0px 4px 0px rgba(0, 0, 0, 0.5);
+  box-shadow: 2px 0px 4px 0px rgba(0, 0, 0, 0.5);
+  padding: 5px;
 }
 
-@keyframes App-logo-float {
-  0% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(10px)
-  }
-  100% {
-    transform: translateY(0px)
-  }
+.Sidebar-Left > a {
+  /* margin: 5px; */
+  font-weight: 700;
+  text-decoration: none;
+  color: rgb(96, 48, 0);
+}
+.Sidebar-Left > a:hover {
+  text-decoration: underline;
+}
+
+.App-Style-Village {
+  justify-self: flex-start;
+  font-weight: bold;
+  margin: 5px;
+  padding: 2px;
+  background-color: #e0c182;
+  border: 1px solid #7d510f;
+  -webkit-box-shadow: 2px 2px 4px 0px rgba(0, 0, 0, 0.5);
+  box-shadow: 2px 2px 4px 0px rgba(0, 0, 0, 0.5);
 }

@@ -1,18 +1,11 @@
 .building-container {
   display: flex;
-  background-color: #dacc9e;
   padding: 5px;
   flex-direction: column;
-  font-family: "Verdana", Courier, monospace;
-  font-size: 12px;
 }
 
 .building-title {
   padding: 15px;
-}
-
-.building-description {
-  text-align: left;
 }
 
 .building-build-wrapper {
