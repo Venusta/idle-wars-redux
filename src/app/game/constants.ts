@@ -7,9 +7,9 @@ export const WorldSpeed = 6;
 
 export enum BuildingId {
   Headquarters = "headquarters",
-  TimberCamp = "timber",
-  ClayPit = "clay",
-  IronMine = "iron",
+  TimberCamp = "timberCamp",
+  ClayPit = "clayPit",
+  IronMine = "ironMine",
   Barracks = "barracks",
   Stable = "stable",
   // Workshop = "workshop",

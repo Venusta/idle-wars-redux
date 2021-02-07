@@ -40,8 +40,8 @@ const initialState: Towns = {
       },
       [BuildingId.ClayPit]: {
         id: BuildingId.ClayPit,
-        level: 0,
-        queuedLevel: 0,
+        level: 6,
+        queuedLevel: 6,
       },
       [BuildingId.IronMine]: {
         id: BuildingId.IronMine,
@@ -50,13 +50,13 @@ const initialState: Towns = {
       },
       [BuildingId.Headquarters]: {
         id: BuildingId.Headquarters,
-        level: 0,
-        queuedLevel: 0,
+        level: 20,
+        queuedLevel: 20,
       },
       [BuildingId.Barracks]: {
         id: BuildingId.Barracks,
-        level: 0,
-        queuedLevel: 0,
+        level: 15,
+        queuedLevel: 15,
       },
       [BuildingId.Stable]: {
         id: BuildingId.Stable,

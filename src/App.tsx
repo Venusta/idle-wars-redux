@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import './App.css';
 import { Barracks } from './app/components/Barracks';
-import { BarracksRemake } from './app/components/BarracksRemake';
-import { BuildingRequirements } from './app/components/BuildingResourceDisplay';
+import { BuildingPage } from './app/components/BarracksRemake';
+import { BuildingResourceDisplay } from './app/components/BuildingResourceDisplay/Requirements';
 import { Headquarters } from './app/components/Headquarters';
 import { Queue } from './app/components/Queue';
 import { ResourceDisplay } from './app/components/ResourceDisplay/ResourceDisplay';
@@ -23,11 +23,11 @@ function App() {
   return (
     <div className="App">
       <ResourceDisplay />
-      {/* <Queue />
-      <Headquarters /> */}
+      {/* <Queue /> */}
+      {/* <Headquarters /> */}
       {/* <Barracks /> */}
-      <BarracksRemake id={BuildingId.Headquarters} level={4}/>
-      <BarracksRemake id={BuildingId.Barracks} level={5}/>
+      <BuildingPage pageBuildingId={BuildingId.Headquarters}/>
+      <BuildingPage pageBuildingId={BuildingId.Barracks}/>
     </div>
   );
 }

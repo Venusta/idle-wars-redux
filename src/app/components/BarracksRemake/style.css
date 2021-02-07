@@ -1,4 +1,4 @@
-.barracks-container {
+.building-container {
   display: flex;
   background-color: #dacc9e;
   padding: 5px;
@@ -15,7 +15,7 @@
   text-align: left;
 }
 
-.barracks-build-wrapper {
+.building-build-wrapper {
   background-color: #ecd7ac;
   display: grid;
   grid-template-columns: minmax(150px, 200px) minmax(300px, 1fr) 0.8fr;
@@ -25,7 +25,7 @@
   box-shadow: 2px 2px 4px 0px rgba(0, 0, 0, 0.5);
 }
 
-.barracks-header {
+.building-header {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -55,22 +55,22 @@
   font-size: 10.8px;
 }
 
-.construct-grid-item {
+.building-grid-item {
   display: flex;
   padding: 3px;
   background-color: #f4e4bc;
 }
 
-.first-column-container {
+.building-info-container {
   display: flex;
   align-items: flex-start;
 }
 
-.first-column-img {
+.building-info-img {
   margin-right: 5px;
 }
 
-.first-column-info {
+.building-info-info {
   display: flex;
   flex-direction: column;
   align-items: flex-start;

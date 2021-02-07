@@ -1,22 +1,23 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react'
+import { useSelector } from 'react-redux';
 import { baseBuildings } from '../../game/buildings';
 import { BuildingId } from '../../game/constants';
-import { BuildingRequirements } from '../BuildingResourceDisplay';
+import { selectTown } from '../../selectors';
+import { RootState } from '../../store';
+import { BuildingResourceDisplay } from '../BuildingResourceDisplay/Requirements';
 import { ConstructButton } from '../Buttons';
 import "./style.css";
 
 // TODO this is actually HQ
 
 interface Props {
-  id: BuildingId;
-  level: number;
+  pageBuildingId: BuildingId;
 };
 
-export const BarracksRemake = ({ id, level }: Props) => {
-  const { name, description } = baseBuildings[id]
-
-  const Title = () => (
+const BuildingHeader = ({ buildingId, level }: { buildingId: BuildingId, level: number }) => { // TODO new file
+  const { name, description } = baseBuildings[buildingId];
+  return (
     <div className="building-title">
       <h2>{name} (Level {level})</h2>
       <div className="building-description">
@@ -24,19 +25,25 @@ export const BarracksRemake = ({ id, level }: Props) => {
       </div>
     </div>
   );
+};
 
-  const levelUp = (int: number) => {
-    console.log("yeet " + int);
+export const BuildingPage = ({ pageBuildingId }: Props) => {
+  const townId = "0"
+  const town = useSelector((state: RootState) => selectTown(state, townId))
+  const pageBuildingLevel = town.buildings[pageBuildingId].level
+
+  const levelUp = (id: BuildingId) => {
+    console.log("yeet " + id);
     // TODO dispatch level up queue shit blah
   }
 
-  const FirstElement = ({ id, level = 0 }: { id: BuildingId, level: number }) => {
-    const { name } = baseBuildings[id]
+  const BuildingInfo = ({ buildingId, level = 0 }: { buildingId: BuildingId, level: number }) => {
+    const { name } = baseBuildings[buildingId]
     return (
-      <div className="construct-grid-item">
-        <div className="first-column-container">
-          <img className="first-column-img" src={`${process.env.PUBLIC_URL}/buildings/${id}.png`} title={name} alt="" />
-          <div className="first-column-info">
+      <div className="building-grid-item">
+        <div className="building-info-container">
+          <img className="building-info-img" src={`${process.env.PUBLIC_URL}/buildings/${buildingId}.png`} title={name} alt="" />
+          <div className="building-info-info">
             <a href="#" className="link">{name}</a>
             <div className="smoll">{`Level ${level}`}</div>
           </div>
@@ -45,68 +52,73 @@ export const BarracksRemake = ({ id, level }: Props) => {
     );
   }
 
-  const SecondElement = () => (
+  const BuildingRequirements = ({ buildingId }: { buildingId: BuildingId }) => (
     // todo pass down the cost or id + level?
-    <div className="construct-grid-item">
-      <BuildingRequirements />
+    <div className="building-grid-item">
+      <BuildingResourceDisplay buildingId={buildingId}/>
     </div>
   )
 
-  const ThirdElement = () => (
-    <div className="construct-grid-item third-column">
-      <ConstructButton text="Level 4" handleClick={() => levelUp(4)} />
-    </div>
-  )
+  const BuildingConstruct = ({ buildingId, queuedLevel }: { buildingId: BuildingId, queuedLevel: number }) => {
+    return (
+      <div className="building-grid-item third-column">
+        <ConstructButton text={`Level ${queuedLevel}`} handleClick={() => levelUp(buildingId)} />
+      </div>
+    );
+  }
 
   const FullyElement = () => (
-    <div className="construct-grid-item fully-constructed">Building fully constructed</div>
+    <div className="building-grid-item fully-constructed">Building fully constructed</div>
   )
 
   const InactiveElement = ({ text }: { text: string }) => (
-    <div className="construct-grid-item inactive">{text}</div>
+    <div className="building-grid-item inactive">{text}</div>
   )
 
   const HeaderElement = ({ text }: { text: string }) => (
-    <div className="barracks-header">{text}</div>
+    <div className="building-header">{text}</div>
   )
 
-  const RowTest = ({ id, level }: { id: BuildingId, level: number }) => (
-    <>
-      <FirstElement id={id} level={level} />
-      <SecondElement />
-      <ThirdElement />
-    </>
-  )
-
+  const BuildingRow = ({ buildingId }: { buildingId: BuildingId }) => {
+    const { level, queuedLevel } = town.buildings[buildingId]
+    return (
+      <>
+        <BuildingInfo buildingId={buildingId} level={level} />
+        <BuildingRequirements buildingId={buildingId}/>
+        <BuildingConstruct buildingId={buildingId} queuedLevel={queuedLevel + 1} />
+      </>
+    );
+  }
 
   const BuildThingy = () => (
-    <div className="barracks-build-wrapper">
+    <div className="building-build-wrapper">
       <HeaderElement text="Buildings" />
       <HeaderElement text="Requirements" />
       <HeaderElement text="Construct" />
 
-      <RowTest id={BuildingId.Headquarters} level={5}/>
+      <BuildingRow buildingId={BuildingId.Headquarters} />
+      <BuildingRow buildingId={BuildingId.ClayPit} />
 
-      <FirstElement id={BuildingId.Barracks} level={4}/>
+      <BuildingInfo buildingId={BuildingId.Barracks} level={4} />
       <FullyElement />
 
-      <FirstElement id={BuildingId.Stable} level={7}/>
-      <SecondElement />
+      <BuildingInfo buildingId={BuildingId.Stable} level={7} />
+      <BuildingRequirements buildingId={BuildingId.Stable}/>
       <InactiveElement text="Queue is currently full" />
 
-      <FirstElement id={BuildingId.IronMine} level={15}/>
-      <SecondElement />
+      <BuildingInfo buildingId={BuildingId.IronMine} level={15} />
+      <BuildingRequirements buildingId={BuildingId.IronMine}/>
       <InactiveElement text="Resources available in 0:00:09" />
 
-      <div className="construct-grid-item">test11</div>
-      <div className="construct-grid-item">test12</div>
-      <div className="construct-grid-item">testddddddddddddddddd</div>
+      <div className="building-grid-item">test11</div>
+      <div className="building-grid-item">test12</div>
+      <div className="building-grid-item">testddddddddddddddddd</div>
     </div>
   )
 
   return (
-    <div className="barracks-container">
-      <Title />
+    <div className="building-container">
+      <BuildingHeader buildingId={pageBuildingId} level={pageBuildingLevel} />
       <BuildThingy />
     </div>
   )
