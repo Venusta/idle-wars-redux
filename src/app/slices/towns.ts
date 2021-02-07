@@ -1,10 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { Resources, Towns } from "../../types/types";
+import { Cost, Resources, Towns } from "../../types/types";
 import { baseBuildings } from "../game/buildings";
 import { BuildingId, UnitId } from "../game/constants";
+import { isResourceId } from "../game/utility";
 
 const initialState: Towns = {
-  // TODO make this an object and index them by id
   "0": {
     // id
     // coords
@@ -67,7 +67,8 @@ const initialState: Towns = {
   }
 };
 
-interface RemoveResourcesPayload {
+
+interface ChangeResourcesPayload {
   payload: {
     townId: string;
     resources: Resources;
@@ -88,10 +89,17 @@ export const townSlice = createSlice({
     createTown: (state, { payload }: { payload: any }) => {
     },
 
-    removeResources: (towns, { payload: { townId, resources } }: RemoveResourcesPayload) => {
+    addResources: (towns, { payload: { townId, resources } }: ChangeResourcesPayload) => {
       const town = towns[townId]
       for (const [k, v] of Object.entries(resources)) {
-        town.resources[k as keyof Resources] -= v;
+        if (isResourceId(k)) town.resources[k] += v;
+      }
+    },
+
+    removeResources: (towns, { payload: { townId, resources } }: ChangeResourcesPayload) => {
+      const town = towns[townId]
+      for (const [k, v] of Object.entries(resources)) {
+        if (isResourceId(k)) town.resources[k] -= v;
       }
     },
 
@@ -109,16 +117,17 @@ export const townSlice = createSlice({
       const town = towns[townId];
       town.buildings[buildingId].queuedLevel += 1;
     },
+
     startBuildSomething: (towns, { payload: { townId, buildingId } }: StartBuildSomethingPayload) => {
       const town = towns[townId];
       const building = town.buildings[buildingId]
-      const cost = baseBuildings[buildingId].getCost(building.queuedLevel);
+      const cost: Cost = baseBuildings[buildingId].getCost(building.queuedLevel);
 
       // Check if there is enough resources + population
       // Check if any building/research requirements are met
 
       for (const [k, v] of Object.entries(cost.resources)) {
-        // town.resources[k as keyof Resources] -= v;
+        if (isResourceId(k)) town.resources[k] -= v;
         // TODO FIX THIS URGENT
       }
       building.queuedLevel += 1;
@@ -129,6 +138,7 @@ export const townSlice = createSlice({
 
 export const {
   createTown,
+  addResources,
   removeResources,
   increasePopulation,
   incrementActualBuildingLevel,

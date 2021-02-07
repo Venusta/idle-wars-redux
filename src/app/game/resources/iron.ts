@@ -1,5 +1,5 @@
 import { ResourceId } from "../constants";
-import { Resource } from "../resource";
+import { Resource } from "./base/resource";
 
 export const iron = new Resource({
   id: ResourceId.Iron,

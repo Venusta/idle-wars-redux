@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { baseBuildings } from '../../game/buildings';
 import { BuildingId } from '../../game/constants';
+import { isBuildingId } from '../../game/utility';
 import { RootState } from '../../store';
 
 export const Queue = () => {
@@ -32,14 +33,21 @@ export const Queue = () => {
   const formatDate = (seconds: number) => new Date(seconds).toISOString().substr(11, 8)
 
   const renderQueue = () => {
-    return buildingQueue?.map(({ item, duration, completionTime }, index) => (
-    <tr key={completionTime}>
-      <td>{baseBuildings[item as BuildingId].name}</td>
-      <td>{index === 0 ? formatDate(Math.max(completionTime - date, 0)) : formatDate(duration)}</td> 
-      <td>{new Date(completionTime).toISOString()}</td>
-      <td><button onClick={() => {}}>Cancel</button></td>    
-    </tr>
-    ));
+    return buildingQueue?.map(({ item, duration, completionTime }, index) => {
+      if (isBuildingId(item)) {
+        return (
+        <tr key={completionTime}>
+          <td>{baseBuildings[item].name}</td>
+          <td>{index === 0 ? formatDate(Math.max(completionTime - date, 0)) : formatDate(duration)}</td> 
+          <td>{new Date(completionTime).toISOString()}</td>
+          <td><button onClick={() => {}}>Cancel</button></td>    
+        </tr>
+        )
+      } else {
+        console.error(`${item} was not a valid building id.`);
+        return <div />;
+      }
+    });
   }
 
   return (

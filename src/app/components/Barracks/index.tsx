@@ -42,6 +42,7 @@ export const Barracks = () => {
           const x = baseResources[key]?.id;
           return <SingleResource resourceId={x} amount={res}></SingleResource>
         } else {
+          console.error(`${key} was not a valid resource id.`);          
           return <div></div>;
         }
       });

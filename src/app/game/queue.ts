@@ -32,6 +32,8 @@ export const updateQueue = () => {
           // dispatch(incrementActualBuildingLevel({ townId, buildingId: queueItem.item }));
           if (isBuildingId(queueItem.item)) {
             levelBuildingAndRemoveFromQueue(townId, BuildingId.Headquarters, queueItem.item)(dispatch);
+          } else {
+            console.error(`${queueItem.item} was not a valid building id.`);            
           }
         }
       });      

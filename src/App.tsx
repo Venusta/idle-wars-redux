@@ -8,11 +8,13 @@ import { Queue } from './app/components/Queue';
 import { ResourceDisplay } from './app/components/ResourceDisplay/ResourceDisplay';
 import { BuildingId } from './app/game/constants';
 import { updateQueue } from './app/game/queue';
+import { handleResourceGeneration } from './app/game/resources/generation';
 
 function App() {
   useEffect(() => {
     const x = setInterval(() => {
       updateQueue();
+      handleResourceGeneration();
       console.log("Updated");      
     }, 1000);
     return () => {
