@@ -1,5 +1,5 @@
 import { UnitId } from "../constants";
-import { Unit } from "./base/unit";
+import { Unit } from "../model/unit";
 
 export const spearFighter = new Unit({
   id: UnitId.SpearFighter,

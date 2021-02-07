@@ -1,7 +1,6 @@
 import { Dispatch } from '@reduxjs/toolkit';
 import React from 'react';
 import { useDispatch, useSelector, useStore, batch } from 'react-redux';
-import { Resources } from '../../../../types/types';
 import { baseBuildings } from '../../../game/buildings';
 import { BuildingId } from '../../../game/constants';
 import { selectTown } from '../../../selectors';
@@ -16,8 +15,6 @@ interface BuildingTableRowProps {
   buildingId: BuildingId;
   townId: string;
 }
-
-
 
 export const BuildingTableRow: React.FC<BuildingTableRowProps> = ({ level, queuedLevel, townId, buildingId }) => {
   const dispatch = useDispatch();
@@ -36,20 +33,19 @@ export const BuildingTableRow: React.FC<BuildingTableRowProps> = ({ level, queue
 
   console.log("Rendered");
   
-  const reqsMet = (/*store: RootState,*/ townId: string, buildingId: BuildingId): boolean => {
-    // todo move / ignore this
-    const town = state.towns[townId];
-    const building = town.buildings[buildingId]
-    const cost = baseBuildings[buildingId].getCost(building.queuedLevel);
+  // const reqsMet = (/*store: RootState,*/ townId: string, buildingId: BuildingId): boolean => {
+  //   // todo move / ignore this
+  //   const town = state.towns[townId];
+  //   const building = town.buildings[buildingId]
+  //   const cost = baseBuildings[buildingId].getCost(building.queuedLevel);
 
-    for (const [k, v] of Object.entries(cost.resources)) {
-      if (town.resources[k as keyof Resources] < v) {
-        return false;
-      }
-    }
-
-    return false;
-  };
+  //   for (const [k, v] of Object.entries(cost.resources)) {
+  //     if (town.resources[k as keyof Resources] < v) {
+  //       return false;
+  //     }
+  //   }
+  //   return false;
+  // };
 
   const startConstructionBatch = (townId: string, buildingId: BuildingId, constructionTime: number) => {  
     return (dispatch: Dispatch<any>) => {

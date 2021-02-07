@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import { ResourceId, UnitId } from '../../game/constants';
 import { baseResources } from '../../game/resources';
 import { baseUnits } from '../../game/units';
-import { Unit } from '../../game/units/base/unit';
+import { Unit } from '../../game/model/unit';
 import { isResourceId, isUnitId } from '../../game/utility';
 import { selectTown } from '../../selectors';
 import { RootState } from '../../store';

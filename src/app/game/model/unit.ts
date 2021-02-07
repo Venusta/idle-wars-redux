@@ -1,5 +1,5 @@
-import { Cost } from "../../../../types/types";import { UnitId } from "../../constants";
-;
+import { Cost } from "../../../types/types";
+import { UnitId } from "../constants";
 
 interface UnitProps {
   id: UnitId;
@@ -9,7 +9,7 @@ interface UnitProps {
   speed: number;
   atkType: number;
   atk: number;
-  def: number; 
+  def: number;
   defCav: number;
   defArc: number;
   carries: number;
@@ -25,7 +25,7 @@ export class Unit {
   speed: number;
   atkType: number;
   atk: number;
-  def: number; 
+  def: number;
   defCav: number;
   defArc: number;
   carries: number;

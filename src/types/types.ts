@@ -57,6 +57,7 @@ export interface ResourceGenProps {
 export interface BuildingProps {
   id: BuildingId;
   name: string;
+  description: string;
   cost: Cost;
   maxLevel: number;
   buildTime: number;

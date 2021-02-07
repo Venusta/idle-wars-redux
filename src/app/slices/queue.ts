@@ -59,22 +59,6 @@ const initialState: Queue = {
   //   ],
   // },
 }
-const initialS44tate = {
-  "22": {
-    [BuildingId.Barracks]: [
-      {
-        item: 0,
-        completionTime: 5938973,
-        amount: 1,
-        level: 8,
-      },
-      { item: 0, completionTime: 593894473, amount: 1 }
-    ],
-    [BuildingId.Stable]: [
-      { item: 0, completionTime: 345345, amount: 1 }
-    ],
-  },
-}
 
 // const initialState: Queue[] = [
 //   {

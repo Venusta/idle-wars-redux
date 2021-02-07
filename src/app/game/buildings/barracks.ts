@@ -1,9 +1,10 @@
 import { BuildingId } from "../constants";
-import { ProductionBuilding } from "./base/productionBuilding";
+import { ProductionBuilding } from "../model/productionBuilding";
 
 export const barracks = new ProductionBuilding({
   id: BuildingId.Barracks,
   name: "Barracks",
+  description: "In the barracks you can recruit infantry. The higher its level the faster the recruitment of troops will be finished.",
   cost: {
     resources: {
       timber: 270,

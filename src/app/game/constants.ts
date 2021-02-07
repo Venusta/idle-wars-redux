@@ -36,6 +36,8 @@ export enum ResourceId {
   Iron = "iron",
 }
 
+export type ResourceId2 = "timber" | "clay" | "iron"
+
 // export const BuildingNamesDictionary = {
 //   [BuildingId.Headquarters]: "Headquarters",
 //   [BuildingId.TimberCamp]: "Timber camp",

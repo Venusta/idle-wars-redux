@@ -1,17 +1,19 @@
-import { BuildingProps, Cost } from "../../../../types/types";
-import { BuildingId, WorldSpeed } from "../../constants"
+import { BuildingProps, Cost } from "../../../types/types";
+import { BuildingId, WorldSpeed } from "../constants"
 
 export class Building {
   id: BuildingId;
   name: string;
+  description: string;
   cost: Cost;
   maxLevel: number;
   buildTime: number;
   requirements: any;
 
-  constructor({ id, name, cost, maxLevel, buildTime, requirements }: BuildingProps) {
+  constructor({ id, name, description, cost, maxLevel, buildTime, requirements }: BuildingProps) {
     this.id = id;
     this.name = name;
+    this.description = description;
     this.cost = cost;
     this.maxLevel = maxLevel;
     this.buildTime = buildTime;

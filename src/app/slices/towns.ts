@@ -67,7 +67,6 @@ const initialState: Towns = {
   }
 };
 
-
 interface RemoveResourcesPayload {
   payload: {
     townId: string;
@@ -119,7 +118,8 @@ export const townSlice = createSlice({
       // Check if any building/research requirements are met
 
       for (const [k, v] of Object.entries(cost.resources)) {
-        town.resources[k as keyof Resources] -= v;
+        // town.resources[k as keyof Resources] -= v;
+        // TODO FIX THIS URGENT
       }
       building.queuedLevel += 1;
       town.population += cost.population || 0;

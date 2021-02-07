@@ -1,5 +1,5 @@
 import { UnitId } from "../constants";
-import { Unit } from "./base/unit";
+import { Unit } from "../model/unit";
 
 export const axeman = new Unit({
   id: UnitId.Axeman,

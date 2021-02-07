@@ -1,9 +1,10 @@
-import { BuildingId } from "../constants";
-import { ResourceBuilding } from "./base/resourceBuilding";
+import { BuildingId, ResourceId } from "../constants";
+import { ResourceBuilding } from "../model/resourceBuilding";
 
 export const ironMine = new ResourceBuilding({
   id: BuildingId.IronMine,
   name: "Iron Mine",
+  description: "",
   cost: {
     resources: {
       timber: 75,
@@ -13,5 +14,6 @@ export const ironMine = new ResourceBuilding({
     population: 10
   }, 
   buildTime: 360, 
-  maxLevel: 30 
+  maxLevel: 30,
+  creates: [ResourceId.Iron],
 })

@@ -7,15 +7,12 @@
   font-size: 12px;
 }
 
-.barracks-title {
+.building-title {
   padding: 15px;
 }
 
-.barracks-description {
+.building-description {
   text-align: left;
-  /* display: flex; */
-  /* align-items: flex-start; */
-  /* width: 500px; */
 }
 
 .barracks-build-wrapper {
@@ -58,7 +55,7 @@
   font-size: 10.8px;
 }
 
-.barracks-item {
+.construct-grid-item {
   display: flex;
   padding: 3px;
   background-color: #f4e4bc;
