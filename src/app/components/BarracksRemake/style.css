@@ -1,7 +1,8 @@
 .building-container {
   display: flex;
-  padding: 5px;
+  /* padding: 5px; */
   flex-direction: column;
+  /* border: solid rgba(0, 0, 0, 0.2) 1px; */
 }
 
 .building-title {
@@ -11,7 +12,8 @@
 .building-build-wrapper {
   background-color: #ecd7ac;
   display: grid;
-  grid-template-columns: minmax(150px, 200px) minmax(300px, 1fr) 0.8fr;
+  /* grid-template-columns: minmax(max-content, 200px) minmax(min-content, 1fr) max-content; */
+  grid-template-columns: minmax(max-content, 200px) repeat(5, min-content) max-content;
   column-gap: 2px;
   row-gap: 2px;
   margin: 0 auto;
@@ -35,7 +37,7 @@
 }
 
 .brown {
-  color: #603000;
+  color: rgb(96, 48, 0);
 }
 
 .link {
@@ -80,6 +82,18 @@
   align-items: center;
   grid-column: 2/-1;
   color: #c5a76b;
+}
+
+.fuck {
+  grid-column: 2/7;
+}
+
+.BuildingRequirements {
+  grid-column: 2/7;
+  display: grid;
+  grid-template-columns: subgrid;
+  /* background-color: #35368679; */
+  column-gap: 2px;
 }
 
 .inactive {

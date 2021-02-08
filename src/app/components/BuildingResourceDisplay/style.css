@@ -1,15 +1,20 @@
 .brd-flex-container {
-  display: flex;
+  display: grid;
   justify-content: space-around;
-  /* background-color: #f0e2be; */
-  /* max-width: 400px; */
-  flex: 1;
+  background-color: #25252379;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: subgrid;
 }
 
 .brd-group {
   display: flex;
-  flex-direction: row;
   align-items: center;
+  justify-items: flex-start;
+  /* background-color: #34a14f79; */
+  /* background-color: #f4e4bc; */
+  padding: 0px 2px;
+  /* margin: 2px; */
+
 }
 
 .brd-group > img {

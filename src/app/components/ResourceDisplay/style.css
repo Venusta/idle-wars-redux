@@ -6,9 +6,8 @@
   border: 1px solid #7d510f;
   -webkit-box-shadow: 2px 2px 4px 0px rgba(0, 0, 0, 0.5);
   box-shadow: 2px 2px 4px 0px rgba(0, 0, 0, 0.5);
-  margin: 5px 5px;  
   justify-self: flex-end;
-  /* justify-content: flex-end; */
+  align-self: flex-start;
 }
 
 .res-display-inner {

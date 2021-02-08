@@ -53,7 +53,7 @@ export const BuildingPage = () => {
 
   const BuildingRequirements = ({ buildingId }: { buildingId: BuildingId }) => (
     // todo pass down the cost or id + level?
-    <div className="building-grid-item">
+    <div className="building-grid-item BuildingRequirements">
       <BuildingResourceDisplay buildingId={buildingId} />
     </div>
   )
@@ -92,7 +92,7 @@ export const BuildingPage = () => {
   const BuildThingy = () => (
     <div className="building-build-wrapper">
       <HeaderElement text="Buildings" />
-      <HeaderElement text="Requirements" />
+      <div className="building-header fuck">Requirements</div>
       <HeaderElement text="Construct" />
 
       <BuildingRow buildingId={BuildingId.Headquarters} />
@@ -111,9 +111,6 @@ export const BuildingPage = () => {
       <BuildingRequirements buildingId={BuildingId.IronMine} />
       <InactiveElement text="Resources available in 0:00:09" />
 
-      <div className="building-grid-item">test11</div>
-      <div className="building-grid-item">test12</div>
-      <div className="building-grid-item">testddddddddddddddddd</div>
     </div>
   )
 

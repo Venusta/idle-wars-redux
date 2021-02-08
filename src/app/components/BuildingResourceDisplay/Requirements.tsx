@@ -28,12 +28,12 @@ export const BuildingResourceDisplay = ({ buildingId }: Props) => {
   }
 
   return (
-    <div className="brd-flex-container">
+    <>
       <SingleBuildingRequirements data={timber.toFixed(0)} imgId="timber"></SingleBuildingRequirements>
       <SingleBuildingRequirements data={clay.toFixed(0)} imgId="clay"></SingleBuildingRequirements>
       <SingleBuildingRequirements data={iron.toFixed(0)} imgId="iron"></SingleBuildingRequirements>
       <SingleBuildingRequirements data={pop.toFixed(0)} imgId="timber"></SingleBuildingRequirements>
       <SingleBuildingRequirements data={time} imgId="timber"></SingleBuildingRequirements>
-    </div>
+    </>
   )
 }
