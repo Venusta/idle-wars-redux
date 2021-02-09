@@ -1,8 +1,9 @@
 import { TownInterface, Resources, ResearchList, UnitList, BuildingList } from "../../../types/types";
 import { BuildingId } from "../constants";
 import { baseBuildings } from "../buildings";
+import { ResourceBuilding } from "./resourceBuilding";
 
-const defaultResources = { timber: 0, clay: 0, iron: 0 }
+const defaultResources = { timber: 0, clay: 0, iron: 0 };
 
 export class Town {
   name: string;
@@ -49,6 +50,21 @@ export class Town {
   }
 
   private calculateResourcesPerSecond(): Resources {
+
+    // Object.values(this.buildings).forEach(({ id, level }) => { // TODO FIX
+    //   const buildingData = baseBuildings[id];
+
+    //   if (buildingData instanceof ResourceBuilding) {
+    //     const newResourcesPerSecond = buildingData.getResourceGeneration(level);
+    //     buildingData.creates.forEach((resource) => {
+    //       this.rps[resource] += newResourcesPerSecond;
+    //       console.log(`Adding: ${newResourcesPerSecond}`);
+    //       console.log(`${resource} is now ${this.rps[resource]} per second`);
+    //     });
+    //   };
+
+    // })
+
     return { timber: 0, clay: 0, iron: 0 };
   }
 
