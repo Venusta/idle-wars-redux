@@ -1,0 +1,18 @@
+.container {
+  background-color: #ecd7ac;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  column-gap: 2px;
+  row-gap: 2px;
+  margin: 5px;
+  align-content: flex-start;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3px;
+  font-weight: bold;
+  background: #e5c27e;
+}

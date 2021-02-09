@@ -7,6 +7,11 @@
 
 .building-title {
   padding: 15px;
+  color: rgb(110, 110, 110);
+}
+
+.building-title > h2 {
+  color: #57524c;
 }
 
 .building-build-wrapper {
@@ -37,12 +42,6 @@
 }
 
 .brown {
-  color: rgb(96, 48, 0);
-}
-
-.link {
-  font-weight: 700;
-  text-decoration: none;
   color: rgb(96, 48, 0);
 }
 
@@ -98,6 +97,6 @@
 
 .inactive {
   color: #c5a76b;
-  /* justify-content: center; */
+  justify-content: center;
   align-items: center;
 }

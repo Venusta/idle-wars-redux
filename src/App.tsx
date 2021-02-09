@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { Redirect, Route, Switch, Link } from "react-router-dom";
 import './App.css';
 import { BuildingHeader, BuildingPage } from './app/components/BarracksRemake';
@@ -15,8 +15,6 @@ function App() {
   const townLinks = Object.entries(towns).map(([id, town]) => {
     return (<Link key={id} to={`/town/${id}/headquarters`}>{town.name}</Link>)
   });
-
-  const [timestamp, setTimestamp] = useState(Date.now());
 
   useEffect(() => {
     const x = setInterval(() => {
@@ -47,13 +45,14 @@ function App() {
         {/* Have a page for each building in a town */}
         <Route exact path="/town/:townId/:buildingId">
           <div className="App-Main">
-          <div className="App-Header">
-            <div className="App-Style-Village">Test village (489|489) K44</div>
-            <ResourceDisplay />
-          </div>
-                <Queue />
-
-            <BuildingHeader />
+            <div className="App-Header">
+              <div className="App-Style-Village">Test village (489|489) K44</div>
+              <ResourceDisplay />
+            </div>
+            <div className="HeaderAndQueue">
+              <BuildingHeader />
+              <Queue />
+            </div>
             <BuildingPage />
           </div>
         </Route>
@@ -64,7 +63,7 @@ function App() {
 
       </Switch>
       <div className="Sidebar-Right">
-        
+
         {`        
 All
 250 Spear fighters

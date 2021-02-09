@@ -2,7 +2,8 @@
   font-family: "Verdana", Courier, monospace;
   font-size: 12px;
   flex-direction: column;
-  background-color: #dacc9e;
+  /* background-color: #dacc9e; */
+  background-color: #dfd9d1;
   display: grid;
   grid-template-columns: minmax(100px, 150px) 1fr minmax(100px, 150px);
   /* grid-auto-rows: minmax(min-content, 30px) auto; */
@@ -49,7 +50,7 @@
 .Sidebar-Left > a {
   font-weight: 700;
   text-decoration: none;
-  color: rgb(96, 48, 0);
+  color: #865f44
 }
 .Sidebar-Left > a:hover {
   text-decoration: underline;
@@ -77,4 +78,17 @@
   /* margin-left: 5px; */
   white-space: nowrap;
   white-space: pre;
+}
+
+.link {
+  font-weight: 700;
+  text-decoration: none;
+  color: #865f44
+  /* color: rgb(96, 48, 0); */
+}
+
+.HeaderAndQueue {
+  /* background-color: rgba(145, 62, 62, 0.479); */
+  display: grid;
+  grid-template-columns: 1fr min-content;
 }

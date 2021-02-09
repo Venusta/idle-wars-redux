@@ -1,0 +1,10 @@
+.button-style {
+  outline: none;
+  font-weight: bold;
+  color: rgb(197, 167, 107);
+  padding: 3px;
+  min-width: 95px;
+  border: solid 1px #c5a76b;
+  border-radius: 5px;
+  background-color: #eed299;
+}

@@ -13,6 +13,7 @@ import { selectBuildingLevel } from '../../selectors/selectBuildingLevel';
 import { enqueue } from '../../slices/queue';
 import { startBuildSomething } from '../../slices/towns';
 import { Dispatch } from '@reduxjs/toolkit';
+import { InactiveButton } from '../Buttons/InactiveButton';
 
 // TODO this is actually HQ
 
@@ -96,6 +97,12 @@ export const BuildingPage = () => {
     <div className="building-grid-item inactive">{text}</div>
   )
 
+  const InactiveBut = ({ text }: { text: string }) => (
+    <div className="building-grid-item third-column">
+      <InactiveButton text={text} />
+    </div>
+  )
+
   const HeaderElement = ({ text }: { text: string }) => (
     <div className="building-header">{text}</div>
   )
@@ -127,11 +134,11 @@ export const BuildingPage = () => {
 
       <BuildingInfo buildingId={BuildingId.Stable} level={7} />
       <BuildingRequirements buildingId={BuildingId.Stable} />
-      <InactiveElement text="Queue is currently full" />
+      <InactiveElement text="Queue full" />
 
       <BuildingInfo buildingId={BuildingId.IronMine} level={15} />
       <BuildingRequirements buildingId={BuildingId.IronMine} />
-      <InactiveElement text="Resources available in 0:00:09" />
+      <InactiveBut text="0:00:09" />
 
     </div>
   )

@@ -6,8 +6,6 @@ interface ButtonProps {
   handleClick: () => void;
 };
 
-export const ConstructButton = ({ text, handleClick }: ButtonProps) => {
-  return (
-    <button type="button" onClick={() => handleClick()} className="button-style">{text}</button>
-  )
-};
+export const ConstructButton = ({ text, handleClick }: ButtonProps) =>
+  <button type="button" onClick={() => handleClick()} className="button-style">{text}</button>
+
