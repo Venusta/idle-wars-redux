@@ -7,10 +7,12 @@ import { Headquarters } from './app/components/Headquarters';
 import { Queue } from './app/components/Queue';
 import { ResourceDisplay } from './app/components/ResourceDisplay/ResourceDisplay';
 import { updateQueue } from './app/game/queue';
-import { handleResourceGeneration } from './app/game/resources/generation';
 import { store } from './app/store';
+import { incrementAllTownsResources } from './app/slices/towns';
+import { useDispatch } from 'react-redux';
 
 function App() {
+  const dispatch = useDispatch()
   const towns = store.getState().towns;
   const townLinks = Object.entries(towns).map(([id, town]) => {
     return (<Link key={id} to={`/town/${id}/headquarters`}>{town.name}</Link>)
@@ -19,9 +21,9 @@ function App() {
   useEffect(() => {
     const x = setInterval(() => {
       updateQueue(); // not this
-      handleResourceGeneration(); // not this
+      dispatch(incrementAllTownsResources()); // not this
       console.log("Updated");      
-    }, 10000);
+    }, 1000);
     return () => {
       clearInterval(x);
     }

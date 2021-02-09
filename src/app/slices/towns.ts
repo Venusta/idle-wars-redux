@@ -1,18 +1,24 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { Cost, Resources, Towns } from "../../types/types";
+import { BuildingCost, Resources, TownsInterface } from "../../types/types";
 import { baseBuildings } from "../game/buildings";
 import { BuildingId, UnitId } from "../game/constants";
 import { isResourceId } from "../game/utility";
+import { ResourceBuilding } from "../game/model/resourceBuilding";
 
 
 const testTown = {
-  // id
+  id: "0",
   // coords
   name: "Test village",
   resources: {
     timber: 500,
     clay: 500,
     iron: 500,
+  },
+  rps: {
+    timber: 0,
+    clay: 0,
+    iron: 0,
   },
   population: 400,
   maxPopulation: 900,
@@ -46,7 +52,7 @@ const testTown = {
     [BuildingId.IronMine]: {
       id: BuildingId.IronMine,
       level: 23,
-      queuedLevel: 23,
+      queuedLevel: 23,ayay
     },
     [BuildingId.Headquarters]: {
       id: BuildingId.Headquarters,
@@ -63,15 +69,46 @@ const testTown = {
       level: 0,
       queuedLevel: 0,
     },
+    [BuildingId.Farm]: {
+      id: BuildingId.Farm,
+      level: 0,
+      queuedLevel: 0
+    },
+    [BuildingId.Warehouse]: {
+      id: BuildingId.Warehouse,
+      level: 0,
+      queuedLevel: 0
+    }
   },
 }
 
-const initialState: Towns = {
+const startingRps = (towns: TownsInterface): TownsInterface => {
+  const newTowns = { ...towns }
+  Object.entries(newTowns).forEach(([townId, town]) => {
+    Object.values(town.buildings).forEach(({ id, level }) => {
+      const buildingData = baseBuildings[id];
+
+      if (buildingData instanceof ResourceBuilding) {
+        const newResourcesPerSecond = buildingData.getResourceGeneration(level);
+        buildingData.creates.forEach((resource) => {
+          town.rps[resource] += newResourcesPerSecond;
+          console.log(`Adding: ${newResourcesPerSecond}`);
+          console.log(`${resource} is now ${town.rps[resource]} per second`);
+        });
+      };
+
+    })
+  })
+  return newTowns;
+}
+
+const initialState: TownsInterface = {
   "0": testTown,
-  // "1": {
-  //   ...testTown,
-  //   name: "Kora sucks",
-  // }
+  "1": {
+    ...testTown,
+    id: "1",
+    name: "Kora sucks",
+  }
 };
 
 
@@ -91,7 +128,7 @@ interface StartBuildSomethingPayload {
 
 export const townSlice = createSlice({
   name: "town",
-  initialState,
+  initialState: startingRps(initialState),
   reducers: {
     createTown: (state, { payload }: { payload: any }) => {
     },
@@ -101,6 +138,19 @@ export const townSlice = createSlice({
       for (const [k, v] of Object.entries(resources)) {
         if (isResourceId(k)) town.resources[k] += v;
       }
+    },
+
+    incrementAllTownsResources: (towns) => {
+      Object.entries(towns).forEach(([townId, town]) => {
+        Object.values(town.buildings).forEach((building) => {
+          const buildingData = baseBuildings[building.id];
+          if (buildingData instanceof ResourceBuilding) {
+            buildingData.creates.forEach((resource) => {
+              towns[townId].resources[resource] += towns[townId].rps[resource];
+            });
+          };
+        });
+      })
     },
 
     removeResources: (towns, { payload: { townId, resources } }: ChangeResourcesPayload) => {
@@ -115,9 +165,20 @@ export const townSlice = createSlice({
       town.population += value;
     },
 
-    incrementActualBuildingLevel: (towns, { payload: { townId, buildingId } }: { payload: { townId: string, buildingId: BuildingId } }) => {
+    finishConstruction: (towns, { payload: { townId, buildingId } }: { payload: { townId: string, buildingId: BuildingId } }) => {
       const town = towns[townId];
-      town.buildings[buildingId].level += 1;
+      const buildingData = baseBuildings[buildingId];
+      const building = town.buildings[buildingId]
+
+      if (buildingData instanceof ResourceBuilding) {
+        const newResourcesPerSecond = buildingData.getResourceGeneration(building.level + 1);
+        const oldResourcesPerSecond = buildingData.getResourceGeneration(building.level);
+        buildingData.creates.forEach((resource) => {
+          town.rps[resource] += (newResourcesPerSecond - oldResourcesPerSecond);
+        });
+      };
+
+      building.level += 1;
     },
 
     incrementQueuedBuildingLevel: (towns, { payload: { townId, buildingId } }: { payload: { townId: string, buildingId: BuildingId } }) => {
@@ -128,7 +189,7 @@ export const townSlice = createSlice({
     startBuildSomething: (towns, { payload: { townId, buildingId } }: StartBuildSomethingPayload) => {
       const town = towns[townId];
       const building = town.buildings[buildingId]
-      const cost: Cost = baseBuildings[buildingId].getCost(building.queuedLevel);
+      const cost: BuildingCost = baseBuildings[buildingId].getCost(building.queuedLevel);
 
       // Check if there is enough resources + population
       // Check if any building/research requirements are met
@@ -148,7 +209,8 @@ export const {
   addResources,
   removeResources,
   increasePopulation,
-  incrementActualBuildingLevel,
+  finishConstruction,
   incrementQueuedBuildingLevel,
   startBuildSomething,
+  incrementAllTownsResources,
 } = townSlice.actions;

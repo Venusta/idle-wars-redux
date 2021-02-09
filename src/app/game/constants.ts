@@ -3,7 +3,7 @@ export const CLAY = 1;
 export const IRON = 2;
 export const POPULATION = 3;
 
-export const WorldSpeed = 100;
+export const WorldSpeed = 1;
 
 export enum BuildingId {
   Headquarters = "headquarters",
@@ -12,16 +12,8 @@ export enum BuildingId {
   IronMine = "ironmine",
   Barracks = "barracks",
   Stable = "stable",
-  // Workshop = "workshop",
-  // Academy =  "academy",
-  // Smithy = "smithy",
-  // RallyPoint = "rally",
-  // Statue = "statue",
-  // Market = "market",
-  // Farm  = "farm",
-  // Warehouse = "warehouse",
-  // HidingPlace = "hiding",
-  // Wall = "wall"
+  Warehouse = "warehouse",
+  Farm = "farm",
 }
 
 export enum UnitId {

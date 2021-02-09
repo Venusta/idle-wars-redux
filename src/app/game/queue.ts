@@ -2,7 +2,7 @@ import { Dispatch } from "@reduxjs/toolkit";
 import { batch } from "react-redux";
 import { store } from "../../app/store";
 import { pop } from "../slices/queue";
-import { incrementActualBuildingLevel } from "../slices/towns";
+import { finishConstruction } from "../slices/towns";
 import { BuildingId } from "./constants";
 import { isBuildingId } from "./utility";
 
@@ -10,7 +10,7 @@ const levelBuildingAndRemoveFromQueue = (townId: string, buildingWithQueue: Buil
   return (dispatch: Dispatch<any>) => {
     batch(() => {
       dispatch(pop({ townId, buildingId: buildingWithQueue }));
-      dispatch(incrementActualBuildingLevel({ townId, buildingId: queuedBuilding }));
+      dispatch(finishConstruction({ townId, buildingId: queuedBuilding }));
     })
   }
 };

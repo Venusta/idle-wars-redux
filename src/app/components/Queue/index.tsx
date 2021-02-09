@@ -5,12 +5,14 @@ import { BuildingId } from '../../game/constants';
 import { isBuildingId } from '../../game/utility';
 import { RootState } from '../../store';
 import Style from "./style.module.css";
+import { useParams } from 'react-router-dom';
 
 
 export const Queue = () => {
+  const { townId } = useParams<{ townId: string }>();
+
   const queue = useSelector((state: RootState) => state.queue)
 
-  const townId = "0";
   const buildingId = BuildingId.Headquarters;
 
   const buildingQueue = queue[townId][buildingId]

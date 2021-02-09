@@ -1,10 +1,10 @@
-import { Cost } from "../../../types/types";
+import { UnitCost, ResearchCost } from "../../../types/types";
 import { UnitId } from "../constants";
 
 interface UnitProps {
   id: UnitId;
   name: string;
-  cost: Cost;
+  cost: UnitCost;
   buildTime: number;
   speed: number;
   atkType: number;
@@ -13,14 +13,14 @@ interface UnitProps {
   defCav: number;
   defArc: number;
   carries: number;
-  researchCost?: Cost;
+  researchCost?: ResearchCost;
   requirements?: any;
 }
 
 export class Unit {
   id: UnitId;
   name: string;
-  cost: Cost;
+  cost: UnitCost;
   buildTime: number;
   speed: number;
   atkType: number;
@@ -29,7 +29,7 @@ export class Unit {
   defCav: number;
   defArc: number;
   carries: number;
-  researchCost?: Cost;
+  researchCost?: ResearchCost;
   requirements?: any;
 
   constructor({ id, name, cost, buildTime, speed, atkType, atk, def, defCav, defArc, carries, researchCost, requirements }: UnitProps) {

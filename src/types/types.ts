@@ -12,9 +12,18 @@ export interface Resources {
   iron: number;
 }
 
-export interface Cost {
+export interface BuildingCost {
   resources: Resources;
-  population?: number;
+  population: number;
+}
+
+export interface UnitCost {
+  resources: Resources;
+  population: number;
+}
+
+export interface ResearchCost {
+  resources: Resources;
 }
 
 export type BuildingList = {
@@ -29,13 +38,15 @@ export type UnitList = {
   [id in UnitId]?: { town: number, total: number };
 }
 
-export interface Towns {
-  [id: string]: Town;
+export interface TownsInterface {
+  [id: string]: TownInterface;
 }
 
-export interface Town {
+export interface TownInterface {
+  id: string;
   name: string;
   resources: Resources;
+  rps: Resources;
   population: number;
   maxPopulation: number;
   storageCapacity: number;
@@ -59,7 +70,7 @@ export interface BuildingProps {
   id: BuildingId;
   name: string;
   description: string;
-  cost: Cost;
+  cost: BuildingCost;
   maxLevel: number;
   buildTime: number;
   requirements?: any;
