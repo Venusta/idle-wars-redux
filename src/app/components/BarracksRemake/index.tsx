@@ -2,7 +2,7 @@
 import React from 'react'
 import { selectTown } from '../../selectors';
 import { useParams, Link } from "react-router-dom";
-import { useSelector } from 'react-redux';
+import { batch, useDispatch, useSelector } from 'react-redux';
 import { baseBuildings } from '../../game/buildings';
 import { BuildingId } from '../../game/constants';
 import { RootState } from '../../store';
@@ -10,6 +10,9 @@ import { BuildingResourceDisplay } from '../BuildingResourceDisplay/Requirements
 import { ConstructButton } from '../Buttons';
 import "./style.css";
 import { selectBuildingLevel } from '../../selectors/selectBuildingLevel';
+import { enqueue } from '../../slices/queue';
+import { startBuildSomething } from '../../slices/towns';
+import { Dispatch } from '@reduxjs/toolkit';
 
 // TODO this is actually HQ
 
@@ -26,14 +29,33 @@ export const BuildingHeader = () => { // TODO new file
   );
 };
 
+
+
 export const BuildingPage = () => {
+  const dispatch = useDispatch();
+
   const { townId } = useParams<{ townId: string }>();
   const town = useSelector((state: RootState) => selectTown(state, townId))
 
-  const levelUp = (id: BuildingId) => {
-    console.log("yeet " + id);
+  const levelUp = (buildingId: BuildingId) => {
+    const { queuedLevel } = town.buildings[buildingId]
+    const headquarterLevel = town.buildings[BuildingId.Headquarters].level
+
+    const building = baseBuildings[buildingId];
+
+    const constructionTime = building.getBuildTime(queuedLevel, headquarterLevel);
+
+    startConstruction(townId, buildingId, constructionTime);
+
+    console.log("yeet "+townId+" - " + buildingId+" - "+constructionTime);
     // TODO dispatch level up queue shit blah
-  }
+  };
+
+  const startConstruction = (townId: string, buildingId: BuildingId, constructionTime: number) => {
+    dispatch(startBuildSomething({ townId, buildingId }));
+    // TODO un-hardcode
+    dispatch(enqueue({ townId, buildingId: BuildingId.Headquarters, item: buildingId, duration: constructionTime }));
+  };
 
   const BuildingInfo = ({ buildingId, level = 0 }: { buildingId: BuildingId, level: number }) => {
     const { name } = baseBuildings[buildingId]

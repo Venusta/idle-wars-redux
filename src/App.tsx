@@ -51,6 +51,8 @@ function App() {
             <div className="App-Style-Village">Test village (489|489) K44</div>
             <ResourceDisplay />
           </div>
+                <Queue />
+
             <BuildingHeader />
             <BuildingPage />
           </div>
