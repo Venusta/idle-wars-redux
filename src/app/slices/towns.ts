@@ -52,7 +52,7 @@ const testTown = {
     [BuildingId.IronMine]: {
       id: BuildingId.IronMine,
       level: 23,
-      queuedLevel: 23,ayay
+      queuedLevel: 23,
     },
     [BuildingId.Headquarters]: {
       id: BuildingId.Headquarters,
