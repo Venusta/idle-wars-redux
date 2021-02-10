@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { baseBuildings } from '../../game/buildings';
-import { BuildingId } from '../../game/constants';
 import { isBuildingId } from '../../game/utility';
 import { RootState } from '../../store';
 import Style from "./style.module.css";
 import { useParams } from 'react-router-dom';
+import { BuildingQueueId } from '../../game/constants';
 
 
 export const Queue = () => {
@@ -13,9 +13,9 @@ export const Queue = () => {
 
   const queue = useSelector((state: RootState) => state.queue)
 
-  const buildingId = BuildingId.Headquarters;
+  const buildingQueueId = BuildingQueueId.Headquarters;
 
-  const buildingQueue = queue[townId][buildingId]
+  const buildingQueue = queue[townId][buildingQueueId]
 
   const [date, setDate] = useState(Date.now());
 

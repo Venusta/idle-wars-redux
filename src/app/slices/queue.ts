@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { BuildingId } from "../game/constants";
+import { BuildingId, BuildingQueueId } from "../game/constants";
 
-interface QueueItem {
+export interface QueueItem {
   item: string;
   duration: number;
   completionTime: number;
@@ -16,13 +16,13 @@ interface QueueItem {
 
 export interface Queue {
   [key: string]: {
-    [id in BuildingId]?: Array<QueueItem>
+    [id in BuildingQueueId]: Array<QueueItem>
   }
 }
 
 const initialState: Queue = {
   "0": {
-    [BuildingId.Headquarters]: [
+    [BuildingQueueId.Headquarters]: [
       // { 
       //   item: 0,
       //   duration: 600,
@@ -38,7 +38,7 @@ const initialState: Queue = {
     ],
   },
   "1": {
-    [BuildingId.Headquarters]: [],
+    [BuildingQueueId.Headquarters]: [],
   },
   // "22": {
   //   [BuildingId.Barracks]: [
@@ -78,7 +78,7 @@ const initialState: Queue = {
 interface QueuePayload {
   payload: {
     townId: string;
-    buildingId: BuildingId;
+    buildingId: BuildingQueueId;
     item: string;
     duration: number;
     amount?: number;
@@ -88,7 +88,7 @@ interface QueuePayload {
 interface PopPayload {
   payload: {
     townId: string;
-    buildingId: BuildingId;
+    buildingId: BuildingQueueId;
   }
 }
 

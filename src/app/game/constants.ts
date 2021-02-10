@@ -1,9 +1,5 @@
-export const TIMBER = 0;
-export const CLAY = 1;
-export const IRON = 2;
-export const POPULATION = 3;
-
 export const WorldSpeed = 1;
+export const HeadquartersQueueSlots = 5;
 
 export enum BuildingId {
   Headquarters = "headquarters",
@@ -16,10 +12,17 @@ export enum BuildingId {
   Farm = "farm",
 }
 
+export enum BuildingQueueId {
+  Headquarters = BuildingId.Headquarters,
+}
+
 export enum UnitId {
-  SpearFighter = "spear",
-  Swordsman = "sword",
-  Axeman = "axe",
+  SpearFighter = "spearfighter",
+  Swordsman = "swordsman",
+  Axeman = "axeman",
+  Archer = "archer",
+  Scout = "scout",
+  LightCavalry = "lightcavalry",
 }
 
 export enum ResourceId {

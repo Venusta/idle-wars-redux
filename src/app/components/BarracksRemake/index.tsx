@@ -4,7 +4,7 @@ import { selectTown } from '../../selectors';
 import { useParams, Link } from "react-router-dom";
 import { batch, useDispatch, useSelector } from 'react-redux';
 import { baseBuildings } from '../../game/buildings';
-import { BuildingId } from '../../game/constants';
+import { BuildingId, BuildingQueueId, HeadquartersQueueSlots } from '../../game/constants';
 import { RootState } from '../../store';
 import { BuildingResourceDisplay } from '../BuildingResourceDisplay/Requirements';
 import { ConstructButton } from '../Buttons';
@@ -14,6 +14,7 @@ import { enqueue } from '../../slices/queue';
 import { startBuildSomething } from '../../slices/towns';
 import { Dispatch } from '@reduxjs/toolkit';
 import { InactiveButton } from '../Buttons/InactiveButton';
+import { selectBuildingQueue } from '../../selectors/selectBuildingQueue';
 
 // TODO this is actually HQ
 
@@ -48,14 +49,14 @@ export const BuildingPage = () => {
 
     startConstruction(townId, buildingId, constructionTime);
 
-    console.log("yeet "+townId+" - " + buildingId+" - "+constructionTime);
+    console.log("yeet " + townId + " - " + buildingId + " - " + constructionTime);
     // TODO dispatch level up queue shit blah
   };
 
   const startConstruction = (townId: string, buildingId: BuildingId, constructionTime: number) => {
     dispatch(startBuildSomething({ townId, buildingId }));
     // TODO un-hardcode
-    dispatch(enqueue({ townId, buildingId: BuildingId.Headquarters, item: buildingId, duration: constructionTime }));
+    dispatch(enqueue({ townId, buildingId: BuildingQueueId.Headquarters, item: buildingId, duration: constructionTime }));
   };
 
   const BuildingInfo = ({ buildingId, level = 0 }: { buildingId: BuildingId, level: number }) => {
@@ -108,7 +109,32 @@ export const BuildingPage = () => {
   )
 
   const BuildingRow = ({ buildingId }: { buildingId: BuildingId }) => {
+    // const { buildingId } = useParams<{ buildingId: BuildingQueueId }>();
+
+
+    const queue = useSelector((state: RootState) => selectBuildingQueue(state, townId, BuildingQueueId.Headquarters))
     const { level, queuedLevel } = town.buildings[buildingId]
+    const buildingData = baseBuildings[buildingId];
+
+    if (queuedLevel >= buildingData.maxLevel) {
+      return (
+        <>
+          <BuildingInfo buildingId={buildingId} level={level} />
+          <FullyElement />
+        </>
+      );
+    };
+
+    if (queue.length >= HeadquartersQueueSlots) {
+      return (
+        <>
+          <BuildingInfo buildingId={buildingId} level={level} />
+          <BuildingRequirements buildingId={buildingId} />
+          <InactiveBut text="Queue full" />
+        </>
+      );
+    };    
+
     return (
       <>
         <BuildingInfo buildingId={buildingId} level={level} />
@@ -139,6 +165,10 @@ export const BuildingPage = () => {
       <BuildingInfo buildingId={BuildingId.IronMine} level={15} />
       <BuildingRequirements buildingId={BuildingId.IronMine} />
       <InactiveBut text="0:00:09" />
+
+      <BuildingInfo buildingId={BuildingId.IronMine} level={15} />
+      <BuildingRequirements buildingId={BuildingId.IronMine} />
+      <InactiveBut text="Queue full" />
 
     </div>
   )

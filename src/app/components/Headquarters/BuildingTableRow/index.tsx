@@ -2,7 +2,7 @@ import { Dispatch } from '@reduxjs/toolkit';
 import React from 'react';
 import { useDispatch, useSelector, useStore, batch } from 'react-redux';
 import { baseBuildings } from '../../../game/buildings';
-import { BuildingId } from '../../../game/constants';
+import { BuildingId, BuildingQueueId } from '../../../game/constants';
 import { selectTown } from '../../../selectors';
 import { enqueue } from '../../../slices/queue';
 import { startBuildSomething } from "../../../slices/towns"
@@ -51,7 +51,7 @@ export const BuildingTableRow: React.FC<BuildingTableRowProps> = ({ level, queue
     return (dispatch: Dispatch<any>) => {
       batch(() => {
         dispatch(startBuildSomething({ townId, buildingId }));
-        dispatch(enqueue({ townId, buildingId: BuildingId.Headquarters, item: buildingId, duration: constructionTime }));
+        dispatch(enqueue({ townId, buildingId: BuildingQueueId.Headquarters, item: buildingId, duration: constructionTime }));
       })
     }
   };
@@ -59,7 +59,7 @@ export const BuildingTableRow: React.FC<BuildingTableRowProps> = ({ level, queue
   const startConstruction = (townId: string, buildingId: BuildingId, constructionTime: number) => {
     dispatch(startBuildSomething({ townId, buildingId }));
     // TODO un-hardcode
-    dispatch(enqueue({ townId, buildingId: BuildingId.Headquarters, item: buildingId, duration: constructionTime }));
+    dispatch(enqueue({ townId, buildingId: BuildingQueueId.Headquarters, item: buildingId, duration: constructionTime }));
   };
 
   const enoughResource = (buildingResource: number, townResource: number): string => {

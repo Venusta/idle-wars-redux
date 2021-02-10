@@ -1,4 +1,4 @@
-import { BuildingId } from "../constants";
+import { BuildingId, UnitId } from "../constants";
 import { ProductionBuilding } from "../model/productionBuilding";
 
 export const stable = new ProductionBuilding({
@@ -15,10 +15,8 @@ export const stable = new ProductionBuilding({
   },
   maxLevel: 30,
   buildTime: 300,
-  creates: {
-    //light cavalry 
-    //mounted archer
-    //heavy cavalry
-    //scout
-  },
+  creates: [
+    UnitId.Scout,
+    UnitId.LightCavalry
+  ],
 })

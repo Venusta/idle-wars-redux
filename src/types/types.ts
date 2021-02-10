@@ -81,5 +81,5 @@ export interface ResourceBuildingProps extends BuildingProps {
 }
 
 export interface ProductionBuildingProps extends BuildingProps {
-  creates: ResourceGenProps;
+  creates: Array<UnitId | BuildingId>;
 }

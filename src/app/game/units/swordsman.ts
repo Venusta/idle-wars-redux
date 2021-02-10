@@ -13,7 +13,7 @@ export const swordsman = new Unit({
     population: 1
   },
   buildTime: 500,
-  speed: 7.333,
+  speed: 22,
   atkType: 0,
   atk: 25,
   def: 50,

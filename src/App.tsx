@@ -22,13 +22,33 @@ function App() {
     const x = setInterval(() => {
       updateQueue(); // not this
       dispatch(incrementAllTownsResources()); // not this
-      console.log("Updated");      
+      console.log("Updated");
     }, 1000);
     return () => {
       clearInterval(x);
     }
   }, []);
   console.log("PLEASE DON'T RE-RENDER");
+
+
+  const ExampleButton = ({ className, inner }: { className: string, inner: string }) => {
+    return <div className={className}>{inner}</div>
+  }
+
+  const ProgressBar2 = (props: { percent: number; }) => {
+    const { percent } = props;
+
+    const fillerStyles = {
+      width: `${percent}%`,
+    }
+
+    return (
+      <div className="container-2">
+        {/* <div>Headquarters (Lvl 21)</div> */}
+        <div style={fillerStyles} className="filler-styles-2" ></div>
+      </div>
+    );
+  };
 
   return (
     <div className="App">
@@ -51,11 +71,51 @@ function App() {
               <div className="App-Style-Village">Test village (489|489) K44</div>
               <ResourceDisplay />
             </div>
+            <div className="neu-test">
+              {/* <ExampleButton className="neu-both neu-inner" inner="Level 21" />
+              <ExampleButton className="neu-both neu-inner2" inner="0:00:09" />
+              <ExampleButton className="neu-both neu-inner" inner="Level 15" />
+              <ExampleButton className="neu-both neu-inner2" inner="0:01:09" />
+              <ExampleButton className="neu-both neu-inner2" inner="2:04:09" /> */}
+              <ExampleButton className="neu-both neu-inner3" inner="2:04:09" />
+              <ExampleButton className="neu-both neu-inner3" inner="Level 15" />
+              <ExampleButton className="neu-both neu-inner3" inner="2:04:09" />
+            </div>
+            <div className="neu-test">
+              <div className="grid-test">
+                <div className="grid-cell">testaaaaaaaaa</div>
+                <div className="grid-cell">test</div>
+                <ExampleButton className="neu-both neu-inner" inner="Level 5" />
+                <div className="grid-cell">test</div>
+                <div className="grid-cell">test</div>
+                <ExampleButton className="neu-both neu-inner" inner="Level 3" />
+                <div className="grid-cell">test</div>
+                <div className="grid-cell">test</div>
+                <ExampleButton className="neu-both neu-inner2" inner="2:04:09" />
+                <div className="grid-cell">test</div>
+                <div className="grid-cell">test</div>
+                <ExampleButton className="neu-both neu-inner2" inner="2:04:09" />
+                <div className="grid-cell">test</div>
+                <div className="grid-cell">test</div>
+                <ExampleButton className="neu-both neu-inner" inner="Level 15" />
+                <div className="grid-cell">test</div>
+                <div className="grid-cell">test</div>
+
+                <ExampleButton className="neu-both neu-inner2" inner="2:04:09" />
+                <div className="grid-cell">test</div>
+                <div className="grid-cell">test</div>
+                <ExampleButton className="neu-both neu-inner" inner="Level 5" />
+                <div className="grid-cell">test</div>
+                <div className="grid-cell">test</div>
+                <ExampleButton className="neu-both neu-inner2" inner="2:04:09" />
+
+              </div>
+            </div>
             <div className="HeaderAndQueue">
               <BuildingHeader />
-              <Queue />
             </div>
             <BuildingPage />
+            <Queue />
           </div>
         </Route>
 
@@ -65,7 +125,42 @@ function App() {
 
       </Switch>
       <div className="Sidebar-Right">
-
+        <div className="idks">Headquarters (Lvl 21)</div>
+        <ProgressBar2 percent={80} ></ProgressBar2>
+        <div className="idks">Timbercamp (Lvl 21)</div>
+        <ProgressBar2 percent={20} ></ProgressBar2>
+        <div className="idks">Headquarters (Lvl 21)</div>
+        <ProgressBar2 percent={60} ></ProgressBar2>
+        <div className="idks">Timbercamp (Lvl 21)</div>
+        <ProgressBar2 percent={30} ></ProgressBar2>
+        <div className="idks">Headquarters (Lvl 21)</div>
+        <ProgressBar2 percent={10} ></ProgressBar2>
+        <div className="idks">Timbercamp (Lvl 21)</div>
+        <ProgressBar2 percent={80} ></ProgressBar2>
+        <div className="idks">Headquarters (Lvl 21)</div>
+        <ProgressBar2 percent={80} ></ProgressBar2>
+        <div className="idks">Timbercamp (Lvl 21)</div>
+        <ProgressBar2 percent={80} ></ProgressBar2>
+        <div className="idks">Headquarters (Lvl 21)</div>
+        <ProgressBar2 percent={40} ></ProgressBar2>
+        <div className="idks">Timbercamp (Lvl 21)</div>
+        <ProgressBar2 percent={50} ></ProgressBar2>
+        <div className="idks">Headquarters (Lvl 21)</div>
+        <ProgressBar2 percent={80} ></ProgressBar2>
+        <div className="idks">Timbercamp (Lvl 21)</div>
+        <ProgressBar2 percent={90} ></ProgressBar2>
+        <div className="idks">Headquarters (Lvl 21)</div>
+        <ProgressBar2 percent={80} ></ProgressBar2>
+        <div className="idks">Timbercamp (Lvl 21)</div>
+        <ProgressBar2 percent={20} ></ProgressBar2>
+        <div className="idks">Headquarters (Lvl 21)</div>
+        <ProgressBar2 percent={30} ></ProgressBar2>
+        <div className="idks">Timbercamp (Lvl 21)</div>
+        <ProgressBar2 percent={60} ></ProgressBar2>
+        <div className="idks">Headquarters (Lvl 21)</div>
+        <ProgressBar2 percent={30} ></ProgressBar2>
+        <div className="idks">Timbercamp (Lvl 21)</div>
+        <ProgressBar2 percent={80} ></ProgressBar2>
         {`        
 All
 250 Spear fighters

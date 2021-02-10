@@ -1,10 +1,11 @@
-import { BuildingId } from "../game/constants";
-import { Queue } from "../slices/queue";
+import { BuildingQueueId } from "../game/constants";
+import { QueueItem } from "../slices/queue";
 import { RootState } from "../store";
 
 /**
- * Selects the Town from state based on id
+ * Selects the Building from state based on id
  * @param state RootState
- * @param townId town id
+ * @param townId Building id
+ * @param buildingId: BuildingQueueId
  */
-// export const selectTownQueue = (state: RootState, townId: string, buildingId: BuildingId): Queue => (state.queue[townId][buildingId]);
+export const selectBuildingQueue = (state: RootState, townId: string, buildingId: BuildingQueueId): QueueItem[] => (state.queue[townId][buildingId]);

@@ -15,10 +15,14 @@ export const headquarters = new ProductionBuilding({
   },
   maxLevel: 30,
   buildTime: 300,
-  creates: {
-    //light cavalry 
-    //mounted archer
-    //heavy cavalry
-    //scout
-  },
+  creates: [
+    BuildingId.Headquarters,
+    BuildingId.TimberCamp,
+    BuildingId.ClayPit,
+    BuildingId.IronMine,
+    BuildingId.Barracks,
+    BuildingId.Stable,
+    BuildingId.Warehouse,
+    BuildingId.Farm
+  ],
 });
