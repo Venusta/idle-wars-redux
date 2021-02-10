@@ -5,17 +5,20 @@ import { BuildingId } from "../../game/constants";
 import "./style.css";
 
 interface Props {
-  buildingId: BuildingId
+  buildingId: BuildingId;
+  queuedLevel: number;
+  headquarterLevel: number;
 }
 
-export const BuildingResourceDisplay = ({ buildingId }: Props) => {
-  const cost = baseBuildings[buildingId].getCost(20);
+export const BuildingResourceDisplay = ({ buildingId, queuedLevel, headquarterLevel }: Props) => {
+  const buildingData = baseBuildings[buildingId];
+  const cost = buildingData.getCost(queuedLevel);
   const amount = 1;
   const timber = cost.resources.timber * amount;
   const clay = cost.resources.clay * amount;
   const iron = cost.resources.iron * amount;
   const pop = ((cost.population ?? 0) * amount);
-  const time = "0:03:22" // convert seconds to timestamp
+  const time = new Date(buildingData.getBuildTime(queuedLevel, headquarterLevel) * 1000).toISOString().substr(11, 8);
 
   // todo move
   const SingleBuildingRequirements = ({ data, imgId }: { data: string | number, imgId: string }) => {

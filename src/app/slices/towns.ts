@@ -82,8 +82,8 @@ const testTown = {
   },
 }
 
-const startingRps = (towns: TownsInterface): TownsInterface => {
-  const newTowns = { ...towns }
+const startingRps = (towns: TownsInterface): TownsInterface => { // TODO fix this shit aids fuck cancer
+  const newTowns = { ...towns };
   Object.entries(newTowns).forEach(([townId, town]) => {
     Object.values(town.buildings).forEach(({ id, level }) => {
       const buildingData = baseBuildings[id];
@@ -91,9 +91,9 @@ const startingRps = (towns: TownsInterface): TownsInterface => {
       if (buildingData instanceof ResourceBuilding) {
         const newResourcesPerSecond = buildingData.getResourceGeneration(level);
         buildingData.creates.forEach((resource) => {
-          town.rps[resource] += newResourcesPerSecond;
+          newTowns[townId].rps[resource] += newResourcesPerSecond;
           console.log(`Adding: ${newResourcesPerSecond}`);
-          console.log(`${resource} is now ${town.rps[resource]} per second`);
+          console.log(`${resource} for ${townId} is now ${newTowns[townId].rps[resource]} per second`);
         });
       };
 
