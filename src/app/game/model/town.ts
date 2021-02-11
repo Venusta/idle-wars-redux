@@ -1,15 +1,16 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { TownInterface, Resources, ResearchList, UnitList, BuildingList, Building } from "../../../types/types";
+import { TownInterface, Resources, ResearchList, UnitList, BuildingList, Building, Army } from "../../../types/types";
 import { BuildingId, UnitId } from "../constants";
 import { baseBuildings } from "../buildings";
 import { ResourceBuilding } from "./resourceBuilding";
+import { isUnitId } from "../utility";
 
 const defaultResources = { timber: 0, clay: 0, iron: 0 };
 
-const defaultBuilding = (id: BuildingId, level = 0, queuedLevel = 0) => ({
+const defaultBuilding = (id: BuildingId, level = 0) => ({
   id,
   level,
-  queuedLevel,
+  queuedLevel: level,
 })
 
 export class Town {
@@ -24,12 +25,12 @@ export class Town {
   units: UnitList;
   buildings: BuildingList;
 
-  constructor({ id, name, resources = defaultResources, unlocked, units }: TownInterface) {
+  constructor({ id, name, resources = defaultResources }: TownInterface) {
     this.id = id
     this.name = name // todo random name
     this.resources = resources;
-    this.unlocked = unlocked;
-    this.units = units;
+    this.unlocked = this.defaultUnlocks();
+    this.units = {};
     this.buildings = this.defaultBuildings();
     this.rps = this.calculateResourcesPerSecond();
     this.population = this.getPopulation();
@@ -40,7 +41,17 @@ export class Town {
   private defaultUnlocks(): ResearchList {
     return {
       [UnitId.SpearFighter]: 1,
-      
+      [UnitId.Swordsman]: 1
+    }
+  }
+
+  public unlockUnits(units: UnitId | Array<UnitId>, researchLevel = 1): void {
+    if (Array.isArray(units)) {
+      for (const unit of units) {
+        this.unlocked[unit] = researchLevel;
+      }
+    } else {
+      this.unlocked[units] = researchLevel;
     }
   }
 
@@ -51,9 +62,37 @@ export class Town {
       [BuildingId.IronMine]: defaultBuilding(BuildingId.IronMine),
       [BuildingId.Barracks]: defaultBuilding(BuildingId.Barracks),
       [BuildingId.Stable]: defaultBuilding(BuildingId.Stable),
-      [BuildingId.Farm]: defaultBuilding(BuildingId.Farm),
-      [BuildingId.Warehouse]: defaultBuilding(BuildingId.Warehouse),
-      [BuildingId.Headquarters]: defaultBuilding(BuildingId.Headquarters),
+      [BuildingId.Farm]: defaultBuilding(BuildingId.Farm, 1),
+      [BuildingId.Warehouse]: defaultBuilding(BuildingId.Warehouse, 1),
+      [BuildingId.Headquarters]: defaultBuilding(BuildingId.Headquarters, 1),
+    }
+  }
+
+  public setBuildingLevel(id: BuildingId, level: number): void {
+    this.buildings[id].level = level;
+    this.buildings[id].queuedLevel = level;
+  }
+
+  public addArmy(army: Army): void { // todo fix this mess
+    for (const [unit, amount = 1] of  Object.entries(army)) {
+      // if(unit === undefined) return;
+      // if(this === undefined) return;
+      // if(this.units === undefined) return;
+      
+      if (isUnitId(unit)) {
+        if (this.units[unit] === undefined) {
+          // if undefined do this
+          this.units[unit] = {
+            total: amount,
+            town: amount,
+          }
+          // else  do this
+          // this.units[unit].total += amount ?? 0;
+
+        } else if (this.units[unit] !== undefined) {
+          // this.units[unit]
+        }
+      }
     }
   }
 

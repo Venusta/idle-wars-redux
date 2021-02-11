@@ -38,6 +38,10 @@ export type UnitList = {
   [id in UnitId]?: { town: number, total: number };
 }
 
+export type Army = {
+  [id in UnitId]?: number;
+}
+
 export interface TownsInterface {
   [id: string]: TownInterface;
 }

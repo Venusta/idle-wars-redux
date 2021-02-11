@@ -222,15 +222,3 @@
     -5px -5px 10px var(--shadow-light);
 }
 
-:root {
-  /* --main: #36393e;
-  --shadow-light: rgba(255, 255, 255, 0.05);
-  --shadow-dark: rgba(0, 0, 0, 0.56);
-  --text-colour: rgb(161, 167, 175); */
-  --main: #e6e7ee;
-  --shadow-dark: #b8b9be;
-  --shadow-light: #ffffff; 
-  --text-colour: rgb(40, 45, 51);
-
-  --border-prog: solid 1px rgba(0, 0, 0, 0.1);
-}
