@@ -5,8 +5,8 @@
   margin: 0px 5px;
   border: none;
   color: #a9acb5;
-  background-color: #4b4e4ed0;
+  background-color: var(--main);
   transform: translateY(1px);
-  box-shadow: inset 4px 4px 4px #2d3035, inset -4px -4px 4px #3d4247;
+  box-shadow: inset 3px 3px 3px var(--shadow-dark), inset -3px -3px 3px var(--shadow-light);
   border-radius: 5px;
 }

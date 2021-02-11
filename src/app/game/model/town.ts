@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { TownInterface, Resources, ResearchList, UnitList, BuildingList, Building } from "../../../types/types";
-import { BuildingId } from "../constants";
+import { BuildingId, UnitId } from "../constants";
 import { baseBuildings } from "../buildings";
 import { ResourceBuilding } from "./resourceBuilding";
 
@@ -36,6 +36,13 @@ export class Town {
     this.maxPopulation = this.calculateMaxPopulation();
     this.storageCapacity = this.calculateStorageCapacity();
   };
+
+  private defaultUnlocks(): ResearchList {
+    return {
+      [UnitId.SpearFighter]: 1,
+      
+    }
+  }
 
   private defaultBuildings(): BuildingList {
     return {
