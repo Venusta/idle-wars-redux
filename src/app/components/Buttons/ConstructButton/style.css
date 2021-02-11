@@ -1,37 +1,18 @@
 .button-style {
-  outline: none;
+  border: none;
   font-weight: bold;
-  color: azure;
   padding: 3px;
+  margin: 0px 5px;
   min-width: 95px;
-  background: rgb(107, 71, 36);
-  background: linear-gradient(
-    to bottom,
-    rgb(148, 122, 98) 0%,
-    rgb(123, 92, 61) 22%,
-    rgb(108, 72, 36) 30%,
-    rgb(108, 72, 36) 100%
-  );
-  border: solid 1px black;
-  border-radius: 5px;
   cursor: pointer;
-}
-
-.button-style:hover {
-  background: linear-gradient(
-    rgb(182, 148, 113) 0%,
-    rgb(159, 118, 77) 22%,
-    rgb(143, 97, 51) 30%,
-    rgb(108, 77, 45) 100%
-  );
+  color: #a9acb5;
+  background-color: #35393e;
+  box-shadow: 4px 4px 4px #2d3035, -4px -4px 4px #3d4247;
+  border-radius: 5px;
 }
 
 .button-style:active {
-  background: linear-gradient(
-    to bottom,
-    rgb(148, 122, 98) 0%,
-    rgb(123, 92, 61) 22%,
-    rgb(108, 72, 36) 30%,
-    rgb(108, 72, 36) 100%
-  );
+  background-color: #4b4e4ed0;
+  transform: translateY(1px);
+  box-shadow: inset 6px 6px 6px #191b1e81, inset -6px -6px 6px #4b515a81;
 }

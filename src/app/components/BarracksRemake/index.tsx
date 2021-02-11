@@ -152,36 +152,7 @@ export const BuildingPage = () => {
     );
   }
 
-  // const BuildThingy = () => (
-  //   <div className="building-build-wrapper">
-  //     <HeaderElement text="Buildings" />
-  //     <div className="building-header fuck">Requirements</div>
-  //     <HeaderElement text="Construct" />
-
-  //     <BuildingRow buildingId={BuildingId.Headquarters} />
-  //     <BuildingRow buildingId={BuildingId.TimberCamp} />
-  //     <BuildingRow buildingId={BuildingId.ClayPit} />
-  //     <BuildingRow buildingId={BuildingId.IronMine} />
-
-  //     <BuildingInfo buildingId={BuildingId.Barracks} level={4} />
-  //     <FullyElement />
-
-  //     <BuildingInfo buildingId={BuildingId.Stable} level={7} />
-  //     <BuildingRequirements buildingId={BuildingId.Stable} queuedLevel={7} headquarterLevel={headquarterLevel} />
-  //     <InactiveElement text="Queue full" />
-
-  //     <BuildingInfo buildingId={BuildingId.IronMine} level={15} />
-  //     <BuildingRequirements buildingId={BuildingId.IronMine} queuedLevel={15} headquarterLevel={headquarterLevel} />
-  //     <InactiveBut text="0:00:09" />
-
-  //     <BuildingInfo buildingId={BuildingId.IronMine} level={15} />
-  //     <BuildingRequirements buildingId={BuildingId.IronMine} queuedLevel={15} headquarterLevel={headquarterLevel} />
-  //     <InactiveBut text="Queue full" />
-
-  //   </div>
-  // )
-
-  const renderTable = () => {
+  const RenderTable = () => {
     const buildingData = baseBuildings[pageBuildingId];
     let tableRows;
 
@@ -191,7 +162,7 @@ export const BuildingPage = () => {
         if (isBuildingId(id)) {
           return <BuildingRow buildingId={id} />;
         };
-        return <div />; // TODO implement a different table row for units?
+        return <></>; // TODO implement a different table row for units?
       });
 
       return (
@@ -202,14 +173,13 @@ export const BuildingPage = () => {
           {tableRows}
         </div>
       )
-    };   
+    };  
+    return (<></>) 
   };
 
   return (
     <div className="building-container">
-      {/* <BuildingHeader buildingId={pageBuildingId} level={pageBuildingLevel} /> */}
-      {/* <BuildThingy /> */}
-      {renderTable()}
+      <RenderTable />
     </div>
   )
 }

@@ -3,7 +3,7 @@
   font-size: 12px;
   flex-direction: column;
   /* background-color: #dacc9e; */
-  background-color: #dfd9d1;
+  background-color: #35393e;
   display: grid;
   grid-template-columns: minmax(100px, 150px) 1fr minmax(100px, 150px);
   /* grid-auto-rows: minmax(min-content, 30px) auto; */
@@ -100,7 +100,8 @@
   align-items: center;
   justify-content: center;
   margin: 20px;
-  background: #f0eeef;
+  /* background-color: #f0eeef; */
+  background-color: #35393e;
   /* background-color: #35393e; */
   width: 600px;
   height: 600px;
@@ -137,13 +138,13 @@
 
 .neu-inner3 {
   background-color: #35393e;
-  box-shadow: 4px 4px 5px #191B1E81, -4px -4px 5px #3f454d81;
+  box-shadow: 4px 4px 5px #191b1e81, -4px -4px 5px #3f454d81;
   /* box-shadow: 4px 4px 5px #191B1E81, -4px -4px 5px rgba(255, 255, 255, 0.1); */
 }
 .neu-inner3:active {
   background-color: #4b4e4ed0;
   transform: translateY(1px);
-  box-shadow: inset 6px 6px 6px #191B1E81, inset -6px -6px 6px #4b515a81;
+  box-shadow: inset 6px 6px 6px #191b1e81, inset -6px -6px 6px #4b515a81;
 }
 
 .neu-inner:active {
@@ -189,4 +190,26 @@
 
 .idks {
   font-size: 10px;
+}
+
+.neu-prog-container {
+  margin: 30px;
+  border: solid 1px rgba(0, 0, 0, 0.1);
+  width: 200px;
+  height: 14px;
+  display: flex;
+  border-radius: 12px;
+  background-color: #35393e;
+  box-shadow: inset 5px 5px 10px #2d3035, inset -5px -5px 10px #3d4247;
+}
+
+.bar {
+  margin-left: 1px;
+  margin-right: 1px;
+  background-color: #7dd3d3;
+  width: 60%;
+  height: 12px;
+  border-radius: inherit;
+  /* background-color: #ffffff05; */
+  box-shadow: 5px 5px 10px #2d3035, -5px -5px 10px #3d4247;
 }

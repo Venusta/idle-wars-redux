@@ -1,10 +1,12 @@
 .button-style {
-  outline: none;
   font-weight: bold;
-  color: rgb(197, 167, 107);
   padding: 3px;
   min-width: 95px;
-  border: solid 1px #c5a76b;
+  margin: 0px 5px;
+  border: none;
+  color: #a9acb5;
+  background-color: #4b4e4ed0;
+  transform: translateY(1px);
+  box-shadow: inset 4px 4px 4px #2d3035, inset -4px -4px 4px #3d4247;
   border-radius: 5px;
-  background-color: #eed299;
 }
