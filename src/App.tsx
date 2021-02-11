@@ -18,16 +18,16 @@ function App() {
     return (<Link key={id} to={`/town/${id}/headquarters`}>{town.name}</Link>)
   });
 
-  useEffect(() => {
-    const x = setInterval(() => {
-      updateQueue(); // not this
-      dispatch(incrementAllTownsResources()); // not this
-      console.log("Updated");
-    }, 1000);
-    return () => {
-      clearInterval(x);
-    }
-  }, []);
+  // useEffect(() => {
+  //   const x = setInterval(() => {
+  //     updateQueue(); // not this
+  //     dispatch(incrementAllTownsResources()); // not this
+  //     console.log("Updated");
+  //   }, 1000);
+  //   return () => {
+  //     clearInterval(x);
+  //   }
+  // }, []);
   console.log("PLEASE DON'T RE-RENDER");
 
 
@@ -116,6 +116,15 @@ function App() {
             </div>
             <BuildingPage />
             <Queue />
+            <div className="neu-prog-container">
+              <div className="bar" style={{width: "80%"}}></div>
+            </div>
+            <div className="neu-prog-container">
+              <div className="bar" style={{width: "50%"}}></div>
+            </div>
+            <div className="neu-prog-container">
+              <div className="bar" style={{width: "30%"}}></div>
+            </div>
           </div>
         </Route>
 
