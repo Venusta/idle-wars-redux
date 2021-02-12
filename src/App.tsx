@@ -10,6 +10,7 @@ import { updateQueue } from './app/game/queue';
 import { store } from './app/store';
 import { incrementAllTownsResources } from './app/slices/towns';
 import { useDispatch } from 'react-redux';
+import { ResourceDisplay2 } from './app/components/ResourceDisplay2/ResourceDisplay2';
 
 function App() {
   const dispatch = useDispatch()
@@ -69,6 +70,7 @@ function App() {
           <div className="App-Main">
             <div className="App-Header">
               <div className="App-Style-Village">Test village (489|489) K44</div>
+              {/* <ResourceDisplay2 /> */}
               <ResourceDisplay />
             </div>
             <div className="neu-test">
@@ -113,17 +115,17 @@ function App() {
             </div>
             <div className="HeaderAndQueue">
               <BuildingHeader />
+              <Queue />
             </div>
             <BuildingPage />
-            <Queue />
             <div className="neu-prog-container">
-              <div className="bar" style={{width: "80%"}}></div>
+              <div className="bar" style={{ width: "80%" }}></div>
             </div>
             <div className="neu-prog-container">
-              <div className="bar" style={{width: "50%"}}></div>
+              <div className="bar" style={{ width: "50%" }}></div>
             </div>
             <div className="neu-prog-container">
-              <div className="bar" style={{width: "30%"}}></div>
+              <div className="bar" style={{ width: "30%" }}></div>
             </div>
           </div>
         </Route>
@@ -139,7 +141,7 @@ function App() {
         <div className="idks">Timbercamp (Lvl 21)</div>
         <ProgressBar2 percent={20} ></ProgressBar2>
         <div className="idks">Headquarters (Lvl 21)</div>
-        <ProgressBar2 percent={60} ></ProgressBar2>
+        <ProgressBar2 percent={100} ></ProgressBar2>
         <div className="idks">Timbercamp (Lvl 21)</div>
         <ProgressBar2 percent={30} ></ProgressBar2>
         <div className="idks">Headquarters (Lvl 21)</div>

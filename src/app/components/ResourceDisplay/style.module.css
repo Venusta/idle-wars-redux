@@ -2,25 +2,17 @@
   display: grid;
   grid-template-columns: repeat(5, auto);
   column-gap: 1px;
-  background-color: rgba(0, 0, 0, 0.05);
   border: solid rgba(0, 0, 0, 0.05) 1px;
-  /* -webkit-box-shadow: 2px 2px 4px 0px rgba(0, 0, 0, 0.5);
-  box-shadow: 2px 2px 4px 0px rgba(0, 0, 0, 0.5); */
   box-shadow: 3px 3px 6px var(--shadow-dark), -3px -3px 6px var(--shadow-light);
-
   justify-self: flex-end;
   align-self: flex-start;
-  /* border-radius: 5px; */
+  border-radius: 5px;
 }
 
 .inner {
-  /* border-radius: 5px; */
-
   display: flex;
   align-items: center;
   padding: 2px;
-  color: var(--text-colour);
-  background-color: var(--main);
 }
 
 .icon {

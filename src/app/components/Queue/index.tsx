@@ -44,7 +44,9 @@ export const Queue = () => {
             <div>{baseBuildings[item].name}</div>
             <div>{index === 0 ? formatDate(Math.max(completionTime - date, 0)) : formatDate(duration)}</div>
             <div>{new Date(completionTime).toISOString().substr(11, 8)}</div>
-            <div><button onClick={() => { }}>x</button></div>
+            <button type={"button"} className={Style.cancel} onClick={() => { }}>
+              <span>x</span>
+            </button>
           </>
         )
       } else {
@@ -59,7 +61,7 @@ export const Queue = () => {
       <div className={Style.header}>Construction</div>
       <div className={Style.header}>Duration</div>
       <div className={Style.header}>Completion</div>
-      <div className={Style.header}>x</div>
+      <div className={Style.header}></div>
       {renderQueue()}
     </div>
   )

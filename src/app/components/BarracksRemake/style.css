@@ -7,12 +7,8 @@
 }
 
 .building-title {
-  padding: 15px;
-  margin: 0px 10px;
+  margin: 10px 0px;
   color: var(--text-colour);
-
-  /* color: #a9acb5; */
-  /* background-color: var(--main); */
 }
 
 .building-title > h2 {
@@ -26,9 +22,6 @@
   row-gap: 2px;
   margin: 0 auto;
   background-color: var(--main);
-  /* box-shadow: 6px 6px 10px #191B1E81, -6px -6px 10px #3f454d81; */
-  /* box-shadow:  10px 10px 20px #2d3035,
-  -10px -10px 20px #3d4247; */
   box-shadow: var(--shadow-dark) 6px 6px 12px , var(--shadow-light) -6px -6px 12px ;
 
   border: solid rgba(0, 0, 0, 0.05) 1px;
@@ -97,7 +90,6 @@
   grid-column: 2/7;
   display: grid;
   grid-template-columns: subgrid;
-  /* background-color: #35368679; */
   column-gap: 2px;
 }
 
