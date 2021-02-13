@@ -41,12 +41,10 @@ export const Queue = () => {
       if (isBuildingId(item)) {
         return (
           <>
-            <div>{baseBuildings[item].name}</div>
-            <div>{index === 0 ? formatDate(Math.max(completionTime - date, 0)) : formatDate(duration)}</div>
-            <div>{new Date(completionTime).toISOString().substr(11, 8)}</div>
-            <button type={"button"} className={Style.cancel} onClick={() => { }}>
-              <span>x</span>
-            </button>
+            <div className={Style.ffs}>{baseBuildings[item].name}</div>
+            <div className={Style.ffs}>{index === 0 ? formatDate(Math.max(completionTime - date, 0)) : formatDate(duration)}</div>
+            <div className={Style.ffs}>{new Date(completionTime).toISOString().substr(11, 8)}</div>
+            <div className={Style.cancel}>X</div>
           </>
         )
       } else {

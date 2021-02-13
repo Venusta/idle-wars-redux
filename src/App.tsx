@@ -10,7 +10,6 @@ import { updateQueue } from './app/game/queue';
 import { store } from './app/store';
 import { incrementAllTownsResources } from './app/slices/towns';
 import { useDispatch } from 'react-redux';
-import { ResourceDisplay2 } from './app/components/ResourceDisplay2/ResourceDisplay2';
 
 function App() {
   const dispatch = useDispatch()
@@ -115,10 +114,11 @@ function App() {
             </div>
             <div className="HeaderAndQueue">
               <BuildingHeader />
-              <Queue />
             </div>
             <BuildingPage />
-            <div className="neu-prog-container">
+                          <Queue />
+
+            {/* <div className="neu-prog-container">
               <div className="bar" style={{ width: "80%" }}></div>
             </div>
             <div className="neu-prog-container">
@@ -126,7 +126,7 @@ function App() {
             </div>
             <div className="neu-prog-container">
               <div className="bar" style={{ width: "30%" }}></div>
-            </div>
+            </div> */}
           </div>
         </Route>
 

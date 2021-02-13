@@ -50,9 +50,14 @@
 }
 
 .building-grid-item {
+
   display: flex;
   padding: 3px;
   /* background-color: brown; */
+}
+
+.start-first {
+  grid-column-start: 1;
 }
 
 .building-info-container {
@@ -79,7 +84,8 @@
 .fully-constructed {
   justify-content: center;
   align-items: center;
-  grid-column: 2/-1;
+  grid-column: 2/-2;
+  font-weight: bold;
 }
 
 .fuck {

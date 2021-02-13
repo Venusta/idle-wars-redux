@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react'
-import { selectTown } from '../../selectors';
+import { selectTown, selectBuildingLevel, selectBuildingQueue } from '../../selectors';
 import { useParams, Link } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 import { baseBuildings } from '../../game/buildings';
@@ -9,11 +9,9 @@ import { RootState } from '../../store';
 import { BuildingResourceDisplay } from '../BuildingResourceDisplay/Requirements';
 import { ConstructButton } from '../Buttons';
 import "./style.css";
-import { selectBuildingLevel } from '../../selectors/selectBuildingLevel';
 import { enqueue } from '../../slices/queue';
 import { startBuildSomething } from '../../slices/towns';
 import { InactiveButton } from '../Buttons/InactiveButton';
-import { selectBuildingQueue } from '../../selectors/selectBuildingQueue';
 import { calculateTimeUntilResources, isBuildingId, isBuildingQueueId } from '../../game/utility';
 import { ProductionBuilding } from '../../game/model/productionBuilding';
 
@@ -22,7 +20,7 @@ import { ProductionBuilding } from '../../game/model/productionBuilding';
 export const BuildingHeader = () => { // TODO new file
   const { townId, buildingId } = useParams<{ townId: string, buildingId: BuildingId }>();
   const { name, description } = baseBuildings[buildingId];
-  const level = useSelector((state: RootState) => selectBuildingLevel(state, townId, buildingId))
+  const level = useSelector((state: RootState) => selectBuildingLevel(state, townId, buildingId));
 
   return (
     <div className="building-title">
@@ -40,7 +38,7 @@ export const BuildingPage = () => {
   const { townId, buildingId: pageBuildingId } = useParams<{ townId: string, buildingId: BuildingId }>();
   const town = useSelector((state: RootState) => selectTown(state, townId))
   const headquarterLevel = town.buildings[BuildingId.Headquarters].level;
-  
+
   const levelUp = (buildingId: BuildingId) => {
     const buildingData = baseBuildings[buildingId];
     const { queuedLevel } = town.buildings[buildingId];
@@ -53,7 +51,7 @@ export const BuildingPage = () => {
   };
 
   const startConstruction = (townId: string, toBeConstructedBuildingId: BuildingId, constructionTime: number) => {
-    if (isBuildingQueueId(pageBuildingId)){
+    if (isBuildingQueueId(pageBuildingId)) {
       dispatch(startBuildSomething({ townId, buildingId: toBeConstructedBuildingId }));
       dispatch(enqueue({ townId, buildingId: pageBuildingId, item: toBeConstructedBuildingId, duration: constructionTime }));
     }
@@ -62,7 +60,7 @@ export const BuildingPage = () => {
   const BuildingInfo = ({ buildingId, level = 0 }: { buildingId: BuildingId, level: number }) => {
     const { name } = baseBuildings[buildingId]
     return (
-      <div className="building-grid-item">
+      <div className="building-grid-item start-first">
         <div className="building-info-container">
           <img className="building-info-img" src={`${process.env.PUBLIC_URL}/buildings/${buildingId}.png`} title={name} alt="" />
           <div className="building-info-info">
@@ -74,9 +72,9 @@ export const BuildingPage = () => {
     );
   }
 
-  const BuildingRequirements = ({ buildingId, queuedLevel, headquarterLevel }: { buildingId: BuildingId, queuedLevel: number, headquarterLevel: number }) => (
+  const BuildingRequirements = ({ buildingId, townId }: { buildingId: BuildingId, townId: string }) => (
     <div className="building-grid-item BuildingRequirements">
-      <BuildingResourceDisplay buildingId={buildingId} queuedLevel={queuedLevel} headquarterLevel={headquarterLevel} />
+      <BuildingResourceDisplay buildingId={buildingId} townId={townId} />
     </div>
   )
 
@@ -124,7 +122,7 @@ export const BuildingPage = () => {
       return (
         <>
           <BuildingInfo buildingId={buildingId} level={level} />
-          <BuildingRequirements buildingId={buildingId} queuedLevel={queuedLevel} headquarterLevel={headquarterLevel} />
+          <BuildingRequirements buildingId={buildingId} townId={townId} />
           <InactiveBut text="Queue full" />
         </>
       );
@@ -132,13 +130,13 @@ export const BuildingPage = () => {
 
     const cost = baseBuildings[buildingId].getCost(queuedLevel);
     const timeUntil = calculateTimeUntilResources(town, cost);
-    
+
     if (timeUntil > 0) {
       return (
         <>
           <BuildingInfo buildingId={buildingId} level={level} />
-          <BuildingRequirements buildingId={buildingId} queuedLevel={queuedLevel} headquarterLevel={headquarterLevel} />
-          <InactiveBut text={new Date(timeUntil * 1000).toISOString().substr(11, 8)} /> 
+          <BuildingRequirements buildingId={buildingId} townId={townId} />
+          <InactiveBut text={new Date(timeUntil * 1000).toISOString().substr(11, 8)} />
         </>
       );
     };
@@ -146,7 +144,7 @@ export const BuildingPage = () => {
     return (
       <>
         <BuildingInfo buildingId={buildingId} level={level} />
-        <BuildingRequirements buildingId={buildingId} queuedLevel={queuedLevel} headquarterLevel={headquarterLevel} />
+        <BuildingRequirements buildingId={buildingId} townId={townId} />
         <BuildingConstruct buildingId={buildingId} queuedLevel={queuedLevel + 1} />
       </>
     );
@@ -173,8 +171,8 @@ export const BuildingPage = () => {
           {tableRows}
         </div>
       )
-    };  
-    return (<></>) 
+    };
+    return (<></>)
   };
 
   return (

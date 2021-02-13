@@ -14,5 +14,6 @@
 .button-style:active {
   /* background-color: #4b4e4ed0; */
   transform: translateY(1px);
-  box-shadow: inset 4px 4px 4px var(--shadow-dark), inset -4px -4px 4px var(--shadow-light);
+  /* box-shadow: inset 4px 4px 4px var(--shadow-dark), inset -4px -4px 4px var(--shadow-light); */
+  box-shadow: inset 2px 2px 5px var(--shadow-dark), inset -3px -3px 7px var(--shadow-light);
 }

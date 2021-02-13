@@ -4,9 +4,10 @@
   min-width: 95px;
   margin: 0px 5px;
   border: none;
-  color: #a9acb5;
+  color: var(--text-inactive-color);
   background-color: var(--main);
   transform: translateY(1px);
-  box-shadow: inset 3px 3px 3px var(--shadow-dark), inset -3px -3px 3px var(--shadow-light);
+  /* box-shadow: inset 3px 3px 3px var(--shadow-dark), inset -3px -3px 3px var(--shadow-light); */
+  box-shadow: inset 2px 2px 5px var(--shadow-dark), inset -3px -3px 7px var(--shadow-light);
   border-radius: 5px;
 }

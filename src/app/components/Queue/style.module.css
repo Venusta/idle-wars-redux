@@ -11,38 +11,36 @@
   border-radius: 10px;
   padding: 10px;
   margin: 10px 0px;
-  align-items: center;
 }
 
 .header {
-  display: flex;
-  /* align-items: center; */
-  justify-content: center;
   padding: 3px;
   font-weight: bold;
+  /* background-color: rgba(0, 0, 0, 0.452); */
+}
+
+.ffs {
+  /* background-color: rgba(0, 0, 0, 0.452); */
+  display: flex;
+  align-items: center;
 }
 
 .cancel {
-  /* display: flex; */
-  /* align-items: center;
-  justify-content: center; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-  border: none;
-  appearance: none;
-  text-transform: none;
-  /* font-weight: bold; */
   cursor: pointer;
   color: var(--text-colour);
   background-color: var(--main);
   /* box-shadow: 2px 2px 3px var(--shadow-dark), -2px -2px 3px var(--shadow-light); */
-  border-radius: 5px;
-  /* background-color: rgba(248, 12, 12, 0.466); */
-}
 
-.cancel > span {
-  font-weight: bold;
+  /* background-color: rgba(0, 0, 0, 0.452); */
+  /* font-weight: bold; */
+  font-size: 14px;
   width: 1.25rem;
   height: 1.25rem;
+  user-select: none;
 }
 
 /* .cancel:active {
