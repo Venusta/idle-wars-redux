@@ -17,7 +17,7 @@ export const BuildingResourceDisplay = ({ buildingId, townId }: Props) => {
   const queuedBuilding = useSelector((state: RootState) => selectBuilding(state, townId, buildingId));
 
   const buildingData = baseBuildings[buildingId];
-  const cost = buildingData.getCost(queuedBuilding.level);
+  const cost = buildingData.getCost(queuedBuilding.queuedLevel);
   const amount = 1; // todo props?
   const timber = cost.resources.timber * amount;
   const clay = cost.resources.clay * amount;
