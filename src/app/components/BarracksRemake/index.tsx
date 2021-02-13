@@ -64,7 +64,7 @@ export const BuildingPage = () => {
         <div className="building-info-container">
           <img className="building-info-img" src={`${process.env.PUBLIC_URL}/buildings/${buildingId}.png`} title={name} alt="" />
           <div className="building-info-info">
-            <Link to={`/town/${townId}/${buildingId}`} className="link">{name}</Link>
+            <Link to={`/${townId}/buildings/${buildingId}`} className="link">{name}</Link>
             <div className="smoll">{`Level ${level}`}</div>
           </div>
         </div>
@@ -158,7 +158,7 @@ export const BuildingPage = () => {
       // Iterate over all the things this building can create and add them to the table
       tableRows = buildingData.creates.map((id) => {
         if (isBuildingId(id)) {
-          return <BuildingRow buildingId={id} />;
+          return <BuildingRow key={id} buildingId={id} />;
         };
         return <></>; // TODO implement a different table row for units?
       });

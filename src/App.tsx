@@ -11,24 +11,29 @@ import { store } from './app/store';
 import { incrementAllTownsResources } from './app/slices/towns';
 import { useDispatch } from 'react-redux';
 import { Navbar } from './app/components/Navbar';
+import { SidebarQueue } from './app/components/SidebarQueue';
 
 function App() {
   const dispatch = useDispatch()
   const towns = store.getState().towns;
-  const townLinks = Object.entries(towns).map(([id, town]) => {
-    return (<Link key={id} to={`/town/${id}/headquarters`}>{town.name}</Link>)
-  });
+  const TownLinks = () => (
+    <>
+      {Object.entries(towns).map(([id, town]) => {
+        return (<Link key={id} to={`/${id}/buildings/headquarters`}>{town.name}</Link>);
+      })}
+    </>
+  );
 
-  // useEffect(() => {
-  //   const x = setInterval(() => {
-  //     updateQueue(); // not this
-  //     dispatch(incrementAllTownsResources()); // not this
-  //     console.log("Updated");
-  //   }, 1000);
-  //   return () => {
-  //     clearInterval(x);
-  //   }
-  // }, []);
+  useEffect(() => {
+    const x = setInterval(() => {
+      updateQueue(); // not this
+      dispatch(incrementAllTownsResources()); // not this
+      console.log("Updated");
+    }, 1000);
+    return () => {
+      clearInterval(x);
+    }
+  }, []);
   console.log("PLEASE DON'T RE-RENDER");
 
 
@@ -54,19 +59,48 @@ function App() {
   return (
     <div className="App">
       {/* <div className="App-Title">Idle Wars!</div> */}
-      <div className="Sidebar-Left">
-        {townLinks}
-      </div>
+
 
       <Switch>
 
         {/* Redirect the main page to the headquarters of the starting town for now */}
         <Route exact path="/">
-          <Redirect to="/town/0/headquarters" />
+          <Redirect to="/0/buildings/headquarters" />
+        </Route>
+
+        <Route exact path="/:townId/recruit">
+
+          <div className="Sidebar-Left">
+            <TownLinks />
+            <SidebarQueue />
+          </div>
+
+          <div>Recruitment for town</div>
+        </Route>
+
+        <Route exact path="/:townId/map">
+
+          <div className="Sidebar-Left">
+            <SidebarQueue />
+          </div>
+
+          <div>Map for town</div>
         </Route>
 
         {/* Have a page for each building in a town */}
-        <Route exact path="/town/:townId/:buildingId">
+        <Route exact path="/:townId/buildings/:buildingId">
+
+          <div className="Sidebar-Left">
+            <TownLinks />
+            {`All250 Spear fighters
+230 Swordsmen
+10 Scouts
+20 Light cavalry
+1 Paladin
+» recruit`}
+            <SidebarQueue />
+          </div>
+
           <div className="App-Main">
             <div className="App-Header">
               <div className="App-Style-Village">Test village (489|489) K44</div>
@@ -118,7 +152,7 @@ function App() {
               <BuildingHeader />
             </div>
             <BuildingPage />
-                          <Queue />
+            {/* <Queue /> */}
 
             {/* <div className="neu-prog-container">
               <div className="bar" style={{ width: "80%" }}></div>
@@ -137,7 +171,7 @@ function App() {
         </Route>
 
       </Switch>
-      <div className="Sidebar-Right">
+      {/* <div className="Sidebar-Right">
         <div className="idks">Headquarters (Lvl 21)</div>
         <ProgressBar2 percent={80} ></ProgressBar2>
         <div className="idks">Timbercamp (Lvl 21)</div>
@@ -174,15 +208,7 @@ function App() {
         <ProgressBar2 percent={30} ></ProgressBar2>
         <div className="idks">Timbercamp (Lvl 21)</div>
         <ProgressBar2 percent={80} ></ProgressBar2>
-        {`        
-All
-250 Spear fighters
-230 Swordsmen
-10 Scouts
-20 Light cavalry
-1 Paladin
-» recruit`}
-      </div>
+      </div> */}
 
       {/* <Queue /> */}
       {/* <Headquarters /> */}

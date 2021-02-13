@@ -20,8 +20,8 @@ export const Navbar = () => {
         buildingIds.map((buildingId: BuildingId) => {
           // TODO add image maybe 
           return (
-            <div>
-              <Link to={`/town/${townId}/${buildingId}`} className={`${Style.text} ${buildingId === buildingPageId ? Style.active : ""}`}>{baseBuildings[buildingId].name}</Link>
+            <div key={buildingId}>
+              <Link to={`/${townId}/buildings/${buildingId}`} className={`${Style.text} ${buildingId === buildingPageId ? Style.active : ""}`}>{baseBuildings[buildingId].name}</Link>
             </div>
           )
         })

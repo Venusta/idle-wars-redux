@@ -1,5 +1,5 @@
 export const WorldSpeed = 1;
-export const HeadquartersQueueSlots = 3;
+export const HeadquartersQueueSlots = 5;
 
 export enum BuildingId {
   Headquarters = "headquarters",

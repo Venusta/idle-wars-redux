@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { baseBuildings } from '../../game/buildings';
-import { isBuildingId } from '../../game/utility';
 import { RootState } from '../../store';
 import Style from "./style.module.css";
 import { useParams } from 'react-router-dom';
-import { BuildingQueueId } from '../../game/constants';
+import { BuildingQueueId, BuildingId } from '../../game/constants';
 
 
 export const Queue = () => {
@@ -37,20 +36,15 @@ export const Queue = () => {
   const formatDate = (seconds: number) => new Date(seconds).toISOString().substr(11, 8)
 
   const renderQueue = () => {
-    return buildingQueue?.map(({ item, duration, completionTime }, index) => {
-      if (isBuildingId(item)) {
-        return (
-          <>
-            <div className={Style.ffs}>{baseBuildings[item].name}</div>
-            <div className={Style.ffs}>{index === 0 ? formatDate(Math.max(completionTime - date, 0)) : formatDate(duration)}</div>
-            <div className={Style.ffs}>{new Date(completionTime).toISOString().substr(11, 8)}</div>
-            <div className={Style.cancel}>X</div>
-          </>
-        )
-      } else {
-        console.error(`${item} was not a valid building id.`);
-        return <div />;
-      }
+    return buildingQueue.map(({ item, duration, completionTime }, index) => {
+      return (
+        <>
+          <div className={Style.ffs}>{baseBuildings[item].name}</div>
+          <div className={Style.ffs}>{index === 0 ? formatDate(Math.max(completionTime - date, 0)) : formatDate(duration)}</div>
+          <div className={Style.ffs}>{new Date(completionTime).toISOString().substr(11, 8)}</div>
+          <div className={Style.cancel}>X</div>
+        </>
+      )
     });
   }
 

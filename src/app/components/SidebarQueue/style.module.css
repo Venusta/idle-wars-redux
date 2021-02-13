@@ -1,0 +1,41 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  /* background-color: cadetblue; */
+}
+
+.queueItemContainer {
+  margin: 2px 0px;
+  font-size: 10px;
+  /* background-color: rgba(128, 255, 0, 0.425); */
+}
+
+.progressBar {
+  display: flex;
+  height: 10px;
+
+  border-radius: 12px;
+  border: var(--border-prog);
+  background-color: var(--main);
+  box-shadow: inset 3px 3px 3px var(--shadow-dark),
+    inset -3px -3px 3px var(--shadow-light);
+  margin: 3px 0px;
+}
+
+.progressBarFill {
+  transition: width 1.1s linear;
+  height: auto;
+  border: var(--border-prog);
+  margin-left: 1px;
+  margin-right: 1px;
+  background-color: #5a76a8;
+  border-radius: inherit;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  white-space: nowrap;
+
+  /* box-shadow: 3px 3px 3px var(--shadow-dark), -3px -3px 3px var(--shadow-light); */
+}

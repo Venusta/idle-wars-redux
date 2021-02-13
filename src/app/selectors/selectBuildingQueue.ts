@@ -1,5 +1,5 @@
 import { BuildingQueueId } from "../game/constants";
-import { QueueItem } from "../slices/queue";
+import { BuildingQueueItem, UnitQueueItem } from "../slices/queue";
 import { RootState } from "../store";
 
 /**
@@ -8,4 +8,8 @@ import { RootState } from "../store";
  * @param townId Building id
  * @param buildingId: BuildingQueueId
  */
-export const selectBuildingQueue = (state: RootState, townId: string, buildingId: BuildingQueueId): QueueItem[] => (state.queue[townId][buildingId]);
+export const selectBuildingQueue = (
+  state: RootState, townId: string, buildingId: BuildingQueueId
+  ): BuildingQueueItem[] | UnitQueueItem[] => {
+    return (state.queue[townId][buildingId]);
+  };

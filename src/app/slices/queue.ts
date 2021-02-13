@@ -1,22 +1,23 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { BuildingId, BuildingQueueId } from "../game/constants";
+import { BuildingQueueId, BuildingId, UnitId } from "../game/constants";
 
-export interface QueueItem {
-  item: string;
+export interface UnitQueueItem {
+  item: UnitId;
   duration: number;
   completionTime: number;
   amount: number;
 }
 
-// export type Queue = {
-//   [id in BuildingId]?: Array<QueueItem>;
-// } & {
-//   townId: number;
-// };
+export interface BuildingQueueItem { // proper queue types, no shortcuts fuck you ???
+  item: BuildingId;
+  duration: number;
+  completionTime: number;
+  amount: number;
+}
 
 export interface Queue {
   [key: string]: {
-    [id in BuildingQueueId]: Array<QueueItem>
+    [id in BuildingQueueId]: BuildingQueueItem[];
   }
 }
 
@@ -79,7 +80,7 @@ interface QueuePayload {
   payload: {
     townId: string;
     buildingId: BuildingQueueId;
-    item: string;
+    item: BuildingId;
     duration: number;
     amount?: number;
   }
