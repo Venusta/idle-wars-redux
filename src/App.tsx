@@ -10,6 +10,7 @@ import { updateQueue } from './app/game/queue';
 import { store } from './app/store';
 import { incrementAllTownsResources } from './app/slices/towns';
 import { useDispatch } from 'react-redux';
+import { Navbar } from './app/components/Navbar';
 
 function App() {
   const dispatch = useDispatch()
@@ -72,6 +73,7 @@ function App() {
               {/* <ResourceDisplay2 /> */}
               <ResourceDisplay />
             </div>
+            <Navbar />
             <div className="neu-test">
               {/* <ExampleButton className="neu-both neu-inner" inner="Level 21" />
               <ExampleButton className="neu-both neu-inner2" inner="0:00:09" />

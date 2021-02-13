@@ -1,0 +1,35 @@
+.container {
+  margin-top: 15px;
+  padding: 5px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  background-color: var(--main);
+  border-radius: 5px;
+  box-shadow: 3px 3px 6px var(--shadow-dark), -3px -3px 6px var(--shadow-light);
+  border: solid rgba(0, 0, 0, 0.05) 1px;
+}
+
+.text {
+  margin: 0px 10px;
+  padding: 2px 7px;
+  font-weight: bold;
+  cursor: pointer;
+  text-decoration: none;
+  color: #865f44;
+  background-color: var(--main);
+  border-radius: 5px;
+  border: solid rgba(0, 0, 0, 0) 1px; /* hack to stop elements moving*/
+}
+
+.text:hover {
+  border: solid rgba(0, 0, 0, 0.05) 1px;
+  box-shadow: inset 2px 2px 5px var(--shadow-dark),
+    inset -3px -3px 7px var(--shadow-light);
+}
+
+.active {
+  border: solid rgba(0, 0, 0, 0.05) 1px;
+  box-shadow: inset 2px 2px 5px var(--shadow-dark),
+    inset -3px -3px 7px var(--shadow-light);
+}
