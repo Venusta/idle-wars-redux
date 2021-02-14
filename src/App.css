@@ -1,18 +1,21 @@
 .App {
-
   display: flex;
   flex-direction: row;
 }
 
 .App-Main {
-  /* background-color: rgba(16, 19, 19, 0.1); */
   box-shadow: inset var(--shadow-dark) 6px 6px 12px,
     inset var(--shadow-light) -6px -6px 12px;
   border: solid rgba(0, 0, 0, 0.05) 1px;
   padding: 20px;
   background-color: var(--main);
   overflow-y: auto;
+  overflow-x: auto;
   height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  /* background-color: rgba(52, 187, 187, 0.541); */
 }
 
 .App-Header {
@@ -78,7 +81,8 @@
 .link {
   font-weight: 700;
   text-decoration: none;
-  color: #865f44;
+  color: #3c7db3;
+  /* color: #865f44; */
   /* color: rgb(96, 48, 0); */
 }
 

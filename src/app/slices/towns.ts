@@ -11,7 +11,7 @@ testTown2.setBuildingLevel(BuildingId.ClayPit, 6);
 testTown2.setBuildingLevel(BuildingId.IronMine, 30);
 testTown2.setBuildingLevel(BuildingId.Barracks, 15);
 testTown2.setBuildingLevel(BuildingId.Headquarters, 20);
-testTown2.addArmy({ [UnitId.SpearFighter]: 10, [UnitId.Archer]: 20, [UnitId.SpearFighter]: 15 });
+// testTown2.addArmy({ [UnitId.SpearFighter]: 10, [UnitId.Archer]: 20, [UnitId.SpearFighter]: 15 });
 
 testTown2.addUnit(UnitId.Swordsman, 70)
 testTown2.addUnit(UnitId.Archer, 99999940)
@@ -94,6 +94,72 @@ const testTown = {
       level: 0,
       queuedLevel: 0
     }
+  },
+}
+
+
+/*
+* Start: 
+* units are removed from town
+* Return: 
+* Dead are removed from town & total
+* Haul is added to resources
+*/
+const example2 = { // maybe replacement for example.units
+  unitsTown: {
+    [UnitId.SpearFighter]: 100,
+    [UnitId.Swordsman]: 200,
+  },
+  unitsTotal: {
+    [UnitId.SpearFighter]: 200,
+    [UnitId.Swordsman]: 200,
+  },
+}
+
+const example = {
+  units: { // 
+    [UnitId.SpearFighter]: {
+      town: 100,
+      total: 200,
+    },
+    [UnitId.Swordsman]: {
+      town: 200,
+      total: 200,
+    },
+  },
+  raids: [ // raid return payload
+    { // raid 0 of multiple
+      townId: "rfubdfgdfg",
+      battleTime: "Feb 13, 2021 18:15:52",
+      units: {
+        [UnitId.SpearFighter]: 50,
+        [UnitId.Swordsman]: 100,
+      },
+      deadAttacker: { // gets set at the battle not before
+        [UnitId.SpearFighter]: 4,
+      },
+      deadDefender: {
+
+      },
+      haul: { // gets set at the battle not before
+        timber: 0,
+        clay: 20,
+        iron: 30,
+      },
+      resources: {},
+      buildings: {},
+      armyInVillage: {},
+      armyOutsideVillage: {},
+    }
+  ]
+}
+
+const outGoingRaid = { // raid outgoing payload
+  townId: "rfubdfgdfg",
+  battleTime: "Feb 13, 2021 18:15:52",
+  units: {
+    [UnitId.SpearFighter]: 50,
+    [UnitId.Swordsman]: 100,
   },
 }
 

@@ -16,7 +16,7 @@
   font-weight: bold;
   cursor: pointer;
   text-decoration: none;
-  color: #865f44;
+  color: #3c7db3;
   background-color: var(--main);
   border-radius: 5px;
   border: solid rgba(0, 0, 0, 0) 1px; /* hack to stop elements moving*/

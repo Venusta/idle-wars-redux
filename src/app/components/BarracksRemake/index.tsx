@@ -1,36 +1,22 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react'
-import { selectTown, selectBuildingLevel, selectBuildingQueue } from '../../selectors';
-import { useParams, Link } from "react-router-dom";
+import { selectTown, selectBuildingQueue } from '../../selectors';
+import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 import { baseBuildings } from '../../game/buildings';
 import { BuildingId, BuildingQueueId, HeadquartersQueueSlots } from '../../game/constants';
 import { RootState } from '../../store';
 import { BuildingResourceDisplay } from '../BuildingResourceDisplay/Requirements';
 import { ConstructButton } from '../Buttons';
-import "./style.css";
 import { enqueue } from '../../slices/queue';
 import { startBuildSomething } from '../../slices/towns';
 import { InactiveButton } from '../Buttons/InactiveButton';
 import { calculateTimeUntilResources, isBuildingId, isBuildingQueueId } from '../../game/utility';
 import { ProductionBuilding } from '../../game/model/productionBuilding';
+import "./style.css";
+import { BuildingInfo } from './BuildingInfo';
 
 // TODO this is actually HQ
-
-export const BuildingHeader = () => { // TODO new file
-  const { townId, buildingId } = useParams<{ townId: string, buildingId: BuildingId }>();
-  const { name, description } = baseBuildings[buildingId];
-  const level = useSelector((state: RootState) => selectBuildingLevel(state, townId, buildingId));
-
-  return (
-    <div className="building-title">
-      <h2>{name} (Level {level})</h2>
-      {description}
-    </div>
-  );
-};
-
-
 
 export const BuildingPage = () => {
   const dispatch = useDispatch();
@@ -57,30 +43,9 @@ export const BuildingPage = () => {
     }
   };
 
-  const BuildingInfo = ({ buildingId, level = 0 }: { buildingId: BuildingId, level: number }) => {
-    const { name } = baseBuildings[buildingId]
-    return (
-      <div className="building-grid-item start-first">
-        <div className="building-info-container">
-          <img className="building-info-img" src={`${process.env.PUBLIC_URL}/buildings/${buildingId}.png`} title={name} alt="" />
-          <div className="building-info-info">
-            <Link to={`/${townId}/buildings/${buildingId}`} className="link">{name}</Link>
-            <div className="smoll">{`Level ${level}`}</div>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  const BuildingRequirements = ({ buildingId, townId }: { buildingId: BuildingId, townId: string }) => (
-    <div className="building-grid-item BuildingRequirements">
-      <BuildingResourceDisplay buildingId={buildingId} townId={townId} />
-    </div>
-  )
-
   const BuildingConstruct = ({ buildingId, queuedLevel }: { buildingId: BuildingId, queuedLevel: number }) => {
     return (
-      <div className="building-grid-item third-column">
+      <div className="building-grid-item construct-column">
         <ConstructButton text={`Level ${queuedLevel}`} handleClick={() => levelUp(buildingId)} />
       </div>
     );
@@ -90,12 +55,8 @@ export const BuildingPage = () => {
     <div className="building-grid-item fully-constructed">Building fully constructed</div>
   )
 
-  const InactiveElement = ({ text }: { text: string }) => (
-    <div className="building-grid-item inactive">{text}</div>
-  )
-
   const InactiveBut = ({ text }: { text: string }) => (
-    <div className="building-grid-item third-column">
+    <div className="building-grid-item construct-column">
       <InactiveButton text={text} />
     </div>
   )
@@ -122,7 +83,7 @@ export const BuildingPage = () => {
       return (
         <>
           <BuildingInfo buildingId={buildingId} level={level} />
-          <BuildingRequirements buildingId={buildingId} townId={townId} />
+          <BuildingResourceDisplay buildingId={buildingId} townId={townId} />
           <InactiveBut text="Queue full" />
         </>
       );
@@ -135,7 +96,7 @@ export const BuildingPage = () => {
       return (
         <>
           <BuildingInfo buildingId={buildingId} level={level} />
-          <BuildingRequirements buildingId={buildingId} townId={townId} />
+          <BuildingResourceDisplay buildingId={buildingId} townId={townId} />
           <InactiveBut text={new Date(timeUntil * 1000).toISOString().substr(11, 8)} />
         </>
       );
@@ -144,7 +105,7 @@ export const BuildingPage = () => {
     return (
       <>
         <BuildingInfo buildingId={buildingId} level={level} />
-        <BuildingRequirements buildingId={buildingId} townId={townId} />
+        <BuildingResourceDisplay buildingId={buildingId} townId={townId} />
         <BuildingConstruct buildingId={buildingId} queuedLevel={queuedLevel + 1} />
       </>
     );
@@ -166,7 +127,7 @@ export const BuildingPage = () => {
       return (
         <div className="building-build-wrapper">
           <HeaderElement text="Buildings" />
-          <div className="building-header fuck">Requirements</div>
+          <div className="building-header requirements-column">Requirements</div>
           <HeaderElement text="Construct" />
           {tableRows}
         </div>

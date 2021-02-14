@@ -2,7 +2,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { Redirect, Route, Switch, Link } from "react-router-dom";
 import './App.css';
-import { BuildingHeader, BuildingPage } from './app/components/BarracksRemake';
+import { BuildingPage } from './app/components/BarracksRemake';
 import { Headquarters } from './app/components/Headquarters';
 import { Queue } from './app/components/Queue';
 import { ResourceDisplay } from './app/components/ResourceDisplay/ResourceDisplay';
@@ -12,6 +12,7 @@ import { incrementAllTownsResources } from './app/slices/towns';
 import { useDispatch } from 'react-redux';
 import { Navbar } from './app/components/Navbar';
 import { SidebarQueue } from './app/components/SidebarQueue';
+import { BuildingHeader } from './app/components/BuildingHeader';
 
 function App() {
   const dispatch = useDispatch()
@@ -149,9 +150,7 @@ function App() {
 
               </div>
             </div>
-            <div className="HeaderAndQueue">
-              <BuildingHeader />
-            </div>
+            <BuildingHeader />
             <BuildingPage />
             {/* <Queue /> */}
 

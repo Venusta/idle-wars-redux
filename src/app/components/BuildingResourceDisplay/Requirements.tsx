@@ -5,7 +5,7 @@ import { BuildingId, ResourceId } from "../../game/constants";
 import "./style.css";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store";
-import { selectBuilding, selectResources, selectResource } from "../../selectors";
+import { selectBuilding, selectResource } from "../../selectors";
 
 interface Props {
   buildingId: BuildingId
@@ -48,12 +48,12 @@ export const BuildingResourceDisplay = ({ buildingId, townId }: Props) => {
   }
 
   return (
-    <>
+    <div className="brd-container">
       <SingleBuildingResource amount={timber} resourceId={ResourceId.Timber} />
       <SingleBuildingResource amount={clay} resourceId={ResourceId.Clay} />
       <SingleBuildingResource amount={iron} resourceId={ResourceId.Iron} />
       <SingleBuildingRequirements data={pop} imgId="timber" />
       <SingleBuildingRequirements data={time} imgId="timber" />
-    </>
+    </div>
   )
 }
