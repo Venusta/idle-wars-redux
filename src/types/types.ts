@@ -35,7 +35,10 @@ export type ResearchList = {
 }
 
 export type UnitList = {
-  [id in UnitId]?: { town: number, total: number };
+  [id in UnitId]?: {
+    town: number
+    total: number
+  };
 }
 
 export type Army = {

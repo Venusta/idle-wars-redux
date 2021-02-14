@@ -24,16 +24,16 @@ function App() {
     </>
   );
 
-  useEffect(() => {
-    const x = setInterval(() => {
-      updateQueue(); // not this
-      dispatch(incrementAllTownsResources()); // not this
-      console.log("Updated");
-    }, 1000);
-    return () => {
-      clearInterval(x);
-    }
-  }, []);
+  // useEffect(() => {
+  //   const x = setInterval(() => {
+  //     updateQueue(); // not this
+  //     dispatch(incrementAllTownsResources()); // not this
+  //     console.log("Updated");
+  //   }, 1000);
+  //   return () => {
+  //     clearInterval(x);
+  //   }
+  // }, []);
   console.log("PLEASE DON'T RE-RENDER");
 
 
@@ -58,9 +58,6 @@ function App() {
 
   return (
     <div className="App">
-      {/* <div className="App-Title">Idle Wars!</div> */}
-
-
       <Switch>
 
         {/* Redirect the main page to the headquarters of the starting town for now */}
@@ -92,7 +89,11 @@ function App() {
 
           <div className="Sidebar-Left">
             <TownLinks />
-            {`All250 Spear fighters
+            {`
+230 Swordsmen
+10 Scouts
+20 Light cavalry
+1 Paladin
 230 Swordsmen
 10 Scouts
 20 Light cavalry

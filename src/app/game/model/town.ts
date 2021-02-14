@@ -25,12 +25,21 @@ export class Town {
   units: UnitList;
   buildings: BuildingList;
 
-  constructor({ id, name, resources = defaultResources }: TownInterface) {
+  constructor(id: string, name: string, resources = defaultResources) {
     this.id = id
     this.name = name // todo random name
     this.resources = resources;
     this.unlocked = this.defaultUnlocks();
-    this.units = {};
+    this.units = {
+      [UnitId.SpearFighter]: {
+        town: 100,
+        total: 200,
+      },
+      [UnitId.Swordsman]: {
+        town: 200,
+        total: 200,
+      },
+    }
     this.buildings = this.defaultBuildings();
     this.rps = this.calculateResourcesPerSecond();
     this.population = this.getPopulation();
@@ -73,27 +82,71 @@ export class Town {
     this.buildings[id].queuedLevel = level;
   }
 
-  public addArmy(army: Army): void { // todo fix this mess
-    for (const [unit, amount = 1] of  Object.entries(army)) {
-      // if(unit === undefined) return;
-      // if(this === undefined) return;
-      // if(this.units === undefined) return;
-      
-      if (isUnitId(unit)) {
-        if (this.units[unit] === undefined) {
-          // if undefined do this
-          this.units[unit] = {
-            total: amount,
-            town: amount,
-          }
-          // else  do this
-          // this.units[unit].total += amount ?? 0;
+  public addUnit(unit: UnitId, amount = 1) {
+    console.log("@@@@@@@@@@");
+    const units = this.units
+    if (unit in units) {
+      const x = units[unit]
 
-        } else if (this.units[unit] !== undefined) {
-          // this.units[unit]
-        }
+      if (x !== undefined) {
+        x.total += amount;
+        x.town += amount;
+      }
+      this.units = units;
+
+    } else {
+      this.units[unit] = {
+        total: amount,
+        town: amount,
       }
     }
+    console.log(unit, amount);
+  }
+
+  public addArmy(army: Army): void { // todo fix this mess   
+    console.log("-----------------");
+    console.log("Before: ");
+    console.log(this.units);
+    const mergedDefences = { ...this.units };
+
+    Object.entries((army)).forEach(([unit, amount = 0]) => {
+      if (isUnitId(unit)) {
+        const newAmounts = { total: 0, town: 0 };
+        newAmounts.total += (mergedDefences[unit]?.total ?? 0) + amount;
+        newAmounts.town += (mergedDefences[unit]?.town ?? 0) + amount;
+        mergedDefences[unit] = { ...newAmounts };
+      }
+    })
+
+    this.units = mergedDefences;
+    console.log("After: ");
+    console.log(this.units);
+    console.log("-----------------");
+
+
+    // for (const [unit, amount = 1] of  Object.entries(army)) {
+    //   // if(unit === undefined) return;
+    //   // if(this === undefined) return;
+    //   // if(this.units === undefined) return;
+    //   const y = this.units[unit];
+    //   if (isUnitId(unit)) {
+    //     if (this.units[unit] === undefined) {
+    //       // if undefined do this
+    //       this.units[unit] = {
+    //         total: amount,
+    //         town: amount,
+    //       }
+    //       // else  do this
+    //       // this.units[unit].total += amount ?? 0;
+
+    //     }
+    //     if(this.units[unit] !== undefined) {
+    //       const idk = this.units[unit];
+    //       this.units[unit].total += 100;
+    //       // this.units[unit]
+    //     }
+    //   }
+    // }
   }
 
   private getPopulation(): number {
@@ -124,8 +177,8 @@ export class Town {
         const newResourcesPerSecond = buildingData.getResourceGeneration(level);
         buildingData.creates.forEach((resource) => {
           rps[resource] += newResourcesPerSecond;
-          console.log(`Adding: ${newResourcesPerSecond}`);
-          console.log(`${resource} for ${this.id} is now ${rps[resource]} per second`);
+          // console.log(`Adding: ${newResourcesPerSecond}`);
+          // console.log(`${resource} for ${this.id} is now ${rps[resource]} per second`);
         });
       };
     })

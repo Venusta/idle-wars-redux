@@ -4,6 +4,21 @@ import { baseBuildings } from "../game/buildings";
 import { BuildingId, UnitId } from "../game/constants";
 import { isResourceId } from "../game/utility";
 import { ResourceBuilding } from "../game/model/resourceBuilding";
+import { Town } from "../game/model/town";
+
+const testTown2 = new Town("0", "test123", { timber: 500, clay: 500, iron: 500 });
+testTown2.setBuildingLevel(BuildingId.ClayPit, 6);
+testTown2.setBuildingLevel(BuildingId.IronMine, 30);
+testTown2.setBuildingLevel(BuildingId.Barracks, 15);
+testTown2.setBuildingLevel(BuildingId.Headquarters, 20);
+testTown2.addArmy({ [UnitId.SpearFighter]: 10, [UnitId.Archer]: 20, [UnitId.SpearFighter]: 15 });
+
+testTown2.addUnit(UnitId.Swordsman, 70)
+testTown2.addUnit(UnitId.Archer, 99999940)
+testTown2.addUnit(UnitId.Scout, 940)
+
+console.log(testTown2.toRedux().units);
+
 
 
 const testTown = {
@@ -92,8 +107,8 @@ const startingRps = (towns: TownsInterface): TownsInterface => { // TODO fix thi
         const newResourcesPerSecond = buildingData.getResourceGeneration(level);
         buildingData.creates.forEach((resource) => {
           newTowns[townId].rps[resource] += newResourcesPerSecond;
-          console.log(`Adding: ${newResourcesPerSecond}`);
-          console.log(`${resource} for ${townId} is now ${newTowns[townId].rps[resource]} per second`);
+          // console.log(`Adding: ${newResourcesPerSecond}`);
+          // console.log(`${resource} for ${townId} is now ${newTowns[townId].rps[resource]} per second`);
         });
       };
 

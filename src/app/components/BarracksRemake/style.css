@@ -17,7 +17,7 @@
 .building-build-wrapper {
   padding: 10px;
   display: grid;
-  grid-template-columns: minmax(max-content, 200px) repeat(5, min-content) max-content;
+  grid-template-columns: minmax(max-content, 200px) repeat(5, 1fr) max-content;
   column-gap: 2px;
   row-gap: 2px;
   margin: 0 auto;
