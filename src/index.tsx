@@ -6,12 +6,13 @@ import App from './App';
 import { store } from './app/store';
 import { Provider } from 'react-redux';
 import * as serviceWorker from './serviceWorker';
+import { TestApp } from './cssTest';
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
       <Router>
-        <App />
+        <TestApp />
       </Router>
     </Provider>
   </React.StrictMode>,
