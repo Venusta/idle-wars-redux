@@ -1,31 +1,45 @@
 .testApp {
-  background-color: rgb(161, 78, 78);
-  /* height: 100vh; */
-  /* width: 100vw; */
-  /* min-height: 100%; */
-  display: grid;
-  grid-template-columns: auto 1fr;
-  min-height: 100%;
-  height: 100%;
-}
-
-.sideBar {
-  position: -webkit-sticky;
-  position: sticky;
-  top: 0;
   display: flex;
-  /* height: calc(100vh - (100vh - 100%)); */
-  width: 150px;
-  background-color: rgb(42, 140, 165);
-  overflow-y: scroll;
+  /* flex-direction: column; */
+  min-height: 100%;
+  background-color: black;
 }
 
 .main {
-  min-height: 300px;
-  min-width: 300px;
   display: flex;
+  flex-direction: column;
   background-color: rgb(100, 237, 107);
+  flex: 1;
+  box-shadow: inset var(--shadow-dark) 6px 6px 12px,
+    inset var(--shadow-light) -6px -6px 12px;
+  border: solid rgba(0, 0, 0, 0.05) 1px;
+  padding: 20px;
+  background-color: var(--main);
+  min-width: 700px;
+  /* overflow-x: scroll; */
 }
+
+.sideBar {
+  max-width: 100px;
+  min-width: 100px;
+  flex: 1;
+}
+
+.long {
+  background-color: black;
+  min-height: 1000px;
+  min-width: 100px;
+  margin: 10px;
+}
+
+.wide {
+  background-color: rgb(66, 66, 66);
+  min-height: 100px;
+  min-width: 1000px;
+  margin: 10px;
+
+}
+
 
 .mainHeader {
   display: flex;
@@ -44,35 +58,4 @@
   box-shadow: 3px 3px 6px var(--shadow-dark), -3px -3px 6px var(--shadow-light);
   border-radius: 5px;
   background-color: var(--main);
-}
-
-.shit {
-  /* display: flex; */
-  background-color: rgba(128, 255, 0, 0.432);
-}
-
-.square {
-  background-color: rgba(210, 105, 30, 0.452);
-  min-width: 800px;
-  min-height: 500px;
-  width: 100%;
-}
-
-.square2 {
-  background-color: rgba(30, 210, 75, 0.452);
-  min-width: 800px;
-  min-height: 500px;
-  width: 100%;
-}
-
-.long {
-  background-color: black;
-  min-height: 1000px;
-  width: 100px;
-}
-
-.wide {
-  background-color: rgb(66, 66, 66);
-  height: 100px;
-  min-width: 1000px;
 }

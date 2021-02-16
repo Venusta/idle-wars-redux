@@ -18,26 +18,27 @@ export const TestApp = () => {
 
         <Route exact path="/:townId/buildings/:buildingId">
 
-          <div className={Style.sideBar}>
-            a
+          {/* <div className={Style.sideBar}> */}
+            
             {/* <div className={Style.long}></div> */}
-            b
+            
             {/* <TownLinks /> */}
 
             {/* <SidebarQueue /> */}
-          </div>
+          {/* </div> */}
 
           <div className={Style.main}>
-            <div className={Style.wide} />
+            {/* <div className={Style.wide} /> */}
+            {/* <div className={Style.long} /> */}
 
-            {/* <div className={Style.mainHeader}>
+            <div className={Style.mainHeader}>
               <div className={Style.mainHeaderVilInfo}>Test village (489|489) K44</div>
               <ResourceDisplay />
-            </div> */}
+            </div>
 
-            {/* <Navbar /> */}
-            {/* <BuildingHeader /> */}
-            {/* <BuildingPage /> */}
+            <Navbar />
+            <BuildingHeader />
+            <BuildingPage />
           </div>
 
         </Route>

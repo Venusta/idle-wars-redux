@@ -12,7 +12,16 @@ body {
   font-family: "Verdana", Courier, monospace;
   font-size: 12px;
   /* height: 100vh; */
+  height: 100%;
   background-color: aquamarine;
+}
+
+html {
+  height: 100%;
+}
+
+#root {
+  height: 100%;
 }
 
 :root {
