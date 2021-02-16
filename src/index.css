@@ -1,16 +1,30 @@
 * {
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 body {
-  margin: 0;
-  padding: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: var(--text-colour);
   background-color: var(--main);
   font-family: "Verdana", Courier, monospace;
   font-size: 12px;
+  /* height: 100vh; */
+  height: 100%;
+  width: 100%;
+  background-color: aquamarine;
+}
+
+html {
+  height: 100%;
+  width: 100%;
+}
+
+#root {
+  height: 100%;
+  width: 100%;
 }
 
 :root {
@@ -29,4 +43,10 @@ body {
 
 .dangerText {
   color: var(--danger-text);
+}
+
+.link {
+  font-weight: 700;
+  text-decoration: none;
+  color: #3c7db3;
 }

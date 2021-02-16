@@ -1,0 +1,44 @@
+.testApp {
+  display: flex;
+  min-height: 100%;
+  min-width: 100%;
+  background-color: black;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  background-color: rgb(100, 237, 107);
+  flex: 1;
+  box-shadow: inset var(--shadow-dark) 6px 6px 12px,
+    inset var(--shadow-light) -6px -6px 12px;
+  border: solid rgba(0, 0, 0, 0.05) 1px;
+  padding: 20px;
+  background-color: var(--main);
+  min-width: fit-content;
+}
+
+.mainHeader {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  min-width: fit-content;
+  /* background-color: rgba(0, 100, 0, 0.459); */
+}
+
+.mainHeaderVilInfo {
+  white-space: nowrap;
+  /* white-space: pre; */
+  font-weight: bold;
+  padding: 3px;
+  border: solid rgba(0, 0, 0, 0.05) 1px;
+  box-shadow: 3px 3px 6px var(--shadow-dark), -3px -3px 6px var(--shadow-light);
+  border-radius: 5px;
+  background-color: var(--main);
+}
+
+.queueContainer {
+    display: flex;
+    justify-content: space-between;
+    /* background-color: rgba(0, 0, 255, 0.685); */
+}
