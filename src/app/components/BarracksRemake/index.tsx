@@ -137,8 +137,8 @@ export const BuildingPage = () => {
   };
 
   return (
-    <div className="building-container">
+    // <div className="building-container">
       <RenderTable />
-    </div>
+    // </div>
   )
 }

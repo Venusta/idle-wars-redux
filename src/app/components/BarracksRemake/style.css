@@ -1,6 +1,6 @@
 .building-container {
   display: flex;
-  background-color: rgba(211, 211, 34, 0.664);
+  /* background-color: rgba(211, 211, 34, 0.664); */
   color: var(--text-colour);
   padding: 15px 15px;
   /* justify-content: space-around; */
@@ -10,10 +10,11 @@
 }
 
 .building-build-wrapper {
-  margin: 0 auto;
+  /* margin: 15px auto; */
+  margin: 15px 0px;
   padding: 10px;
   display: grid;
-  grid-template-columns: minmax(max-content, 200px) repeat(5, 1fr) max-content;
+  grid-template-columns: max-content repeat(5, 1fr) max-content;
   gap: 2px;
   background-color: var(--main);
   box-shadow: var(--shadow-dark) 6px 6px 12px,
@@ -28,13 +29,13 @@
   justify-content: center;
   padding: 3px;
   font-weight: bold;
-  background-color: rgba(34, 96, 211, 0.664);
+  /* background-color: rgba(34, 96, 211, 0.664); */
 }
 
 .building-grid-item {
   display: flex;
   padding: 3px;
-  background-color: rgba(199, 35, 35, 0.473);
+  /* background-color: rgba(199, 35, 35, 0.473); */
 }
 
 .construct-column {

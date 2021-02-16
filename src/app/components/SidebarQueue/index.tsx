@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { RootState } from '../../store';
-import { BuildingQueueId } from '../../game/constants';
+import { BuildingQueueId, HeadquartersQueueSlots } from '../../game/constants';
 import Style from "./style.module.css";
+
 import { baseBuildings } from '../../game/buildings';
 import { useParams } from 'react-router-dom';
+import { BuildingQueueItem } from '../../slices/queue';
 
 
 const ProgressBar = (props: { percent: number }) => {
@@ -26,32 +28,37 @@ export const SidebarQueue = () => {
   // TODO store queued level in the queueItem
   // todo buildingQueueId as a prop
 
-  // const [date, setDate] = useState(Date.now());
+  // const [date, setDate] = useState(0);
 
   // useEffect(() => { // TODO use global timer later
   //   const x = setInterval(() => {
-  //     setDate(Date.now());
+  //     setDate(date + 1);
   //   }, 1000);
   //   return () => {
   //     clearInterval(x);
   //   }
   // }, [date]);
 
+  const emptySlots = HeadquartersQueueSlots - buildingQueue.length
+
   return (
     <div className={Style.wrapper}>
+      Queue
       {
         buildingQueue.map(({ item, duration, completionTime }, index) => {
           const progress = 100 - Math.round((completionTime - Date.now()) / duration * 100);
           // TODO uuid key?
           return (
-            <div key={completionTime} className={Style.queueItemContainer}>
-              <div>{`${baseBuildings[item].name} (lvl 21)`}</div>
-              {(index === 0) ? <ProgressBar percent={progress} /> : <></>}
+            <div key={completionTime} className={Style.emptyContainer}>
+              <div className={Style.queueItemContainer}>
+                <div>{`${baseBuildings[item].name} (lvl 21)`}</div>
+                {(index === 0) ? <ProgressBar percent={progress} /> : <></>}
+              </div>
             </div>
           )
-        }
-        )
+        })
       }
+      {[...Array(emptySlots)].map((e, index) => <div key={index} className={Style.emptyContainer} />)}
     </div>
   )
-}
+};

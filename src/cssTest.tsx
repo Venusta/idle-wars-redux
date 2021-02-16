@@ -5,40 +5,30 @@ import { ResourceDisplay } from './app/components/ResourceDisplay/ResourceDispla
 import { Navbar } from './app/components/Navbar'
 import { BuildingHeader } from './app/components/BuildingHeader'
 import { BuildingPage } from './app/components/BarracksRemake'
+import { SidebarQueue } from './app/components/SidebarQueue'
 
 export const TestApp = () => {
+
   return (
     <div className={Style.testApp}>
       <Switch>
+
         <Route exact path="/">
           <Redirect to="/0/buildings/headquarters" />
         </Route>
-        {/* <TownLinks /> */}
-        {/* <SidebarQueue /> */}
 
         <Route exact path="/:townId/buildings/:buildingId">
-
-          {/* <div className={Style.sideBar}> */}
-            
-            {/* <div className={Style.long}></div> */}
-            
-            {/* <TownLinks /> */}
-
-            {/* <SidebarQueue /> */}
-          {/* </div> */}
-
           <div className={Style.main}>
-            {/* <div className={Style.wide} /> */}
-            {/* <div className={Style.long} /> */}
-
             <div className={Style.mainHeader}>
               <div className={Style.mainHeaderVilInfo}>Test village (489|489) K44</div>
               <ResourceDisplay />
             </div>
-
             <Navbar />
             <BuildingHeader />
-            <BuildingPage />
+            <div className={Style.queueContainer}>
+              <BuildingPage />
+              <SidebarQueue />
+            </div>
           </div>
 
         </Route>
@@ -48,9 +38,6 @@ export const TestApp = () => {
         </Route>
 
       </Switch>
-
-
-
     </div>
   )
 }

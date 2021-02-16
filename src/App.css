@@ -1,28 +1,29 @@
 .App {
   display: flex;
-  flex-direction: row;
+  min-height: 100%;
+  min-width: 100%;
+  background-color: black;
 }
 
 .App-Main {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
   box-shadow: inset var(--shadow-dark) 6px 6px 12px,
     inset var(--shadow-light) -6px -6px 12px;
   border: solid rgba(0, 0, 0, 0.05) 1px;
   padding: 20px;
   background-color: var(--main);
-  overflow-y: auto;
-  overflow-x: auto;
-  height: 100vh;
-  /* width: 100vw; */
-  min-width: 600px;
-  display: flex;
-  flex-direction: column;
-  background-color: rgba(52, 187, 187, 0.541);
+
+  /* min-width: fit-content; */
 }
 
 .App-Header {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  /* min-width: fit-content; */
+
   /* background-color: rgb(113, 81, 143); */
 }
 
@@ -57,10 +58,8 @@
 }
 
 .App-Style-Village {
-  justify-self: flex-start;
-  align-self: flex-start;
+  white-space: nowrap;
   font-weight: bold;
-  /* margin: 5px; */
   padding: 3px;
   border: solid rgba(0, 0, 0, 0.05) 1px;
   box-shadow: 3px 3px 6px var(--shadow-dark), -3px -3px 6px var(--shadow-light);
@@ -79,19 +78,12 @@
   white-space: pre;
 }
 
-.link {
-  font-weight: 700;
-  text-decoration: none;
-  color: #3c7db3;
-  /* color: #865f44; */
-  /* color: rgb(96, 48, 0); */
-}
-
-.HeaderAndQueue {
-  /* background-color: rgba(145, 62, 62, 0.479); */
+.queueContainer {
   display: flex;
-  margin-top: 10px;
-  column-gap: 20px;
+  justify-content: center;
+  justify-items: center;
+  justify-self: center;
+  /* background-color: rgba(0, 0, 255, 0.685); */
 }
 
 .neu-test {

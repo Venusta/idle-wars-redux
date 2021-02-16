@@ -1,7 +1,7 @@
 .testApp {
   display: flex;
-  /* flex-direction: column; */
   min-height: 100%;
+  min-width: 100%;
   background-color: black;
 }
 
@@ -15,31 +15,8 @@
   border: solid rgba(0, 0, 0, 0.05) 1px;
   padding: 20px;
   background-color: var(--main);
-  min-width: 700px;
-  /* overflow-x: scroll; */
+  min-width: fit-content;
 }
-
-.sideBar {
-  max-width: 100px;
-  min-width: 100px;
-  flex: 1;
-}
-
-.long {
-  background-color: black;
-  min-height: 1000px;
-  min-width: 100px;
-  margin: 10px;
-}
-
-.wide {
-  background-color: rgb(66, 66, 66);
-  min-height: 100px;
-  min-width: 1000px;
-  margin: 10px;
-
-}
-
 
 .mainHeader {
   display: flex;
@@ -58,4 +35,10 @@
   box-shadow: 3px 3px 6px var(--shadow-dark), -3px -3px 6px var(--shadow-light);
   border-radius: 5px;
   background-color: var(--main);
+}
+
+.queueContainer {
+    display: flex;
+    justify-content: space-between;
+    /* background-color: rgba(0, 0, 255, 0.685); */
 }

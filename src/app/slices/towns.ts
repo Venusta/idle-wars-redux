@@ -71,8 +71,8 @@ const testTown = {
     },
     [BuildingId.Headquarters]: {
       id: BuildingId.Headquarters,
-      level: 20,
-      queuedLevel: 20,
+      level: 23,
+      queuedLevel: 23,
     },
     [BuildingId.Barracks]: {
       id: BuildingId.Barracks,

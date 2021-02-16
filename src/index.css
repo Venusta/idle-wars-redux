@@ -13,15 +13,18 @@ body {
   font-size: 12px;
   /* height: 100vh; */
   height: 100%;
+  width: 100%;
   background-color: aquamarine;
 }
 
 html {
   height: 100%;
+  width: 100%;
 }
 
 #root {
   height: 100%;
+  width: 100%;
 }
 
 :root {
@@ -40,4 +43,10 @@ html {
 
 .dangerText {
   color: var(--danger-text);
+}
+
+.link {
+  font-weight: 700;
+  text-decoration: none;
+  color: #3c7db3;
 }
