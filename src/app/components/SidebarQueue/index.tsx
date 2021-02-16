@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import { useSelector } from 'react-redux'
 import { RootState } from '../../store';
 import { BuildingQueueId, HeadquartersQueueSlots } from '../../game/constants';
@@ -6,7 +6,6 @@ import Style from "./style.module.css";
 
 import { baseBuildings } from '../../game/buildings';
 import { useParams } from 'react-router-dom';
-import { BuildingQueueItem } from '../../slices/queue';
 
 
 const ProgressBar = (props: { percent: number }) => {
@@ -14,9 +13,11 @@ const ProgressBar = (props: { percent: number }) => {
   const fillerStyles = {
     width: `${percent}%`,
   };
-  return (<div className={Style.progressBar}>
-    <div style={fillerStyles} className={Style.progressBarFill} />
-  </div>);
+  return (
+    <div className={Style.progressBar}>
+      <div style={fillerStyles} className={Style.progressBarFill} />
+    </div>
+  );
 };
 
 export const SidebarQueue = () => {

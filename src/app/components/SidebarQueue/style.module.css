@@ -19,7 +19,6 @@
 .queueItemContainer {
   display: flex;
   flex-direction: column;
-  margin: 2px 0px;
   font-size: 10px;
   flex: 1;
   margin: 2px 5px;
