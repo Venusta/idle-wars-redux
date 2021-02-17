@@ -1,9 +1,9 @@
 import { Building } from "./building";
 import { ProductionBuildingProps } from "../../../types/types";
-import { UnitId, BuildingId } from "../constants";
+import { BuildingId } from "../constants";
 
 export class ProductionBuilding extends Building {
-  creates: Array<UnitId | BuildingId>;
+  creates: Array<BuildingId>;
 
   constructor({ id, name, description, cost, maxLevel, buildTime, creates }: ProductionBuildingProps) {
     super({ id, name, description, cost, maxLevel, buildTime })

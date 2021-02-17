@@ -1,11 +1,11 @@
 /* eslint-disable jsx-a11y/alt-text */
 import React from "react"
-import { baseBuildings } from "../../game/buildings";
-import { BuildingId, ResourceId } from "../../game/constants";
+import { baseBuildings } from "../../../game/buildings";
+import { BuildingId, ResourceId } from "../../../game/constants";
 import "./style.css";
 import { useSelector } from "react-redux";
-import { RootState } from "../../store";
-import { selectBuilding, selectResource } from "../../selectors";
+import { RootState } from "../../../store";
+import { selectBuilding, selectResource } from "../../../selectors";
 
 interface Props {
   buildingId: BuildingId
@@ -37,6 +37,7 @@ export const BuildingResourceDisplay = ({ buildingId, townId }: Props) => {
       </div>
     )
   }
+  
   const SingleBuildingResource = ({ amount, resourceId }: { amount: number, resourceId: ResourceId }) => {
     const resource = useSelector((state: RootState) => selectResource(state, townId, resourceId));
     return (
@@ -48,12 +49,12 @@ export const BuildingResourceDisplay = ({ buildingId, townId }: Props) => {
   }
 
   return (
-    <div className="brd-container">
+    <>
       <SingleBuildingResource amount={timber} resourceId={ResourceId.Timber} />
       <SingleBuildingResource amount={clay} resourceId={ResourceId.Clay} />
       <SingleBuildingResource amount={iron} resourceId={ResourceId.Iron} />
       <SingleBuildingRequirements data={pop} imgId="timber" />
       <SingleBuildingRequirements data={time} imgId="timber" />
-    </div>
+    </>
   )
 }

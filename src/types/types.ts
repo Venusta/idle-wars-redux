@@ -88,5 +88,8 @@ export interface ResourceBuildingProps extends BuildingProps {
 }
 
 export interface ProductionBuildingProps extends BuildingProps {
-  creates: Array<UnitId | BuildingId>;
+  creates: Array<BuildingId>;
+}
+export interface UnitProductionBuildingProps extends BuildingProps {
+  creates: Array<UnitId>;
 }

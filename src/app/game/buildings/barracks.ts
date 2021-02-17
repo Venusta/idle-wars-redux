@@ -1,7 +1,7 @@
 import { BuildingId, UnitId } from "../constants";
-import { ProductionBuilding } from "../model/productionBuilding";
+import { UnitProductionBuilding } from "../model/unitProductionBuilding";
 
-export const barracks = new ProductionBuilding({
+export const barracks = new UnitProductionBuilding({
   id: BuildingId.Barracks,
   name: "Barracks",
   description: "In the barracks you can recruit infantry. The higher its level the faster the recruitment of troops will be finished.",

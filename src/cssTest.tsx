@@ -4,7 +4,7 @@ import { Switch, Route, Redirect } from 'react-router-dom'
 import { ResourceDisplay } from './app/components/ResourceDisplay/ResourceDisplay'
 import { Navbar } from './app/components/Navbar'
 import { BuildingHeader } from './app/components/BuildingHeader'
-import { BuildingPage } from './app/components/BarracksRemake'
+import { Headquarters } from './app/components/Headquarters'
 import { SidebarQueue } from './app/components/SidebarQueue'
 
 export const TestApp = () => {
@@ -26,7 +26,7 @@ export const TestApp = () => {
             <Navbar />
             <BuildingHeader />
             <div className={Style.queueContainer}>
-              <BuildingPage />
+              <Headquarters />
               <SidebarQueue />
             </div>
           </div>

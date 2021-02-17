@@ -4,21 +4,14 @@ import { baseBuildings } from '../../game/buildings';
 import { RootState } from '../../store';
 import Style from "./style.module.css";
 import { useParams } from 'react-router-dom';
-import { BuildingQueueId, BuildingId } from '../../game/constants';
+import { BuildingId } from '../../game/constants';
+import { selectBuildingQueue } from '../../selectors';
 
 
 export const Queue = () => {
   const { townId } = useParams<{ townId: string }>();
-
-  const queue = useSelector((state: RootState) => state.queue)
-
-  const buildingQueueId = BuildingQueueId.Headquarters;
-
-  const buildingQueue = queue[townId][buildingQueueId]
-
+  const buildingQueue = useSelector((state: RootState) => selectBuildingQueue(state, townId, BuildingId.Headquarters))
   const [date, setDate] = useState(Date.now());
-
-  // every second setDate(Date.now())
 
   useEffect(() => { // TODO use global timer later
     const x = setInterval(() => {

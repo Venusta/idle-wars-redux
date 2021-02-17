@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { BuildingQueueId, BuildingId, UnitId } from "../game/constants";
+import { BuildingId, UnitId } from "../game/constants";
 
 export interface UnitQueueItem {
   item: UnitId;
@@ -17,48 +17,18 @@ export interface BuildingQueueItem { // proper queue types, no shortcuts fuck yo
 
 export interface Queue {
   [key: string]: {
-    [id in BuildingQueueId]: BuildingQueueItem[];
+    [id in BuildingId]?: BuildingQueueItem[];
   }
 }
 
 const initialState: Queue = {
   "0": {
-    [BuildingQueueId.Headquarters]: [
-      // { 
-      //   item: 0,
-      //   duration: 600,
-      //   completionTime: 593896666666666,
-      //   amount: 1,
-      // },
-      // { 
-      //   item: 1,
-      //   duration: 600,
-      //   completionTime: 593896666666668,
-      //   amount: 3,
-      // }
+    [BuildingId.Headquarters]: [
     ],
   },
   "1": {
-    [BuildingQueueId.Headquarters]: [],
+    [BuildingId.Headquarters]: [],
   },
-  // "22": {
-  //   [BuildingId.Barracks]: [
-  //     { item: 0, completionTime: 5938973, amount: 1 },
-  //     { item: 0, completionTime: 593894473, amount: 1 }
-  //   ],
-  //   [BuildingId.Stable]: [
-  //     { item: 0, completionTime: 345345, amount: 1 }
-  //   ],
-  // },
-  // "33": {
-  //   [BuildingId.Barracks]: [
-  //     { item: 0, completionTime: 5938973, amount: 1 },
-  //     { item: 0, completionTime: 593894473, amount: 1 }
-  //   ],
-  //   [BuildingId.Stable]: [
-  //     { item: 0, completionTime: 345345, amount: 1 }
-  //   ],
-  // },
 }
 
 // const initialState: Queue[] = [
@@ -79,7 +49,7 @@ const initialState: Queue = {
 interface QueuePayload {
   payload: {
     townId: string;
-    buildingId: BuildingQueueId;
+    buildingId: BuildingId;
     item: BuildingId;
     duration: number;
     amount?: number;
@@ -89,7 +59,7 @@ interface QueuePayload {
 interface PopPayload {
   payload: {
     townId: string;
-    buildingId: BuildingQueueId;
+    buildingId: BuildingId;
   }
 }
 
@@ -114,7 +84,6 @@ export const queueSlice = createSlice({
           }
 
           buildingQueue.push({ item, duration: duration * 1000, completionTime, amount });
-          console.log(buildingQueue);
 
         } else {
           //create it
@@ -124,7 +93,6 @@ export const queueSlice = createSlice({
     pop: (queue, { payload: { townId, buildingId } }: PopPayload) => {
       //buildingIndex
       const x = queue[townId][buildingId]?.shift();
-      console.log(x?.item);
 
       console.log(`removing ${townId} ${buildingId}`);
       console.log(queue);

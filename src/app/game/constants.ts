@@ -12,10 +12,6 @@ export enum BuildingId {
   Farm = "farm",
 }
 
-export enum BuildingQueueId {
-  Headquarters = BuildingId.Headquarters,
-}
-
 export enum UnitId {
   SpearFighter = "spearfighter",
   Swordsman = "swordsman",

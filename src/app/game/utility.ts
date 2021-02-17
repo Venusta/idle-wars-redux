@@ -1,5 +1,5 @@
 import { BuildingCost, TownInterface } from "../../types/types";
-import { BuildingId, BuildingQueueId, ResourceId, UnitId } from "./constants";
+import { BuildingId, ResourceId, UnitId } from "./constants";
 
 export const isBuildingId = (x: any): x is BuildingId => {
   return Object.values(BuildingId).includes(x);
@@ -11,10 +11,6 @@ export const isUnitId = (x: any): x is UnitId => {
 
 export const isResourceId = (x: any): x is ResourceId => {
   return Object.values(ResourceId).includes(x);
-};
-
-export const isBuildingQueueId = (x: any): x is BuildingQueueId => {
-  return Object.values(BuildingQueueId).includes(x);
 };
 
 export const hasResources = (town: TownInterface, cost: BuildingCost): boolean => {
@@ -33,6 +29,7 @@ export const hasResources = (town: TownInterface, cost: BuildingCost): boolean =
 };
 
 export const calculateTimeUntilResources = (town: TownInterface, cost: BuildingCost): number => {
+  // TODO don't use the entire town object
   const timesUntil = [];
   for (const [resourceId, amount] of Object.entries(cost.resources)) {
     if (isResourceId(resourceId)) {

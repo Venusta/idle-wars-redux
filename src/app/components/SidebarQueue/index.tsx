@@ -1,11 +1,12 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 import { RootState } from '../../store';
-import { BuildingQueueId, HeadquartersQueueSlots } from '../../game/constants';
+import { HeadquartersQueueSlots, BuildingId } from '../../game/constants';
 import Style from "./style.module.css";
 
 import { baseBuildings } from '../../game/buildings';
 import { useParams } from 'react-router-dom';
+import { selectBuildingQueue } from '../../selectors';
 
 
 const ProgressBar = (props: { percent: number }) => {
@@ -22,25 +23,10 @@ const ProgressBar = (props: { percent: number }) => {
 
 export const SidebarQueue = () => {
   const { townId } = useParams<{ townId: string }>();
-  const queue = useSelector((state: RootState) => state.queue)
-  const buildingQueueId = BuildingQueueId.Headquarters;
-  const buildingQueue = queue[townId][buildingQueueId]
-  // TODO calc progress %
-  // TODO store queued level in the queueItem
-  // todo buildingQueueId as a prop
-
-  // const [date, setDate] = useState(0);
-
-  // useEffect(() => { // TODO use global timer later
-  //   const x = setInterval(() => {
-  //     setDate(date + 1);
-  //   }, 1000);
-  //   return () => {
-  //     clearInterval(x);
-  //   }
-  // }, [date]);
+  const buildingQueue = useSelector((state: RootState) => selectBuildingQueue(state, townId, BuildingId.Headquarters))
 
   const emptySlots = HeadquartersQueueSlots - buildingQueue.length
+  // TODO store queued level in the queueItem
 
   return (
     <div className={Style.wrapper}>

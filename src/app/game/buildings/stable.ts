@@ -1,7 +1,7 @@
 import { BuildingId, UnitId } from "../constants";
-import { ProductionBuilding } from "../model/productionBuilding";
+import { UnitProductionBuilding } from "../model/unitProductionBuilding";
 
-export const stable = new ProductionBuilding({
+export const stable = new UnitProductionBuilding({
   id: BuildingId.Stable,
   name: "Stable",
   description: "",

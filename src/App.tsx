@@ -2,9 +2,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { Redirect, Route, Switch, Link } from "react-router-dom";
 import './App.css';
-import { BuildingPage } from './app/components/BarracksRemake';
 import { Headquarters } from './app/components/Headquarters';
-import { Queue } from './app/components/Queue';
 import { ResourceDisplay } from './app/components/ResourceDisplay/ResourceDisplay';
 import { updateQueue } from './app/game/queue';
 import { store } from './app/store';
@@ -38,10 +36,6 @@ function App() {
   console.log("PLEASE DON'T RE-RENDER");
 
 
-  const ExampleButton = ({ className, inner }: { className: string, inner: string }) => {
-    return <div className={className}>{inner}</div>
-  }
-
   return (
     <div className="App">
       <Switch>
@@ -69,7 +63,7 @@ function App() {
             <Navbar />
             <BuildingHeader />
             <div className="queueContainer">
-              <BuildingPage />
+              <Headquarters />
               <SidebarQueue />
             </div>
           </div>
