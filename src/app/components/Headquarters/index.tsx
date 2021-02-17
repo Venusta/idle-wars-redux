@@ -52,18 +52,18 @@ export const Headquarters = () => {
     const buildingData = baseBuildings[buildingId];
 
     const row = [
-      <BuildingInfo buildingId={buildingId} level={level} />,
+      <BuildingInfo key={buildingId+"info"} buildingId={buildingId} level={level} />,
     ]
 
     if (queuedLevel >= buildingData.maxLevel) {
-      row.push(<div className={Style["fully-constructed"]}>Building fully constructed</div>)
+      row.push(<div key={buildingId+"full-cons"}className={Style["fully-constructed"]}>Building fully constructed</div>)
       return (<>{row}</>);
     };
 
-    row.push(<BuildingResourceDisplay buildingId={buildingId} townId={townId} />)
+    row.push(<BuildingResourceDisplay key={buildingId+"Dis"} buildingId={buildingId} townId={townId} />)
 
     if (queue.length >= HeadquartersQueueSlots) {
-      row.push(<InactiveBut text="Queue full" />)
+      row.push(<InactiveBut key={buildingId+"queue-full"} text="Queue full" />)
       return (<>{row}</>);
     };
 
@@ -71,11 +71,11 @@ export const Headquarters = () => {
     const timeUntil = calculateTimeUntilResources(town, cost); // TODO NOT ENTIRE TOWN OBJECT
 
     if (timeUntil > 0) {
-      row.push(<InactiveBut text={new Date(timeUntil * 1000).toISOString().substr(11, 8)} />)
+      row.push(<InactiveBut key={buildingId+"time"} text={new Date(timeUntil * 1000).toISOString().substr(11, 8)} />)
       return (<>{row}</>);
     };
 
-    row.push(<BuildingConstruct buildingId={buildingId} queuedLevel={queuedLevel + 1} />)
+    row.push(<BuildingConstruct key={buildingId+"cons"} buildingId={buildingId} queuedLevel={queuedLevel + 1} />)
     return (<>{row}</>);
   }
 
@@ -84,7 +84,7 @@ export const Headquarters = () => {
       <div className={Style.columnHeader}>Buildings</div>
       <div className={`${Style.columnHeader} ${Style.columnRequirements}`}>Requirements</div>
       <div className={Style.columnHeader}>Construct</div>
-      {baseBuildings[hqId].creates.map((id) => <BuildingRow key={id} buildingId={id} />)}
+      {baseBuildings[hqId].creates.map((id, index) => <BuildingRow key={id + index} buildingId={id} />)}
     </div>
   )
 };

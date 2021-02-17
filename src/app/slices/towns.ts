@@ -189,6 +189,17 @@ const initialState: TownsInterface = {
     ...testTown,
     id: "1",
     name: "Kora sucks",
+  },
+  "2": {
+    ...testTown,
+    id: "2",
+    name: "Barbarian village",
+    units: {
+      [UnitId.SpearFighter]: {
+        town: 15,
+        total: 15
+      }
+    }
   }
 };
 

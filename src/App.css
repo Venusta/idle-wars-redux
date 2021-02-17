@@ -14,6 +14,7 @@
   border: solid rgba(0, 0, 0, 0.05) 1px;
   padding: 20px;
   background-color: var(--main);
+  
 
   /* min-width: fit-content; */
 }
@@ -55,16 +56,6 @@
 }
 .Sidebar-Left > a:hover {
   text-decoration: underline;
-}
-
-.App-Style-Village {
-  white-space: nowrap;
-  font-weight: bold;
-  padding: 3px;
-  border: solid rgba(0, 0, 0, 0.05) 1px;
-  box-shadow: 3px 3px 6px var(--shadow-dark), -3px -3px 6px var(--shadow-light);
-  border-radius: 5px;
-  background-color: var(--main);
 }
 
 .Sidebar-Right {
