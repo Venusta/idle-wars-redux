@@ -1,0 +1,36 @@
+.container {
+  padding: 5px;
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.attdef {
+  display: grid;
+  grid-template-columns: repeat(6, min-content);
+  column-gap: 10px;
+  row-gap: 5px;
+  padding: 3px;
+  /* background-color: tomato; */
+}
+
+.test1 {
+  grid-area: test;
+}
+
+.unitIcon {
+  display: flex;
+  justify-self: center;
+  /* background-color: rgb(58, 128, 0); */
+}
+
+.value {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* background-color: teal; */
+}
+
+.fade {
+  opacity: 0.5;
+}

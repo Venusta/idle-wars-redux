@@ -8,7 +8,7 @@ import { BuildingId } from '../../game/constants';
 import { selectBuildingQueue } from '../../selectors';
 
 
-export const Queue = () => {
+export const QueueOld = () => {
   const { townId } = useParams<{ townId: string }>();
   const buildingQueue = useSelector((state: RootState) => selectBuildingQueue(state, townId, BuildingId.Headquarters))
   const [date, setDate] = useState(Date.now());
@@ -21,10 +21,6 @@ export const Queue = () => {
       clearInterval(x);
     }
   }, [date]);
-
-  // buildingQueue?.forEach((queueItem) => {
-  //   console.log(`Item queued in headquarters: ${baseBuildings[queueItem.item as BuildingId].name} Completed at: ${queueItem.completionTime}`)
-  // });
 
   const formatDate = (seconds: number) => new Date(seconds).toISOString().substr(11, 8)
 
@@ -50,4 +46,4 @@ export const Queue = () => {
       {renderQueue()}
     </div>
   )
-}
+};

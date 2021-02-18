@@ -12,6 +12,9 @@ import { Navbar } from './app/components/Navbar';
 import { SidebarQueue } from './app/components/SidebarQueue';
 import { BuildingHeader } from './app/components/BuildingHeader';
 import { VillageTitle } from './app/components/VillageTitle';
+import { QueueOld } from './app/components/QueueOld';
+import { ConstructButton, HeaderNavButton } from './app/components/Buttons';
+import { BattleReport } from './app/components/BattleReport';
 
 function App() {
   const dispatch = useDispatch()
@@ -36,6 +39,37 @@ function App() {
   // }, []);
   console.log("PLEASE DON'T RE-RENDER");
 
+  const handleClick = () => {
+    console.log("hi");
+
+  }
+
+  interface MainContainerProps {
+    children?: JSX.Element | JSX.Element[];
+  }
+
+  const MainContainer = ({ children }: MainContainerProps) => {
+    return (
+      <>
+        <div className="header">
+          <HeaderNavButton linkTo={"/0/buildings/headquarters"} text="Home" />
+          <HeaderNavButton linkTo={"/0/villages"} text="Villages" />
+          <HeaderNavButton linkTo={"/0/map"} text="Map" />
+          <HeaderNavButton linkTo={"/0/reports"} text="Reports" />
+          <HeaderNavButton linkTo={"/0/reports"} text="Settings" />
+        </div>
+        <div className={"App-Main"}>
+          {/* <QueueOld /> */}
+          <div className="App-Header">
+            <VillageTitle />
+            <ResourceDisplay />
+          </div>
+          <Navbar />
+          {children}
+        </div>
+      </>
+    )
+  };
 
   return (
     <div className="App">
@@ -46,28 +80,40 @@ function App() {
           <Redirect to="/0/buildings/headquarters" />
         </Route>
 
+        <Route exact path="/:townId/reports">
+          <MainContainer>
+            <BattleReport />
+          </MainContainer>
+        </Route>
+
+        <Route exact path="/:townId/villages">
+          <MainContainer>
+            <div>Villages for town</div>
+          </MainContainer>
+        </Route>
+
         <Route exact path="/:townId/recruit">
-          <div>Recruitment for town</div>
+          <MainContainer>
+            <div>Recruitment for town</div>
+          </MainContainer>
         </Route>
 
         <Route exact path="/:townId/map">
-          <div>Map for town</div>
+          <MainContainer>
+            <div>Map for town</div>
+          </MainContainer>
+
         </Route>
 
         {/* Have a page for each building in a town */}
         <Route exact path="/:townId/buildings/:buildingId">
-          <div className="App-Main">
-            <div className="App-Header">
-              <VillageTitle />
-              <ResourceDisplay />
-            </div>
-            <Navbar />
+          <MainContainer>
             <BuildingHeader />
             <div className="queueContainer">
               <Headquarters />
               <SidebarQueue />
             </div>
-          </div>
+          </MainContainer>
         </Route>
 
         <Route>

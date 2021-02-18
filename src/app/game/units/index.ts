@@ -12,5 +12,5 @@ export const baseUnits = {
   [UnitId.Swordsman]: swordsman,
   [UnitId.Archer]: archer,
   [UnitId.Scout]: scout,
-  [UnitId.LightCavalry]: lightCavalry
-};
+  [UnitId.LightCavalry]: lightCavalry,
+}

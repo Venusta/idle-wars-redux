@@ -8,7 +8,7 @@ export interface UnitQueueItem {
   amount: number;
 }
 
-export interface BuildingQueueItem { // proper queue types, no shortcuts fuck you ???
+export interface BuildingQueueItem {
   item: BuildingId;
   duration: number;
   completionTime: number;
@@ -30,21 +30,6 @@ const initialState: Queue = {
     [BuildingId.Headquarters]: [],
   },
 }
-
-// const initialState: Queue[] = [
-//   {
-//     townId: 0,
-//     [BuildingId.Barracks]: [
-//       { item: 0, completionTime: 5938973, amount: 1 },
-//       { item: 0, completionTime: 593894473, amount: 1 }
-//     ],
-//     [BuildingId.Stable]: [
-//       //real queue won't have empty array
-//     ],
-//     [BuildingId.Headquarters]: [
-//     ]
-//   },
-// ]
 
 interface QueuePayload {
   payload: {
@@ -92,7 +77,7 @@ export const queueSlice = createSlice({
     },
     pop: (queue, { payload: { townId, buildingId } }: PopPayload) => {
       //buildingIndex
-      const x = queue[townId][buildingId]?.shift();
+      // const x = queue[townId][buildingId]?.shift();
 
       console.log(`removing ${townId} ${buildingId}`);
       console.log(queue);

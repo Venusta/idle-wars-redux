@@ -2,8 +2,8 @@ import { UnitId } from "../constants";
 import { Unit } from "../model/unit";
 
 export const lightCavalry = new Unit({
-  id: UnitId.Scout,
-  name: "Scout",
+  id: UnitId.LightCavalry,
+  name: "Light Cavalry",
   cost: {
     resources: {
       timber: 125,

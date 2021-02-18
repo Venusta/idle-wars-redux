@@ -19,6 +19,7 @@ export enum UnitId {
   Archer = "archer",
   Scout = "scout",
   LightCavalry = "lightcavalry",
+  // HeavyCavalry = "heavycavalry",
 }
 
 export enum ResourceId {

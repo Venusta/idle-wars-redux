@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { createSlice } from "@reduxjs/toolkit";
 import { BuildingCost, Resources, TownsInterface } from "../../types/types";
 import { baseBuildings } from "../game/buildings";

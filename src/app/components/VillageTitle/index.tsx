@@ -9,7 +9,7 @@ interface Props {
   children: React.ReactNode
 }
 
-const BasicVillage = ({ townId, children }: Props) => {
+const VillageMenuItem = ({ townId, children }: Props) => {
   return (
     <div className={Style.basicContainer}>
       <Link to={`/${townId}/buildings/${BuildingId.Headquarters}`} className="link">{children}</Link>
@@ -23,15 +23,15 @@ const DropDownMenu = ({ styles }: { styles: boolean }) => {
   const blah = 20
   return (
     <div className={`${Style.sq} ${styles ? Style.hide : ""}`}>
-      {[...Array(blah)].map((e, index) => <BasicVillage townId="0" key={index}>{`Test village ${index}`}</BasicVillage>)}
+      {[...Array(blah)].map((e, index) => <VillageMenuItem townId="0" key={index}>{`Test village ${index}`}</VillageMenuItem>)}
     </div>
   )
 }
 
 export const VillageTitle = () => {
   const { townId } = useParams<{ townId: string }>();
-  const [hide, setHide] = useState(false)
-  const thing = (hide: boolean) => {
+  const [hide, setHide] = useState(true) // hide
+  const handleMouseEvent = (hide: boolean) => {
     setHide(hide)
   }
 
@@ -39,7 +39,7 @@ export const VillageTitle = () => {
     <div className={Style.container}>
       <Link to={`/${townId}/buildings/${BuildingId.Headquarters}`} className="link">Test village</Link>
       <span>&nbsp;</span>
-      <div onMouseOver={() => thing(false)} onMouseLeave={() => thing(true)}>
+      <div onMouseOver={() => handleMouseEvent(false)} onMouseLeave={() => handleMouseEvent(true)}>
         (489|489) K44
         <DropDownMenu styles={hide} />
       </div>
