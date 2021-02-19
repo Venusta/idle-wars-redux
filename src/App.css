@@ -2,10 +2,11 @@
   display: flex;
   flex-direction: column;
   min-height: 100%;
-  min-width: 100%;
+  min-width: fit-content;
   background-color: black;
   /* padding: 5px;
   background-color: var(--main); */
+  /* flex: 1; */
 }
 
 .header {
@@ -15,6 +16,7 @@
   height: 50px;
   background-color: var(--main);
   padding: 10px;
+  justify-content: space-evenly;
 }
 
 .header-item {
@@ -27,7 +29,6 @@
   cursor: pointer;
 }
 
-
 .App-Main {
   display: flex;
   flex-direction: column;
@@ -37,9 +38,6 @@
   border: solid rgba(0, 0, 0, 0.05) 1px;
   padding: 20px;
   background-color: var(--main);
-  
-
-  /* min-width: fit-content; */
 }
 
 .App-Header {
@@ -47,8 +45,6 @@
   flex-direction: row;
   justify-content: space-between;
   /* min-width: fit-content; */
-
-  /* background-color: rgb(113, 81, 143); */
 }
 
 .App-Title {

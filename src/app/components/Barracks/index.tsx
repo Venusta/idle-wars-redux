@@ -2,7 +2,7 @@
 /* eslint-disable jsx-a11y/alt-text */
 import React from 'react'
 import { useSelector } from 'react-redux';
-import { ResourceId, UnitId } from '../../game/constants';
+import { ResourceId } from '../../game/constants';
 import { baseResources } from '../../game/resources';
 import { baseUnits } from '../../game/units';
 import { Unit } from '../../game/model/unit';

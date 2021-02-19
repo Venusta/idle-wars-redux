@@ -20,4 +20,14 @@ export const lightCavalry = new Unit({
   defCav: 40,
   defArc: 30,
   carries: 80,
+  researchCost: {
+    resources: {
+      timber: 2200,
+      clay: 2400,
+      iron: 2000
+    }
+  },
+  requirements: {
+    stable: 3,
+  }
 })

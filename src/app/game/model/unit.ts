@@ -14,7 +14,7 @@ interface UnitProps {
   defArc: number;
   carries: number;
   researchCost?: ResearchCost;
-  requirements?: any;
+  requirements?: any; // TODO FUCKING HELL
 }
 
 export class Unit {
