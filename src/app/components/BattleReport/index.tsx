@@ -5,17 +5,13 @@ import { UnitId } from '../../game/constants'
 import { baseUnits } from '../../game/units'
 import 'simplebar/dist/simplebar.min.css';
 import "./style.css";
+import { UnitLosses } from '../../../types/types';
 
 
-type Report = {
+export type Report = {
   townId: string
   type: "Attacker" | "Defender"
-  units: {
-    [id in UnitId]?: {
-      total: number
-      loss?: number
-    };
-  }
+  units: UnitLosses;
 }
 
 const units = {
@@ -123,6 +119,7 @@ export const BattleReport = () => {
       <div className={Style.container}>
         <AttDefTable report={attacker} />
         <AttDefTable report={attacker} />
+        <AttDefTable report={defender} />
         <AttDefTable report={defender} />
         <AttDefTable report={defender} />
       </div>

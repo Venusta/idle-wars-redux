@@ -29,6 +29,6 @@
     "src"
   ],
   "exclude": [
-    "simulator.ts"
+    // "src/app/game/combat/simulator.ts"
   ]
 }

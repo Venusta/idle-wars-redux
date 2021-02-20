@@ -1,13 +1,11 @@
 .outer {
-  /* background-color: bisque; */
   margin-top: 20px;
-  /* background-color: darkseagreen; */
 
-  /* display: flex; */
-  display: grid;
+  display: flex;
+  /* display: grid;
   grid-template-columns: 150px 1fr;
   grid-template-rows: 400px;
-  column-gap: 10px;
+  column-gap: 10px; */
   padding: 15px;
   /* border: 1px solid #d1d9e6;
   border-radius: 5px;
@@ -19,38 +17,40 @@
   border: solid rgba(0, 0, 0, 0.05) 1px;
   border-radius: 10px; */
 
-  /* background-color: greenyellow; */
+  background-color: rgba(172, 255, 47, 0.541);
 }
 
 .container {
   display: flex;
   flex-direction: column;
   padding: 20px;
-  box-shadow: inset 2px 2px 5px var(--shadow-dark), inset -3px -3px 7px var(--shadow-light);
+  box-shadow: inset 2px 2px 5px var(--shadow-dark),
+    inset -3px -3px 7px var(--shadow-light);
   border-radius: 5px;
-  height: fit-content;
-  width: fit-content;
+  /* height: fit-content; */
+  /* width: fit-content; */
   background-color: var(--main);
 }
 
 .reportSelector {
   display: flex;
   flex-direction: column;
-  /* margin: 0px 10px; */
-  /* overflow-y: scroll; */
+
   width: 150px;
-  /* padding: 10px; */
   background-color: var(--main);
   margin-right: 10px;
 
-  background-color: rgba(0, 255, 255, 0.288);
-  /* height: 70vh; */
+  background-color: rgba(13, 139, 139, 0.486);
+  /* height: 500px; */
 }
 
 .simpleBar {
-  height: 100%;
-  /* background-color: rgba(0, 0, 255, 0.438); */
-  /* padding: 10px; */
+  display: flex;
+  /* height: 100%; */
+  /* flex-grow: 1; */
+  /* flex-shrink: 1; */
+  /* height: 400px; */
+  background-color: rgba(0, 0, 255, 0.438);
 }
 
 .listItem {

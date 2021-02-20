@@ -90,6 +90,14 @@ export interface ResourceBuildingProps extends BuildingProps {
 export interface ProductionBuildingProps extends BuildingProps {
   creates: Array<BuildingId>;
 }
+
 export interface UnitProductionBuildingProps extends BuildingProps {
   creates: Array<UnitId>;
 }
+
+export type UnitLosses = {
+  [id in UnitId]?: {
+  total: number;
+  loss?: number;
+  }
+};

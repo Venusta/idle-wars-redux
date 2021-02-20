@@ -15,6 +15,8 @@ import { VillageTitle } from './app/components/VillageTitle';
 import { QueueOld } from './app/components/QueueOld';
 import { ConstructButton, HeaderNavButton } from './app/components/Buttons';
 import { BattleReport } from './app/components/BattleReport';
+import { simulateBattle } from './app/game/combat/simulator';
+import { UnitId } from './app/game/constants';
 
 function App() {
   const dispatch = useDispatch()
@@ -38,6 +40,21 @@ function App() {
   //   }
   // }, []);
   console.log("PLEASE DON'T RE-RENDER");
+
+  const attackers =     { 
+    [UnitId.SpearFighter]: 10,
+    [UnitId.Swordsman]: 1234,
+    [UnitId.Axeman]: 500
+  };
+
+  const defenders = { 
+    [UnitId.SpearFighter]: 10,
+    [UnitId.Swordsman]: 500,
+    [UnitId.Archer]: 400
+  };
+
+  console.log(simulateBattle(attackers, defenders));
+  
 
   const handleClick = () => {
     console.log("hi");
