@@ -64,17 +64,16 @@ export const simulateBattle = (attackers: Army, defenders: Army, wallLevel: numb
 
 
     /* -------------- Total defence values per type for defender ------------------ */
-    const totalDefence = [0, 0, 0] // [infantry, archer, cavalry]
-
     // Every village has a base defence based on its wall level but this is only a thing during the first round of combat for some fucking reason
     const wallBaseDefense = roundNumber >= 1 ? 0 : 20 + 50 * wallBonusLevel;
+    const totalDefence = [wallBaseDefense, wallBaseDefense, wallBaseDefense] // [infantry, archer, cavalry]
 
     Object.entries(defenders).forEach(([unit, amount = 0]) => {
       if (isUnitId(unit)) {
         const unitData = baseUnits[unit];
-        totalDefence[0] += unitData.def * amount * defenceMultiplier + wallBaseDefense;
-        totalDefence[1] += unitData.defArc * amount * defenceMultiplier + wallBaseDefense;
-        totalDefence[2] += unitData.defCav * amount * defenceMultiplier + wallBaseDefense;
+        totalDefence[0] += unitData.def * amount * defenceMultiplier;
+        totalDefence[1] += unitData.defArc * amount * defenceMultiplier;
+        totalDefence[2] += unitData.defCav * amount * defenceMultiplier;
       } else {
         console.error(`${unit} was not a valid unit id.`);
       }
