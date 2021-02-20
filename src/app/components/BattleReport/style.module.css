@@ -18,6 +18,8 @@
   border-radius: 10px; */
 
   background-color: rgba(172, 255, 47, 0.541);
+  height: 100%;
+  flex: 1;
 }
 
 .container {
@@ -27,9 +29,10 @@
   box-shadow: inset 2px 2px 5px var(--shadow-dark),
     inset -3px -3px 7px var(--shadow-light);
   border-radius: 5px;
-  /* height: fit-content; */
+  height: fit-content;
   /* width: fit-content; */
   background-color: var(--main);
+  background-color: aquamarine;
 }
 
 .reportSelector {
@@ -41,15 +44,15 @@
   margin-right: 10px;
 
   background-color: rgba(13, 139, 139, 0.486);
-  /* height: 500px; */
 }
 
+/* TODO this should fill the div above it without 
+ hard coding a 400px height*/
 .simpleBar {
-  display: flex;
+  /* display: flex; */
   /* height: 100%; */
-  /* flex-grow: 1; */
-  /* flex-shrink: 1; */
-  /* height: 400px; */
+
+  height: 400px;
   background-color: rgba(0, 0, 255, 0.438);
 }
 
@@ -81,8 +84,8 @@
   column-gap: 15px;
   row-gap: 5px;
   padding: 3px;
-  /* background-color: tomato; */
-  width: fit-content;
+  background-color: tomato;
+  /* width: fit-content; */
 }
 
 .titleBar {
