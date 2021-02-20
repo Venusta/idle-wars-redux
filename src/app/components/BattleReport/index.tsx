@@ -115,8 +115,6 @@ export const BattleReport = () => {
           <li className={Style.listItem}>Report 9</li>
           <li className={Style.listItem}>Report 10</li>
           <li className={Style.listItem}>Report 1</li>
-          <li className={Style.listItem}>Report 2</li>
-          <li className={Style.listItem}>Report 3</li>
           <li className={Style.listItem}>Report 4</li>
           <li className={Style.listItem}>Report 5</li>
           <li className={Style.listItem}>Report 6</li>
@@ -124,6 +122,7 @@ export const BattleReport = () => {
           <li className={Style.listItem}>Report 8</li>
           <li className={Style.listItem}>Report 9</li>
           <li className={Style.listItem}>Report 10</li>
+          <li className={Style.listItem}>Report 1</li>
         </SimpleBar>
       </ul>
       <div className={Style.container}>
@@ -131,7 +130,7 @@ export const BattleReport = () => {
         <AttDefTable report={attacker} />
         <AttDefTable report={defender} />
         <AttDefTable report={defender} />
-        <AttDefTable report={defender} />
+
       </div>
     </div>
   )
