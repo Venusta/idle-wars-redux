@@ -27,9 +27,9 @@ const testTown = {
   // coords
   name: "Test village",
   resources: {
-    timber: 500,
-    clay: 500,
-    iron: 500,
+    timber: 5000,
+    clay: 5000,
+    iron: 5000,
   },
   rps: {
     timber: 0,

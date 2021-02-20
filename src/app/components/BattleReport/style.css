@@ -1,0 +1,7 @@
+.simplebar-scrollbar::before {
+  background-color: var(--text-colour);
+}
+
+.simplebar-scrollbar {
+  opacity: 0.5;
+}

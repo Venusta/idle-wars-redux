@@ -1,7 +1,10 @@
 import React from 'react'
+import SimpleBar from 'simplebar-react';
 import Style from "./style.module.css"
 import { UnitId } from '../../game/constants'
 import { baseUnits } from '../../game/units'
+import 'simplebar/dist/simplebar.min.css';
+import "./style.css";
 
 
 type Report = {
@@ -10,7 +13,7 @@ type Report = {
   units: {
     [id in UnitId]?: {
       total: number
-      loss: number
+      loss?: number
     };
   }
 }
@@ -18,7 +21,6 @@ type Report = {
 const units = {
   [UnitId.Archer]: {
     total: 0,
-    loss: 0,
   },
   [UnitId.SpearFighter]: {
     total: 100,
@@ -95,19 +97,33 @@ export const BattleReport = () => {
   return (
     <div className={Style.outer} >
       <ul className={Style.reportSelector}>
-        <li>Report 1</li>
-        <li>Report 2</li>
-        <li>Report 3</li>
-        <li>Report 4</li>
-        <li>Report 5</li>
-        <li>Report 6</li>
-        <li>Report 7</li>
-        <li>Report 8</li>
-        <li>Report 9</li>
-        <li>Report 10</li>
+        <SimpleBar autoHide={false} forceVisible="y" className={Style.simpleBar}>
+          <li className={Style.listItem}>Report with a longer than usual name</li>
+          <li className={Style.listItem}>Report 2</li>
+          <li className={Style.listItem}>Report 3</li>
+          <li className={Style.listItem}>Report 4</li>
+          <li className={Style.listItem}>Report 5</li>
+          <li className={Style.listItem}>Report 6</li>
+          <li className={Style.listItem}>Report 7</li>
+          <li className={Style.listItem}>Report 8</li>
+          <li className={Style.listItem}>Report 9</li>
+          <li className={Style.listItem}>Report 10</li>
+          <li className={Style.listItem}>Report 1</li>
+          <li className={Style.listItem}>Report 2</li>
+          <li className={Style.listItem}>Report 3</li>
+          <li className={Style.listItem}>Report 4</li>
+          <li className={Style.listItem}>Report 5</li>
+          <li className={Style.listItem}>Report 6</li>
+          <li className={Style.listItem}>Report 7</li>
+          <li className={Style.listItem}>Report 8</li>
+          <li className={Style.listItem}>Report 9</li>
+          <li className={Style.listItem}>Report 10</li>
+        </SimpleBar>
       </ul>
       <div className={Style.container}>
         <AttDefTable report={attacker} />
+        <AttDefTable report={attacker} />
+        <AttDefTable report={defender} />
         <AttDefTable report={defender} />
       </div>
     </div>
