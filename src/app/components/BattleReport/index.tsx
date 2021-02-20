@@ -66,18 +66,17 @@ const AttDefTable = ({ report }: { report: Report }) => {
     return (<div className={`${Style.value} ${amount === 0 ? Style.fade : ""}`}>{amount}</div>)
   }
 
-  const icons: JSX.Element[] = [<div />];
-  const quantity: JSX.Element[] = [<div>Quantity:</div>];
-  const losses: JSX.Element[] = [<div>Losses:</div>];
-
-  Object.values(UnitId).forEach((key) => {
+  const columnData = Object.values(UnitId).map((key) => {
     const total = report.units[key]?.total ?? 0;
     const loss = report.units[key]?.loss ?? 0;
     const id = baseUnits[key].id;
-
-    icons.push(<img key={key + "img1"} className={`${Style.unitIcon} ${total === 0 ? Style.fade : ""}`} src={`${process.env.PUBLIC_URL}/units/unit_${id}.png`} title={id} alt="" />)
-    quantity.push(<SingleItem amount={total} key={key + "quantity1"} />)
-    losses.push(<SingleItem amount={loss} key={key + "loss1"} />)
+    return (
+      <>
+        <img key={key + "img1"} className={`${Style.unitIcon} ${total === 0 ? Style.fade : ""}`} src={`${process.env.PUBLIC_URL}/units/unit_${id}.png`} title={id} alt="" />
+        <SingleItem amount={total} key={key + "quantity1"} />
+        <SingleItem amount={loss} key={key + "loss1"} />
+      </>
+    )
   });
 
   return (
@@ -85,10 +84,11 @@ const AttDefTable = ({ report }: { report: Report }) => {
       <div className={Style.titleBar}>{`${report.type}: `}</div>
       <div className={Style.name}>{report.type === "Attacker" ? "Attacker" : "Defender"} name</div>
       <div>{report.type === "Attacker" ? "Origin" : "Destination"}:</div>
+      <div />
       <div className={Style.name}>TownName (543|577) K55</div>
-      {icons}
-      {quantity}
-      {losses}
+      <div>Quantity:</div>
+      <div>Losses:</div>
+      {columnData}
     </div>
   )
 }

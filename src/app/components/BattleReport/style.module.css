@@ -26,7 +26,7 @@
   display: flex;
   flex-direction: column;
   padding: 20px;
-  box-shadow: inset 2px 2px 5px #b8b9be, inset -3px -3px 7px #fff !important;
+  box-shadow: inset 2px 2px 5px var(--shadow-dark), inset -3px -3px 7px var(--shadow-light);
   border-radius: 5px;
   height: fit-content;
   width: fit-content;
@@ -76,7 +76,8 @@
 .attdef {
   display: grid;
   grid-template-columns: 6em repeat(11, min-content);
-  /* grid-auto-flow: column; */
+  grid-template-rows: repeat(5, 1fr);
+  grid-auto-flow: column;
   column-gap: 15px;
   row-gap: 5px;
   padding: 3px;
