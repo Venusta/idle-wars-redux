@@ -22,7 +22,7 @@ export const ResourceDisplay = () => {
     const total = town.resources[id];
     const rps = town.rps[id]
     return (
-      <div className={Style.inner} title={display ? `${rps.toFixed(2)}/s` : `${(total).toFixed(0)}`} onClick={toggleDisplay}>
+      <div className={Style.inner} title={display ? `${rps.toFixed(2)}/s` : `${(total).toFixed(0)}`}>
         <img className={Style.icon} src={`${process.env.PUBLIC_URL}/resources/${id}.png`} />
         <div className={Style.displayText}>{display ? `${(total).toFixed(0)}` : `${rps.toFixed(2)}/s`}</div>
       </div>
@@ -30,7 +30,7 @@ export const ResourceDisplay = () => {
   }
 
   return (
-    <div className={Style.wrapper}>
+    <div className={Style.wrapper} onClick={toggleDisplay}>
       <InnerWithIcon id={ResourceId.Timber} />
       <InnerWithIcon id={ResourceId.Clay} />
       <InnerWithIcon id={ResourceId.Iron} />

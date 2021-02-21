@@ -6,12 +6,11 @@
   border-radius: 5px;
   background-color: var(--main);
   user-select: none;
+  cursor: pointer;
 }
 
 .inner {
-  cursor: pointer;
   display: flex;
-  /* align-items: center; */
   padding: 2px;
 }
 
@@ -25,21 +24,4 @@
   align-self: center;
   margin: 0px 2px;
   font-size: 12px;
-  /* background-color: rgba(0, 0, 255, 0.452); */
 }
-
-/* .textWrapper {
-  display: flex;
-  flex-direction: column;
-  align-self: center;
-  justify-content: center;
-  justify-items: center;
-  justify-self: center;
-} */
-
-/* .smoll {
-  display: flex;
-  flex: 1;
-  font-size: 10px;
-  align-items: flex-end;
-} */

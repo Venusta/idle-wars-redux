@@ -71,7 +71,7 @@ function App() {
         <div className="header-wrapper">
           <div className="ahhh">
 
-          <VillageTitle />
+            <VillageTitle />
           </div>
           <div className="header">
 
