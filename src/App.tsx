@@ -68,26 +68,25 @@ function App() {
   const MainContainer = ({ children }: MainContainerProps) => {
     return (
       <>
-        <div className="side">
-         {` 
+        <div className="header-wrapper">
+          <div className="ahhh">
 
-          test
-          test
-          test`}
+          <VillageTitle />
+          </div>
+          <div className="header">
+
+            <HeaderNavButton linkTo={"/0/buildings/headquarters"} text="Home" />
+            {/* <HeaderNavButton linkTo={"/0/villages"} text="Villages" /> */}
+            <HeaderNavButton linkTo={"/0/map"} text="Map" />
+            <HeaderNavButton linkTo={"/0/reports"} text="Reports" />
+            <HeaderNavButton linkTo={"/0/reports"} text="Settings" />
+          </div>
         </div>
         <div className="content-overflow">
           <div className="content-wrapper">
-            <div className="header">
-              <HeaderNavButton linkTo={"/0/buildings/headquarters"} text="Home" />
-              <HeaderNavButton linkTo={"/0/villages"} text="Villages" />
-              <HeaderNavButton linkTo={"/0/map"} text="Map" />
-              <HeaderNavButton linkTo={"/0/reports"} text="Reports" />
-              <HeaderNavButton linkTo={"/0/reports"} text="Settings" />
-            </div>
             <div className={"content-body"}>
-              {/* <QueueOld /> */}
               <div className="content-header">
-                <VillageTitle />
+                {/* <VillageTitle /> */}
                 <ResourceDisplay />
               </div>
               <Navbar />
