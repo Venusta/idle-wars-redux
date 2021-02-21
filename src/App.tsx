@@ -41,20 +41,20 @@ function App() {
   // }, []);
   console.log("PLEASE DON'T RE-RENDER");
 
-  const attackers =     { 
+  const attackers = {
     [UnitId.SpearFighter]: 10,
     [UnitId.Swordsman]: 1234,
     [UnitId.Axeman]: 500
   };
 
-  const defenders = { 
+  const defenders = {
     [UnitId.SpearFighter]: 10,
     [UnitId.Swordsman]: 500,
     [UnitId.Archer]: 400
   };
 
   console.log(simulateBattle(attackers, defenders));
-  
+
 
   const handleClick = () => {
     console.log("hi");
@@ -68,22 +68,33 @@ function App() {
   const MainContainer = ({ children }: MainContainerProps) => {
     return (
       <>
-        <div className="header">
-          <HeaderNavButton linkTo={"/0/buildings/headquarters"} text="Home" />
-          <HeaderNavButton linkTo={"/0/villages"} text="Villages" />
-          <HeaderNavButton linkTo={"/0/map"} text="Map" />
-          <HeaderNavButton linkTo={"/0/reports"} text="Reports" />
-          <HeaderNavButton linkTo={"/0/reports"} text="Settings" />
-        </div>
-        <div className={"App-Main"}>
-          {/* <QueueOld /> */}
-          <div className="App-Header">
-            <VillageTitle />
-            <ResourceDisplay />
+        <div className="header-wrapper">
+          <div className="ahhh">
+
+          <VillageTitle />
           </div>
-          <Navbar />
-          {children}
+          <div className="header">
+
+            <HeaderNavButton linkTo={"/0/buildings/headquarters"} text="Home" />
+            {/* <HeaderNavButton linkTo={"/0/villages"} text="Villages" /> */}
+            <HeaderNavButton linkTo={"/0/map"} text="Map" />
+            <HeaderNavButton linkTo={"/0/reports"} text="Reports" />
+            <HeaderNavButton linkTo={"/0/reports"} text="Settings" />
+          </div>
         </div>
+        <div className="content-overflow">
+          <div className="content-wrapper">
+            <div className={"content-body"}>
+              <div className="content-header">
+                {/* <VillageTitle /> */}
+                <ResourceDisplay />
+              </div>
+              <Navbar />
+              {children}
+            </div>
+          </div>
+        </div>
+
       </>
     )
   };

@@ -1,6 +1,7 @@
 .container {
   display: flex;
-  /* white-space: nowrap; */
+  align-items: center;
+  white-space: nowrap;
   font-weight: bold;
   padding: 3px;
   border: solid rgba(0, 0, 0, 0.05) 1px;
