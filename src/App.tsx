@@ -68,25 +68,31 @@ function App() {
   const MainContainer = ({ children }: MainContainerProps) => {
     return (
       <>
-        {/* <div className="side">
+        <div className="side">
+         {` 
+
           test
-        </div> */}
-        <div className="everything">
-          <div className="header">
-            <HeaderNavButton linkTo={"/0/buildings/headquarters"} text="Home" />
-            <HeaderNavButton linkTo={"/0/villages"} text="Villages" />
-            <HeaderNavButton linkTo={"/0/map"} text="Map" />
-            <HeaderNavButton linkTo={"/0/reports"} text="Reports" />
-            <HeaderNavButton linkTo={"/0/reports"} text="Settings" />
-          </div>
-          <div className={"App-Main"}>
-            {/* <QueueOld /> */}
-            <div className="App-Header">
-              <VillageTitle />
-              <ResourceDisplay />
+          test
+          test`}
+        </div>
+        <div className="content-overflow">
+          <div className="content-wrapper">
+            <div className="header">
+              <HeaderNavButton linkTo={"/0/buildings/headquarters"} text="Home" />
+              <HeaderNavButton linkTo={"/0/villages"} text="Villages" />
+              <HeaderNavButton linkTo={"/0/map"} text="Map" />
+              <HeaderNavButton linkTo={"/0/reports"} text="Reports" />
+              <HeaderNavButton linkTo={"/0/reports"} text="Settings" />
             </div>
-            <Navbar />
-            {children}
+            <div className={"content-body"}>
+              {/* <QueueOld /> */}
+              <div className="content-header">
+                <VillageTitle />
+                <ResourceDisplay />
+              </div>
+              <Navbar />
+              {children}
+            </div>
           </div>
         </div>
 

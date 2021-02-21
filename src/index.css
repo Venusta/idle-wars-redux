@@ -14,7 +14,7 @@ body {
   /* height: 100vh; */
   /* height: 100%; */
   /* width: 100%; */
-  background-color: aquamarine;
+  /* background-color: aquamarine; */
   /* overflow: hidden; */
 }
 
@@ -27,7 +27,7 @@ html {
 #root {
   /* height: 100%; */
   /* width: 100%; */
-  background-color: chartreuse;
+  /* background-color: chartreuse; */
 }
 
 :root {
