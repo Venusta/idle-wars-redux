@@ -130,7 +130,6 @@ export const BattleReport = () => {
         <AttDefTable report={attacker} />
         <AttDefTable report={defender} />
         <AttDefTable report={defender} />
-
       </div>
     </div>
   )

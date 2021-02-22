@@ -17,6 +17,7 @@ import { ConstructButton, HeaderNavButton } from './app/components/Buttons';
 import { BattleReport } from './app/components/BattleReport';
 import { simulateBattle } from './app/game/combat/simulator';
 import { UnitId } from './app/game/constants';
+import { tick } from './app/slices/misc';
 
 function App() {
   const dispatch = useDispatch()
@@ -31,8 +32,9 @@ function App() {
 
   // useEffect(() => {
   //   const x = setInterval(() => {
-  //     updateQueue(); // not this
-  //     dispatch(incrementAllTownsResources()); // not this
+  //     // updateQueue(); // not this
+  //     // dispatch(incrementAllTownsResources()); // not this
+  //     dispatch(tick())
   //     console.log("Updated");
   //   }, 1000);
   //   return () => {
@@ -55,12 +57,6 @@ function App() {
 
   console.log(simulateBattle(attackers, defenders));
 
-
-  const handleClick = () => {
-    console.log("hi");
-
-  }
-
   interface MainContainerProps {
     children?: JSX.Element | JSX.Element[];
   }
@@ -70,11 +66,9 @@ function App() {
       <>
         <div className="header-wrapper">
           <div className="ahhh">
-
             <VillageTitle />
           </div>
           <div className="header">
-
             <HeaderNavButton linkTo={"/0/buildings/headquarters"} text="Home" />
             {/* <HeaderNavButton linkTo={"/0/villages"} text="Villages" /> */}
             <HeaderNavButton linkTo={"/0/map"} text="Map" />
