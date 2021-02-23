@@ -5,9 +5,9 @@ import './App.css';
 import { Headquarters } from './app/components/Headquarters';
 import { ResourceDisplay } from './app/components/ResourceDisplay/ResourceDisplay';
 import { updateQueue } from './app/game/queue';
-import { store } from './app/store';
+import { RootState, store } from './app/store';
 import { incrementAllTownsResources } from './app/slices/towns';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Navbar } from './app/components/Navbar';
 import { SidebarQueue } from './app/components/SidebarQueue';
 import { BuildingHeader } from './app/components/BuildingHeader';
@@ -18,10 +18,32 @@ import { BattleReport } from './app/components/BattleReport';
 import { simulateBattle } from './app/game/combat/simulator';
 import { UnitId } from './app/game/constants';
 import { tick } from './app/slices/misc';
+import { selectLastTick, selectTowns } from './app/selectors';
+import { gameTick } from './app/game/gameTick';
+
+
+function useInterval(callback: () => void, delay: number) {
+  const savedCallback = useRef<() => void>(() => {}); // null
+  
+  useEffect(() => {
+    savedCallback.current = callback; 
+  });
+
+  useEffect(() => {
+    function tick() {
+      savedCallback.current();
+    }
+
+    let id = setInterval(tick, delay);
+    return () => clearInterval(id);
+  }, [delay]);
+}
 
 function App() {
   const dispatch = useDispatch()
-  const towns = store.getState().towns;
+  const towns = useSelector((state: RootState) => selectTowns(state))
+  // const timeLastProcessed = useSelector((state: RootState) => selectLastTick(state));
+
   const TownLinks = () => (
     <>
       {Object.entries(towns).map(([id, town]) => {
@@ -29,6 +51,18 @@ function App() {
       })}
     </>
   );
+
+  // useInterval(() => {
+  //   dispatch(tick({timeLastProcessed}));
+  // }, 10000);
+
+  useEffect(() => {
+    gameTick() 
+    console.log("LOADED GAME TICK RUN ONCE PLS");    
+    // dispatch(tick(timeOfLastTick?));
+    return () => {
+    }
+  }, []) // run once
 
   // useEffect(() => {
   //   const x = setInterval(() => {

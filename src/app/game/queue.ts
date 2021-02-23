@@ -1,7 +1,7 @@
 import { Dispatch } from "@reduxjs/toolkit";
 import { batch } from "react-redux";
 import { store } from "../../app/store";
-import { pop } from "../slices/queue";
+import { pop, Queue } from "../slices/queue";
 import { finishConstruction } from "../slices/towns";
 import { BuildingId } from "./constants";
 import { isBuildingId } from "./utility";
@@ -15,11 +15,11 @@ const levelBuildingAndRemoveFromQueue = (townId: string, buildingWithQueue: Buil
   }
 };
 
-export const updateQueue = () => {
-  const state = store.getState();
+export const updateQueue = (queue: Queue) => {
+  // const state = store.getState();
   const dispatch = store.dispatch;
   
-  const { queue } = state
+  // const { queue } = state
 
   Object.keys(queue).forEach((townId) => {
 

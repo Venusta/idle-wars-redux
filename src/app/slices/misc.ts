@@ -1,24 +1,32 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 interface MiscState {
-  then: number
+  timeLastProcessed: number // the time it was last processed (duh)
+  // 
 }
 
 const initialState: MiscState = {
-  then: Date.now() // load from save
+  timeLastProcessed: Date.now() // load from save
+}
+
+interface TickPayload {
+  payload: {
+    difference: number
+    now: number
+  }
 }
 
 export const miscSlice = createSlice({
   name: "misc",
   initialState,
   reducers: {
-    // todo save current time in ms
-    // check last time, calc the difference then add resources/progress timers and set a new time
-    tick: (misc) => {
-      const now = Date.now();
-      const difference = now - misc.then
+    tick: (misc: MiscState, { payload }: TickPayload) => {
+      const { now } = payload
+      const difference = now - misc.timeLastProcessed
       console.log(`diff: ${difference}`);
-      misc.then = now;
+      console.log(`now: ${now}`);
+      
+      misc.timeLastProcessed = now;
     },
   },
 });

@@ -1,5 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { BuildingId, UnitId } from "../game/constants";
+import { updateQueue } from "../game/queue";
+import { miscSlice } from "./misc";
 
 export interface UnitQueueItem {
   item: UnitId;
@@ -87,23 +89,14 @@ export const queueSlice = createSlice({
       // refund resources and shit
     },
   },
-  // extraReducers: builder => {
-  //   builder.addCase(townSlice.actions.startBuildSomething, (state, { payload }) => {
-  //     console.log("Lets build!");
-  //     console.log(payload);
-  //     const { townId, buildingId } = payload
-
-  //     const building = baseBuildings[buildingId];
-
-
-
-  //     const constructionTime = building.getBuildTime(0, 1);
-  //     // const constructionTime = building.getBuildTime(queuedLevel, 1);
-  //     const payload2 = { townId, buildingId: 0, item: buildingId, duration: constructionTime }
-  //     queueSlice.caseReducers.enqueue(state, { payload: payload2 })
-
-  //   })
-  // }
+  extraReducers: builder => {
+    builder.addCase(miscSlice.actions.tick, (state, { payload }) => {
+      console.log("Processed tick in queue slice!");
+      console.log(payload);      
+      // updateQueue(state);
+      
+    })
+  }
 });
 
 export const {

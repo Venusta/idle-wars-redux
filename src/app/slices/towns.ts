@@ -6,6 +6,7 @@ import { BuildingId, UnitId } from "../game/constants";
 import { isResourceId } from "../game/utility";
 import { ResourceBuilding } from "../game/model/resourceBuilding";
 import { Town } from "../game/model/town";
+import { miscSlice } from "./misc";
 
 const testTown2 = new Town("0", "test123", { timber: 500, clay: 500, iron: 500 });
 testTown2.setBuildingLevel(BuildingId.ClayPit, 6);
@@ -295,6 +296,12 @@ export const townSlice = createSlice({
       town.population += cost.population || 0;
     },
   },
+  extraReducers: builder => {
+    builder.addCase(miscSlice.actions.tick, (state, { payload }) => {
+      console.log("Processed tick in town slice!");
+      console.log(payload);    
+    });
+  }
 });
 
 export const {
