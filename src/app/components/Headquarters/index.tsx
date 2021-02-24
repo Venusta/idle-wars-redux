@@ -8,7 +8,6 @@ import { BuildingId, HeadquartersQueueSlots } from '../../game/constants';
 import { RootState } from '../../store';
 import { BuildingResourceDisplay } from './BuildingResourceDisplay';
 import { ConstructButton } from '../Buttons';
-import { enqueue } from '../../slices/queue';
 import { startBuildSomething } from '../../slices/towns';
 import { InactiveButton } from '../Buttons/';
 import { calculateTimeUntilResources } from '../../game/utility';
@@ -19,17 +18,11 @@ export const Headquarters = () => {
   const dispatch = useDispatch();
 
   const { townId } = useParams<{ townId: string }>();
-  const town = useSelector((state: RootState) => selectTown(state, townId))
-  const headquarterLevel = town.buildings[BuildingId.Headquarters].level;
-  const hqId = BuildingId.Headquarters
+  const town = useSelector((state: RootState) => selectTown(state, townId));
+  const hqId = BuildingId.Headquarters;
 
   const startConstruction = (townId: string, buildingId: BuildingId) => {
-    const buildingData = baseBuildings[buildingId];
-    const { queuedLevel } = town.buildings[buildingId];
-    const constructionTime = buildingData.getBuildTime(queuedLevel, headquarterLevel);
-
-    dispatch(startBuildSomething({ townId, buildingId }));
-    dispatch(enqueue({ townId, buildingId: hqId, item: buildingId, duration: constructionTime }));
+    dispatch(startBuildSomething({ townId, buildingId, queueBuildingId: hqId }));
   };
 
   const BuildingConstruct = ({ buildingId, queuedLevel }: { buildingId: BuildingId, queuedLevel: number }) => {

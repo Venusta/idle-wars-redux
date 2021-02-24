@@ -1,8 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 interface MiscState {
-  timeLastProcessed: number // the time it was last processed (duh)
-  // 
+  timeLastProcessed: number
 }
 
 const initialState: MiscState = {

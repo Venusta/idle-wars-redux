@@ -41,20 +41,16 @@ function useInterval(callback: () => void, delay: number) {
 
 function App() {
   const dispatch = useDispatch()
-  const towns = useSelector((state: RootState) => selectTowns(state))
+  // const towns = useSelector((state: RootState) => selectTowns(state))
   // const timeLastProcessed = useSelector((state: RootState) => selectLastTick(state));
 
-  const TownLinks = () => (
-    <>
-      {Object.entries(towns).map(([id, town]) => {
-        return (<Link key={id} to={`/${id}/buildings/headquarters`}>{town.name}</Link>);
-      })}
-    </>
-  );
-
-  // useInterval(() => {
-  //   dispatch(tick({timeLastProcessed}));
-  // }, 10000);
+  // const TownLinks = () => (
+  //   <>
+  //     {Object.entries(towns).map(([id, town]) => {
+  //       return (<Link key={id} to={`/${id}/buildings/headquarters`}>{town.name}</Link>);
+  //     })}
+  //   </>
+  // );
 
   useEffect(() => {
     gameTick() 

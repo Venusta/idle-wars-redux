@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { createSlice } from "@reduxjs/toolkit";
-import { BuildingCost, Resources, TownsInterface } from "../../types/types";
+import { BuildingCost, Resources, TownsInterface, TownInterface } from "../../types/types";
 import { baseBuildings } from "../game/buildings";
-import { BuildingId, UnitId } from "../game/constants";
-import { isResourceId } from "../game/utility";
+import { BuildingId, UnitId, ResourceId } from "../game/constants";
+import { isResourceId, isBuildingId, hasRequirements } from "../game/utility";
 import { ResourceBuilding } from "../game/model/resourceBuilding";
 import { Town } from "../game/model/town";
 import { miscSlice } from "./misc";
@@ -21,9 +21,7 @@ testTown2.addUnit(UnitId.Scout, 940)
 
 console.log(testTown2.toRedux().units);
 
-
-
-const testTown = {
+const testTown: TownInterface = {
   id: "0",
   // coords
   name: "Test village",
@@ -36,6 +34,11 @@ const testTown = {
     timber: 0,
     clay: 0,
     iron: 0,
+  },
+  queues: {
+    // [BuildingId.Headquarters]: [],
+    // [BuildingId.Barracks]: [],
+    // [BuildingId.Stable]: [],
   },
   population: 400,
   maxPopulation: 900,
@@ -211,12 +214,14 @@ interface ChangeResourcesPayload {
     townId: string;
     resources: Resources;
   }
-}
+};
 
 interface StartBuildSomethingPayload {
   payload: {
-    townId: string,
-    buildingId: BuildingId
+    townId: string;
+    buildingId: BuildingId;
+    queueBuildingId: BuildingId;
+    amount?: number;
   }
 }
 
@@ -234,13 +239,13 @@ export const townSlice = createSlice({
       }
     },
 
-    incrementAllTownsResources: (towns) => {
+    incrementAllTownsResources: (towns, { payload: { msPassed } }: { payload: { msPassed: number } }) => { // cant be here
       Object.entries(towns).forEach(([townId, town]) => {
         Object.values(town.buildings).forEach((building) => {
           const buildingData = baseBuildings[building.id];
           if (buildingData instanceof ResourceBuilding) {
             buildingData.creates.forEach((resource) => {
-              towns[townId].resources[resource] += towns[townId].rps[resource];
+              towns[townId].resources[resource] += towns[townId].rps[resource] / 1000 * msPassed;
             });
           };
         });
@@ -280,26 +285,91 @@ export const townSlice = createSlice({
       town.buildings[buildingId].queuedLevel += 1;
     },
 
-    startBuildSomething: (towns, { payload: { townId, buildingId } }: StartBuildSomethingPayload) => {
+    startBuildSomething: (towns, { payload: { townId, buildingId, queueBuildingId, amount = 1 } }: StartBuildSomethingPayload) => {
       const town = towns[townId];
       const building = town.buildings[buildingId]
+      const queueBuilding = town.buildings[queueBuildingId];
       const cost: BuildingCost = baseBuildings[buildingId].getCost(building.queuedLevel);
+      const buildTimeMs = baseBuildings[buildingId].getBuildTime(building.queuedLevel, queueBuilding.queuedLevel) * 1000;
 
-      // Check if there is enough resources + population
-      // Check if any building/research requirements are met
+      // ✔ Check if there is enough resources + population
+      // ✖ Check if any building / research requirements are met
 
-      for (const [k, v] of Object.entries(cost.resources)) {
-        if (isResourceId(k)) town.resources[k] -= v;
-        // TODO FIX THIS URGENT
+      if (hasRequirements(town.maxPopulation, town.population, town.resources, cost)) {
+
+        Object.values(ResourceId).forEach((key) => {
+          town.resources[key] -= cost.resources[key];
+        })
+
+        building.queuedLevel += 1;
+        town.population += cost.population ?? 0;
+
+        const buildingQueue = town.queues[queueBuildingId];
+        if (buildingQueue !== undefined) {
+          const queueLength = buildingQueue.length;
+          let completionTime;
+          if (queueLength === 0) {
+            completionTime = Date.now() + buildTimeMs;
+          } else {
+            completionTime = buildingQueue[queueLength - 1].completionTime + buildTimeMs;
+          }
+          const qItem = { item: buildingId, level: building.queuedLevel, duration: buildTimeMs, completionTime, amount }
+          buildingQueue.push(qItem);
+        } else {
+          console.error(`No queue exists for building ${queueBuildingId} in town ${townId}, attempting to create it`);
+          town.queues = {
+            ...town.queues,
+            [queueBuildingId]: [
+              { item: buildingId, level: building.queuedLevel, duration: buildTimeMs, completionTime: Date.now() + buildTimeMs, amount }
+            ]
+          }
+        };
       }
-      building.queuedLevel += 1;
-      town.population += cost.population || 0;
     },
   },
   extraReducers: builder => {
-    builder.addCase(miscSlice.actions.tick, (state, { payload }) => {
+    builder.addCase(miscSlice.actions.tick, (towns, { payload }) => {
       console.log("Processed tick in town slice!");
-      console.log(payload);    
+      console.log(payload);
+
+      Object.values(towns).forEach((town) => {
+
+        Object.values(ResourceId).forEach((key) => {
+          town.resources[key] += town.rps[key] / 1000 * payload.difference
+          // console.log(`Town: ${town.id} - Adding ${key}: ${town.rps[key] / 1000 * payload.difference}`);
+        })
+
+        // * check queues
+        // * check battles (queue also) 
+
+        Object.values(town.queues).forEach((buildingQueue) => {
+          buildingQueue?.forEach((queueItem, index) => {
+            if (Date.now() > queueItem.completionTime) {
+              if (isBuildingId(queueItem.item)) {
+                // Remove finished building from queue
+                buildingQueue?.splice(index, 1);
+
+                // Update resource generation if the constructed building was a resource generation building
+                const building = town.buildings[queueItem.item];
+                const buildingData = baseBuildings[queueItem.item];
+                if (buildingData instanceof ResourceBuilding) {
+                  const newResourcesPerSecond = buildingData.getResourceGeneration(building.level + 1);
+                  const oldResourcesPerSecond = buildingData.getResourceGeneration(building.level);
+                  buildingData.creates.forEach((resource) => {
+                    town.rps[resource] += (newResourcesPerSecond - oldResourcesPerSecond);
+                  });
+                };
+
+                // Increment level
+                building.level += 1;
+              } else {
+                console.error(`${queueItem.item} was not a valid building id.`);
+              }
+            }
+          });
+        })
+
+      });
     });
   }
 });

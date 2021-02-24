@@ -55,7 +55,7 @@
 }
 
 .progressBarFill {
-  transition: width 1.1s linear;
+  transition: width 1s linear;
   height: auto;
   border: var(--border-prog);
   margin-left: 1px;

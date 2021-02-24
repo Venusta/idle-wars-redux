@@ -45,6 +45,25 @@ export type Army = {
   [id in UnitId]?: number;
 }
 
+export interface UnitQueueItem {
+  item: UnitId;
+  duration: number;
+  completionTime: number;
+  amount: number;
+}
+
+export interface BuildingQueueItem {
+  item: BuildingId;
+  level: number;
+  duration: number;
+  completionTime: number;
+  amount: number;
+}
+
+export type Queues = {
+  [id in BuildingId]?: BuildingQueueItem[];
+}
+
 export interface TownsInterface {
   [id: string]: TownInterface;
 }
@@ -54,6 +73,7 @@ export interface TownInterface {
   name: string;
   resources: Resources;
   rps: Resources;
+  queues: Queues;
   population: number;
   maxPopulation: number;
   storageCapacity: number;
@@ -97,7 +117,7 @@ export interface UnitProductionBuildingProps extends BuildingProps {
 
 export type UnitLosses = {
   [id in UnitId]?: {
-  total: number;
-  loss?: number;
+    total: number;
+    loss?: number;
   }
 };

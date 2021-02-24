@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { TownInterface, Resources, ResearchList, UnitList, BuildingList, Building, Army } from "../../../types/types";
+import { TownInterface, Resources, ResearchList, UnitList, BuildingList, Building, Army, Queues } from "../../../types/types";
 import { BuildingId, UnitId } from "../constants";
 import { baseBuildings } from "../buildings";
 import { ResourceBuilding } from "./resourceBuilding";
@@ -19,6 +19,7 @@ export class Town {
   resources: Resources;
   rps: Resources;
   population: number;
+  queues: Queues;
   maxPopulation: number;
   storageCapacity: number;
   unlocked: ResearchList;
@@ -29,6 +30,7 @@ export class Town {
     this.id = id
     this.name = name // todo random name
     this.resources = resources;
+    this.queues = {}
     this.unlocked = this.defaultUnlocks();
     this.units = {
       [UnitId.SpearFighter]: {
@@ -187,13 +189,14 @@ export class Town {
 
   public toRedux(): TownInterface {
     const {
-      id, name, resources, buildings, unlocked, units, rps, population, maxPopulation, storageCapacity
+      id, name, resources, buildings, unlocked, units, rps, population, maxPopulation, storageCapacity, queues
     } = this;
 
     return {
       id,
       name,
       resources,
+      queues,
       buildings,
       unlocked,
       units,
