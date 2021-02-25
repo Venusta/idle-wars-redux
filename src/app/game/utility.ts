@@ -61,15 +61,15 @@ export const hasResources = (resources: Resources, cost: BuildingCost): boolean 
   return true;
 }
 
-export const calculateTimeUntilResources = (town: TownInterface, cost: BuildingCost): number => {
+export const calculateTimeUntilResources = (currentResources: Resources, resourcesPerSecond: Resources, cost: BuildingCost): number => {
   // TODO don't use the entire town object
   const timesUntil = [];
   for (const [resourceId, amount] of Object.entries(cost.resources)) {
     if (isResourceId(resourceId)) {
-      const amountNeeded = amount - town.resources[resourceId];
+      const amountNeeded = amount - currentResources[resourceId];
       if (amountNeeded > 0) {
         // Calculate seconds until enough resources
-        timesUntil.push(amountNeeded / town.rps[resourceId]);
+        timesUntil.push(amountNeeded / resourcesPerSecond[resourceId]);
       } else {
         // Already have enough resources so 0 seconds until enough
         timesUntil.push(0);

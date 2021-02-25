@@ -2,18 +2,19 @@ import { selectLastTick } from "../selectors";
 import { tick } from "../slices/misc";
 import { store } from "../store";
 
-
 export const gameTick = () => {
-  console.log("Tick!");
-
   const { dispatch, getState } = store
+
   const prev = selectLastTick(getState());
   const now = Date.now();
 
-  dispatch(tick({ difference: now - prev, now }));
+  const difference = now - prev;
+  console.log("Tick!: " + difference);
+
+
+  dispatch(tick({ difference, now }));
 
   setTimeout(() => {
     gameTick();
   }, 1000);
-
 }

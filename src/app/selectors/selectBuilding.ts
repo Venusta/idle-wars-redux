@@ -5,6 +5,7 @@ import { BuildingId } from "../game/constants"
 /**
  * Selects the Building from state based on id
  * @param state RootState
- * @param id town id
+ * @param townId town id
+ * @param buildingId building id
  */
 export const selectBuilding = (state: RootState, townId: string, buildingId: BuildingId): Building => (state.towns[townId].buildings[buildingId]);

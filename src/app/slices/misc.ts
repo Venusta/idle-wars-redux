@@ -2,10 +2,12 @@ import { createSlice } from "@reduxjs/toolkit";
 
 interface MiscState {
   timeLastProcessed: number
+  running: boolean
 }
 
 const initialState: MiscState = {
-  timeLastProcessed: Date.now() // load from save
+  timeLastProcessed: Date.now(),
+  running: false,
 }
 
 interface TickPayload {
@@ -20,16 +22,15 @@ export const miscSlice = createSlice({
   initialState,
   reducers: {
     tick: (misc: MiscState, { payload }: TickPayload) => {
-      const { now } = payload
-      const difference = now - misc.timeLastProcessed
-      console.log(`diff: ${difference}`);
-      console.log(`now: ${now}`);
-      
-      misc.timeLastProcessed = now;
+      misc.timeLastProcessed = payload.now;
     },
+    active: (misc) => {
+      misc.running = true;
+    }
   },
 });
 
 export const {
   tick,
+  active,
 } = miscSlice.actions;

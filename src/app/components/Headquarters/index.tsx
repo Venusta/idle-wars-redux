@@ -1,11 +1,11 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react'
-import { selectTown, selectBuildingQueue } from '../../selectors';
+import { selectBuildingQueue, selectBuildings, selectResources, selectRps } from '../../selectors';
 import { useParams } from "react-router-dom";
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { baseBuildings } from '../../game/buildings';
 import { BuildingId, HeadquartersQueueSlots } from '../../game/constants';
-import { RootState } from '../../store';
+import { RootState, useAppDispatch } from '../../store';
 import { BuildingResourceDisplay } from './BuildingResourceDisplay';
 import { ConstructButton } from '../Buttons';
 import { startBuildSomething } from '../../slices/towns';
@@ -15,10 +15,8 @@ import { BuildingInfo } from './BuildingInfo';
 import Style from "./style.module.css";
 
 export const Headquarters = () => {
-  const dispatch = useDispatch();
-
+  const dispatch = useAppDispatch();
   const { townId } = useParams<{ townId: string }>();
-  const town = useSelector((state: RootState) => selectTown(state, townId));
   const hqId = BuildingId.Headquarters;
 
   const startConstruction = (townId: string, buildingId: BuildingId) => {
@@ -41,7 +39,10 @@ export const Headquarters = () => {
 
   const BuildingRow = ({ buildingId }: { buildingId: BuildingId }) => {
     const queue = useSelector((state: RootState) => selectBuildingQueue(state, townId, BuildingId.Headquarters));
-    const { level, queuedLevel } = town.buildings[buildingId];
+    const buildings = useSelector((state: RootState) => selectBuildings(state, townId));
+    const resources  = useSelector((state: RootState) => selectResources(state, townId));
+    const rps  = useSelector((state: RootState) => selectRps(state, townId));
+    const { level, queuedLevel } = buildings[buildingId];
     const buildingData = baseBuildings[buildingId];
 
     const row = [
@@ -61,7 +62,7 @@ export const Headquarters = () => {
     };
 
     const cost = baseBuildings[buildingId].getCost(queuedLevel);
-    const timeUntil = calculateTimeUntilResources(town, cost); // TODO NOT ENTIRE TOWN OBJECT
+    const timeUntil = calculateTimeUntilResources(resources, rps, cost);
 
     if (timeUntil > 0) {
       row.push(<InactiveBut key={buildingId+"time"} text={new Date(timeUntil * 1000).toISOString().substr(11, 8)} />)

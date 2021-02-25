@@ -15,12 +15,9 @@ const ProgressBar = (props: { completionTime: number, duration: number }) => {
 
   const fillerStyles = {
     width: `${percent}%`,
-    // transition: "width 1s linear"
   };
 
   useEffect(() => {
-    console.log("AHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH");
-
     const x = setTimeout(() => {
       setPercent(100 - Math.round((completionTime - (Date.now() + 1000)) / duration * 100))
     }, 1000);
@@ -39,8 +36,7 @@ export const SidebarQueue = () => {
   const { townId } = useParams<{ townId: string }>();
   const buildingQueue = useSelector((state: RootState) => selectBuildingQueue(state, townId, BuildingId.Headquarters))
   const emptySlots = HeadquartersQueueSlots - buildingQueue.length
-  // TODO store queued level in the queueItem
-  // TODO make this update by itself
+  // TODO make this update by itself?
 
   return (
     <div className={Style.wrapper}>

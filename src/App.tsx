@@ -1,32 +1,30 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React, { useEffect, useState, useRef } from 'react';
-import { Redirect, Route, Switch, Link } from "react-router-dom";
+import React, { useEffect, useRef } from 'react';
+import { Redirect, Route, Switch } from "react-router-dom";
 import './App.css';
 import { Headquarters } from './app/components/Headquarters';
 import { ResourceDisplay } from './app/components/ResourceDisplay/ResourceDisplay';
-import { updateQueue } from './app/game/queue';
-import { RootState, store } from './app/store';
-import { incrementAllTownsResources } from './app/slices/towns';
+import { RootState } from './app/store';
 import { useDispatch, useSelector } from 'react-redux';
 import { Navbar } from './app/components/Navbar';
 import { SidebarQueue } from './app/components/SidebarQueue';
 import { BuildingHeader } from './app/components/BuildingHeader';
 import { VillageTitle } from './app/components/VillageTitle';
-import { QueueOld } from './app/components/QueueOld';
-import { ConstructButton, HeaderNavButton } from './app/components/Buttons';
+import { HeaderNavButton } from './app/components/Buttons';
 import { BattleReport } from './app/components/BattleReport';
 import { simulateBattle } from './app/game/combat/simulator';
 import { UnitId } from './app/game/constants';
-import { tick } from './app/slices/misc';
-import { selectLastTick, selectTowns } from './app/selectors';
+import { active } from './app/slices/misc';
 import { gameTick } from './app/game/gameTick';
+import { BuildingPage } from './app/components/BuildingPage';
+import Barracks from './app/components/Barracks';
 
 
 function useInterval(callback: () => void, delay: number) {
-  const savedCallback = useRef<() => void>(() => {}); // null
-  
+  const savedCallback = useRef<() => void>(() => { }); // null
+
   useEffect(() => {
-    savedCallback.current = callback; 
+    savedCallback.current = callback;
   });
 
   useEffect(() => {
@@ -39,89 +37,76 @@ function useInterval(callback: () => void, delay: number) {
   }, [delay]);
 }
 
+
+
+interface MainContainerProps {
+  children?: JSX.Element | JSX.Element[];
+}
+
+const MainContainer = ({ children }: MainContainerProps) => {
+  return (
+    <>
+      <div className="header-wrapper">
+        <div className="ahhh">
+          <VillageTitle />
+        </div>
+        <div className="header">
+          <HeaderNavButton linkTo={"/0/buildings/headquarters"} text="Home" />
+          {/* <HeaderNavButton linkTo={"/0/villages"} text="Villages" /> */}
+          <HeaderNavButton linkTo={"/0/map"} text="Map" />
+          <HeaderNavButton linkTo={"/0/reports"} text="Reports" />
+          <HeaderNavButton linkTo={"/0/reports"} text="Settings" />
+        </div>
+      </div>
+      <div className="content-overflow">
+        <div className="content-wrapper">
+          <div className={"content-body"}>
+            <div className="content-header">
+              {/* <VillageTitle /> */}
+              <ResourceDisplay />
+            </div>
+            <Navbar />
+            {children}
+          </div>
+        </div>
+      </div>
+    </>
+  )
+};
+
 function App() {
   const dispatch = useDispatch()
-  // const towns = useSelector((state: RootState) => selectTowns(state))
-  // const timeLastProcessed = useSelector((state: RootState) => selectLastTick(state));
-
-  // const TownLinks = () => (
-  //   <>
-  //     {Object.entries(towns).map(([id, town]) => {
-  //       return (<Link key={id} to={`/${id}/buildings/headquarters`}>{town.name}</Link>);
-  //     })}
-  //   </>
-  // );
+  const running = useSelector((state: RootState) => state.misc.running)
 
   useEffect(() => {
-    gameTick() 
-    console.log("LOADED GAME TICK RUN ONCE PLS");    
-    // dispatch(tick(timeOfLastTick?));
+    if (running) {
+      console.log("Already active timer running, if it's not fix me");
+      return;
+    }
+
+    const attackers = {
+      [UnitId.SpearFighter]: 10,
+      [UnitId.Swordsman]: 1234,
+      [UnitId.Axeman]: 500
+    };
+
+    const defenders = {
+      [UnitId.SpearFighter]: 10,
+      [UnitId.Swordsman]: 500,
+      [UnitId.Archer]: 400
+    };
+
+    console.log(simulateBattle(attackers, defenders));
+
+    gameTick();
+    console.log("LOADED GAME TICK RUN ONCE PLS");
+    dispatch(active())
     return () => {
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []) // run once
 
-  // useEffect(() => {
-  //   const x = setInterval(() => {
-  //     // updateQueue(); // not this
-  //     // dispatch(incrementAllTownsResources()); // not this
-  //     dispatch(tick())
-  //     console.log("Updated");
-  //   }, 1000);
-  //   return () => {
-  //     clearInterval(x);
-  //   }
-  // }, []);
   console.log("PLEASE DON'T RE-RENDER");
-
-  const attackers = {
-    [UnitId.SpearFighter]: 10,
-    [UnitId.Swordsman]: 1234,
-    [UnitId.Axeman]: 500
-  };
-
-  const defenders = {
-    [UnitId.SpearFighter]: 10,
-    [UnitId.Swordsman]: 500,
-    [UnitId.Archer]: 400
-  };
-
-  console.log(simulateBattle(attackers, defenders));
-
-  interface MainContainerProps {
-    children?: JSX.Element | JSX.Element[];
-  }
-
-  const MainContainer = ({ children }: MainContainerProps) => {
-    return (
-      <>
-        <div className="header-wrapper">
-          <div className="ahhh">
-            <VillageTitle />
-          </div>
-          <div className="header">
-            <HeaderNavButton linkTo={"/0/buildings/headquarters"} text="Home" />
-            {/* <HeaderNavButton linkTo={"/0/villages"} text="Villages" /> */}
-            <HeaderNavButton linkTo={"/0/map"} text="Map" />
-            <HeaderNavButton linkTo={"/0/reports"} text="Reports" />
-            <HeaderNavButton linkTo={"/0/reports"} text="Settings" />
-          </div>
-        </div>
-        <div className="content-overflow">
-          <div className="content-wrapper">
-            <div className={"content-body"}>
-              <div className="content-header">
-                {/* <VillageTitle /> */}
-                <ResourceDisplay />
-              </div>
-              <Navbar />
-              {children}
-            </div>
-          </div>
-        </div>
-
-      </>
-    )
-  };
 
   return (
     <div className="App">
@@ -154,17 +139,28 @@ function App() {
           <MainContainer>
             <div>Map for town</div>
           </MainContainer>
-
         </Route>
 
         {/* Have a page for each building in a town */}
         <Route exact path="/:townId/buildings/:buildingId">
           <MainContainer>
+            {/* Always show the building header component and switch main content based on building id */}
             <BuildingHeader />
-            <div className="queueContainer">
-              <Headquarters />
-              <SidebarQueue />
-            </div>
+            <Switch>
+
+              <Route exact path="/:townId/buildings/headquarters">
+                <div className="queueContainer">
+                  <Headquarters />
+                  <SidebarQueue />
+                </div>
+              </Route>
+
+              <Route exact path="/:townId/buildings/barracks">
+                <Barracks />
+              </Route>
+
+
+            </Switch>
           </MainContainer>
         </Route>
 

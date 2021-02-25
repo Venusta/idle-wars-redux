@@ -12,6 +12,16 @@ interface Props {
   townId: string
 }
 
+const SingleBuildingResource = ({ amount, resourceId, townId }: { amount: number, resourceId: ResourceId, townId: string }) => {
+  const resource = useSelector((state: RootState) => selectResource(state, townId, resourceId));
+  return (
+    <div className="brd-group">
+      <img src={`${process.env.PUBLIC_URL}/resources/${resourceId}.png`} />
+      <div className={`brd-display ${resource < amount ? "dangerText" : ""}`}>{amount.toFixed(0)}</div>
+    </div>
+  )
+};
+
 export const BuildingResourceDisplay = ({ buildingId, townId }: Props) => {
   const headquarters = useSelector((state: RootState) => selectBuilding(state, townId, BuildingId.Headquarters));
   const queuedBuilding = useSelector((state: RootState) => selectBuilding(state, townId, buildingId));
@@ -37,22 +47,12 @@ export const BuildingResourceDisplay = ({ buildingId, townId }: Props) => {
       </div>
     )
   }
-  
-  const SingleBuildingResource = ({ amount, resourceId }: { amount: number, resourceId: ResourceId }) => {
-    const resource = useSelector((state: RootState) => selectResource(state, townId, resourceId));
-    return (
-      <div className="brd-group">
-        <img src={`${process.env.PUBLIC_URL}/resources/${resourceId}.png`} />
-        <div className={`brd-display ${resource < amount ? "dangerText" : ""}`}>{amount.toFixed(0)}</div>
-      </div>
-    )
-  }
 
   return (
     <>
-      <SingleBuildingResource amount={timber} resourceId={ResourceId.Timber} />
-      <SingleBuildingResource amount={clay} resourceId={ResourceId.Clay} />
-      <SingleBuildingResource amount={iron} resourceId={ResourceId.Iron} />
+      <SingleBuildingResource amount={timber} resourceId={ResourceId.Timber} townId={townId} />
+      <SingleBuildingResource amount={clay} resourceId={ResourceId.Clay} townId={townId} />
+      <SingleBuildingResource amount={iron} resourceId={ResourceId.Iron} townId={townId} />
       <SingleBuildingRequirements data={pop} imgId="timber" />
       <SingleBuildingRequirements data={time} imgId="timber" />
     </>

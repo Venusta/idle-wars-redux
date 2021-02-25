@@ -26,9 +26,9 @@ const testTown: TownInterface = {
   // coords
   name: "Test village",
   resources: {
-    timber: 5000,
-    clay: 5000,
-    iron: 5000,
+    timber: 500,
+    clay: 500,
+    iron: 500,
   },
   rps: {
     timber: 0,
@@ -329,8 +329,8 @@ export const townSlice = createSlice({
   },
   extraReducers: builder => {
     builder.addCase(miscSlice.actions.tick, (towns, { payload }) => {
-      console.log("Processed tick in town slice!");
-      console.log(payload);
+      // console.log("Processed tick in town slice!");
+      // console.log(payload);
 
       Object.values(towns).forEach((town) => {
 
