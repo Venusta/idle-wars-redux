@@ -25,7 +25,7 @@ export const QueueOld = () => {
   const formatDate = (seconds: number) => new Date(seconds).toISOString().substr(11, 8)
 
   const renderQueue = () => {
-    return buildingQueue.map(({ item, duration, completionTime }, index) => {
+    return buildingQueue.map(({ building: item, duration, completionTime }, index) => {
       return (
         <>
           <div className={Style.ffs}>{baseBuildings[item].name}</div>

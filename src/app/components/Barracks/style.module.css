@@ -1,0 +1,32 @@
+.outer {
+  display: flex;
+  /* background-color: brown; */
+  justify-content: space-around;
+}
+
+.wrapper {
+  /* margin: 15px auto; */
+  margin: 15px 0px;
+  padding: 10px;
+  display: grid;
+  grid-template-columns: max-content repeat(5, 1fr) max-content max-content;
+  gap: 2px;
+  background-color: var(--main);
+  box-shadow: var(--shadow-dark) 6px 6px 12px,
+    var(--shadow-light) -6px -6px 12px;
+  border: solid rgba(0, 0, 0, 0.05) 1px;
+  border-radius: 10px;
+}
+
+.columnHeader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3px;
+  font-weight: bold;
+  background-color: rgba(34, 96, 211, 0.664);
+}
+
+.columnRequirements {
+  grid-column: 2/7;
+}

@@ -45,23 +45,24 @@ export type Army = {
   [id in UnitId]?: number;
 }
 
-export interface UnitQueueItem {
-  item: UnitId;
+export interface BuildingQueueItem {
+  building: BuildingId;
   duration: number;
   completionTime: number;
-  amount: number;
+  level: number;
 }
 
-export interface BuildingQueueItem {
-  item: BuildingId;
-  level: number;
-  duration: number;
-  completionTime: number;
+export interface UnitQueueItem {
+  unit: UnitId;
+  startTime?: number;
+  recruitTimeMs: number;
   amount: number;
+  recruited: number;
 }
 
 export type Queues = {
-  [id in BuildingId]?: BuildingQueueItem[];
+  buildings: { [id in BuildingId]?: BuildingQueueItem[]; }
+  units: { [id in BuildingId]?: UnitQueueItem[]; }
 }
 
 export interface TownsInterface {

@@ -152,6 +152,7 @@ function App() {
                 <div className="queueContainer">
                   <Headquarters />
                   <SidebarQueue />
+                  
                 </div>
               </Route>
 

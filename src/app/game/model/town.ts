@@ -30,7 +30,7 @@ export class Town {
     this.id = id
     this.name = name // todo random name
     this.resources = resources;
-    this.queues = {}
+    this.queues = { buildings: {}, units: {} };
     this.unlocked = this.defaultUnlocks();
     this.units = {
       [UnitId.SpearFighter]: {

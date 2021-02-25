@@ -47,4 +47,8 @@ export class Unit {
     this.researchCost = researchCost;
     this.requirements = requirements;
   }
+
+  getRecruitTime = (recruitmentBuildingLevel: number) => {
+    return this.buildTime * 2/3 * 1.06 ** (-recruitmentBuildingLevel);
+  };
 }

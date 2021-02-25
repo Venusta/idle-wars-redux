@@ -42,7 +42,7 @@ export const SidebarQueue = () => {
     <div className={Style.wrapper}>
       Queue
       {
-        buildingQueue.map(({ item, level, duration, completionTime }, index) => {
+        buildingQueue.map(({ building: item, level, duration, completionTime }, index) => {
           // TODO uuid key?
           return (
             <div key={completionTime} className={Style.emptyContainer}>

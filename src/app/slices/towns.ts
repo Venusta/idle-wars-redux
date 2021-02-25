@@ -3,10 +3,11 @@ import { createSlice } from "@reduxjs/toolkit";
 import { BuildingCost, Resources, TownsInterface, TownInterface } from "../../types/types";
 import { baseBuildings } from "../game/buildings";
 import { BuildingId, UnitId, ResourceId } from "../game/constants";
-import { isResourceId, isBuildingId, hasRequirements } from "../game/utility";
+import { isResourceId, isBuildingId, hasRequirements, isUnitId } from "../game/utility";
 import { ResourceBuilding } from "../game/model/resourceBuilding";
 import { Town } from "../game/model/town";
 import { miscSlice } from "./misc";
+import { baseUnits } from "../game/units";
 
 const testTown2 = new Town("0", "test123", { timber: 500, clay: 500, iron: 500 });
 testTown2.setBuildingLevel(BuildingId.ClayPit, 6);
@@ -36,9 +37,12 @@ const testTown: TownInterface = {
     iron: 0,
   },
   queues: {
-    // [BuildingId.Headquarters]: [],
-    // [BuildingId.Barracks]: [],
-    // [BuildingId.Stable]: [],
+    buildings: {
+      // [BuildingId.Headquarters]: [],
+      // [BuildingId.Barracks]: [],
+      // [BuildingId.Stable]: [],
+    },
+    units: {}
   },
   population: 400,
   maxPopulation: 900,
@@ -221,7 +225,15 @@ interface StartBuildSomethingPayload {
     townId: string;
     buildingId: BuildingId;
     queueBuildingId: BuildingId;
-    amount?: number;
+  }
+}
+
+interface StartRecruitSomethingPayload {
+  payload: {
+    townId: string;
+    unitId: UnitId;
+    queueBuildingId: BuildingId;
+    amount: number;
   }
 }
 
@@ -285,11 +297,11 @@ export const townSlice = createSlice({
       town.buildings[buildingId].queuedLevel += 1;
     },
 
-    startBuildSomething: (towns, { payload: { townId, buildingId, queueBuildingId, amount = 1 } }: StartBuildSomethingPayload) => {
+    startBuildSomething: (towns, { payload: { townId, buildingId, queueBuildingId } }: StartBuildSomethingPayload) => {
       const town = towns[townId];
       const building = town.buildings[buildingId]
       const queueBuilding = town.buildings[queueBuildingId];
-      const cost: BuildingCost = baseBuildings[buildingId].getCost(building.queuedLevel);
+      const cost = baseBuildings[buildingId].getCost(building.queuedLevel);
       const buildTimeMs = baseBuildings[buildingId].getBuildTime(building.queuedLevel, queueBuilding.queuedLevel) * 1000;
 
       // ✔ Check if there is enough resources + population
@@ -304,7 +316,7 @@ export const townSlice = createSlice({
         building.queuedLevel += 1;
         town.population += cost.population ?? 0;
 
-        const buildingQueue = town.queues[queueBuildingId];
+        const buildingQueue = town.queues.buildings[queueBuildingId];
         if (buildingQueue !== undefined) {
           const queueLength = buildingQueue.length;
           let completionTime;
@@ -313,19 +325,51 @@ export const townSlice = createSlice({
           } else {
             completionTime = buildingQueue[queueLength - 1].completionTime + buildTimeMs;
           }
-          const qItem = { item: buildingId, level: building.queuedLevel, duration: buildTimeMs, completionTime, amount }
+          const qItem = { building: buildingId, level: building.queuedLevel, duration: buildTimeMs, completionTime };
           buildingQueue.push(qItem);
         } else {
-          console.error(`No queue exists for building ${queueBuildingId} in town ${townId}, attempting to create it`);
-          town.queues = {
-            ...town.queues,
+          console.error(`No building queue exists for ${queueBuildingId} in town ${townId}, attempting to create it...`);
+          town.queues.buildings = {
+            ...town.queues.buildings,
             [queueBuildingId]: [
-              { item: buildingId, level: building.queuedLevel, duration: buildTimeMs, completionTime: Date.now() + buildTimeMs, amount }
+              { building: buildingId, level: building.queuedLevel, duration: buildTimeMs, completionTime: Date.now() + buildTimeMs }
             ]
           }
         };
       }
     },
+
+    startRecruitSomething: (towns, { payload: { townId, unitId, queueBuildingId, amount } }: StartRecruitSomethingPayload) => {
+      const town = towns[townId];
+      const queueBuilding = town.buildings[queueBuildingId];
+      const cost = baseUnits[unitId].cost;
+      const recruitTimeMs = baseUnits[unitId].getRecruitTime(queueBuilding.level) * 1000;
+
+      // ✔ Check if there is enough resources + population
+      // ✖ Check if any building / research requirements are met
+
+      if (hasRequirements(town.maxPopulation, town.population, town.resources, cost)) {
+
+        Object.values(ResourceId).forEach((key) => {
+          town.resources[key] -= cost.resources[key];
+        })
+
+        const unitQueue = town.queues.units[queueBuildingId];
+        if (unitQueue !== undefined) {
+          const startTime = Date.now(); // TODO calc it here TODODODODODODODO
+          unitQueue.push({ unit: unitId, recruitTimeMs, amount, recruited: 0, startTime });
+        } else {
+          console.error(`No unit queue exists for ${queueBuildingId} in town ${townId}, attempting to create it...`);
+          town.queues.units = {
+            ...town.queues.units,
+            [queueBuildingId]: [
+              { unit: unitId, recruitTimeMs, amount }
+            ]
+          }
+        };
+      }
+    },
+
   },
   extraReducers: builder => {
     builder.addCase(miscSlice.actions.tick, (towns, { payload }) => {
@@ -342,16 +386,16 @@ export const townSlice = createSlice({
         // * check queues
         // * check battles (queue also) 
 
-        Object.values(town.queues).forEach((buildingQueue) => {
+        Object.values(town.queues.buildings).forEach((buildingQueue) => {
           buildingQueue?.forEach((queueItem, index) => {
             if (Date.now() > queueItem.completionTime) {
-              if (isBuildingId(queueItem.item)) {
+              if (isBuildingId(queueItem.building)) {
                 // Remove finished building from queue
                 buildingQueue?.splice(index, 1);
 
                 // Update resource generation if the constructed building was a resource generation building
-                const building = town.buildings[queueItem.item];
-                const buildingData = baseBuildings[queueItem.item];
+                const building = town.buildings[queueItem.building];
+                const buildingData = baseBuildings[queueItem.building];
                 if (buildingData instanceof ResourceBuilding) {
                   const newResourcesPerSecond = buildingData.getResourceGeneration(building.level + 1);
                   const oldResourcesPerSecond = buildingData.getResourceGeneration(building.level);
@@ -359,15 +403,45 @@ export const townSlice = createSlice({
                     town.rps[resource] += (newResourcesPerSecond - oldResourcesPerSecond);
                   });
                 };
-
                 // Increment level
                 building.level += 1;
               } else {
-                console.error(`${queueItem.item} was not a valid building id.`);
+                console.error(`${queueItem.building} was not a valid building id.`);
               }
             }
           });
-        })
+        });
+
+        Object.values(town.queues.units).forEach((unitQueue) => {
+          unitQueue?.forEach((queueItem, index) => {
+            if (index === 0) {
+              if (queueItem.startTime === undefined) {
+                queueItem.startTime = Date.now();
+              }
+
+              const timeNextUnit = queueItem.startTime + (queueItem.recruitTimeMs * (queueItem.recruited + 1));
+              if (Date.now() > timeNextUnit) {                
+                const unit = town.units[queueItem.unit];
+                
+                if (unit !== undefined) {
+                  unit.total += 1;
+                  unit.town += 1;
+                } else {
+                  town.units[queueItem.unit] = {
+                    total: 1,
+                    town: 1,
+                  }
+                }
+
+                queueItem.recruited += 1;
+                if (queueItem.recruited === queueItem.amount) {
+                // Remove finished recruitment from queue
+                unitQueue?.splice(index, 1);
+                }
+              }
+            }
+          });
+        });
 
       });
     });
