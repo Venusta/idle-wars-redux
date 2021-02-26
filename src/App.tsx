@@ -3,7 +3,7 @@ import React, { useEffect, useRef } from 'react';
 import { Redirect, Route, Switch } from "react-router-dom";
 import './App.css';
 import { Headquarters } from './app/components/Headquarters';
-import { ResourceDisplay } from './app/components/ResourceDisplay/ResourceDisplay';
+import { ResourceDisplay } from './app/components/ResourceDisplay';
 import { RootState } from './app/store';
 import { useDispatch, useSelector } from 'react-redux';
 import { Navbar } from './app/components/Navbar';
@@ -16,8 +16,7 @@ import { simulateBattle } from './app/game/combat/simulator';
 import { UnitId } from './app/game/constants';
 import { active } from './app/slices/misc';
 import { gameTick } from './app/game/gameTick';
-import { BuildingPage } from './app/components/BuildingPage';
-import Barracks from './app/components/Barracks';
+import { Barracks } from './app/components/Barracks';
 
 
 function useInterval(callback: () => void, delay: number) {

@@ -9,8 +9,7 @@ export const gameTick = () => {
   const now = Date.now();
 
   const difference = now - prev;
-  console.log("Tick!: " + difference);
-
+  // console.log("Tick!: " + difference);
 
   dispatch(tick({ difference, now }));
 

@@ -3,11 +3,17 @@ import { createSlice } from "@reduxjs/toolkit";
 interface MiscState {
   timeLastProcessed: number
   running: boolean
+  userSettings: {
+    resourceDisplayToggle: boolean
+  }
 }
 
 const initialState: MiscState = {
   timeLastProcessed: Date.now(),
   running: false,
+  userSettings: {
+    resourceDisplayToggle: true,
+  },
 }
 
 interface TickPayload {
@@ -26,11 +32,16 @@ export const miscSlice = createSlice({
     },
     active: (misc) => {
       misc.running = true;
-    }
+    },
+    toggleResourceDisplay: ({ userSettings }) => {
+      console.log("setting to :", !userSettings.resourceDisplayToggle);    
+      userSettings.resourceDisplayToggle = !userSettings.resourceDisplayToggle  
+    },
   },
 });
 
 export const {
   tick,
   active,
+  toggleResourceDisplay,
 } = miscSlice.actions;

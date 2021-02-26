@@ -24,9 +24,23 @@
   justify-content: center;
   padding: 3px;
   font-weight: bold;
-  background-color: rgba(34, 96, 211, 0.664);
 }
 
 .columnRequirements {
   grid-column: 2/7;
+}
+
+.unitColumn {
+  display: flex;
+  align-items: center;
+}
+
+.unitColumnName {
+  margin: 0px 5px;
+}
+
+.infoColumn {
+  display: flex;
+  align-items: center;
+  margin: 0px 5px;
 }

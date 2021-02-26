@@ -1,0 +1,28 @@
+import React from 'react'
+import { ResourceId, UnitId } from '../../../../game/constants';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../../../store';
+import { selectResource } from '../../../../selectors';
+import Style from "./style.module.css"
+import { useParams } from 'react-router-dom';
+import { baseUnits } from '../../../../game/units';
+
+interface Props {
+  unitId: UnitId
+  resourceId: ResourceId
+  multiplier: number
+}
+
+export const SingleUnitResource = ({ unitId, resourceId, multiplier = 1 }: Props) => {
+  const { townId } = useParams<{ townId: string }>();
+  const resource = useSelector((state: RootState) => selectResource(state, townId, resourceId));
+
+  const cost = baseUnits[unitId].cost.resources[resourceId] * multiplier
+
+  return (
+    <div className={Style.container}>
+      <img src={`${process.env.PUBLIC_URL}/resources/${resourceId}.png`} alt="" />
+      <div className={`${resource < cost ? `${Style.dangerText}` : ""}`}>{cost.toFixed(0)}</div>
+    </div>
+  )
+};

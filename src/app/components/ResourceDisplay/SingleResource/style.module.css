@@ -1,0 +1,16 @@
+.inner {
+  display: flex;
+  padding: 2px;
+}
+
+.icon {
+  margin: 0px 1px;
+  align-self: center;
+}
+
+.displayText {
+  display: flex;
+  align-self: center;
+  margin: 0px 2px;
+  font-size: 12px;
+}

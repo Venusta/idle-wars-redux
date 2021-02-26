@@ -1,7 +1,7 @@
 import React from 'react'
 import Style from "./cssTestStyle.module.css"
 import { Switch, Route, Redirect } from 'react-router-dom'
-import { ResourceDisplay } from './app/components/ResourceDisplay/ResourceDisplay'
+import { ResourceDisplay } from './app/components/ResourceDisplay'
 import { Navbar } from './app/components/Navbar'
 import { BuildingHeader } from './app/components/BuildingHeader'
 import { Headquarters } from './app/components/Headquarters'
