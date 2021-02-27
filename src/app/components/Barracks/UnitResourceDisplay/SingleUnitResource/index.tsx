@@ -13,16 +13,20 @@ interface Props {
   multiplier: number
 }
 
-export const SingleUnitResource = ({ unitId, resourceId, multiplier = 1 }: Props) => {
+const ResouceAmount = ({ unitId, resourceId, multiplier = 1 }: Props) => {
   const { townId } = useParams<{ townId: string }>();
   const resource = useSelector((state: RootState) => selectResource(state, townId, resourceId));
-
   const cost = baseUnits[unitId].cost.resources[resourceId] * multiplier
+  return (
+    <div className={`${resource < cost ? `${Style.dangerText}` : ""}`}>{cost.toFixed(0)}</div>
+  )
+}
 
+export const SingleUnitResource = ({ unitId, resourceId, multiplier = 1 }: Props) => {
   return (
     <div className={Style.container}>
       <img src={`${process.env.PUBLIC_URL}/resources/${resourceId}.png`} alt="" />
-      <div className={`${resource < cost ? `${Style.dangerText}` : ""}`}>{cost.toFixed(0)}</div>
+      <ResouceAmount unitId={unitId} resourceId={resourceId} multiplier={multiplier} />
     </div>
   )
 };

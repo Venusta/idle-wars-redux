@@ -43,4 +43,21 @@
   display: flex;
   align-items: center;
   margin: 0px 5px;
+  justify-content: center;
+}
+
+.buttonRow {
+  grid-column: -2;
+}
+
+.RecruitColumn {
+  display: flex;
+  align-items: center;
+}
+
+.RecruitLabel {
+  font-weight: 700;
+  text-decoration: none;
+  color: #3c7db3;
+  margin: 0px 3px;
 }

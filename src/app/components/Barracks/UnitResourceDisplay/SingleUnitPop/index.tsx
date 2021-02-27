@@ -8,6 +8,7 @@ interface Props {
   multiplier: number;
 }
 // TODO icon
+// TODO make text red if not enough farm space
 export const SingleUnitPop = ({ unitId, multiplier = 1 }: Props) => {
   const cost = baseUnits[unitId].cost.population * multiplier
 
