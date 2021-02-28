@@ -1,11 +1,11 @@
-import { StrictMode } from 'react';
-import ReactDOM from 'react-dom';
+import { StrictMode } from "react";
+import ReactDOM from "react-dom";
 import { BrowserRouter as Router } from "react-router-dom";
-import './index.css';
-import App from './App';
-import { store } from './app/store';
-import { Provider } from 'react-redux';
-import * as serviceWorker from './serviceWorker';
+import "./index.css";
+import { Provider } from "react-redux";
+import App from "./App";
+import { store } from "./app/store";
+import * as serviceWorker from "./serviceWorker";
 
 ReactDOM.render(
   <StrictMode>
@@ -15,7 +15,7 @@ ReactDOM.render(
       </Router>
     </Provider>
   </StrictMode>,
-  document.getElementById('root')
+  document.getElementById("root"),
 );
 
 // If you want your app to work offline and load faster, you can change

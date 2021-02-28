@@ -1,9 +1,14 @@
+/* eslint-disable no-param-reassign */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { createSlice } from "@reduxjs/toolkit";
-import { BuildingCost, Resources, TownsInterface, TownInterface } from "../../types/types";
+import {
+  BuildingCost, Resources, TownsInterface, TownInterface,
+} from "../../types/types";
 import { baseBuildings } from "../game/buildings";
 import { BuildingId, UnitId, ResourceId } from "../game/constants";
-import { isResourceId, isBuildingId, hasRequirements, isUnitId } from "../game/utility";
+import {
+  isResourceId, isBuildingId, hasRequirements, isUnitId,
+} from "../game/utility";
 import { ResourceBuilding } from "../game/model/resourceBuilding";
 import { Town } from "../game/model/town";
 import { miscSlice } from "./misc";
@@ -16,9 +21,9 @@ testTown2.setBuildingLevel(BuildingId.Barracks, 15);
 testTown2.setBuildingLevel(BuildingId.Headquarters, 20);
 // testTown2.addArmy({ [UnitId.SpearFighter]: 10, [UnitId.Archer]: 20, [UnitId.SpearFighter]: 15 });
 
-testTown2.addUnit(UnitId.Swordsman, 70)
-testTown2.addUnit(UnitId.Archer, 99999940)
-testTown2.addUnit(UnitId.Scout, 940)
+testTown2.addUnit(UnitId.Swordsman, 70);
+testTown2.addUnit(UnitId.Archer, 99999940);
+testTown2.addUnit(UnitId.Scout, 940);
 
 console.log(testTown2.toRedux().units);
 
@@ -42,7 +47,7 @@ const testTown: TownInterface = {
       // [BuildingId.Barracks]: [],
       // [BuildingId.Stable]: [],
     },
-    units: {}
+    units: {},
   },
   population: 400,
   maxPopulation: 900,
@@ -96,21 +101,25 @@ const testTown: TownInterface = {
     [BuildingId.Farm]: {
       id: BuildingId.Farm,
       level: 0,
-      queuedLevel: 0
+      queuedLevel: 0,
     },
     [BuildingId.Warehouse]: {
       id: BuildingId.Warehouse,
       level: 0,
-      queuedLevel: 0
-    }
+      queuedLevel: 0,
+    },
+    [BuildingId.Smithy]: {
+      id: BuildingId.Smithy,
+      level: 0,
+      queuedLevel: 0,
+    },
   },
-}
-
+};
 
 /*
-* Start: 
+* Start:
 * units are removed from town
-* Return: 
+* Return:
 * Dead are removed from town & total
 * Haul is added to resources
 */
@@ -123,10 +132,10 @@ const example2 = { // maybe replacement for example.units
     [UnitId.SpearFighter]: 200,
     [UnitId.Swordsman]: 200,
   },
-}
+};
 
 const example = {
-  units: { // 
+  units: { //
     [UnitId.SpearFighter]: {
       town: 100,
       total: 200,
@@ -159,9 +168,9 @@ const example = {
       buildings: {},
       armyInVillage: {},
       armyOutsideVillage: {},
-    }
-  ]
-}
+    },
+  ],
+};
 
 const outGoingRaid = { // raid outgoing payload
   townId: "rfubdfgdfg",
@@ -170,7 +179,7 @@ const outGoingRaid = { // raid outgoing payload
     [UnitId.SpearFighter]: 50,
     [UnitId.Swordsman]: 100,
   },
-}
+};
 
 const startingRps = (towns: TownsInterface): TownsInterface => { // TODO fix this shit aids fuck cancer
   const newTowns = { ...towns };
@@ -185,40 +194,38 @@ const startingRps = (towns: TownsInterface): TownsInterface => { // TODO fix thi
           // console.log(`Adding: ${newResourcesPerSecond}`);
           // console.log(`${resource} for ${townId} is now ${newTowns[townId].rps[resource]} per second`);
         });
-      };
-
-    })
-  })
+      }
+    });
+  });
   return newTowns;
-}
+};
 
 const initialState: TownsInterface = {
-  "0": testTown,
-  "1": {
+  0: testTown,
+  1: {
     ...testTown,
     id: "1",
     name: "Kora sucks",
   },
-  "2": {
+  2: {
     ...testTown,
     id: "2",
     name: "Barbarian village",
     units: {
       [UnitId.SpearFighter]: {
         town: 15,
-        total: 15
-      }
-    }
-  }
+        total: 15,
+      },
+    },
+  },
 };
-
 
 interface ChangeResourcesPayload {
   payload: {
     townId: string;
     resources: Resources;
   }
-};
+}
 
 interface StartBuildSomethingPayload {
   payload: {
@@ -245,10 +252,11 @@ export const townSlice = createSlice({
     },
 
     addResources: (towns, { payload: { townId, resources } }: ChangeResourcesPayload) => {
-      const town = towns[townId]
-      for (const [k, v] of Object.entries(resources)) {
-        if (isResourceId(k)) town.resources[k] += v;
-      }
+      const town = towns[townId];
+      // TODO FIX ASAP
+      // for (const [k, v] of Object.entries(resources)) {
+      //   if (isResourceId(k)) town.resources[k] += v;
+      // }
     },
 
     incrementAllTownsResources: (towns, { payload: { msPassed } }: { payload: { msPassed: number } }) => { // cant be here
@@ -257,19 +265,19 @@ export const townSlice = createSlice({
           const buildingData = baseBuildings[building.id];
           if (buildingData instanceof ResourceBuilding) {
             buildingData.creates.forEach((resource) => {
-              towns[townId].resources[resource] += towns[townId].rps[resource] / 1000 * msPassed;
+              towns[townId].resources[resource] += (towns[townId].rps[resource] / 1000) * msPassed;
             });
-          };
+          }
         });
-      })
+      });
     },
 
-    removeResources: (towns, { payload: { townId, resources } }: ChangeResourcesPayload) => {
-      const town = towns[townId]
-      for (const [k, v] of Object.entries(resources)) {
-        if (isResourceId(k)) town.resources[k] -= v;
-      }
-    },
+    // removeResources: (towns, { payload: { townId, resources } }: ChangeResourcesPayload) => {
+    //   const town = towns[townId];
+    //   for (const [k, v] of Object.entries(resources)) {
+    //     if (isResourceId(k)) town.resources[k] -= v;
+    //   }
+    // },
 
     increasePopulation: (towns, { payload: { townId, value } }: { payload: { townId: string, value: number } }) => {
       const town = towns[townId];
@@ -279,7 +287,7 @@ export const townSlice = createSlice({
     finishConstruction: (towns, { payload: { townId, buildingId } }: { payload: { townId: string, buildingId: BuildingId } }) => {
       const town = towns[townId];
       const buildingData = baseBuildings[buildingId];
-      const building = town.buildings[buildingId]
+      const building = town.buildings[buildingId];
 
       if (buildingData instanceof ResourceBuilding) {
         const newResourcesPerSecond = buildingData.getResourceGeneration(building.level + 1);
@@ -287,7 +295,7 @@ export const townSlice = createSlice({
         buildingData.creates.forEach((resource) => {
           town.rps[resource] += (newResourcesPerSecond - oldResourcesPerSecond);
         });
-      };
+      }
 
       building.level += 1;
     },
@@ -299,7 +307,7 @@ export const townSlice = createSlice({
 
     startBuildSomething: (towns, { payload: { townId, buildingId, queueBuildingId } }: StartBuildSomethingPayload) => {
       const town = towns[townId];
-      const building = town.buildings[buildingId]
+      const building = town.buildings[buildingId];
       const queueBuilding = town.buildings[queueBuildingId];
       const cost = baseBuildings[buildingId].getCost(building.queuedLevel);
       const buildTimeMs = baseBuildings[buildingId].getBuildTime(building.queuedLevel, queueBuilding.queuedLevel) * 1000;
@@ -308,10 +316,9 @@ export const townSlice = createSlice({
       // ✖ Check if any building / research requirements are met
 
       if (hasRequirements(town.maxPopulation, town.population, town.resources, cost)) {
-
         Object.values(ResourceId).forEach((key) => {
           town.resources[key] -= cost.resources[key];
-        })
+        });
 
         building.queuedLevel += 1;
         town.population += cost.population ?? 0;
@@ -325,66 +332,74 @@ export const townSlice = createSlice({
           } else {
             completionTime = buildingQueue[queueLength - 1].completionTime + buildTimeMs;
           }
-          const qItem = { building: buildingId, level: building.queuedLevel, duration: buildTimeMs, completionTime };
+          const qItem = {
+            building: buildingId, level: building.queuedLevel, duration: buildTimeMs, completionTime,
+          };
           buildingQueue.push(qItem);
         } else {
           console.error(`No building queue exists for ${queueBuildingId} in town ${townId}, attempting to create it...`);
           town.queues.buildings = {
             ...town.queues.buildings,
             [queueBuildingId]: [
-              { building: buildingId, level: building.queuedLevel, duration: buildTimeMs, completionTime: Date.now() + buildTimeMs }
-            ]
-          }
-        };
+              {
+                building: buildingId, level: building.queuedLevel, duration: buildTimeMs, completionTime: Date.now() + buildTimeMs,
+              },
+            ],
+          };
+        }
       }
     },
 
-    startRecruitSomething: (towns, { payload: { townId, unitId, queueBuildingId, amount } }: StartRecruitSomethingPayload) => {
+    startRecruitSomething: (towns, {
+      payload: {
+        townId, unitId, queueBuildingId, amount,
+      },
+    }: StartRecruitSomethingPayload) => {
       const town = towns[townId];
       const queueBuilding = town.buildings[queueBuildingId];
-      const cost = baseUnits[unitId].cost;
+      const { cost } = baseUnits[unitId];
       const recruitTimeMs = baseUnits[unitId].getRecruitTime(queueBuilding.level) * 1000;
 
       // ✔ Check if there is enough resources + population
       // ✖ Check if any building / research requirements are met
 
       if (hasRequirements(town.maxPopulation, town.population, town.resources, cost)) {
-
         Object.values(ResourceId).forEach((key) => {
           town.resources[key] -= cost.resources[key];
-        })
+        });
 
         const unitQueue = town.queues.units[queueBuildingId];
         if (unitQueue !== undefined) {
           const startTime = Date.now(); // TODO calc it here TODODODODODODODO
-          unitQueue.push({ unit: unitId, recruitTimeMs, amount, recruited: 0, startTime });
+          unitQueue.push({
+            unit: unitId, recruitTimeMs, amount, recruited: 0, startTime,
+          });
         } else {
           console.error(`No unit queue exists for ${queueBuildingId} in town ${townId}, attempting to create it...`);
           town.queues.units = {
             ...town.queues.units,
             [queueBuildingId]: [
-              { unit: unitId, recruitTimeMs, amount }
-            ]
-          }
-        };
+              { unit: unitId, recruitTimeMs, amount },
+            ],
+          };
+        }
       }
     },
 
   },
-  extraReducers: builder => {
+  extraReducers: (builder) => {
     builder.addCase(miscSlice.actions.tick, (towns, { payload }) => {
       // console.log("Processed tick in town slice!");
       // console.log(payload);
 
       Object.values(towns).forEach((town) => {
-
         Object.values(ResourceId).forEach((key) => {
-          town.resources[key] += town.rps[key] / 1000 * payload.difference
+          town.resources[key] += (town.rps[key] / 1000) * payload.difference;
           // console.log(`Town: ${town.id} - Adding ${key}: ${town.rps[key] / 1000 * payload.difference}`);
-        })
+        });
 
         // * check queues
-        // * check battles (queue also) 
+        // * check battles (queue also)
 
         Object.values(town.queues.buildings).forEach((buildingQueue) => {
           buildingQueue?.forEach((queueItem, index) => {
@@ -402,12 +417,13 @@ export const townSlice = createSlice({
                   buildingData.creates.forEach((resource) => {
                     town.rps[resource] += (newResourcesPerSecond - oldResourcesPerSecond);
                   });
-                };
+                }
                 // Increment level
                 building.level += 1;
-              } else {
-                console.error(`${queueItem.building} was not a valid building id.`);
               }
+              //  else {
+              //   console.error(`${queueItem.building} was not a valid building id.`);
+              // }
             }
           });
         });
@@ -420,9 +436,9 @@ export const townSlice = createSlice({
               }
 
               const timeNextUnit = queueItem.startTime + (queueItem.recruitTimeMs * (queueItem.recruited + 1));
-              if (Date.now() > timeNextUnit) {                
+              if (Date.now() > timeNextUnit) {
                 const unit = town.units[queueItem.unit];
-                
+
                 if (unit !== undefined) {
                   unit.total += 1;
                   unit.town += 1;
@@ -430,28 +446,27 @@ export const townSlice = createSlice({
                   town.units[queueItem.unit] = {
                     total: 1,
                     town: 1,
-                  }
+                  };
                 }
 
                 queueItem.recruited += 1;
                 if (queueItem.recruited === queueItem.amount) {
-                // Remove finished recruitment from queue
-                unitQueue?.splice(index, 1);
+                  // Remove finished recruitment from queue
+                  unitQueue?.splice(index, 1);
                 }
               }
             }
           });
         });
-
       });
     });
-  }
+  },
 });
 
 export const {
   createTown,
   addResources,
-  removeResources,
+  // removeResources,
   increasePopulation,
   finishConstruction,
   incrementQueuedBuildingLevel,

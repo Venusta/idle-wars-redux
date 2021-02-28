@@ -9,11 +9,10 @@ interface BattleResult {
   defenderLosses: UnitLosses;
 }
 
-export const simulateBattle = (attackers: Army, defenders: Army, wallLevel: number = 1): BattleResult => {
-
+export const simulateBattle = (attackers: Army, defenders: Army, wallLevel = 1): BattleResult => {
   /* -------------- Wall defence bonus for defender ---------------------------- */
   const numRams = attackers[UnitId.Ram] ?? 0;
-  const wallLevelsNegated = numRams * baseUnits[UnitId.Ram].atk / (8 * 1.09 ** wallLevel)
+  const wallLevelsNegated = (numRams * baseUnits[UnitId.Ram].atk) / (8 * 1.09 ** wallLevel);
   // Wall bonus level can at most be reduced to half of the wall level so check if it would reduce by more and if so limit it to half
   const wallBonusLevel = Math.round(wallLevelsNegated) > (wallLevel / 2) ? (wallLevel / 2) : wallLevel - Math.round(wallLevelsNegated);
   const defenceMultiplier = 1.037 ** wallBonusLevel;
@@ -21,7 +20,7 @@ export const simulateBattle = (attackers: Army, defenders: Army, wallLevel: numb
   /* -------------- Morale & Luck bonus for attacker --------------------------- */
   const morale = 100; // Dunno how morale works in the game but we can just leave it as 100 or remove it altogether
   const luck = 0; // We can always roll a random number between +/- 25% or something if we want some randomness
-  const attackMultiplier = morale / 100 * (luck / 100 + 1);
+  const attackMultiplier = (morale / 100) * (luck / 100 + 1);
 
   const attackerLosses: UnitLosses = {};
   const defenderLosses: UnitLosses = {};
@@ -29,17 +28,17 @@ export const simulateBattle = (attackers: Army, defenders: Army, wallLevel: numb
   Object.entries(attackers).forEach(([unit, amount = 0]) => {
     if (isUnitId(unit)) {
       attackerLosses[unit] = {
-        total: amount
+        total: amount,
       };
-    };
+    }
   });
 
   Object.entries(defenders).forEach(([unit, amount = 0]) => {
     if (isUnitId(unit)) {
       defenderLosses[unit] = {
-        total: amount
+        total: amount,
       };
-    };
+    }
   });
 
   let numAttackingTroops = Object.values(attackers).reduce((a = 0, b = 0) => a + b) ?? 0;
@@ -49,9 +48,8 @@ export const simulateBattle = (attackers: Army, defenders: Army, wallLevel: numb
 
   // Fight until one army is dead
   while (numAttackingTroops > 0 && numDefendingTroops > 0) {
-
     /* -------------- Total attack values per type for attacker ------------------ */
-    const totalAttack = [0, 0, 0] // [infantry, archer, cavalry]
+    const totalAttack = [0, 0, 0]; // [infantry, archer, cavalry]
 
     Object.entries(attackers).forEach(([unit, amount]) => {
       if (isUnitId(unit)) {
@@ -62,11 +60,10 @@ export const simulateBattle = (attackers: Army, defenders: Army, wallLevel: numb
       }
     });
 
-
     /* -------------- Total defence values per type for defender ------------------ */
     // Every village has a base defence based on its wall level but this is only a thing during the first round of combat for some fucking reason
     const wallBaseDefense = roundNumber >= 1 ? 0 : 20 + 50 * wallBonusLevel;
-    const totalDefence = [wallBaseDefense, wallBaseDefense, wallBaseDefense] // [infantry, archer, cavalry]
+    const totalDefence = [wallBaseDefense, wallBaseDefense, wallBaseDefense]; // [infantry, archer, cavalry]
 
     Object.entries(defenders).forEach(([unit, amount = 0]) => {
       if (isUnitId(unit)) {
@@ -85,7 +82,7 @@ export const simulateBattle = (attackers: Army, defenders: Army, wallLevel: numb
 
     const sumTotalAttack = totalAttack.reduce((a, b) => a + b);
 
-    for (let index = 0; index < 3; index++) {
+    for (let index = 0; index < 3; index += 1) {
       // If the total attack of the attacking army is zero or when the defence against this attack type is zero
       if (sumTotalAttack === 0 || totalDefence[index] === 0) {
         ratiosAttacker[index] = 0; // All attacking troops of this attack type die since they can't hurt anything
@@ -112,16 +109,19 @@ export const simulateBattle = (attackers: Army, defenders: Army, wallLevel: numb
           const numDefendingScouts = defenders[UnitId.Scout] ?? 0;
           // If there are more than twice as many defending scouts then all attacking scouts die
           if (numDefendingScouts / amount >= 2) {
+            // eslint-disable-next-line no-param-reassign
             attackers[unit] = 0;
 
             // Otherwise calculate the number of scouts that survive the attack
           } else {
+            // eslint-disable-next-line no-param-reassign
             attackers[unit] = amount - Math.round(amount * (numDefendingScouts / (amount * 2)) ** 1.5);
           }
 
           // All the other unit types
         } else {
           const unitData = baseUnits[unit];
+          // eslint-disable-next-line no-param-reassign
           attackers[unit] = Math.round(amount * (1 - ratiosAttacker[unitData.atkType]));
         }
       } else {
@@ -136,6 +136,7 @@ export const simulateBattle = (attackers: Army, defenders: Army, wallLevel: numb
 
     Object.entries(defenders).forEach(([unit, amount = 0]) => {
       if (isUnitId(unit)) {
+        // eslint-disable-next-line no-param-reassign
         defenders[unit] = Math.round(amount * (1 - defenderAccumulatedSurvivorRatio));
       } else {
         console.error(`${unit} was not a valid unit id.`);
@@ -154,7 +155,7 @@ export const simulateBattle = (attackers: Army, defenders: Army, wallLevel: numb
       const loss = initial - amount;
       attackerLosses[unit] = {
         total: initial,
-        loss
+        loss,
       };
     }
   });
@@ -165,14 +166,14 @@ export const simulateBattle = (attackers: Army, defenders: Army, wallLevel: numb
       const loss = initial - amount;
       defenderLosses[unit] = {
         total: initial,
-        loss
+        loss,
       };
     }
   });
 
   /* -------------- Calculate wall downgrade level ------------------------------ */
-  let downgradedWallLevel = wallLevel;
-  /* 
+  const downgradedWallLevel = wallLevel;
+  /*
     Walls get downgraded to a certain level based on if the attacker or defender wins
     if the attacker wins: wallNewLevel = wallLevel - Math.round(wallLevelsNegated * (2 - attackingUnitsDead / attackingUnitsTotal))
     if the defender wins: wallNewLevel = wallLevel - Math.round(wallLevelsNegated * (defendingUnitsDead / defendingUnitsTotal))
@@ -180,10 +181,9 @@ export const simulateBattle = (attackers: Army, defenders: Army, wallLevel: numb
   // If the attacker won the fight and all defending troops are dead
   if (numDefendingTroops <= 0) {
 
-
-    // Defender won 
+    // Defender won
+  // eslint-disable-next-line no-empty
   } else {
-
   }
 
   return { attackerLosses, defenderLosses };

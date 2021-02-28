@@ -9,7 +9,5 @@ import { UnitQueueItem } from "../../types/types";
  * @param buildingId: BuildingQueueId
  */
 export const selectUnitQueue = (
-  state: RootState, townId: string, buildingId: BuildingId
-  ): UnitQueueItem[] => {
-    return (state.towns[townId].queues.units[buildingId]) ?? []; // todo hacky return something?
-  };
+  state: RootState, townId: string, buildingId: BuildingId,
+): UnitQueueItem[] => (state.towns[townId].queues.units[buildingId]) ?? []; // todo hacky return something?

@@ -9,11 +9,11 @@ export const timberCamp = new ResourceBuilding({
     resources: {
       timber: 50,
       clay: 60,
-      iron: 40
+      iron: 40,
     },
-    population: 5
+    population: 5,
   },
   maxLevel: 30,
   buildTime: 300,
   creates: [ResourceId.Timber],
-})
+});

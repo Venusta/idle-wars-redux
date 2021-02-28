@@ -1,11 +1,11 @@
-import { UnitId } from "../constants"
+import { UnitId } from "../constants";
 import { axeman } from "./axeman";
-import { spearFighter } from "./spearFighter"
-import { swordsman } from "./swordsman"
+import { spearFighter } from "./spearFighter";
+import { swordsman } from "./swordsman";
 import { archer } from "./archer";
 import { scout } from "./scout";
 import { lightCavalry } from "./lightCavalry";
-import { heavyCavalry } from "./heavyCavalry"
+import { heavyCavalry } from "./heavyCavalry";
 import { ram } from "./ram";
 import { catapult } from "./catapult";
 import { Unit } from "../model/unit";
@@ -14,7 +14,7 @@ import { nobleman } from "./nobleman";
 
 type BaseUnits = {
   [id in UnitId]: Unit;
-}
+};
 
 export const baseUnits: BaseUnits = {
   [UnitId.SpearFighter]: spearFighter,

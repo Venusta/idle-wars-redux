@@ -1,81 +1,58 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef } from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
-import './App.css';
-import { Headquarters } from './app/components/Headquarters';
-import { ResourceDisplay } from './app/components/ResourceDisplay';
-import { RootState } from './app/store';
-import { useDispatch, useSelector } from 'react-redux';
-import { Navbar } from './app/components/Navbar';
-import { SidebarQueue } from './app/components/SidebarQueue';
-import { BuildingHeader } from './app/components/BuildingHeader';
-import { VillageTitle } from './app/components/VillageTitle';
-import { HeaderNavButton } from './app/components/Buttons';
-import { BattleReport } from './app/components/BattleReport';
-import { simulateBattle } from './app/game/combat/simulator';
-import { UnitId } from './app/game/constants';
-import { active } from './app/slices/misc';
-import { gameTick } from './app/game/gameTick';
-import { Barracks } from './app/components/Barracks';
-
-
-function useInterval(callback: () => void, delay: number) {
-  const savedCallback = useRef<() => void>(() => { }); // null
-
-  useEffect(() => {
-    savedCallback.current = callback;
-  });
-
-  useEffect(() => {
-    function tick() {
-      savedCallback.current();
-    }
-
-    let id = setInterval(tick, delay);
-    return () => clearInterval(id);
-  }, [delay]);
-}
-
-
+import "./App.css";
+import { useDispatch, useSelector } from "react-redux";
+import { Headquarters } from "./app/components/Headquarters";
+import { ResourceDisplay } from "./app/components/ResourceDisplay";
+import { RootState } from "./app/store";
+import { Navbar } from "./app/components/Navbar";
+import { SidebarQueue } from "./app/components/SidebarQueue";
+import { BuildingHeader } from "./app/components/BuildingHeader";
+import { VillageTitle } from "./app/components/VillageTitle";
+import { HeaderNavButton } from "./app/components/Buttons";
+import { BattleReport } from "./app/components/BattleReport";
+import { simulateBattle } from "./app/game/combat/simulator";
+import { UnitId } from "./app/game/constants";
+import { active } from "./app/slices/misc";
+import { gameTick } from "./app/game/gameTick";
+import { Barracks } from "./app/components/Barracks";
 
 interface MainContainerProps {
   children?: JSX.Element | JSX.Element[];
 }
 
-const MainContainer = ({ children }: MainContainerProps) => {
-  return (
-    <>
-      <div className="header-wrapper">
-        <div className="ahhh">
-          <VillageTitle />
-        </div>
-        <div className="header">
-          <HeaderNavButton linkTo={"/0/buildings/headquarters"} text="Home" />
-          {/* <HeaderNavButton linkTo={"/0/villages"} text="Villages" /> */}
-          <HeaderNavButton linkTo={"/0/map"} text="Map" />
-          <HeaderNavButton linkTo={"/0/reports"} text="Reports" />
-          <HeaderNavButton linkTo={"/0/reports"} text="Settings" />
-        </div>
+const MainContainer = ({ children }: MainContainerProps) => (
+  <>
+    <div className="header-wrapper">
+      <div className="ahhh">
+        <VillageTitle />
       </div>
-      <div className="content-overflow">
-        <div className="content-wrapper">
-          <div className={"content-body"}>
-            <div className="content-header">
-              {/* <VillageTitle /> */}
-              <ResourceDisplay />
-            </div>
-            <Navbar />
-            {children}
+      <div className="header">
+        <HeaderNavButton linkTo="/0/buildings/headquarters" text="Home" />
+        {/* <HeaderNavButton linkTo={"/0/villages"} text="Villages" /> */}
+        <HeaderNavButton linkTo="/0/map" text="Map" />
+        <HeaderNavButton linkTo="/0/reports" text="Reports" />
+        <HeaderNavButton linkTo="/0/reports" text="Settings" />
+      </div>
+    </div>
+    <div className="content-overflow">
+      <div className="content-wrapper">
+        <div className="content-body">
+          <div className="content-header">
+            {/* <VillageTitle /> */}
+            <ResourceDisplay />
           </div>
+          <Navbar />
+          {children}
         </div>
       </div>
-    </>
-  )
-};
+    </div>
+  </>
+);
 
-function App() {
-  const dispatch = useDispatch()
-  const running = useSelector((state: RootState) => state.misc.running)
+function App(): JSX.Element {
+  const dispatch = useDispatch();
+  const running = useSelector((state: RootState) => state.misc.running);
 
   useEffect(() => {
     if (running) {
@@ -86,24 +63,22 @@ function App() {
     const attackers = {
       [UnitId.SpearFighter]: 10,
       [UnitId.Swordsman]: 1234,
-      [UnitId.Axeman]: 500
+      [UnitId.Axeman]: 500,
     };
 
     const defenders = {
       [UnitId.SpearFighter]: 10,
       [UnitId.Swordsman]: 500,
-      [UnitId.Archer]: 400
+      [UnitId.Archer]: 400,
     };
 
     console.log(simulateBattle(attackers, defenders));
 
     gameTick();
     console.log("LOADED GAME TICK RUN ONCE PLS");
-    dispatch(active())
-    return () => {
-    }
+    dispatch(active());
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []) // run once
+  }, []); // run once
 
   console.log("PLEASE DON'T RE-RENDER");
 
@@ -151,14 +126,12 @@ function App() {
                 <div className="queueContainer">
                   <Headquarters />
                   <SidebarQueue />
-                  
                 </div>
               </Route>
 
               <Route exact path="/:townId/buildings/barracks">
                 <Barracks />
               </Route>
-
 
             </Switch>
           </MainContainer>

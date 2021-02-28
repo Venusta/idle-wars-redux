@@ -10,6 +10,7 @@ export enum BuildingId {
   Stable = "stable",
   Warehouse = "warehouse",
   Farm = "farm",
+  Smithy = "smithy",
 }
 
 export enum UnitId {
@@ -32,7 +33,7 @@ export enum ResourceId {
   Iron = "iron",
 }
 
-export type ResourceId2 = "timber" | "clay" | "iron"
+export type ResourceId2 = "timber" | "clay" | "iron";
 
 // export const BuildingNamesDictionary = {
 //   [BuildingId.Headquarters]: "Headquarters",

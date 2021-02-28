@@ -1,4 +1,4 @@
-import { UnitId } from "../constants";
+import { BuildingId, UnitId } from "../constants";
 import { Unit } from "../model/unit";
 
 export const lightCavalry = new Unit({
@@ -8,9 +8,9 @@ export const lightCavalry = new Unit({
     resources: {
       timber: 125,
       clay: 100,
-      iron: 250
+      iron: 250,
     },
-    population: 4
+    population: 4,
   },
   buildTime: 600,
   speed: 10,
@@ -24,10 +24,13 @@ export const lightCavalry = new Unit({
     resources: {
       timber: 2200,
       clay: 2400,
-      iron: 2000
-    }
+      iron: 2000,
+    },
   },
   requirements: {
-    stable: 3,
-  }
-})
+    buildings: {
+      [BuildingId.Stable]: 3,
+    },
+    research: true,
+  },
+});

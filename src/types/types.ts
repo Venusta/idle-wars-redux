@@ -26,24 +26,31 @@ export interface ResearchCost {
   resources: Resources;
 }
 
+export type UnitRequirements = {
+  buildings: {
+    [id in BuildingId]?: number;
+  },
+  research: boolean;
+};
+
 export type BuildingList = {
   [id in BuildingId]: Building;
 };
 
 export type ResearchList = {
   [id in UnitId]?: number;
-}
+};
 
 export type UnitList = {
   [id in UnitId]?: {
     town: number
     total: number
   };
-}
+};
 
 export type Army = {
   [id in UnitId]?: number;
-}
+};
 
 export interface BuildingQueueItem {
   building: BuildingId;
@@ -63,7 +70,7 @@ export interface UnitQueueItem {
 export type Queues = {
   buildings: { [id in BuildingId]?: BuildingQueueItem[]; }
   units: { [id in BuildingId]?: UnitQueueItem[]; }
-}
+};
 
 export interface TownsInterface {
   [id: string]: TownInterface;
@@ -94,6 +101,10 @@ export interface ResourceGenProps {
   iron?: number;
 }
 
+export type BuildingRequirements = {
+  [id in BuildingId]?: number
+};
+
 export interface BuildingProps {
   id: BuildingId;
   name: string;
@@ -101,7 +112,7 @@ export interface BuildingProps {
   cost: BuildingCost;
   maxLevel: number;
   buildTime: number;
-  requirements?: any;
+  requirements?: BuildingRequirements;
 }
 
 export interface ResourceBuildingProps extends BuildingProps {
@@ -114,6 +125,10 @@ export interface ProductionBuildingProps extends BuildingProps {
 
 export interface UnitProductionBuildingProps extends BuildingProps {
   creates: Array<UnitId>;
+}
+
+export interface ResearchBuildingProps extends BuildingProps {
+  researches: Array<UnitId>;
 }
 
 export type UnitLosses = {

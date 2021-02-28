@@ -9,9 +9,9 @@ export const headquarters = new ProductionBuilding({
     resources: {
       timber: 270,
       clay: 240,
-      iron: 260
+      iron: 260,
     },
-    population: 8
+    population: 8,
   },
   maxLevel: 30,
   buildTime: 300,
@@ -23,6 +23,6 @@ export const headquarters = new ProductionBuilding({
     BuildingId.Barracks,
     BuildingId.Stable,
     BuildingId.Warehouse,
-    BuildingId.Farm
+    BuildingId.Farm,
   ],
 });

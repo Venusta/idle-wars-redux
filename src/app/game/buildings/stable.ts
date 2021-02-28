@@ -9,14 +9,14 @@ export const stable = new UnitProductionBuilding({
     resources: {
       timber: 270,
       clay: 240,
-      iron: 260
+      iron: 260,
     },
-    population: 8
+    population: 8,
   },
   maxLevel: 30,
   buildTime: 300,
   creates: [
     UnitId.Scout,
-    UnitId.LightCavalry
+    UnitId.LightCavalry,
   ],
-})
+});

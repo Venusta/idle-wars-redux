@@ -1,4 +1,4 @@
-import { UnitId } from "../constants";
+import { BuildingId, UnitId } from "../constants";
 import { Unit } from "../model/unit";
 
 export const scout = new Unit({
@@ -8,9 +8,9 @@ export const scout = new Unit({
     resources: {
       timber: 100,
       clay: 30,
-      iron: 60
+      iron: 60,
     },
-    population: 2
+    population: 2,
   },
   buildTime: 300,
   speed: 9,
@@ -20,4 +20,17 @@ export const scout = new Unit({
   defCav: 1,
   defArc: 2,
   carries: 0,
-})
+  researchCost: {
+    resources: {
+      timber: 560,
+      clay: 480,
+      iron: 480,
+    },
+  },
+  requirements: {
+    buildings: {
+      [BuildingId.Stable]: 1,
+    },
+    research: true,
+  },
+});

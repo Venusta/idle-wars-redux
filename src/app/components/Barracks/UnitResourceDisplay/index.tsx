@@ -1,8 +1,8 @@
 import { UnitId, ResourceId, BuildingId } from "../../../game/constants";
-import { SingleUnitResource } from './SingleUnitResource';
-import { SingleUnitPop } from './SingleUnitPop';
-import { SingleUnitTime } from './SingleUnitTime';
-import Style from "./style.module.css"
+import { SingleUnitResource } from "./SingleUnitResource";
+import { SingleUnitPop } from "./SingleUnitPop";
+import { SingleUnitTime } from "./SingleUnitTime";
+import Style from "./style.module.css";
 
 interface Props {
   unitId: UnitId
@@ -20,5 +20,5 @@ export const UnitResourceDisplay = ({ unitId }: Props) => {
       <SingleUnitPop unitId={unitId} multiplier={multiplier} />
       <SingleUnitTime unitId={unitId} multiplier={multiplier} buildingId={BuildingId.Barracks} />
     </>
-  )
-}
+  );
+};

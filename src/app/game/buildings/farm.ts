@@ -11,8 +11,8 @@ export const farm = new FarmBuilding({
       clay: 40,
       iron: 30,
     },
-    population: 0    
+    population: 0,
   },
   maxLevel: 30,
   buildTime: 300,
-})
+});

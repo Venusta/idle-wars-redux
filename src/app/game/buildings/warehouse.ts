@@ -11,8 +11,8 @@ export const warehouse = new StorageBuilding({
       clay: 50,
       iron: 40,
     },
-    population: 0    
+    population: 0,
   },
   maxLevel: 30,
   buildTime: 300,
-})
+});

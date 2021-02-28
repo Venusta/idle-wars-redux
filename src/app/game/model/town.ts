@@ -1,5 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { TownInterface, Resources, ResearchList, UnitList, BuildingList, Building, Army, Queues } from "../../../types/types";
+import {
+  TownInterface, Resources, ResearchList, UnitList, BuildingList, Building, Army, Queues,
+} from "../../../types/types";
 import { BuildingId, UnitId } from "../constants";
 import { baseBuildings } from "../buildings";
 import { ResourceBuilding } from "./resourceBuilding";
@@ -11,7 +13,7 @@ const defaultBuilding = (id: BuildingId, level = 0) => ({
   id,
   level,
   queuedLevel: level,
-})
+});
 
 export class Town {
   name: string;
@@ -27,8 +29,8 @@ export class Town {
   buildings: BuildingList;
 
   constructor(id: string, name: string, resources = defaultResources) {
-    this.id = id
-    this.name = name // todo random name
+    this.id = id;
+    this.name = name; // todo random name
     this.resources = resources;
     this.queues = { buildings: {}, units: {} };
     this.unlocked = this.defaultUnlocks();
@@ -41,23 +43,27 @@ export class Town {
         town: 200,
         total: 200,
       },
-    }
+    };
     this.buildings = this.defaultBuildings();
     this.rps = this.calculateResourcesPerSecond();
     this.population = this.getPopulation();
     this.maxPopulation = this.calculateMaxPopulation();
     this.storageCapacity = this.calculateStorageCapacity();
-  };
+  }
 
+  // todo move this function
+  // eslint-disable-next-line class-methods-use-this
   private defaultUnlocks(): ResearchList {
     return {
       [UnitId.SpearFighter]: 1,
-      [UnitId.Swordsman]: 1
-    }
+      [UnitId.Swordsman]: 1,
+    };
   }
 
   public unlockUnits(units: UnitId | Array<UnitId>, researchLevel = 1): void {
+    // todo remake
     if (Array.isArray(units)) {
+      // eslint-disable-next-line no-restricted-syntax
       for (const unit of units) {
         this.unlocked[unit] = researchLevel;
       }
@@ -66,6 +72,8 @@ export class Town {
     }
   }
 
+  // todo move this function
+  // eslint-disable-next-line class-methods-use-this
   private defaultBuildings(): BuildingList {
     return {
       [BuildingId.TimberCamp]: defaultBuilding(BuildingId.TimberCamp),
@@ -76,7 +84,8 @@ export class Town {
       [BuildingId.Farm]: defaultBuilding(BuildingId.Farm, 1),
       [BuildingId.Warehouse]: defaultBuilding(BuildingId.Warehouse, 1),
       [BuildingId.Headquarters]: defaultBuilding(BuildingId.Headquarters, 1),
-    }
+      [BuildingId.Smithy]: defaultBuilding(BuildingId.Smithy, 1),
+    };
   }
 
   public setBuildingLevel(id: BuildingId, level: number): void {
@@ -84,28 +93,27 @@ export class Town {
     this.buildings[id].queuedLevel = level;
   }
 
-  public addUnit(unit: UnitId, amount = 1) {
+  public addUnit(unit: UnitId, amount = 1): void {
     console.log("@@@@@@@@@@");
-    const units = this.units
+    const { units } = this;
     if (unit in units) {
-      const x = units[unit]
+      const x = units[unit];
 
       if (x !== undefined) {
         x.total += amount;
         x.town += amount;
       }
       this.units = units;
-
     } else {
       this.units[unit] = {
         total: amount,
         town: amount,
-      }
+      };
     }
     console.log(unit, amount);
   }
 
-  public addArmy(army: Army): void { // todo fix this mess   
+  public addArmy(army: Army): void { // todo fix this mess
     console.log("-----------------");
     console.log("Before: ");
     console.log(this.units);
@@ -118,13 +126,12 @@ export class Town {
         newAmounts.town += (mergedDefences[unit]?.town ?? 0) + amount;
         mergedDefences[unit] = { ...newAmounts };
       }
-    })
+    });
 
     this.units = mergedDefences;
     console.log("After: ");
     console.log(this.units);
     console.log("-----------------");
-
 
     // for (const [unit, amount = 1] of  Object.entries(army)) {
     //   // if(unit === undefined) return;
@@ -171,7 +178,7 @@ export class Town {
   }
 
   private calculateResourcesPerSecond(): Resources {
-    const rps: Resources = { timber: 0, clay: 0, iron: 0 }
+    const rps: Resources = { timber: 0, clay: 0, iron: 0 };
     Object.values(this.buildings).forEach(({ id, level }) => {
       const buildingData = baseBuildings[id];
 
@@ -182,14 +189,14 @@ export class Town {
           // console.log(`Adding: ${newResourcesPerSecond}`);
           // console.log(`${resource} for ${this.id} is now ${rps[resource]} per second`);
         });
-      };
-    })
+      }
+    });
     return rps;
   }
 
   public toRedux(): TownInterface {
     const {
-      id, name, resources, buildings, unlocked, units, rps, population, maxPopulation, storageCapacity, queues
+      id, name, resources, buildings, unlocked, units, rps, population, maxPopulation, storageCapacity, queues,
     } = this;
 
     return {
@@ -204,7 +211,6 @@ export class Town {
       population,
       maxPopulation,
       storageCapacity,
-    }
+    };
   }
-
-};
+}

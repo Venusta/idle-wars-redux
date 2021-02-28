@@ -8,9 +8,9 @@ export const nobleman = new Unit({
     resources: {
       timber: 40000,
       clay: 50000,
-      iron: 50000
+      iron: 50000,
     },
-    population: 100
+    population: 100,
   },
   buildTime: 680, // ???
   speed: 35,
@@ -20,14 +20,10 @@ export const nobleman = new Unit({
   defCav: 50,
   defArc: 100,
   carries: 0,
-  researchCost: {
-    resources: {
-      timber: 700,
-      clay: 840,
-      iron: 820
-    }
-  },
   requirements: {
-    Academy: 1,
-  }
+    buildings: {
+      // [BuildingId.Academy]: 1,
+    },
+    research: false,
+  },
 });

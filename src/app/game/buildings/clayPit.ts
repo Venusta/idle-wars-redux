@@ -9,11 +9,11 @@ export const clayPit = new ResourceBuilding({
     resources: {
       timber: 65,
       clay: 50,
-      iron: 40
+      iron: 40,
     },
-    population: 10
+    population: 10,
   },
   buildTime: 300,
   maxLevel: 30,
   creates: [ResourceId.Clay],
-})
+});

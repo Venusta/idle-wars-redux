@@ -1,4 +1,4 @@
-import { UnitId } from "../constants";
+import { BuildingId, UnitId } from "../constants";
 import { Unit } from "../model/unit";
 
 export const catapult = new Unit({
@@ -8,13 +8,13 @@ export const catapult = new Unit({
     resources: {
       timber: 320,
       clay: 400,
-      iron: 100
+      iron: 100,
     },
-    population: 8
+    population: 8,
   },
   buildTime: 600, // todo fix
   speed: 30,
-  atkType: 2, // ??? 
+  atkType: 2, // ???
   atk: 100,
   def: 100,
   defCav: 50,
@@ -24,11 +24,14 @@ export const catapult = new Unit({
     resources: {
       timber: 1600,
       clay: 2000,
-      iron: 1200
-    }
+      iron: 1200,
+    },
   },
   requirements: {
-    workshop: 2,
-    smithy: 12,
-  }
-})
+    buildings: {
+    // [BuildingId.Workshop]: 2,
+      [BuildingId.Smithy]: 12,
+    },
+    research: true,
+  },
+});

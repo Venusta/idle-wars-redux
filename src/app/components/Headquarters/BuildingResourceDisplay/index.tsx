@@ -1,10 +1,10 @@
 /* eslint-disable jsx-a11y/alt-text */
+import { useSelector } from "react-redux";
 import { baseBuildings } from "../../../game/buildings";
 import { BuildingId, ResourceId } from "../../../game/constants";
-import "./style.css";
-import { useSelector } from "react-redux";
 import { RootState } from "../../../store";
 import { selectBuilding, selectResource } from "../../../selectors";
+import "./style.css";
 
 interface Props {
   buildingId: BuildingId
@@ -18,7 +18,7 @@ const SingleBuildingResource = ({ amount, resourceId, townId }: { amount: number
       <img src={`${process.env.PUBLIC_URL}/resources/${resourceId}.png`} />
       <div className={`brd-display ${resource < amount ? "dangerText" : ""}`}>{amount.toFixed(0)}</div>
     </div>
-  )
+  );
 };
 
 export const BuildingResourceDisplay = ({ buildingId, townId }: Props) => {
@@ -37,15 +37,16 @@ export const BuildingResourceDisplay = ({ buildingId, townId }: Props) => {
   // todo move
   const SingleBuildingRequirements = ({ data, imgId }: { data: string | number, imgId: string }) => {
     if (typeof data === "number") {
-      data = data.toFixed(0)
+      // eslint-disable-next-line no-param-reassign
+      data = data.toFixed(0);
     }
     return (
       <div className="brd-group">
         <img src={`${process.env.PUBLIC_URL}/resources/${imgId}.png`} />
         <div className="brd-display">{data}</div>
       </div>
-    )
-  }
+    );
+  };
 
   return (
     <>
@@ -55,5 +56,5 @@ export const BuildingResourceDisplay = ({ buildingId, townId }: Props) => {
       <SingleBuildingRequirements data={pop} imgId="timber" />
       <SingleBuildingRequirements data={time} imgId="timber" />
     </>
-  )
-}
+  );
+};

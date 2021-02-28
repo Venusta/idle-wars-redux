@@ -1,10 +1,10 @@
-import Style from "./style.module.css"
-import { UnitId, BuildingId } from '../../../../game/constants';
-import { baseUnits } from '../../../../game/units';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../../../store';
-import { selectBuilding } from '../../../../selectors';
-import { useParams } from 'react-router-dom';
+import { useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
+import Style from "./style.module.css";
+import { UnitId, BuildingId } from "../../../../game/constants";
+import { baseUnits } from "../../../../game/units";
+import { RootState } from "../../../../store";
+import { selectBuilding } from "../../../../selectors";
 
 interface Props {
   unitId: UnitId;

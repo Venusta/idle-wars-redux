@@ -1,6 +1,6 @@
 import { Building } from "../../types/types";
 import { RootState } from "../store";
-import { BuildingId } from "../game/constants"
+import { BuildingId } from "../game/constants";
 
 /**
  * Selects the Building from state based on id

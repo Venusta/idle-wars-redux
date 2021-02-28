@@ -2,10 +2,11 @@ import { selectLastTick } from "../selectors";
 import { tick } from "../slices/misc";
 import { store } from "../store";
 
-export const gameTick = () => {
-  const { dispatch, getState } = store
+export const gameTick = (): void => {
+  const { dispatch } = store;
+  const getState = store.getState();
 
-  const prev = selectLastTick(getState());
+  const prev = selectLastTick(getState);
   const now = Date.now();
 
   const difference = now - prev;
@@ -16,4 +17,4 @@ export const gameTick = () => {
   // setTimeout(() => {
   //   gameTick();
   // }, 1000);
-}
+};

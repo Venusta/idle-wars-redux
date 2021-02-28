@@ -1,4 +1,4 @@
-import { UnitId } from "../constants";
+import { BuildingId, UnitId } from "../constants";
 import { Unit } from "../model/unit";
 
 export const axeman = new Unit({
@@ -8,9 +8,9 @@ export const axeman = new Unit({
     resources: {
       timber: 60,
       clay: 30,
-      iron: 40
+      iron: 40,
     },
-    population: 1
+    population: 1,
   },
   buildTime: 680,
   speed: 18,
@@ -24,10 +24,13 @@ export const axeman = new Unit({
     resources: {
       timber: 700,
       clay: 840,
-      iron: 820
-    }
+      iron: 820,
+    },
   },
   requirements: {
-    smithy: 2,
-  }
-})
+    buildings: {
+      [BuildingId.Smithy]: 2,
+    },
+    research: true,
+  },
+});

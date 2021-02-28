@@ -8,9 +8,9 @@ export const spearFighter = new Unit({
     resources: {
       timber: 50,
       clay: 30,
-      iron: 10
+      iron: 10,
     },
-    population: 1
+    population: 1,
   },
   buildTime: 680,
   speed: 18,
@@ -20,4 +20,4 @@ export const spearFighter = new Unit({
   defCav: 45,
   defArc: 20,
   carries: 25,
-})
+});

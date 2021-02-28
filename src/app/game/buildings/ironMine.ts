@@ -9,11 +9,11 @@ export const ironMine = new ResourceBuilding({
     resources: {
       timber: 75,
       clay: 65,
-      iron: 70
+      iron: 70,
     },
-    population: 10
-  }, 
-  buildTime: 360, 
+    population: 10,
+  },
+  buildTime: 360,
   maxLevel: 30,
   creates: [ResourceId.Iron],
-})
+});

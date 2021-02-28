@@ -8,9 +8,9 @@ export const paladin = new Unit({
     resources: {
       timber: 20,
       clay: 20,
-      iron: 40
+      iron: 40,
     },
-    population: 10
+    population: 10,
   },
   buildTime: 680, // todo fix
   speed: 10,
@@ -20,7 +20,11 @@ export const paladin = new Unit({
   defCav: 400,
   defArc: 150,
   carries: 100,
+
   requirements: {
-    statue: 1,
-  }
-})
+    buildings: {
+      // [BuildingId.Statue]: 1,
+    },
+    research: false,
+  },
+});

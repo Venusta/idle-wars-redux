@@ -8,12 +8,12 @@ export const heavyCavalry = new Unit({
     resources: {
       timber: 200,
       clay: 150,
-      iron: 600
+      iron: 600,
     },
-    population: 6
+    population: 6,
   },
   buildTime: 600, // fix
-  speed: 11, 
+  speed: 11,
   atkType: 2,
   atk: 150,
   def: 200,
@@ -24,11 +24,14 @@ export const heavyCavalry = new Unit({
     resources: {
       timber: 3000,
       clay: 2400,
-      iron: 2000
-    }
+      iron: 2000,
+    },
   },
   requirements: {
-    [BuildingId.Stable]: 10,
-    smithy: 15,
-  }
-})
+    buildings: {
+      [BuildingId.Stable]: 10,
+      [BuildingId.Smithy]: 15,
+    },
+    research: true,
+  },
+});

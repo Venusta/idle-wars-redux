@@ -1,4 +1,4 @@
-export * from "./selectBuilding"
+export * from "./selectBuilding";
 export * from "./selectBuildingLevel";
 export * from "./selectBuildingQueue";
 export * from "./selectBuildings";
@@ -14,4 +14,4 @@ export * from "./selectSingleRps";
 export * from "./selectTown";
 export * from "./selectTowns";
 export * from "./selectUnits";
-export * from "./selectUnitQueue"
+export * from "./selectUnitQueue";

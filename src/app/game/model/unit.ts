@@ -1,5 +1,5 @@
-import { UnitCost, ResearchCost } from "../../../types/types";
-import { UnitId } from "../constants";
+import { UnitCost, ResearchCost, UnitRequirements } from "../../../types/types";
+import { UnitId, WorldSpeed } from "../constants";
 
 interface UnitProps {
   id: UnitId;
@@ -14,7 +14,7 @@ interface UnitProps {
   defArc: number;
   carries: number;
   researchCost?: ResearchCost;
-  requirements?: any; // TODO FUCKING HELL
+  requirements?: UnitRequirements;
 }
 
 export class Unit {
@@ -30,9 +30,11 @@ export class Unit {
   defArc: number;
   carries: number;
   researchCost?: ResearchCost;
-  requirements?: any;
+  requirements?: UnitRequirements;
 
-  constructor({ id, name, cost, buildTime, speed, atkType, atk, def, defCav, defArc, carries, researchCost, requirements }: UnitProps) {
+  constructor({
+    id, name, cost, buildTime, speed, atkType, atk, def, defCav, defArc, carries, researchCost, requirements,
+  }: UnitProps) {
     this.id = id;
     this.name = name;
     this.cost = cost;
@@ -47,8 +49,5 @@ export class Unit {
     this.researchCost = researchCost;
     this.requirements = requirements;
   }
-  // TODO WORLD SPEED
-  getRecruitTime = (recruitmentBuildingLevel: number) => {
-    return this.buildTime * 2/3 * 1.06 ** (-recruitmentBuildingLevel);
-  };
+  getRecruitTime = (recruitmentBuildingLevel: number): number => (this.buildTime * (2 / 3) * 1.06 ** (-recruitmentBuildingLevel)) / WorldSpeed;
 }
