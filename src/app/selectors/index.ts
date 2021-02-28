@@ -4,6 +4,8 @@ export * from "./selectBuildingQueue";
 export * from "./selectBuildings";
 export * from "./selectLastTick";
 export * from "./selectPops";
+export * from "./selectRecruitForm";
+export * from "./selectRecruitForms";
 export * from "./selectResearch";
 export * from "./selectResource";
 export * from "./selectResources";

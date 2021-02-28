@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { UnitId } from "../game/constants";
 
 interface MiscState {
   timeLastProcessed: number
@@ -6,6 +7,13 @@ interface MiscState {
   userSettings: {
     resourceDisplayToggle: boolean
   }
+  forms: {
+    recruit: RecruitForm
+  }
+}
+
+export type RecruitForm = {
+  [id in UnitId]?: number | undefined
 }
 
 const initialState: MiscState = {
@@ -14,12 +22,23 @@ const initialState: MiscState = {
   userSettings: {
     resourceDisplayToggle: true,
   },
+  forms: {
+    recruit: {
+      [UnitId.Archer]: 2,
+    }
+  },
 }
 
 interface TickPayload {
   payload: {
     difference: number
     now: number
+  }
+}
+interface UnitFormPayload {
+  payload: {
+    unitId: UnitId
+    amount: number | undefined
   }
 }
 
@@ -34,8 +53,14 @@ export const miscSlice = createSlice({
       misc.running = true;
     },
     toggleResourceDisplay: ({ userSettings }) => {
-      console.log("setting to :", !userSettings.resourceDisplayToggle);    
-      userSettings.resourceDisplayToggle = !userSettings.resourceDisplayToggle  
+      console.log("setting to :", !userSettings.resourceDisplayToggle);
+      userSettings.resourceDisplayToggle = !userSettings.resourceDisplayToggle
+    },
+    setUnitFormData: (misc, { payload: { unitId, amount } }: UnitFormPayload) => {
+      if (amount === undefined) {
+        delete misc.forms.recruit[unitId];
+      } else
+        misc.forms.recruit[unitId] = amount;
     },
   },
 });
@@ -44,4 +69,5 @@ export const {
   tick,
   active,
   toggleResourceDisplay,
+  setUnitFormData,
 } = miscSlice.actions;
