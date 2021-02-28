@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React, { useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { Redirect, Route, Switch } from "react-router-dom";
 import './App.css';
 import { Headquarters } from './app/components/Headquarters';

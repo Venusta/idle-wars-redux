@@ -1,4 +1,3 @@
-import React from 'react'
 import { UnitId, ResourceId, BuildingId } from "../../../game/constants";
 import { SingleUnitResource } from './SingleUnitResource';
 import { SingleUnitPop } from './SingleUnitPop';

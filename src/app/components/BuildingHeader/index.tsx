@@ -4,7 +4,6 @@ import { baseBuildings } from "../../game/buildings";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store";
 import { selectBuildingLevel } from "../../selectors";
-import React from "react";
 import "./style.css";
 
 export const BuildingHeader = () => {
