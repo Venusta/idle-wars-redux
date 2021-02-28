@@ -131,8 +131,9 @@ console.log(addResourcesPartial2({ clay: 20 }, { clay: 30, timber: 70, iron: 50 
 
 console.log(initialResources);
 
-type ResArray = [ResourceId, number][]
 type ResMap = Map<ResourceId, number>
+type ResTuple = [ResourceId, number]
+type ResArray = ResTuple[]
 const example: ResArray = [
   [ResourceId.Clay, 50],
   [ResourceId.Timber, 20],
@@ -144,28 +145,23 @@ const example2: ResArray = [
   [ResourceId.Iron, 1650],
 ]
 
+// type Something = [resArray1: ResArray, resArray2: ResArray];
 
-const add3 = (resArray1: ResArray, resArray2: ResArray): ResArray => {
+const addResourceArrays = (resArray1: ResArray, resArray2: ResArray): ResArray => {
   const merged = [...resArray1, ...resArray2]
-  console.log(merged);
-
   const testMap: ResMap = new Map([])
 
   merged.forEach(([resId, amount]) => {
     testMap.set(resId, (testMap.get(resId) ?? 0) + amount);
   })
-
-  console.log(testMap);
-  // return Array.from(testMap.entries()).map(([resId, amount]) => {
-  //   return ([resId, amount])
-  // });
-
   return Array.from(testMap.entries())
 }
 
-console.log(add3(example, example2));
+const multiplyResources = (resArray: ResArray, multi: number): ResArray => {
+  return resArray.map(([id, amt]) => ([id, amt * multi]));
+}
 
-const multiply = (resArray: ResArray, multi: number): ResArray =>
-  resArray.map(([id, amt]) => ([id, amt * multi]))
 
-console.log(multiply(example, 50));
+console.log(addResourceArrays(example, example2));
+
+console.log(multiplyResources(example, 50));
