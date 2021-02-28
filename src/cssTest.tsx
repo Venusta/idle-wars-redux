@@ -1,4 +1,3 @@
-import React from 'react'
 import Style from "./cssTestStyle.module.css"
 import { Switch, Route, Redirect } from 'react-router-dom'
 import { ResourceDisplay } from './app/components/ResourceDisplay'

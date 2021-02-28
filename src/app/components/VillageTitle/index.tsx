@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import Style from "./style.module.css";
 import { Link, useParams } from 'react-router-dom';
 import { BuildingId } from '../../game/constants';

@@ -1,4 +1,3 @@
-import React from 'react'
 import Style from "./style.module.css"
 import { UnitId, BuildingId } from '../../../../game/constants';
 import { baseUnits } from '../../../../game/units';

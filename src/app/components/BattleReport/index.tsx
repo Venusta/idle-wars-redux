@@ -1,4 +1,3 @@
-import React from 'react'
 import SimpleBar from 'simplebar-react';
 import Style from "./style.module.css"
 import { UnitId } from '../../game/constants'

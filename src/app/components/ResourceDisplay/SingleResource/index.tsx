@@ -1,4 +1,3 @@
-import React from 'react'
 import { ResourceId } from '../../../game/constants';
 import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';

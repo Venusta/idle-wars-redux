@@ -1,13 +1,12 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable jsx-a11y/alt-text */
-import React from 'react'
 import { useSelector } from 'react-redux';
 import { ResourceId } from '../../game/constants';
 import { baseResources } from '../../game/resources';
 import { baseUnits } from '../../game/units';
 import { Unit } from '../../game/model/unit';
 import { isResourceId, isUnitId } from '../../game/utility';
-import { selectTown, selectResearch, selectUnits } from '../../selectors';
+import { selectResearch, selectUnits } from '../../selectors';
 import { RootState } from '../../store';
 
 export const Barracks = () => {

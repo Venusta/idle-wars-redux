@@ -1,4 +1,3 @@
-import React, { useState } from 'react'
 import { BuildingId, UnitId, ResourceId } from "../../game/constants"
 import { baseBuildings } from "../../game/buildings"
 import { baseUnits } from "../../game/units"

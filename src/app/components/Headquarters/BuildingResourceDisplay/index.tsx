@@ -1,5 +1,4 @@
 /* eslint-disable jsx-a11y/alt-text */
-import React from "react"
 import { baseBuildings } from "../../../game/buildings";
 import { BuildingId, ResourceId } from "../../../game/constants";
 import "./style.css";

@@ -1,5 +1,4 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React from 'react'
 import { selectBuildingQueue, selectBuildings, selectResources, selectRps } from '../../selectors';
 import { useParams } from "react-router-dom";
 import { useSelector } from 'react-redux';

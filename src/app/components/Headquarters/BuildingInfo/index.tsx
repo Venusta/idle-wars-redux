@@ -1,4 +1,3 @@
-import React from 'react'
 import { BuildingId } from "../../../game/constants";
 import { baseBuildings } from "../../../game/buildings";
 import { Link, useParams } from "react-router-dom";
