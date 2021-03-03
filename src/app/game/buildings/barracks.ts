@@ -1,4 +1,4 @@
-import { BuildingId, UnitId } from "../constants";
+import { BuildingId, ResourceId, UnitId } from "../constants";
 import { UnitProductionBuilding } from "../model/unitProductionBuilding";
 
 export const barracks = new UnitProductionBuilding({
@@ -6,11 +6,11 @@ export const barracks = new UnitProductionBuilding({
   name: "Barracks",
   description: "In the barracks you can recruit infantry. The higher its level the faster the recruitment of troops will be finished.",
   cost: {
-    resources: {
-      timber: 270,
-      clay: 240,
-      iron: 260,
-    },
+    resources: [
+      [ResourceId.Timber, 270],
+      [ResourceId.Clay, 240],
+      [ResourceId.Iron, 260],
+    ],
     population: 8,
   },
   maxLevel: 30,
@@ -22,3 +22,9 @@ export const barracks = new UnitProductionBuilding({
     UnitId.Archer,
   ],
 });
+
+// const derp = [
+//   [ResourceId.Timber, 500],
+//   [ResourceId.Clay, 500],
+//   [ResourceId.Iron, 500],
+// ];

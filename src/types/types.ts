@@ -6,11 +6,14 @@ export interface Building {
   queuedLevel: number;
 }
 
-export interface Resources {
-  timber: number;
-  clay: number;
-  iron: number;
-}
+// export interface Resources {
+//   timber: number;
+//   clay: number;
+//   iron: number;
+// }
+
+export type ResourceTuple = [ResourceId, number];
+export type Resources = ResourceTuple[];
 
 export interface BuildingCost {
   resources: Resources;

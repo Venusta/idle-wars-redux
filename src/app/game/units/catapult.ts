@@ -1,15 +1,15 @@
-import { BuildingId, UnitId } from "../constants";
+import { BuildingId, ResourceId, UnitId } from "../constants";
 import { Unit } from "../model/unit";
 
 export const catapult = new Unit({
   id: UnitId.Catapult,
   name: "Catapult",
   cost: {
-    resources: {
-      timber: 320,
-      clay: 400,
-      iron: 100,
-    },
+    resources: [
+      [ResourceId.Timber, 320],
+      [ResourceId.Clay, 400],
+      [ResourceId.Iron, 100],
+    ],
     population: 8,
   },
   buildTime: 600, // todo fix
@@ -21,11 +21,11 @@ export const catapult = new Unit({
   defArc: 100,
   carries: 0,
   researchCost: {
-    resources: {
-      timber: 1600,
-      clay: 2000,
-      iron: 1200,
-    },
+    resources: [
+      [ResourceId.Timber, 1600],
+      [ResourceId.Clay, 2000],
+      [ResourceId.Iron, 1200],
+    ],
   },
   requirements: {
     buildings: {

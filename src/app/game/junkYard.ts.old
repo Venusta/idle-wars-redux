@@ -114,13 +114,13 @@ console.log(addResourcesPartial2({ clay: 20 }, { clay: 30, timber: 70, iron: 50 
 console.log(initialResources);
 
 type ResMap = Map<ResourceId, number>;
-type ArrayOfTuples = [ResourceId, number][];
-const example: ArrayOfTuples = [
+type ResourceTuple = [ResourceId, number];
+const example: ResourceTuple[] = [
   [ResourceId.Clay, 50],
   [ResourceId.Timber, 20],
   // [ResourceId.Iron, 600],
 ];
-const example2: ArrayOfTuples = [
+const example2: ResourceTuple[] = [
   [ResourceId.Clay, 30],
   // [ResourceId.Timber, 10],
   [ResourceId.Iron, 230],
@@ -226,7 +226,7 @@ console.log(add4v2(example4, {
 
 // type Something = [resArray1: ResArray, resArray2: ResArray];
 
-const addResourceArrays = (resArray1: ArrayOfTuples, resArray2: ArrayOfTuples): ArrayOfTuples => {
+const addResourceArrays = (resArray1: ResourceTuple[], resArray2: ResourceTuple[]): ResourceTuple[] => {
   const merged = [...resArray1, ...resArray2];
   const testMap: ResMap = new Map([]);
 
@@ -236,7 +236,7 @@ const addResourceArrays = (resArray1: ArrayOfTuples, resArray2: ArrayOfTuples): 
   return Array.from(testMap.entries());
 };
 
-const multiplyResourcesArray = (resArray: ArrayOfTuples, multi: number): ArrayOfTuples => resArray.map(([id, amt]) => ([id, amt * multi]));
+const multiplyResourcesArray = (resArray: ResourceTuple[], multi: number): ResourceTuple[] => resArray.map(([id, amt]) => ([id, amt * multi]));
 
 /**
  * * assumptions, townResources will have enough to be removed from
@@ -246,7 +246,7 @@ const multiplyResourcesArray = (resArray: ArrayOfTuples, multi: number): ArrayOf
  * * maybe index the arrays somehow so we know which resource is in what index
  * * letting us only loop over each array once instead of however many resources there are
  *  */
-export const subResources = (townResources: ArrayOfTuples, resourcesToSub: ArrayOfTuples): ArrayOfTuples => {
+export const subResources = (townResources: ResourceTuple[], resourcesToSub: ResourceTuple[]): ResourceTuple[] => {
   return townResources.map(([resourceId, amount]) => {
     const index = resourcesToSub.findIndex(([townResource, _]) => townResource === resourceId); // ? cache this later
 
@@ -411,3 +411,99 @@ function addRecords2(all: Partial<Resources3>, modification: Partial<Resources3>
 
 const resourceSum2 = addRecords2(resources1, resources2);
 console.log(resourceSum2);
+
+
+
+
+export const multiplyResources = (all: Resources, multiplier: number) => {
+  return Object.values(ResourceId).reduce((accum, resource) => ({
+    ...accum,
+    [resource]: (all[resource] * multiplier),
+  }), all);
+};
+
+export const addResources = (all: Resources, some: Partial<Resources>) => {
+  return Object.values(ResourceId).reduce((accum, resource) => ({
+    ...accum,
+    [resource]: (all[resource] + (some[resource] ?? 0)),
+  }), all);
+};
+
+export const addArrayOfResources = (array: Resources[]) => {
+  return array.reduce((accum, resources) => {
+    console.log(resources);
+
+    return {
+      ...accum,
+      ...resources,
+    };
+  },
+  {
+    timber: 0,
+    clay: 0,
+    iron: 0,
+  });
+};
+
+export const subtractResources = (all: Resources, some: Partial<Resources>) => {
+  return Object.values(ResourceId).reduce((accum, resource) => ({
+    ...accum,
+    [resource]: (all[resource] - (some[resource] ?? 0)),
+  }), all);
+};
+
+const resources1: Partial<Resources> = {
+  [ResourceId.Clay]: 5,
+};
+
+const resources2: Partial<Resources> = {
+  [ResourceId.Clay]: 1,
+  [ResourceId.Iron]: 3,
+};
+
+const resourceSum = addRecords(resources1, resources2);
+console.log(resourceSum);
+
+function addRecords2(all: Partial<Resources>, modification: Partial<Resources>) {
+  const allCopy = { ...all };
+  // eslint-disable-next-line no-restricted-syntax
+  for (const key of Object.values(ResourceId)) {
+    allCopy[key as ResourceId] = (modification[key as ResourceId] ?? 0) + (all[key as ResourceId] ?? 0);
+  }
+
+  return allCopy;
+}
+
+const resourceSum2 = addRecords2(resources1, resources2);
+console.log(resourceSum2);
+
+// type Resources3 = Record<ResourceId, number>;
+
+const getKeys = Object.keys as <T extends Record<string, unknown>>(obj: T) => Array<keyof T>;
+
+function addRecords<T extends string>(all: Partial<Record<T, number>>, modification: Partial<Record<T, number>>) {
+  const allCopy = { ...all };
+  for (const key of getKeys(modification)) {
+    allCopy[key] = (modification[key] ?? 0) + (all[key] ?? 0);
+  }
+
+  return allCopy;
+}
+
+function addRecordsAll<T extends string>(all: Record<T, number>, some: Partial<Record<T, number>>) {
+  const allCopy = { ...all };
+  for (const key of getKeys(some)) {
+    allCopy[key] = (some[key] ?? 0) + (all[key] ?? 0);
+  }
+
+  return allCopy;
+}
+
+function multiplyRecords<T extends string>(all: Record<T, number>, multiplier: number) {
+  const allCopy = { ...all };
+  for (const key of getKeys(all)) {
+    allCopy[key] = (all[key] ?? 0) * multiplier;
+  }
+
+  return allCopy;
+}

@@ -1,15 +1,15 @@
-import { BuildingId, UnitId } from "../constants";
+import { BuildingId, ResourceId, UnitId } from "../constants";
 import { Unit } from "../model/unit";
 
 export const ram = new Unit({
   id: UnitId.Ram,
   name: "Ram",
   cost: {
-    resources: {
-      timber: 300,
-      clay: 200,
-      iron: 200,
-    },
+    resources: [
+      [ResourceId.Timber, 300],
+      [ResourceId.Clay, 200],
+      [ResourceId.Iron, 200],
+    ],
     population: 5,
   },
   buildTime: 600, // todo fix
@@ -21,11 +21,11 @@ export const ram = new Unit({
   defArc: 20,
   carries: 0,
   researchCost: {
-    resources: {
-      timber: 1200,
-      clay: 1600,
-      iron: 800,
-    },
+    resources: [
+      [ResourceId.Timber, 1200],
+      [ResourceId.Clay, 1600],
+      [ResourceId.Iron, 800],
+    ],
   },
   requirements: {
     buildings: {

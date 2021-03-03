@@ -6,11 +6,11 @@ export const ironMine = new ResourceBuilding({
   name: "Iron Mine",
   description: "",
   cost: {
-    resources: {
-      timber: 75,
-      clay: 65,
-      iron: 70,
-    },
+    resources: [
+      [ResourceId.Timber, 75],
+      [ResourceId.Clay, 65],
+      [ResourceId.Iron, 70],
+    ],
     population: 10,
   },
   buildTime: 360,

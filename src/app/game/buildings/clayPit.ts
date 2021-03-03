@@ -6,11 +6,11 @@ export const clayPit = new ResourceBuilding({
   name: "Clay Pit",
   description: "",
   cost: {
-    resources: {
-      timber: 65,
-      clay: 50,
-      iron: 40,
-    },
+    resources: [
+      [ResourceId.Timber, 65],
+      [ResourceId.Clay, 50],
+      [ResourceId.Iron, 40],
+    ],
     population: 10,
   },
   buildTime: 300,

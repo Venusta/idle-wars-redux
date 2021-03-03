@@ -1,4 +1,4 @@
-import { BuildingId, UnitId } from "../constants";
+import { BuildingId, ResourceId, UnitId } from "../constants";
 import { UnitProductionBuilding } from "../model/unitProductionBuilding";
 
 export const stable = new UnitProductionBuilding({
@@ -6,11 +6,11 @@ export const stable = new UnitProductionBuilding({
   name: "Stable",
   description: "",
   cost: {
-    resources: {
-      timber: 270,
-      clay: 240,
-      iron: 260,
-    },
+    resources: [
+      [ResourceId.Timber, 270],
+      [ResourceId.Clay, 240],
+      [ResourceId.Iron, 260],
+    ],
     population: 8,
   },
   maxLevel: 30,

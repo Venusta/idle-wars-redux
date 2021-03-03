@@ -6,11 +6,11 @@ export const timberCamp = new ResourceBuilding({
   name: "Timber Camp",
   description: "",
   cost: {
-    resources: {
-      timber: 50,
-      clay: 60,
-      iron: 40,
-    },
+    resources: [
+      [ResourceId.Timber, 50],
+      [ResourceId.Clay, 60],
+      [ResourceId.Iron, 40],
+    ],
     population: 5,
   },
   maxLevel: 30,

@@ -1,15 +1,15 @@
-import { BuildingId, UnitId } from "../constants";
+import { BuildingId, ResourceId, UnitId } from "../constants";
 import { Unit } from "../model/unit";
 
 export const archer = new Unit({
   id: UnitId.Archer,
   name: "Archer",
   cost: {
-    resources: {
-      timber: 100,
-      clay: 30,
-      iron: 60,
-    },
+    resources: [
+      [ResourceId.Timber, 100],
+      [ResourceId.Clay, 30],
+      [ResourceId.Iron, 60],
+    ],
     population: 1,
   },
   buildTime: 1200,
@@ -21,11 +21,11 @@ export const archer = new Unit({
   defArc: 5,
   carries: 10,
   researchCost: {
-    resources: {
-      timber: 640,
-      clay: 560,
-      iron: 740,
-    },
+    resources: [
+      [ResourceId.Timber, 640],
+      [ResourceId.Clay, 560],
+      [ResourceId.Iron, 740],
+    ],
   },
   requirements: {
     buildings: {

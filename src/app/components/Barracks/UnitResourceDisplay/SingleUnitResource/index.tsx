@@ -15,7 +15,9 @@ interface Props {
 const ResouceAmount = ({ unitId, resourceId, multiplier = 1 }: Props) => {
   const { townId } = useParams<{ townId: string }>();
   const resource = useSelector((state: RootState) => selectResource(state, townId, resourceId));
-  const cost = baseUnits[unitId].cost.resources[resourceId] * multiplier;
+  const [, amount] = baseUnits[unitId].cost.resources.find(([res]) => res === resourceId) ?? [resourceId, 0];
+  const cost = amount * multiplier;
+  // todo this might be broken
   return (
     <div className={`${resource < cost ? `${Style.dangerText}` : ""}`}>{cost.toFixed(0)}</div>
   );

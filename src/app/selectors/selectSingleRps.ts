@@ -7,4 +7,8 @@ import { ResourceId } from "../game/constants";
  * @param townId Town id
  * @param resourceId: ResourceId
  */
-export const selectSingleRps = (state: RootState, townId: string, resourceId: ResourceId): number => (state.towns[townId].rps[resourceId]);
+// eslint-disable-next-line arrow-body-style
+export const selectSingleRps = (state: RootState, townId: string, resourceId: ResourceId): number => {
+  const [, amount] = state.towns[townId].rps.find(([res]) => res === resourceId) ?? [resourceId, 0];
+  return amount;
+};

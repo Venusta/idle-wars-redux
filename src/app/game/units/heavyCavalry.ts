@@ -1,15 +1,15 @@
-import { UnitId, BuildingId } from "../constants";
+import { UnitId, BuildingId, ResourceId } from "../constants";
 import { Unit } from "../model/unit";
 
 export const heavyCavalry = new Unit({
   id: UnitId.HeavyCavalry,
   name: "Heavy Cavalry",
   cost: {
-    resources: {
-      timber: 200,
-      clay: 150,
-      iron: 600,
-    },
+    resources: [
+      [ResourceId.Timber, 200],
+      [ResourceId.Clay, 150],
+      [ResourceId.Iron, 600],
+    ],
     population: 6,
   },
   buildTime: 600, // fix
@@ -21,11 +21,11 @@ export const heavyCavalry = new Unit({
   defArc: 180,
   carries: 50,
   researchCost: {
-    resources: {
-      timber: 3000,
-      clay: 2400,
-      iron: 2000,
-    },
+    resources: [
+      [ResourceId.Timber, 3000],
+      [ResourceId.Clay, 2400],
+      [ResourceId.Iron, 2000],
+    ],
   },
   requirements: {
     buildings: {

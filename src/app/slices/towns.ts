@@ -1,20 +1,19 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import {
   BuildingCost, Resources, TownsInterface, TownInterface,
 } from "../../types/types";
 import { baseBuildings } from "../game/buildings";
 import { BuildingId, UnitId, ResourceId } from "../game/constants";
-import {
-  isResourceId, isBuildingId, hasRequirements, isUnitId,
-} from "../game/utility";
+import { isBuildingId, hasRequirements } from "../game/utility";
 import { ResourceBuilding } from "../game/model/resourceBuilding";
 import { Town } from "../game/model/town";
 import { miscSlice } from "./misc";
 import { baseUnits } from "../game/units";
+import { addResourceArrays, subResources } from "../game/manipulationUtils";
 
-const testTown2 = new Town("0", "test123", { timber: 500, clay: 500, iron: 500 });
+const testTown2 = new Town("0", "test123", [[ResourceId.Timber, 500], [ResourceId.Clay, 500], [ResourceId.Iron, 500]]);
 testTown2.setBuildingLevel(BuildingId.ClayPit, 6);
 testTown2.setBuildingLevel(BuildingId.IronMine, 30);
 testTown2.setBuildingLevel(BuildingId.Barracks, 15);
@@ -31,16 +30,16 @@ const testTown: TownInterface = {
   id: "0",
   // coords
   name: "Test village",
-  resources: {
-    timber: 500,
-    clay: 500,
-    iron: 500,
-  },
-  rps: {
-    timber: 0,
-    clay: 0,
-    iron: 0,
-  },
+  resources: [
+    [ResourceId.Timber, 500],
+    [ResourceId.Clay, 500],
+    [ResourceId.Iron, 500],
+  ],
+  rps: [
+    [ResourceId.Timber, 0],
+    [ResourceId.Clay, 0],
+    [ResourceId.Iron, 0],
+  ],
   queues: {
     buildings: {
       // [BuildingId.Headquarters]: [],
@@ -181,24 +180,24 @@ const outGoingRaid = { // raid outgoing payload
   },
 };
 
-const startingRps = (towns: TownsInterface): TownsInterface => { // TODO fix this shit aids fuck cancer
-  const newTowns = { ...towns };
-  Object.entries(newTowns).forEach(([townId, town]) => {
-    Object.values(town.buildings).forEach(({ id, level }) => {
-      const buildingData = baseBuildings[id];
+// const startingRps = (towns: TownsInterface): TownsInterface => { // TODO fix this shit aids fuck cancer
+//   const newTowns = { ...towns };
+//   Object.entries(newTowns).forEach(([townId, town]) => {
+//     Object.values(town.buildings).forEach(({ id, level }) => {
+//       const buildingData = baseBuildings[id];
 
-      if (buildingData instanceof ResourceBuilding) {
-        const newResourcesPerSecond = buildingData.getResourceGeneration(level);
-        buildingData.creates.forEach((resource) => {
-          newTowns[townId].rps[resource] += newResourcesPerSecond;
-          // console.log(`Adding: ${newResourcesPerSecond}`);
-          // console.log(`${resource} for ${townId} is now ${newTowns[townId].rps[resource]} per second`);
-        });
-      }
-    });
-  });
-  return newTowns;
-};
+//       if (buildingData instanceof ResourceBuilding) {
+//         const newResourcesPerSecond = buildingData.getResourceGeneration(level);
+//         buildingData.creates.forEach((resource) => {
+//           newTowns[townId].rps[resource] += newResourcesPerSecond;
+//           // console.log(`Adding: ${newResourcesPerSecond}`);
+//           // console.log(`${resource} for ${townId} is now ${newTowns[townId].rps[resource]} per second`);
+//         });
+//       }
+//     });
+//   });
+//   return newTowns;
+// };
 
 const initialState: TownsInterface = {
   0: testTown,
@@ -221,10 +220,8 @@ const initialState: TownsInterface = {
 };
 
 interface ChangeResourcesPayload {
-  payload: {
-    townId: string;
-    resources: Resources;
-  }
+  townId: string;
+  resources: Resources;
 }
 
 interface StartBuildSomethingPayload {
@@ -246,32 +243,29 @@ interface StartRecruitSomethingPayload {
 
 export const townSlice = createSlice({
   name: "town",
-  initialState: startingRps(initialState),
+  // initialState: startingRps(initialState),
+  initialState,
   reducers: {
     createTown: (state, { payload }: { payload: unknown }) => {
     },
 
-    addResources: (towns, { payload: { townId, resources } }: ChangeResourcesPayload) => {
+    addResources: (towns, { payload: { townId, resources } }: PayloadAction<ChangeResourcesPayload>) => {
       const town = towns[townId];
-      // TODO FIX ASAP
-      // eslint-disable-next-line no-restricted-syntax
-      for (const [k, v] of Object.entries(resources)) {
-        if (isResourceId(k)) town.resources[k] += v;
-      }
+      town.resources = addResourceArrays(town.resources, resources);
     },
 
-    incrementAllTownsResources: (towns, { payload: { msPassed } }: { payload: { msPassed: number } }) => { // cant be here
-      Object.entries(towns).forEach(([townId, town]) => {
-        Object.values(town.buildings).forEach((building) => {
-          const buildingData = baseBuildings[building.id];
-          if (buildingData instanceof ResourceBuilding) {
-            buildingData.creates.forEach((resource) => {
-              towns[townId].resources[resource] += (towns[townId].rps[resource] / 1000) * msPassed;
-            });
-          }
-        });
-      });
-    },
+    // incrementAllTownsResources: (towns, { payload: { msPassed } }: { payload: { msPassed: number } }) => { // cant be here
+    //   Object.entries(towns).forEach(([townId, town]) => {
+    //     Object.values(town.buildings).forEach((building) => {
+    //       const buildingData = baseBuildings[building.id];
+    //       if (buildingData instanceof ResourceBuilding) {
+    //         buildingData.creates.forEach((resource) => {
+    //           towns[townId].resources[resource] += (towns[townId].rps[resource] / 1000) * msPassed;
+    //         });
+    //       }
+    //     });
+    //   });
+    // },
 
     // removeResources: (towns, { payload: { townId, resources } }: ChangeResourcesPayload) => {
     //   const town = towns[townId];
@@ -279,32 +273,6 @@ export const townSlice = createSlice({
     //     if (isResourceId(k)) town.resources[k] -= v;
     //   }
     // },
-
-    increasePopulation: (towns, { payload: { townId, value } }: { payload: { townId: string, value: number } }) => {
-      const town = towns[townId];
-      town.population += value;
-    },
-
-    finishConstruction: (towns, { payload: { townId, buildingId } }: { payload: { townId: string, buildingId: BuildingId } }) => {
-      const town = towns[townId];
-      const buildingData = baseBuildings[buildingId];
-      const building = town.buildings[buildingId];
-
-      if (buildingData instanceof ResourceBuilding) {
-        const newResourcesPerSecond = buildingData.getResourceGeneration(building.level + 1);
-        const oldResourcesPerSecond = buildingData.getResourceGeneration(building.level);
-        buildingData.creates.forEach((resource) => {
-          town.rps[resource] += (newResourcesPerSecond - oldResourcesPerSecond);
-        });
-      }
-
-      building.level += 1;
-    },
-
-    incrementQueuedBuildingLevel: (towns, { payload: { townId, buildingId } }: { payload: { townId: string, buildingId: BuildingId } }) => {
-      const town = towns[townId];
-      town.buildings[buildingId].queuedLevel += 1;
-    },
 
     startBuildSomething: (towns, { payload: { townId, buildingId, queueBuildingId } }: StartBuildSomethingPayload) => {
       const town = towns[townId];
@@ -317,9 +285,8 @@ export const townSlice = createSlice({
       // ✖ Check if any building / research requirements are met
 
       if (hasRequirements(town.maxPopulation, town.population, town.resources, cost)) {
-        Object.values(ResourceId).forEach((key) => {
-          town.resources[key] -= cost.resources[key];
-        });
+        // * remove resources
+        town.resources = subResources(town.resources, cost.resources);
 
         building.queuedLevel += 1;
         town.population += cost.population ?? 0;
@@ -367,9 +334,7 @@ export const townSlice = createSlice({
       // ✖ Check if any building / research requirements are met
 
       if (hasRequirements(town.maxPopulation, town.population, town.resources, cost)) {
-        Object.values(ResourceId).forEach((key) => {
-          town.resources[key] -= cost.resources[key];
-        });
+        town.resources = subResources(town.resources, cost.resources);
 
         const unitQueue = town.queues.units[queueBuildingId];
         if (unitQueue !== undefined) {
@@ -396,10 +361,9 @@ export const townSlice = createSlice({
       // console.log(payload);
 
       Object.values(towns).forEach((town) => {
-        Object.values(ResourceId).forEach((key) => {
-          town.resources[key] += (town.rps[key] / 1000) * payload.difference;
-          // console.log(`Town: ${town.id} - Adding ${key}: ${town.rps[key] / 1000 * payload.difference}`);
-        });
+        // TODO below will error if we don't have every res id, maybe init towns with 0 rps of all
+        const resToAdd: Resources = town.rps.map(([resId, resourcePerSec]) => [resId, (resourcePerSec / 1000) * payload.difference]);
+        town.resources = addResourceArrays(town.resources, resToAdd);
 
         // * check queues
         // * check battles (queue also)
@@ -417,9 +381,9 @@ export const townSlice = createSlice({
                 if (buildingData instanceof ResourceBuilding) {
                   const newResourcesPerSecond = buildingData.getResourceGeneration(building.level + 1);
                   const oldResourcesPerSecond = buildingData.getResourceGeneration(building.level);
-                  buildingData.creates.forEach((resource) => {
-                    town.rps[resource] += (newResourcesPerSecond - oldResourcesPerSecond);
-                  });
+
+                  const additionalRps: Resources = buildingData.creates.map((resId) => [resId, newResourcesPerSecond - oldResourcesPerSecond]);
+                  town.rps = addResourceArrays(town.rps, additionalRps);
                 }
                 // Increment level
                 building.level += 1;
@@ -470,9 +434,5 @@ export const {
   createTown,
   addResources,
   // removeResources,
-  increasePopulation,
-  finishConstruction,
-  incrementQueuedBuildingLevel,
   startBuildSomething,
-  incrementAllTownsResources,
 } = townSlice.actions;

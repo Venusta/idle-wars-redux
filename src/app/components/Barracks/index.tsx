@@ -14,7 +14,6 @@ import { selectResources, selectRecruitForm, selectRecruitForms } from "../../se
 import { setUnitFormData, RecruitForm } from "../../slices/misc";
 import { Resources } from "../../../types/types";
 import { isUnitId } from "../../game/utility";
-import { subResources } from "../../game/junkYard";
 
 interface UnitRowProps {
   unitId: UnitId
@@ -34,8 +33,6 @@ const RecruitAmount = ({ unitId }: { unitId: UnitId }) => {
   const { townId } = useParams<{ townId: string }>();
   const resources = useSelector((state: RootState) => selectResources(state, townId));
   const allFormData = useSelector((state: RootState) => selectRecruitForms(state));
-
-  const x = subResources;
 
   // console.log("_____________________");
 
@@ -65,32 +62,38 @@ const RecruitAmount = ({ unitId }: { unitId: UnitId }) => {
 
   //   return addArrayOfResources(x);
   // };
+  // eslint-disable-next-line arrow-body-style
   const calcRemainingResources = (formData: RecruitForm, townResources: Resources): Resources => {
-    const queuedResources: Resources = { timber: 0, clay: 0, iron: 0 }; // TODO fix this obj
+    // const queuedResources = { timber: 0, clay: 0, iron: 0 }; // TODO fix this obj
 
-    // eslint-disable-next-line @typescript-eslint/no-shadow
-    Object.entries(formData).forEach(([unitId, amount = 0]) => {
-      if (isUnitId(unitId)) {
-        const unitResourceCost = baseUnits[unitId].cost.resources;
-        Object.values(ResourceId).forEach((resource) => {
-          queuedResources[resource] += unitResourceCost[resource] * amount;
-        });
-      }
-    });
+    // // eslint-disable-next-line @typescript-eslint/no-shadow
+    // Object.entries(formData).forEach(([unitId, amount = 0]) => {
+    //   if (isUnitId(unitId)) {
+    //     const unitResourceCost = baseUnits[unitId].cost.resources;
+    //     Object.values(ResourceId).forEach((resource) => {
+    //       queuedResources[resource] += unitResourceCost[resource] * amount;
+    //     });
+    //   }
+    // });
 
-    const remainingResources = { // TODO fix this obj
-      timber: townResources[ResourceId.Timber] - queuedResources[ResourceId.Timber],
-      clay: townResources[ResourceId.Clay] - queuedResources[ResourceId.Clay],
-      iron: townResources[ResourceId.Iron] - queuedResources[ResourceId.Iron],
-    };
+    // const remainingResources = { // TODO fix this obj
+    //   timber: townResources[ResourceId.Timber] - queuedResources[ResourceId.Timber],
+    //   clay: townResources[ResourceId.Clay] - queuedResources[ResourceId.Clay],
+    //   iron: townResources[ResourceId.Iron] - queuedResources[ResourceId.Iron],
+    // };
 
-    return remainingResources;
+    // return remainingResources;
+    return [
+      [ResourceId.Timber, 500],
+      [ResourceId.Clay, 500],
+      [ResourceId.Iron, 500],
+    ];
   };
 
   const unitCost = baseUnits[unitId].cost;
 
   const remainingResources = calcRemainingResources(allFormData, resources);
-  const canRecruitAmount = Math.min(...Object.values(ResourceId).map((resourceId) => Math.max(Math.floor(remainingResources[resourceId] / unitCost.resources[resourceId]), 0)));
+  const canRecruitAmount = 0; // Math.min(...Object.values(ResourceId).map((resourceId) => Math.max(Math.floor(remainingResources[resourceId] / unitCost.resources[resourceId]), 0)));
 
   return (
     <div className={Style.RecruitLabel}>{`(${canRecruitAmount})`}</div>

@@ -1,15 +1,15 @@
-import { BuildingId, UnitId } from "../constants";
+import { BuildingId, ResourceId, UnitId } from "../constants";
 import { Unit } from "../model/unit";
 
 export const swordsman = new Unit({
   id: UnitId.Swordsman,
   name: "Swordsman",
   cost: {
-    resources: {
-      timber: 30,
-      clay: 30,
-      iron: 70,
-    },
+    resources: [
+      [ResourceId.Timber, 30],
+      [ResourceId.Clay, 30],
+      [ResourceId.Iron, 70],
+    ],
     population: 1,
   },
   buildTime: 500,

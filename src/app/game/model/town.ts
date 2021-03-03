@@ -1,13 +1,18 @@
+/* eslint-disable class-methods-use-this */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import {
   TownInterface, Resources, ResearchList, UnitList, BuildingList, Building, Army, Queues,
 } from "../../../types/types";
-import { BuildingId, UnitId } from "../constants";
+import { BuildingId, ResourceId, UnitId } from "../constants";
 import { baseBuildings } from "../buildings";
 import { ResourceBuilding } from "./resourceBuilding";
 import { isUnitId } from "../utility";
 
-const defaultResources = { timber: 0, clay: 0, iron: 0 };
+const defaultResources: Resources = [
+  [ResourceId.Timber, 0],
+  [ResourceId.Clay, 0],
+  [ResourceId.Iron, 0],
+];
 
 const defaultBuilding = (id: BuildingId, level = 0) => ({
   id,
@@ -178,19 +183,24 @@ export class Town {
   }
 
   private calculateResourcesPerSecond(): Resources {
-    const rps: Resources = { timber: 0, clay: 0, iron: 0 };
-    Object.values(this.buildings).forEach(({ id, level }) => {
-      const buildingData = baseBuildings[id];
+    // TODO FIX
+    const rps: Resources = [
+      [ResourceId.Timber, 10],
+      [ResourceId.Clay, 10],
+      [ResourceId.Iron, 10],
+    ];
+    // Object.values(this.buildings).forEach(({ id, level }) => {
+    //   const buildingData = baseBuildings[id];
 
-      if (buildingData instanceof ResourceBuilding) {
-        const newResourcesPerSecond = buildingData.getResourceGeneration(level);
-        buildingData.creates.forEach((resource) => {
-          rps[resource] += newResourcesPerSecond;
-          // console.log(`Adding: ${newResourcesPerSecond}`);
-          // console.log(`${resource} for ${this.id} is now ${rps[resource]} per second`);
-        });
-      }
-    });
+    //   if (buildingData instanceof ResourceBuilding) {
+    //     const newResourcesPerSecond = buildingData.getResourceGeneration(level);
+    //     buildingData.creates.forEach((resource) => {
+    //       rps[resource] += newResourcesPerSecond;
+    //       // console.log(`Adding: ${newResourcesPerSecond}`);
+    //       // console.log(`${resource} for ${this.id} is now ${rps[resource]} per second`);
+    //     });
+    //   }
+    // });
     return rps;
   }
 

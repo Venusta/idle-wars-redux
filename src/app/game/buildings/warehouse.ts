@@ -1,4 +1,4 @@
-import { BuildingId } from "../constants";
+import { BuildingId, ResourceId } from "../constants";
 import { StorageBuilding } from "../model/storageBuilding";
 
 export const warehouse = new StorageBuilding({
@@ -6,11 +6,11 @@ export const warehouse = new StorageBuilding({
   name: "Warehouse",
   description: "The warehouse stores your resources. The higher its level the more resources can be stored.",
   cost: {
-    resources: {
-      timber: 60,
-      clay: 50,
-      iron: 40,
-    },
+    resources: [
+      [ResourceId.Timber, 60],
+      [ResourceId.Clay, 50],
+      [ResourceId.Iron, 40],
+    ],
     population: 0,
   },
   maxLevel: 30,

@@ -28,9 +28,10 @@ export const BuildingResourceDisplay = ({ buildingId, townId }: Props): JSX.Elem
   const buildingData = baseBuildings[buildingId];
   const cost = buildingData.getCost(queuedBuilding.queuedLevel);
   const amount = 1; // todo props?
-  const timber = cost.resources.timber * amount;
-  const clay = cost.resources.clay * amount;
-  const iron = cost.resources.iron * amount;
+  // TODO LOOP OVER THE BELOW RESOURCES THIS SHOULD NOT BE HARDCODED
+  const timber = cost.resources[0][1] * amount;
+  const clay = cost.resources[1][1] * amount;
+  const iron = cost.resources[2][1] * amount;
   const pop = ((cost.population ?? 0) * amount);
   const time = new Date(buildingData.getBuildTime(queuedBuilding.queuedLevel, headquarters.level) * 1000).toISOString().substr(11, 8);
 
@@ -47,7 +48,7 @@ export const BuildingResourceDisplay = ({ buildingId, townId }: Props): JSX.Elem
       </div>
     );
   };
-
+  // TODO LOOP OVER THE BELOW SingleBuildingResource THIS SHOULD NOT BE HARDCODED
   return (
     <>
       <SingleBuildingResource amount={timber} resourceId={ResourceId.Timber} townId={townId} />
