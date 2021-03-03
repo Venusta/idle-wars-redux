@@ -21,7 +21,7 @@ const ResouceAmount = ({ unitId, resourceId, multiplier = 1 }: Props) => {
   );
 };
 
-export const SingleUnitResource = ({ unitId, resourceId, multiplier = 1 }: Props) => (
+export const SingleUnitResource = ({ unitId, resourceId, multiplier = 1 }: Props): JSX.Element => (
   <div className={Style.container}>
     <img src={`${process.env.PUBLIC_URL}/resources/${resourceId}.png`} alt="" />
     <ResouceAmount unitId={unitId} resourceId={resourceId} multiplier={multiplier} />

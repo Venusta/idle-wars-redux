@@ -21,7 +21,7 @@ const SingleBuildingResource = ({ amount, resourceId, townId }: { amount: number
   );
 };
 
-export const BuildingResourceDisplay = ({ buildingId, townId }: Props) => {
+export const BuildingResourceDisplay = ({ buildingId, townId }: Props): JSX.Element => {
   const headquarters = useSelector((state: RootState) => selectBuilding(state, townId, BuildingId.Headquarters));
   const queuedBuilding = useSelector((state: RootState) => selectBuilding(state, townId, buildingId));
 

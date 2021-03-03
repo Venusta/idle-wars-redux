@@ -29,7 +29,7 @@ const DropDownMenu = ({ styles }: { styles: boolean }) => {
   );
 };
 
-export const VillageTitle = () => {
+export const VillageTitle = (): JSX.Element => {
   const { townId } = useParams<{ townId: string }>();
   const [hide, setHide] = useState(true); // hide
   const handleMouseEvent = (hide: boolean) => {

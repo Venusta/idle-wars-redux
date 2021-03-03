@@ -14,6 +14,7 @@ import { selectResources, selectRecruitForm, selectRecruitForms } from "../../se
 import { setUnitFormData, RecruitForm } from "../../slices/misc";
 import { Resources } from "../../../types/types";
 import { isUnitId } from "../../game/utility";
+import { subResources } from "../../game/junkYard";
 
 interface UnitRowProps {
   unitId: UnitId
@@ -34,66 +35,57 @@ const RecruitAmount = ({ unitId }: { unitId: UnitId }) => {
   const resources = useSelector((state: RootState) => selectResources(state, townId));
   const allFormData = useSelector((state: RootState) => selectRecruitForms(state));
 
+  const x = subResources;
+
   // console.log("_____________________");
 
   // console.log(allFormData);
 
+  // const calcRemainingResources = (formData: RecruitForm, townResources: Resources): Resources => {
+  //   // eslint-disable-next-line @typescript-eslint/no-shadow
+  //   const x = Object.entries(formData).map(([unitId, amount = 0]) => { // TODO unfuck and fix this omg
+  //     if (isUnitId(unitId)) {
+  //       const unitResourceCost: Resources = baseUnits[unitId].cost.resources;
+
+  //       const totalRes = multiplyResources(unitResourceCost, amount);
+  //       console.log(totalRes);
+
+  //       const sub = subtractResources(townResources, totalRes);
+  //       console.log(sub);
+
+  //       return sub;
+  //     }
+  //     return {
+  //       timber: 0,
+  //       clay: 0,
+  //       iron: 0,
+  //     };
+  //   });
+  //   console.log(x);
+
+  //   return addArrayOfResources(x);
+  // };
   const calcRemainingResources = (formData: RecruitForm, townResources: Resources): Resources => {
+    const queuedResources: Resources = { timber: 0, clay: 0, iron: 0 }; // TODO fix this obj
+
     // eslint-disable-next-line @typescript-eslint/no-shadow
-    const x = Object.entries(formData).map(([unitId, amount = 0]) => {
+    Object.entries(formData).forEach(([unitId, amount = 0]) => {
       if (isUnitId(unitId)) {
-        const unitResourceCost: Resources = baseUnits[unitId].cost.resources;
-
-        const res: Resources = Object.values(ResourceId).reduce((accum, resource) => ({
-          ...accum,
-          [resource]: (unitResourceCost[resource] * amount), // + accum[resource]
-        }), {} as unknown as Resources); // todo YUCKKKKKKKKKKKKKKKKKKK
-
-        const res2 = Object.values(ResourceId).reduce<Partial<Resources>>((accum, resource) => ({
-          ...accum,
-          [resource]: (unitResourceCost[resource] * amount), // + accum[resource]
-        }), {});
-
-        // console.log("Cost:, Amount: %s", amount);
-        // console.log(unitResourceCost);
-        // console.log("Total:");
-        // console.log(res);
-        // console.log(res2);
-
-        return res;
+        const unitResourceCost = baseUnits[unitId].cost.resources;
+        Object.values(ResourceId).forEach((resource) => {
+          queuedResources[resource] += unitResourceCost[resource] * amount;
+        });
       }
     });
 
-    // console.log(x);
-
     const remainingResources = { // TODO fix this obj
-      timber: 0,
-      clay: 0,
-      iron: 0,
+      timber: townResources[ResourceId.Timber] - queuedResources[ResourceId.Timber],
+      clay: townResources[ResourceId.Clay] - queuedResources[ResourceId.Clay],
+      iron: townResources[ResourceId.Iron] - queuedResources[ResourceId.Iron],
     };
 
     return remainingResources;
   };
-  // const calcRemainingResources = (formData: RecruitForm, townResources: Resources): Resources => {
-  //   const queuedResources: Resources = { timber: 0, clay: 0, iron: 0 }; //TODO fix this obj
-
-  //   Object.entries(formData).forEach(([unitId, amount = 0]) => {
-  //     if (isUnitId(unitId)) {
-  //       const unitResourceCost = baseUnits[unitId].cost.resources;
-  //       Object.values(ResourceId).forEach((resource) => {
-  //         queuedResources[resource] += unitResourceCost[resource] * amount;
-  //       });
-  //     };
-  //   });
-
-  //   const remainingResources = { //TODO fix this obj
-  //     timber: townResources[ResourceId.Timber] - queuedResources[ResourceId.Timber],
-  //     clay: townResources[ResourceId.Clay] - queuedResources[ResourceId.Clay],
-  //     iron: townResources[ResourceId.Iron] - queuedResources[ResourceId.Iron]
-  //   }
-
-  //   return remainingResources;
-  // }
 
   const unitCost = baseUnits[unitId].cost;
 
@@ -156,7 +148,7 @@ const UnitRow = ({ unitId }: UnitRowProps) => (
 );
 
 // TODO only show unlocked .filter
-export const Barracks = () => (
+export const Barracks = (): JSX.Element => (
   <div className={Style.outer}>
     <div className={Style.wrapper}>
       <div className={Style.columnHeader}>Unit</div>

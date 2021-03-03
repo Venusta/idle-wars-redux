@@ -3,7 +3,7 @@ import { BuildingId } from "../../../game/constants";
 import { baseBuildings } from "../../../game/buildings";
 import "./style.css";
 
-export const BuildingInfo = ({ buildingId, level = 0 }: { buildingId: BuildingId, level: number }) => {
+export const BuildingInfo = ({ buildingId, level = 0 }: { buildingId: BuildingId, level: number }): JSX.Element => {
   const { townId } = useParams<{ townId: string }>();
 
   const { name } = baseBuildings[buildingId];

@@ -8,7 +8,7 @@ interface Props {
   unitId: UnitId
 }
 
-export const UnitResourceDisplay = ({ unitId }: Props) => {
+export const UnitResourceDisplay = ({ unitId }: Props): JSX.Element => {
   const multiplier = 1; // how many to make
   // todo loop over cost for each resource if we have new
   // todo maybe return as div

@@ -12,7 +12,7 @@ interface Props {
   multiplier: number;
 }
 // TODO icon
-export const SingleUnitTime = ({ unitId, buildingId, multiplier = 1 }: Props) => {
+export const SingleUnitTime = ({ unitId, buildingId, multiplier = 1 }: Props): JSX.Element => {
   const { townId } = useParams<{ townId: string }>();
   const building = useSelector((state: RootState) => selectBuilding(state, townId, buildingId));
 

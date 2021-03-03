@@ -1,8 +1,9 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { triggerAsyncId } from "node:async_hooks";
-import { BuildingCost, TownInterface, Resources } from "../../types/types";
+/* eslint-disable arrow-body-style */
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+import { BuildingCost, Resources } from "../../types/types";
 import { BuildingId, ResourceId, UnitId } from "./constants";
-import { baseUnits } from "./units";
 
 export const isBuildingId = (x: any): x is BuildingId => Object.values(BuildingId).includes(x);
 
@@ -65,79 +66,95 @@ export const calculateTimeUntilResources = (currentResources: Resources, resourc
   return Math.max(...timesUntil);
 };
 
-const addTwoPartial = () => {
-  const amount = 5;
-  const unitResourceCost: Resources = baseUnits[UnitId.Archer].cost.resources;
+// type Resources3 = Record<ResourceId, number>;
 
-  const res1 = Object.values(ResourceId).reduce<Partial<Resources>>((accum, resource) => ({
+const getKeys = Object.keys as <T extends Record<string, unknown>>(obj: T) => Array<keyof T>;
+
+function addRecords<T extends string>(all: Partial<Record<T, number>>, modification: Partial<Record<T, number>>) {
+  const allCopy = { ...all };
+  for (const key of getKeys(modification)) {
+    allCopy[key] = (modification[key] ?? 0) + (all[key] ?? 0);
+  }
+
+  return allCopy;
+}
+
+function addRecordsAll<T extends string>(all: Record<T, number>, some: Partial<Record<T, number>>) {
+  const allCopy = { ...all };
+  for (const key of getKeys(some)) {
+    allCopy[key] = (some[key] ?? 0) + (all[key] ?? 0);
+  }
+
+  return allCopy;
+}
+
+function multiplyRecords<T extends string>(all: Record<T, number>, multiplier: number) {
+  const allCopy = { ...all };
+  for (const key of getKeys(all)) {
+    allCopy[key] = (all[key] ?? 0) * multiplier;
+  }
+
+  return allCopy;
+}
+
+export const multiplyResources = (all: Resources, multiplier: number) => {
+  return Object.values(ResourceId).reduce((accum, resource) => ({
     ...accum,
-    [resource]: (unitResourceCost[resource] * amount), // + accum[resource]
-  }), {});
-
-  const res2 = Object.values(ResourceId).reduce<Partial<Resources>>((accum, resource) => ({
-    ...accum,
-    [resource]: (unitResourceCost[resource] * 20), // + accum[resource]
-  }), {});
-
-  // add res1 + res2
+    [resource]: (all[resource] * multiplier),
+  }), all);
 };
 
-// const addResources = (res1: Resources, res2: Resources): Resources => Object.values(ResourceId).reduce((accum, res) => {
-//   return ({
-//     ...accum,
-//     [res]: accum[res] += res2[res],
-//   });
-// }, res1);
-
-const addResourcesPartial = (res1: Resources, res2: Resources) => Object.values(ResourceId).reduce<Partial<Resources>>((accum, res) => ({
-  ...accum,
-  [res]: (accum[res] ?? 0) + res2[res],
-}), {});
-
-const initialResources: Readonly<Resources> = { // never mutate
-  timber: 0,
-  clay: 0,
-  iron: 0,
+export const addResources = (all: Resources, some: Partial<Resources>) => {
+  return Object.values(ResourceId).reduce((accum, resource) => ({
+    ...accum,
+    [resource]: (all[resource] + (some[resource] ?? 0)),
+  }), all);
 };
-// Object.freeze(initialResources)
 
-const addResourcesPartial2 = (res1: Partial<Resources>, res2: Partial<Resources>): Resources => Object.values(ResourceId).reduce((accum, current) => ({
-  ...accum,
-  [current]: (res1[current] ?? 0) + (res2[current] ?? 0),
-}), initialResources);
-console.log("AHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH");
-console.log(addResourcesPartial2({ clay: 20 }, { clay: 30, timber: 70, iron: 50 }));
+export const addArrayOfResources = (array: Resources[]) => {
+  return array.reduce((accum, resources) => {
+    console.log(resources);
 
-console.log(initialResources);
-
-type ResMap = Map<ResourceId, number>;
-type ResTuple = [ResourceId, number];
-type ResArray = ResTuple[];
-const example: ResArray = [
-  [ResourceId.Clay, 50],
-  [ResourceId.Timber, 20],
-  [ResourceId.Iron, 600],
-];
-const example2: ResArray = [
-  [ResourceId.Clay, 80],
-  [ResourceId.Timber, 30],
-  [ResourceId.Iron, 1650],
-];
-
-// type Something = [resArray1: ResArray, resArray2: ResArray];
-
-const addResourceArrays = (resArray1: ResArray, resArray2: ResArray): ResArray => {
-  const merged = [...resArray1, ...resArray2];
-  const testMap: ResMap = new Map([]);
-
-  merged.forEach(([resId, amount]) => {
-    testMap.set(resId, (testMap.get(resId) ?? 0) + amount);
+    return {
+      ...accum,
+      ...resources,
+    };
+  },
+  {
+    timber: 0,
+    clay: 0,
+    iron: 0,
   });
-  return Array.from(testMap.entries());
 };
 
-const multiplyResources = (resArray: ResArray, multi: number): ResArray => resArray.map(([id, amt]) => ([id, amt * multi]));
+export const subtractResources = (all: Resources, some: Partial<Resources>) => {
+  return Object.values(ResourceId).reduce((accum, resource) => ({
+    ...accum,
+    [resource]: (all[resource] - (some[resource] ?? 0)),
+  }), all);
+};
 
-console.log(addResourceArrays(example, example2));
+const resources1: Partial<Resources> = {
+  [ResourceId.Clay]: 5,
+};
 
-console.log(multiplyResources(example, 50));
+const resources2: Partial<Resources> = {
+  [ResourceId.Clay]: 1,
+  [ResourceId.Iron]: 3,
+};
+
+const resourceSum = addRecords(resources1, resources2);
+console.log(resourceSum);
+
+function addRecords2(all: Partial<Resources>, modification: Partial<Resources>) {
+  const allCopy = { ...all };
+  // eslint-disable-next-line no-restricted-syntax
+  for (const key of Object.values(ResourceId)) {
+    allCopy[key as ResourceId] = (modification[key as ResourceId] ?? 0) + (all[key as ResourceId] ?? 0);
+  }
+
+  return allCopy;
+}
+
+const resourceSum2 = addRecords2(resources1, resources2);
+console.log(resourceSum2);

@@ -248,15 +248,16 @@ export const townSlice = createSlice({
   name: "town",
   initialState: startingRps(initialState),
   reducers: {
-    createTown: (state, { payload }: { payload: any }) => {
+    createTown: (state, { payload }: { payload: unknown }) => {
     },
 
     addResources: (towns, { payload: { townId, resources } }: ChangeResourcesPayload) => {
       const town = towns[townId];
       // TODO FIX ASAP
-      // for (const [k, v] of Object.entries(resources)) {
-      //   if (isResourceId(k)) town.resources[k] += v;
-      // }
+      // eslint-disable-next-line no-restricted-syntax
+      for (const [k, v] of Object.entries(resources)) {
+        if (isResourceId(k)) town.resources[k] += v;
+      }
     },
 
     incrementAllTownsResources: (towns, { payload: { msPassed } }: { payload: { msPassed: number } }) => { // cant be here
@@ -350,11 +351,13 @@ export const townSlice = createSlice({
       }
     },
 
-    startRecruitSomething: (towns, {
-      payload: {
-        townId, unitId, queueBuildingId, amount,
-      },
-    }: StartRecruitSomethingPayload) => {
+    startRecruitSomething: (
+      towns, {
+        payload: {
+          townId, unitId, queueBuildingId, amount,
+        },
+      }: StartRecruitSomethingPayload,
+    ) => {
       const town = towns[townId];
       const queueBuilding = town.buildings[queueBuildingId];
       const { cost } = baseUnits[unitId];

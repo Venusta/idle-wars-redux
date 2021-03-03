@@ -33,7 +33,7 @@ const ProgressBar = (props: { completionTime: number, duration: number }) => {
   );
 };
 
-export const SidebarQueue = () => {
+export const SidebarQueue = (): JSX.Element => {
   const { townId } = useParams<{ townId: string }>();
   const buildingQueue = useSelector((state: RootState) => selectBuildingQueue(state, townId, BuildingId.Headquarters));
   const emptySlots = HeadquartersQueueSlots - buildingQueue.length;

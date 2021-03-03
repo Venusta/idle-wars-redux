@@ -1,5 +1,5 @@
 /* eslint-disable no-param-reassign */
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { UnitId } from "../game/constants";
 
 interface MiscState {
@@ -31,23 +31,31 @@ const initialState: MiscState = {
 };
 
 interface TickPayload {
-  payload: {
-    difference: number
-    now: number
-  }
+  difference: number
+  now: number
 }
 interface UnitFormPayload {
-  payload: {
-    unitId: UnitId
-    amount: number | undefined
-  }
+  unitId: UnitId
+  amount: number | undefined
 }
 
 export const miscSlice = createSlice({
   name: "misc",
   initialState,
   reducers: {
-    tick: (misc: MiscState, { payload }: TickPayload) => {
+
+    // * leave this as an example
+    tick2: {
+      reducer(state, { payload: { now } }: PayloadAction<TickPayload>) {
+        state.timeLastProcessed = now;
+      },
+      prepare(now: number, difference: number) {
+        return {
+          payload: { now, difference },
+        };
+      },
+    },
+    tick: (misc, { payload }: PayloadAction<TickPayload>) => {
       misc.timeLastProcessed = payload.now;
     },
     active: (misc) => {
@@ -57,7 +65,7 @@ export const miscSlice = createSlice({
       console.log("setting to :", !userSettings.resourceDisplayToggle);
       userSettings.resourceDisplayToggle = !userSettings.resourceDisplayToggle;
     },
-    setUnitFormData: (misc, { payload: { unitId, amount } }: UnitFormPayload) => {
+    setUnitFormData: (misc, { payload: { unitId, amount } }: PayloadAction<UnitFormPayload>) => {
       if (amount === undefined) {
         delete misc.forms.recruit[unitId];
       } else {

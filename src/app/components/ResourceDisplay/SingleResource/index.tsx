@@ -5,7 +5,7 @@ import { RootState } from "../../../store";
 import { selectResource, selectSingleRps } from "../../../selectors";
 import Style from "./style.module.css";
 
-export const SingleResource = ({ id: resourceId }: { id: ResourceId }) => {
+export const SingleResource = ({ id: resourceId }: { id: ResourceId }): JSX.Element => {
   const { townId } = useParams<{ townId: string }>();
   const display = useSelector((state: RootState) => state.misc.userSettings.resourceDisplayToggle);
   const rps = useSelector((state: RootState) => selectSingleRps(state, townId, resourceId));

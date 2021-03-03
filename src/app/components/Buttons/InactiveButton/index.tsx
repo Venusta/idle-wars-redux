@@ -4,4 +4,4 @@ interface ButtonProps {
   text: string;
 }
 
-export const InactiveButton = ({ text }: ButtonProps) => <button type="button" className={Style["button-style"]}>{text}</button>;
+export const InactiveButton = ({ text }: ButtonProps): JSX.Element => <button type="button" className={Style["button-style"]}>{text}</button>;

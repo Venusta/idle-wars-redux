@@ -16,7 +16,7 @@ import { calculateTimeUntilResources } from "../../game/utility";
 import { BuildingInfo } from "./BuildingInfo";
 import Style from "./style.module.css";
 
-export const Headquarters = () => {
+export const Headquarters = (): JSX.Element => {
   const dispatch = useAppDispatch();
   const { townId } = useParams<{ townId: string }>();
   const hqId = BuildingId.Headquarters;

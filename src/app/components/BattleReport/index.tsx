@@ -92,7 +92,7 @@ const AttDefTable = ({ report }: { report: Report }) => {
   );
 };
 
-export const BattleReport = () => (
+export const BattleReport = (): JSX.Element => (
   <div className={Style.outer}>
     <ul className={Style.reportSelector}>
       <SimpleBar autoHide={false} forceVisible="y" className={Style.simpleBar}>
