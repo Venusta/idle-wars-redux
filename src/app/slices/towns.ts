@@ -36,9 +36,9 @@ const testTown: TownInterface = {
     [ResourceId.Iron, 500],
   ],
   rps: [
-    [ResourceId.Timber, 0],
-    [ResourceId.Clay, 0],
-    [ResourceId.Iron, 0],
+    [ResourceId.Timber, 1],
+    [ResourceId.Clay, 1],
+    [ResourceId.Iron, 1],
   ],
   queues: {
     buildings: {
@@ -251,7 +251,7 @@ export const townSlice = createSlice({
 
     addResources: (towns, { payload: { townId, resources } }: PayloadAction<ChangeResourcesPayload>) => {
       const town = towns[townId];
-      town.resources = addResourceArrays(town.resources, resources);
+      town.resources = addResourceArrays([town.resources, resources]);
     },
 
     // incrementAllTownsResources: (towns, { payload: { msPassed } }: { payload: { msPassed: number } }) => { // cant be here
@@ -363,7 +363,7 @@ export const townSlice = createSlice({
       Object.values(towns).forEach((town) => {
         // TODO below will error if we don't have every res id, maybe init towns with 0 rps of all
         const resToAdd: Resources = town.rps.map(([resId, resourcePerSec]) => [resId, (resourcePerSec / 1000) * payload.difference]);
-        town.resources = addResourceArrays(town.resources, resToAdd);
+        town.resources = addResourceArrays([town.resources, resToAdd]);
 
         // * check queues
         // * check battles (queue also)
@@ -383,7 +383,7 @@ export const townSlice = createSlice({
                   const oldResourcesPerSecond = buildingData.getResourceGeneration(building.level);
 
                   const additionalRps: Resources = buildingData.creates.map((resId) => [resId, newResourcesPerSecond - oldResourcesPerSecond]);
-                  town.rps = addResourceArrays(town.rps, additionalRps);
+                  town.rps = addResourceArrays([town.rps, additionalRps]);
                 }
                 // Increment level
                 building.level += 1;

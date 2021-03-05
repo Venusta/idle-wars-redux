@@ -1,9 +1,7 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable arrow-body-style */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { BuildingCost, Resources } from "../../types/types";
-import { BuildingId, ResourceId, UnitId } from "./constants";
+import { BuildingId, RES_AMOUNT_TUPLE, UnitId } from "./constants";
 
 export const isBuildingId = (x: any): x is BuildingId => Object.values(BuildingId).includes(x);
 
@@ -24,7 +22,7 @@ export const hasResources = (resources: Resources, resourceCost: Resources): boo
     if (index === -1) {
       return false;
     }
-    if (amountInStorage < resourceCost[index][1]) {
+    if (amountInStorage < resourceCost[index][RES_AMOUNT_TUPLE]) {
       return false;
     }
     return prev;
@@ -41,23 +39,20 @@ export const hasRequirements = (maxPop: number, currentPop: number, resources: R
   return hasPop && hasRes;
 };
 
+// todo maybe rewrite how this is calced so it isn't required to be hit so often
+// predict resources if rps is constant? idk
+// eslint-disable-next-line arrow-body-style
 export const calculateTimeUntilResources = (currentResources: Resources, resourcesPerSecond: Resources, cost: BuildingCost): number => {
-  return 0;
-  // const timesUntil = [];
-  // // TODO REWRITE
-  // // eslint-disable-next-line no-restricted-syntax
-  // for (const [resourceId, amount] of Object.entries(cost.resources)) {
-  //   if (isResourceId(resourceId)) {
-  //     const amountNeeded = amount - currentResources[resourceId];
-  //     if (amountNeeded > 0) {
-  //       // Calculate seconds until enough resources
-  //       timesUntil.push(amountNeeded / resourcesPerSecond[resourceId]);
-  //     } else {
-  //       // Already have enough resources so 0 seconds until enough
-  //       timesUntil.push(0);
-  //     }
-  //   }
-  // }
-  // // Return the highest number of seconds it will take to get enough resources
-  // return Math.max(...timesUntil);
+  return cost.resources.reduce((prev, [id, amount]) => {
+    const index = currentResources.findIndex(([foundId]) => foundId === id);
+    const index2 = resourcesPerSecond.findIndex(([foundId]) => foundId === id);
+    if (index === -1 || index2 === -1) {
+      console.error("AHHHHHHHHHHHHHHHHHHHHHHHH");
+      return 0;
+    }
+    // Calculate seconds until enough resources
+    const amountNeeded = amount - currentResources[index][RES_AMOUNT_TUPLE];
+    // Return the highest number of seconds it will take to get enough resources
+    return Math.max(prev, (amountNeeded / resourcesPerSecond[index2][RES_AMOUNT_TUPLE]));
+  }, 0);
 };

@@ -1,3 +1,6 @@
+export const RES_AMOUNT_TUPLE = 1;
+export const RES_ID_TUPLE = 0;
+
 export const WorldSpeed = 50;
 export const HeadquartersQueueSlots = 5;
 

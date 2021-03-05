@@ -71,7 +71,8 @@
       "react/react-in-jsx-scope": "off",
       "@typescript-eslint/ban-ts-comment": "warn",
       "no-trailing-spaces": "warn",
-      "no-restricted-syntax": "off"
+      "no-restricted-syntax": "off",
+      "@typescript-eslint/restrict-template-expressions": "warn"
     }
   },
   "browserslist": {

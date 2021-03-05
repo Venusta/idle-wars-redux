@@ -14,7 +14,7 @@ interface MiscState {
 }
 
 export type RecruitForm = {
-  [id in UnitId]?: number | undefined
+  [id in UnitId]?: [UnitId, number]
 };
 
 const initialState: MiscState = {
@@ -25,7 +25,7 @@ const initialState: MiscState = {
   },
   forms: {
     recruit: {
-      [UnitId.Archer]: 2,
+      [UnitId.Archer]: [UnitId.Archer, 2],
     },
   },
 };
@@ -69,7 +69,7 @@ export const miscSlice = createSlice({
       if (amount === undefined) {
         delete misc.forms.recruit[unitId];
       } else {
-        misc.forms.recruit[unitId] = amount;
+        misc.forms.recruit[unitId] = [unitId, amount];
       }
     },
   },

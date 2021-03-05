@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable consistent-return */
 /* eslint-disable array-callback-return */
@@ -13,7 +14,6 @@ import { RootState, useAppDispatch } from "../../store";
 import { selectResources, selectRecruitForm, selectRecruitForms } from "../../selectors";
 import { setUnitFormData, RecruitForm } from "../../slices/misc";
 import { Resources } from "../../../types/types";
-import { isUnitId } from "../../game/utility";
 
 interface UnitRowProps {
   unitId: UnitId
@@ -34,69 +34,48 @@ const RecruitAmount = ({ unitId }: { unitId: UnitId }) => {
   const resources = useSelector((state: RootState) => selectResources(state, townId));
   const allFormData = useSelector((state: RootState) => selectRecruitForms(state));
 
-  // console.log("_____________________");
+  const canRecruitAmount = (formData: RecruitForm, townResources: Resources) => {
+    type IndexMap = Map<ResourceId, number>; // maybe store this on the state?
+    const townResourceIndexs: IndexMap = new Map([]);
+    townResources.forEach(([id], index) => {
+      townResourceIndexs.set(id, index);
+    });
 
-  // console.log(allFormData);
+    const howManyWeCanMake: ([UnitId, number] | undefined)[] = Object.values(formData).map((data) => {
+      if (data !== undefined) {
+        const [id, amountOfUnits] = data;
+        const unitResourceCost = baseUnits[id].cost.resources;
 
-  // const calcRemainingResources = (formData: RecruitForm, townResources: Resources): Resources => {
-  //   // eslint-disable-next-line @typescript-eslint/no-shadow
-  //   const x = Object.entries(formData).map(([unitId, amount = 0]) => { // TODO unfuck and fix this omg
-  //     if (isUnitId(unitId)) {
-  //       const unitResourceCost: Resources = baseUnits[unitId].cost.resources;
+        const minUnitArray = unitResourceCost.map(([unitCostResId, unitCostResAmount]) => {
+          // get the index of that resource
+          const resourceIndex = townResourceIndexs.get(unitCostResId);
+          // check if the resource exists on the town
+          if (resourceIndex !== undefined) {
+            const multiplied = unitCostResAmount * amountOfUnits;
+            const remainder = townResources[resourceIndex][1] - multiplied;
 
-  //       const totalRes = multiplyResources(unitResourceCost, amount);
-  //       console.log(totalRes);
-
-  //       const sub = subtractResources(townResources, totalRes);
-  //       console.log(sub);
-
-  //       return sub;
-  //     }
-  //     return {
-  //       timber: 0,
-  //       clay: 0,
-  //       iron: 0,
-  //     };
-  //   });
-  //   console.log(x);
-
-  //   return addArrayOfResources(x);
-  // };
-  // eslint-disable-next-line arrow-body-style
-  const calcRemainingResources = (formData: RecruitForm, townResources: Resources): Resources => {
-    // const queuedResources = { timber: 0, clay: 0, iron: 0 }; // TODO fix this obj
-
-    // // eslint-disable-next-line @typescript-eslint/no-shadow
-    // Object.entries(formData).forEach(([unitId, amount = 0]) => {
-    //   if (isUnitId(unitId)) {
-    //     const unitResourceCost = baseUnits[unitId].cost.resources;
-    //     Object.values(ResourceId).forEach((resource) => {
-    //       queuedResources[resource] += unitResourceCost[resource] * amount;
-    //     });
-    //   }
-    // });
-
-    // const remainingResources = { // TODO fix this obj
-    //   timber: townResources[ResourceId.Timber] - queuedResources[ResourceId.Timber],
-    //   clay: townResources[ResourceId.Clay] - queuedResources[ResourceId.Clay],
-    //   iron: townResources[ResourceId.Iron] - queuedResources[ResourceId.Iron],
-    // };
-
-    // return remainingResources;
-    return [
-      [ResourceId.Timber, 500],
-      [ResourceId.Clay, 500],
-      [ResourceId.Iron, 500],
-    ];
+            // check we have enough in the town
+            if (remainder > 0) {
+              const makeWithX = Math.floor(remainder / unitCostResAmount);
+              return makeWithX;
+            }
+            // console.log(`Not enough resources for: ${id}`);
+            return 0;
+          }
+          // console.error("Resource not found on town state");
+          return 0;
+        });
+        return [id, Math.min(...minUnitArray)];
+      }
+      return undefined;
+    });
+    return howManyWeCanMake;
   };
 
-  const unitCost = baseUnits[unitId].cost;
-
-  const remainingResources = calcRemainingResources(allFormData, resources);
-  const canRecruitAmount = 0; // Math.min(...Object.values(ResourceId).map((resourceId) => Math.max(Math.floor(remainingResources[resourceId] / unitCost.resources[resourceId]), 0)));
+  const x = canRecruitAmount(allFormData, resources);
 
   return (
-    <div className={Style.RecruitLabel}>{`(${canRecruitAmount})`}</div>
+    <div className={Style.RecruitLabel}>{`(${x ? x[0] : "0"})`}</div>
   );
 };
 
@@ -106,8 +85,8 @@ interface PropsIn {
 
 const InputForm = ({ unitId }: PropsIn) => {
   const dispatch = useAppDispatch();
-  const formData = useSelector((state: RootState) => selectRecruitForm(state, unitId) ?? "");
-  const allFormData = useSelector((state: RootState) => selectRecruitForms(state));
+  const formData = useSelector((state: RootState) => selectRecruitForm(state, unitId));
+  const allFormData = useSelector((state: RootState) => selectRecruitForms(state)); // TODO try not have this here
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     console.log(allFormData);
@@ -128,7 +107,7 @@ const InputForm = ({ unitId }: PropsIn) => {
 
   return (
     <form onSubmit={(e) => handleSubmit(e)}>
-      <input id={unitId} type="text" value={formData} onChange={(e) => handleChange(e)} />
+      <input id={unitId} type="text" value={formData === undefined ? "" : formData[1]} onChange={(e) => handleChange(e)} />
     </form>
   );
 };

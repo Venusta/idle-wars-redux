@@ -66,7 +66,9 @@ export const Headquarters = (): JSX.Element => {
     const timeUntil = calculateTimeUntilResources(resources, rps, cost);
 
     if (timeUntil > 0) {
-      row.push(<InactiveBut key={`${buildingId}time`} text={new Date(timeUntil * 1000).toISOString().substr(11, 8)} />);
+      const label = (timeUntil === Infinity || timeUntil === -Infinity) ? "Forever" : new Date(timeUntil * 1000).toISOString().substr(11, 8);
+
+      row.push(<InactiveBut key={`${buildingId}time`} text={label} />);
       return (<>{row}</>);
     }
 
