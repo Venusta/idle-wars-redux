@@ -1,6 +1,7 @@
 /* eslint-disable no-param-reassign */
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { UnitId } from "../game/constants";
+import { ex1 } from "../util/normalisedZone";
 
 interface MiscState {
   timeLastProcessed: number
@@ -72,6 +73,10 @@ export const miscSlice = createSlice({
         misc.forms.recruit[unitId] = [unitId, amount];
       }
     },
+    dumbTest: (misc) => {
+      const p = [ex1, ex1, ex1]; // payload
+      // misc.whatever = addPartials(p)
+    },
   },
 });
 
@@ -80,4 +85,5 @@ export const {
   active,
   toggleResourceDisplay,
   setUnitFormData,
+  dumbTest,
 } = miscSlice.actions;

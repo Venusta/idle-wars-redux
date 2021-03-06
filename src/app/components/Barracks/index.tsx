@@ -14,6 +14,7 @@ import { RootState, useAppDispatch } from "../../store";
 import { selectResources, selectRecruitForm, selectRecruitForms } from "../../selectors";
 import { setUnitFormData, RecruitForm } from "../../slices/misc";
 import { Resources } from "../../../types/types";
+import { xxx } from "../../util/normalisedZone";
 
 interface UnitRowProps {
   unitId: UnitId
@@ -41,7 +42,7 @@ const RecruitAmount = ({ unitId }: { unitId: UnitId }) => {
       townResourceIndexs.set(id, index);
     });
 
-    const howManyWeCanMake: ([UnitId, number] | undefined)[] = Object.values(formData).map((data) => {
+    const howManyWeCanMake: ([UnitId, number] | [])[] = Object.values(formData).map((data) => {
       if (data !== undefined) {
         const [id, amountOfUnits] = data;
         const unitResourceCost = baseUnits[id].cost.resources;
@@ -67,12 +68,20 @@ const RecruitAmount = ({ unitId }: { unitId: UnitId }) => {
         });
         return [id, Math.min(...minUnitArray)];
       }
-      return undefined;
+      return [];
     });
     return howManyWeCanMake;
   };
 
   const x = canRecruitAmount(allFormData, resources);
+
+  const findHelper = (idk: [], key: string) => {
+    const wtf = idk.find((id) => id === key);
+  };
+
+  // findHelper(x, unitId);
+
+  const y = xxx;
 
   return (
     <div className={Style.RecruitLabel}>{`(${x ? x[0] : "0"})`}</div>

@@ -99,7 +99,7 @@ export class Town {
   }
 
   public addUnit(unit: UnitId, amount = 1): void {
-    console.log("@@@@@@@@@@");
+    // console.log("@@@@@@@@@@");
     const { units } = this;
     if (unit in units) {
       const x = units[unit];
@@ -115,7 +115,7 @@ export class Town {
         town: amount,
       };
     }
-    console.log(unit, amount);
+    // console.log(unit, amount);
   }
 
   public addArmy(army: Army): void { // todo fix this mess

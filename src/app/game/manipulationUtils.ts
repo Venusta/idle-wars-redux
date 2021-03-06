@@ -66,7 +66,7 @@ function getKeysSafer<O = ResList | UnitList>(Obj: O) {
   return Object.keys(Obj) as Extract<keyof O, string>[];
 }
 
-console.log(getKeysSafer<ResList>(resources));
+// console.log(getKeysSafer<ResList>(resources));
 
 class CustomMap<O = ResList | UnitList> {
   private obj: O;
@@ -101,13 +101,13 @@ class CustomMap<O = ResList | UnitList> {
   };
 }
 
-const x = new CustomMap(resources);
-console.log(x.getValue(ResourceId.Timber));
-console.log(x.keyExists(ResourceId.Timber));
-console.log(x.getKeys());
-console.log(x.get());
-x.set(ResourceId.Timber, 45000);
-console.log(x.get());
+// const x = new CustomMap(resources);
+// console.log(x.getValue(ResourceId.Timber));
+// console.log(x.keyExists(ResourceId.Timber));
+// console.log(x.getKeys());
+// console.log(x.get());
+// x.set(ResourceId.Timber, 45000);
+// console.log(x.get());
 
 const resources2: Resources = [
   [ResourceId.Timber, 500],
