@@ -32,7 +32,7 @@ export const newTowns = createSlice({
       }
     },
     addResources: (state, { payload: { townId, resources } }: PayloadAction<AddResources>) => {
-      state.byId[townId].resources = addPartialResources([state.byId[townId].resources, resources]);
+      state.byId[townId].resources = addPartialResources(state.byId[townId].resources, [resources]);
     },
   },
 });

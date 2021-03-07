@@ -1,5 +1,9 @@
+/* eslint-disable @typescript-eslint/no-shadow */
+/* eslint-disable no-param-reassign */
 /* eslint-disable arrow-body-style */
+import produce from "immer";
 import { ResourceId } from "../game/constants";
+import { ResourcesNormalised } from "../slices/newTownsInitialState";
 
 type ResList = {
   [id in ResourceId]: {
@@ -55,7 +59,7 @@ const addProp = (obj: Example1P, key: ResourceId): Example1P => {
   };
 };
 
-export const addPartialResources = (p: Example1P[]): Example1P => {
+export const addPartialResourcesOld = (p: Example1P[]): Example1P => {
   let newObj: Example1P = {
     allIds: [],
     byId: {},
@@ -87,9 +91,40 @@ export const addPartialResources = (p: Example1P[]): Example1P => {
   return newObj;
 };
 
-// console.log(addPartials([ex1]));
-// console.log(addPartials([ex1, ex1]));
-// console.log(addPartials([ex1, ex1, ex1, ex1]));
+const INITAL_STATE = {};
+const byId = produce((draft, action) => {
+  // eslint-disable-next-line default-case
+  // switch (action.type) {
+  //   case RECEIVE_PRODUCTS:
+  //     action.products.forEach((product: { id: string | number; }) => {
+  //       draft[product.id] = product;
+  //     });
+  // }
+}, INITAL_STATE);
+
+export const addPartialResources = (state: ResourcesNormalised, toAdd: ResourcesNormalised[]): ResourcesNormalised => {
+  return produce(state, (draftState) => {
+    toAdd.forEach((resources) => {
+      resources.allIds.forEach((id) => {
+        const amount = resources.byId[id]?.amount ?? 0;
+        const draftResource = draftState.byId[id];
+        if (draftResource) {
+          draftResource.amount += amount;
+        } else {
+          draftState.allIds.push(id);
+          draftState.byId[id] = {
+            id,
+            amount,
+          };
+        }
+      });
+    });
+  });
+};
+
+console.log(addPartialResources(ex1, [ex1]));
+console.log(addPartialResources(ex1, [ex1, ex1]));
+console.log(addPartialResources(ex1, [ex1, ex1, ex1, ex1]));
 
 // export const addPartials2 = (p: Example1P[]): Example1P => {
 //   const x = p.reduce((previous, current) => {
