@@ -1,7 +1,4 @@
-/* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable react/no-array-index-key */
-/* eslint-disable consistent-return */
-/* eslint-disable array-callback-return */
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { BuildingId, UnitId } from "../../game/constants";
@@ -13,7 +10,6 @@ import {
   selectResources, selectRecruitForm, selectRecruitForms, selectUnlockedUnits,
 } from "../../selectors";
 import { setUnitFormData, RecruitForm } from "../../slices/misc";
-import { xxx } from "../../util/normalisedZone";
 import { ResourcesNormalised } from "../../slices/townStateTypes";
 import Style from "./style.module.css";
 

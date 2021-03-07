@@ -1,10 +1,8 @@
 /* eslint-disable arrow-body-style */
 /* eslint-disable no-param-reassign */
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { ResourcesTuple } from "../../types/types";
 import { baseBuildings } from "../game/buildings";
 import { BuildingId, ResourceId, UnitId } from "../game/constants";
-import { addResourceArrays } from "../game/manipulationUtils";
 import { ResourceBuilding } from "../game/model/resourceBuilding";
 import { baseUnits } from "../game/units";
 import { isBuildingId } from "../game/utility";
