@@ -10,11 +10,11 @@ import { BuildingId, HeadquartersQueueSlots } from "../../game/constants";
 import { RootState, useAppDispatch } from "../../store";
 import { BuildingResourceDisplay } from "./BuildingResourceDisplay";
 import { ConstructButton, InactiveButton } from "../Buttons";
-import { startBuildSomething } from "../../slices/towns";
+import { startBuildSomething } from "../../slices/newTowns";
 
-import { calculateTimeUntilResources } from "../../game/utility";
 import { BuildingInfo } from "./BuildingInfo";
 import Style from "./style.module.css";
+import { calculateTimeUntilResources } from "../../util/normalisedZone";
 
 export const Headquarters = (): JSX.Element => {
   const dispatch = useAppDispatch();
@@ -43,7 +43,7 @@ export const Headquarters = (): JSX.Element => {
     const buildings = useSelector((state: RootState) => selectBuildings(state, townId));
     const resources = useSelector((state: RootState) => selectResources(state, townId));
     const rps = useSelector((state: RootState) => selectRps(state, townId));
-    const { level, queuedLevel } = buildings[buildingId];
+    const { level, queuedLevel } = buildings.byId[buildingId];
     const buildingData = baseBuildings[buildingId];
 
     const row = [

@@ -1,13 +1,14 @@
-import {
-  BuildingProps, BuildingRequirements, BuildingCost, Resources,
-} from "../../../types/types";
+/* eslint-disable arrow-body-style */
+import { BuildingProps, BuildingRequirements } from "../../../types/types";
+import { BuildingCost } from "../../slices/townStateTypes";
+import { multiplyResources, tupleToNormalisedResources } from "../../util/normalisedZone";
 import { BuildingId, WorldSpeed } from "../constants";
 
 export class Building {
   id: BuildingId;
   name: string;
   description: string;
-  cost: BuildingCost;
+  private cost: BuildingCost;
   maxLevel: number;
   buildTime: number;
   requirements: BuildingRequirements | undefined;
@@ -18,24 +19,39 @@ export class Building {
     this.id = id;
     this.name = name;
     this.description = description;
-    this.cost = cost;
+    this.cost = {
+      population: cost.population,
+      resources: tupleToNormalisedResources(cost.resources),
+    };
     this.maxLevel = maxLevel;
     this.buildTime = buildTime;
     this.requirements = requirements;
   }
 
   getCost(level: number): BuildingCost {
-    // const resourceMod = 1.26;
-    // const populationMod = 1.17;
-
-    const resources: Resources = this.cost.resources.map(([id, amount]) => [id, amount * (1.26 ** level)]);
-
+    const resources = multiplyResources(this.cost.resources, (1.26 ** level));
     let population = this.cost.population * (1.17 ** level);
     if (level > 0) {
       population -= this.cost.population * (1.17 ** (level - 1));
     }
-    return { resources, population };
+    return {
+      resources,
+      population,
+    };
   }
+
+  // getCost(level: number): BuildingCostTuple {
+  //   // const resourceMod = 1.26;
+  //   // const populationMod = 1.17;
+
+  //   const resources: ResourcesTuple = this.cost.resources.map(([id, amount]) => [id, amount * (1.26 ** level)]);
+
+  //   let population = this.cost.population * (1.17 ** level);
+  //   if (level > 0) {
+  //     population -= this.cost.population * (1.17 ** (level - 1));
+  //   }
+  //   return { resources, population };
+  // }
   // const timber = this.cost.resources.timber * (1.26 ** level);
   // const clay = this.cost.resources.clay * (1.275 ** level);
   // const iron = this.cost.resources.iron * (1.25 ** level);

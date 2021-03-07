@@ -1,5 +1,5 @@
-import { Queues } from "../../types/types";
 import { ResourceId, UnitId, BuildingId } from "../game/constants";
+import { Queues } from "../slices/townStateTypes";
 
 interface Resource {
   id: ResourceId;

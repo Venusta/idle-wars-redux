@@ -1,4 +1,4 @@
-import { TownInterface } from "../../types/types";
+import { TownInterface } from "../slices/newTownsInitialState";
 import { RootState } from "../store";
 
 /**
@@ -6,4 +6,4 @@ import { RootState } from "../store";
  * @param state RootState
  * @param townId town id
  */
-export const selectTown = (state: RootState, townId: string): TownInterface => (state.towns[townId]);
+export const selectTown = (state: RootState, townId: string): TownInterface => (state.towns.byId[townId]);

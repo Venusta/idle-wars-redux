@@ -4,7 +4,8 @@ import { BuildingId, ResourceId } from "../../../game/constants";
 import { RootState } from "../../../store";
 import { selectBuilding, selectResource } from "../../../selectors";
 import "./style.css";
-import { Resources } from "../../../../types/types";
+import { multiplyResources } from "../../../util/normalisedZone";
+import { ResourcesNormalised } from "../../../slices/townStateTypes";
 
 interface Props {
   buildingId: BuildingId
@@ -28,7 +29,7 @@ export const BuildingResourceDisplay = ({ buildingId, townId }: Props): JSX.Elem
   const buildingData = baseBuildings[buildingId];
   const cost = buildingData.getCost(queuedBuilding.queuedLevel);
   const multiplier = 1; // todo props?
-  const multipliedCost: Resources = cost.resources.map(([id, amount]) => [id, amount * multiplier]);
+  const multipliedCost: ResourcesNormalised = multiplyResources(cost.resources, multiplier);
   const pop = cost.population * multiplier;
   const time = new Date(buildingData.getBuildTime(queuedBuilding.queuedLevel, headquarters.level) * 1000).toISOString().substr(11, 8);
 
@@ -47,7 +48,7 @@ export const BuildingResourceDisplay = ({ buildingId, townId }: Props): JSX.Elem
   };
   return (
     <>
-      {multipliedCost.map(([id, amount]) => <SingleBuildingResource key={id} amount={amount} resourceId={id} townId={townId} />)}
+      {multipliedCost.allIds.map((id) => <SingleBuildingResource key={id} amount={multipliedCost.byId[id]?.amount ?? 0} resourceId={id} townId={townId} />)}
       <SingleBuildingRequirements data={pop} imgId="timber" />
       <SingleBuildingRequirements data={time} imgId="timber" />
     </>

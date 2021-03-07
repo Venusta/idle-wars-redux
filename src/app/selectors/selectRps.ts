@@ -1,4 +1,5 @@
-import { Resources } from "../../types/types";
+import { ResourcesTuple } from "../../types/types";
+import { ResourcesNormalised } from "../slices/townStateTypes";
 import { RootState } from "../store";
 
 /**
@@ -6,4 +7,4 @@ import { RootState } from "../store";
  * @param state RootState
  * @param townId Town id
  */
-export const selectRps = (state: RootState, townId: string): Resources => (state.towns[townId].rps);
+export const selectRps = (state: RootState, townId: string): ResourcesNormalised => (state.towns.byId[townId].rps);

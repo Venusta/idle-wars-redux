@@ -13,7 +13,7 @@ import { UnitResourceDisplay as UnitResourceDisplayCell } from "./UnitResourceDi
 import { RootState, useAppDispatch } from "../../store";
 import { selectResources, selectRecruitForm, selectRecruitForms } from "../../selectors";
 import { setUnitFormData, RecruitForm } from "../../slices/misc";
-import { Resources } from "../../../types/types";
+import { ResourcesTuple } from "../../../types/types";
 import { xxx } from "../../util/normalisedZone";
 
 interface UnitRowProps {
@@ -35,7 +35,7 @@ const RecruitAmount = ({ unitId }: { unitId: UnitId }) => {
   const resources = useSelector((state: RootState) => selectResources(state, townId));
   const allFormData = useSelector((state: RootState) => selectRecruitForms(state));
 
-  const canRecruitAmount = (formData: RecruitForm, townResources: Resources) => {
+  const canRecruitAmount = (formData: RecruitForm, townResources: ResourcesTuple) => {
     type IndexMap = Map<ResourceId, number>; // maybe store this on the state?
     const townResourceIndexs: IndexMap = new Map([]);
     townResources.forEach(([id], index) => {
@@ -73,7 +73,7 @@ const RecruitAmount = ({ unitId }: { unitId: UnitId }) => {
     return howManyWeCanMake;
   };
 
-  const x = canRecruitAmount(allFormData, resources);
+  // const x = canRecruitAmount(allFormData, resources);
 
   const findHelper = (idk: [], key: string) => {
     const wtf = idk.find((id) => id === key);
@@ -82,9 +82,9 @@ const RecruitAmount = ({ unitId }: { unitId: UnitId }) => {
   // findHelper(x, unitId);
 
   const y = xxx;
-
+  // ????????????????????????????????????? FIXXXXXXXXXX
   return (
-    <div className={Style.RecruitLabel}>{`(${x ? x[0] : "0"})`}</div>
+    <div className={Style.RecruitLabel}>FIX ME</div>
   );
 };
 

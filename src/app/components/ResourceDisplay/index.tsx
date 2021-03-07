@@ -13,7 +13,7 @@ export const ResourceDisplay = (): JSX.Element => {
   const { townId } = useParams<{ townId: string }>();
   const dispatch = useAppDispatch();
   const { population, maxPopulation } = useSelector((state: RootState) => selectPops(state, townId));
-  const storageCapacity = useSelector((state: RootState) => state.towns[townId].storageCapacity);
+  const storageCapacity = useSelector((state: RootState) => state.towns.byId[townId].storageCapacity);
 
   const handleToggle = () => {
     dispatch(toggleResourceDisplay());

@@ -1,4 +1,5 @@
 import { ResearchList } from "../../types/types";
+import { ResearchNormalised } from "../slices/townStateTypes";
 import { RootState } from "../store";
 
 /**
@@ -6,4 +7,4 @@ import { RootState } from "../store";
  * @param state RootState
  * @param townId Town id
  */
-export const selectResearch = (state: RootState, townId: string): ResearchList => (state.towns[townId].unlocked);
+export const selectResearch = (state: RootState, townId: string): ResearchNormalised => (state.towns.byId[townId].unlocked);

@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import {
-  BuildingCost, Resources, TownsInterface, TownInterface,
+  BuildingCostTuple, ResourcesTuple, TownsInterface, TownInterface,
 } from "../../types/types";
 import { baseBuildings } from "../game/buildings";
 import { BuildingId, UnitId, ResourceId } from "../game/constants";
@@ -221,7 +221,7 @@ const initialState: TownsInterface = {
 
 interface ChangeResourcesPayload {
   townId: string;
-  resources: Resources;
+  resources: ResourcesTuple;
 }
 
 interface StartBuildSomethingPayload {
@@ -241,7 +241,7 @@ interface StartRecruitSomethingPayload {
   }
 }
 
-export const townSlice = createSlice({
+const townSlice = createSlice({
   name: "town",
   // initialState: startingRps(initialState),
   initialState,
@@ -284,38 +284,38 @@ export const townSlice = createSlice({
       // ✔ Check if there is enough resources + population
       // ✖ Check if any building / research requirements are met
 
-      if (hasRequirements(town.maxPopulation, town.population, town.resources, cost)) {
-        // * remove resources
-        town.resources = subResources(town.resources, cost.resources);
+      // if (hasRequirements(town.maxPopulation, town.population, town.resources, cost)) {
+      //   // * remove resources
+      //   town.resources = subResources(town.resources, cost.resources);
 
-        building.queuedLevel += 1;
-        town.population += cost.population ?? 0;
+      //   building.queuedLevel += 1;
+      //   town.population += cost.population ?? 0;
 
-        const buildingQueue = town.queues.buildings[queueBuildingId];
-        if (buildingQueue !== undefined) {
-          const queueLength = buildingQueue.length;
-          let completionTime;
-          if (queueLength === 0) {
-            completionTime = Date.now() + buildTimeMs;
-          } else {
-            completionTime = buildingQueue[queueLength - 1].completionTime + buildTimeMs;
-          }
-          const qItem = {
-            building: buildingId, level: building.queuedLevel, duration: buildTimeMs, completionTime,
-          };
-          buildingQueue.push(qItem);
-        } else {
-          console.error(`No building queue exists for ${queueBuildingId} in town ${townId}, attempting to create it...`);
-          town.queues.buildings = {
-            ...town.queues.buildings,
-            [queueBuildingId]: [
-              {
-                building: buildingId, level: building.queuedLevel, duration: buildTimeMs, completionTime: Date.now() + buildTimeMs,
-              },
-            ],
-          };
-        }
-      }
+      //   const buildingQueue = town.queues.buildings[queueBuildingId];
+      //   if (buildingQueue !== undefined) {
+      //     const queueLength = buildingQueue.length;
+      //     let completionTime;
+      //     if (queueLength === 0) {
+      //       completionTime = Date.now() + buildTimeMs;
+      //     } else {
+      //       completionTime = buildingQueue[queueLength - 1].completionTime + buildTimeMs;
+      //     }
+      //     const qItem = {
+      //       building: buildingId, level: building.queuedLevel, duration: buildTimeMs, completionTime,
+      //     };
+      //     buildingQueue.push(qItem);
+      //   } else {
+      //     console.error(`No building queue exists for ${queueBuildingId} in town ${townId}, attempting to create it...`);
+      //     town.queues.buildings = {
+      //       ...town.queues.buildings,
+      //       [queueBuildingId]: [
+      //         {
+      //           building: buildingId, level: building.queuedLevel, duration: buildTimeMs, completionTime: Date.now() + buildTimeMs,
+      //         },
+      //       ],
+      //     };
+      //   }
+      // }
     },
 
     startRecruitSomething: (
@@ -362,7 +362,7 @@ export const townSlice = createSlice({
 
       Object.values(towns).forEach((town) => {
         // TODO below will error if we don't have every res id, maybe init towns with 0 rps of all
-        const resToAdd: Resources = town.rps.map(([resId, resourcePerSec]) => [resId, (resourcePerSec / 1000) * payload.difference]);
+        const resToAdd: ResourcesTuple = town.rps.map(([resId, resourcePerSec]) => [resId, (resourcePerSec / 1000) * payload.difference]);
         town.resources = addResourceArrays([town.resources, resToAdd]);
 
         // * check queues
@@ -382,7 +382,7 @@ export const townSlice = createSlice({
                   const newResourcesPerSecond = buildingData.getResourceGeneration(building.level + 1);
                   const oldResourcesPerSecond = buildingData.getResourceGeneration(building.level);
 
-                  const additionalRps: Resources = buildingData.creates.map((resId) => [resId, newResourcesPerSecond - oldResourcesPerSecond]);
+                  const additionalRps: ResourcesTuple = buildingData.creates.map((resId) => [resId, newResourcesPerSecond - oldResourcesPerSecond]);
                   town.rps = addResourceArrays([town.rps, additionalRps]);
                 }
                 // Increment level

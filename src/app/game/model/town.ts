@@ -1,14 +1,14 @@
 /* eslint-disable class-methods-use-this */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import {
-  TownInterface, Resources, ResearchList, UnitList, BuildingList, Building, Army, Queues,
+  ResourcesTuple, ResearchList, UnitList, BuildingList, Army,
 } from "../../../types/types";
 import { BuildingId, ResourceId, UnitId } from "../constants";
 import { baseBuildings } from "../buildings";
-import { ResourceBuilding } from "./resourceBuilding";
 import { isUnitId } from "../utility";
+import { Queues } from "../../slices/townStateTypes";
 
-const defaultResources: Resources = [
+const defaultResources: ResourcesTuple = [
   [ResourceId.Timber, 0],
   [ResourceId.Clay, 0],
   [ResourceId.Iron, 0],
@@ -23,8 +23,8 @@ const defaultBuilding = (id: BuildingId, level = 0) => ({
 export class Town {
   name: string;
   id: string;
-  resources: Resources;
-  rps: Resources;
+  resources: ResourcesTuple;
+  rps: ResourcesTuple;
   population: number;
   queues: Queues;
   maxPopulation: number;
@@ -182,9 +182,9 @@ export class Town {
     return warehouseData.getStorageCapacity(this.buildings[BuildingId.Warehouse].level);
   }
 
-  private calculateResourcesPerSecond(): Resources {
+  private calculateResourcesPerSecond(): ResourcesTuple {
     // TODO FIX
-    const rps: Resources = [
+    const rps: ResourcesTuple = [
       [ResourceId.Timber, 10],
       [ResourceId.Clay, 10],
       [ResourceId.Iron, 10],
@@ -204,7 +204,7 @@ export class Town {
     return rps;
   }
 
-  public toRedux(): TownInterface {
+  public toRedux() {
     const {
       id, name, resources, buildings, unlocked, units, rps, population, maxPopulation, storageCapacity, queues,
     } = this;

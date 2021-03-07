@@ -2,8 +2,9 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable arrow-body-style */
 import produce from "immer";
+import { ResourcesTuple } from "../../types/types";
 import { ResourceId } from "../game/constants";
-import { ResourcesNormalised } from "../slices/newTownsInitialState";
+import { BuildingCost, ResourcesNormalised } from "../slices/townStateTypes";
 
 type ResList = {
   [id in ResourceId]: {
@@ -11,17 +12,7 @@ type ResList = {
     amount: number,
   }
 };
-
-interface Example1 {
-  byId: ResList,
-  allIds: ResourceId[]
-}
-export interface Example1P {
-  byId: Partial<ResList>,
-  allIds: ResourceId[]
-}
-
-export const ex1: Example1P = {
+export const ex1: ResourcesNormalised = {
   byId: {
     [ResourceId.Timber]: {
       id: ResourceId.Timber,
@@ -45,7 +36,7 @@ export const ex1: Example1P = {
 
 export const xxx = ex1.allIds;
 
-const addProp = (obj: Example1P, key: ResourceId): Example1P => {
+const addProp = (obj: ResourcesNormalised, key: ResourceId): ResourcesNormalised => {
   return {
     ...obj,
     allIds: [...obj.allIds, key],
@@ -59,8 +50,8 @@ const addProp = (obj: Example1P, key: ResourceId): Example1P => {
   };
 };
 
-export const addPartialResourcesOld = (p: Example1P[]): Example1P => {
-  let newObj: Example1P = {
+export const addPartialResourcesOld = (p: ResourcesNormalised[]): ResourcesNormalised => {
+  let newObj: ResourcesNormalised = {
     allIds: [],
     byId: {},
   };
@@ -122,53 +113,113 @@ export const addPartialResources = (state: ResourcesNormalised, toAdd: Resources
   });
 };
 
+export const subResources = (townResources: ResourcesNormalised, resourcesToSub: ResourcesNormalised): ResourcesNormalised => {
+  // not sure if this is the correct way round
+  const test = townResources.allIds.every((id) => resourcesToSub.allIds.includes(id));
+  if (!test) {
+    console.log("We don't have every resource type!!!");
+    return townResources;
+  }
+
+  return produce(townResources, (draftState) => {
+    townResources.allIds.forEach((id) => {
+      const resource = draftState.byId[id];
+      if (resource) {
+        resource.amount -= resourcesToSub.byId[id]?.amount ?? 0;
+      }
+    });
+  });
+};
+
+export const multiplyResources = (resources: ResourcesNormalised, multiplier: number): ResourcesNormalised => {
+  return produce(resources, (draftState) => {
+    resources.allIds.forEach((id) => {
+      const draftResource = draftState.byId[id];
+      if (draftResource) {
+        draftResource.amount *= multiplier;
+      }
+    });
+  });
+};
+
+export const tupleToNormalisedResources = (resources: ResourcesTuple): ResourcesNormalised => {
+  const initial: ResourcesNormalised = {
+    byId: {},
+    allIds: [],
+  };
+  return produce(initial, (draftState) => {
+    resources.forEach(([id, amount]) => {
+      draftState.allIds.push(id);
+      draftState.byId[id] = {
+        id,
+        amount,
+      };
+    });
+  });
+};
+
 console.log(addPartialResources(ex1, [ex1]));
 console.log(addPartialResources(ex1, [ex1, ex1]));
 console.log(addPartialResources(ex1, [ex1, ex1, ex1, ex1]));
 
-// export const addPartials2 = (p: Example1P[]): Example1P => {
-//   const x = p.reduce((previous, current) => {
+export const hasPopulation = (maxPop: number, currentPop: number, popCost: number): boolean => {
+  if (maxPop - currentPop < popCost) {
+    return false;
+  }
+  return true;
+};
 
-//     const newObj = current.allIds.reduce((prev, id) => {
-//       const entry = current.byId[id];
-//       if (entry) {
-//         if (previous.byId[id]) {
-//           return {
-//             allIds: [...previous.allIds],
-//             byId: {
-//               ...previous.byId,
-//               [id]: { id, amount: (previous.byId[id]?.amount ?? 0) + entry.amount },
-//             },
-//           };
-//         }
-//         return {
-//           allIds: [
-//             ...previous.allIds,
-//             id,
-//           ],
-//           byId: {
-//             ...previous.byId,
-//             [id]: { id, amount: entry.amount },
-//           },
-//         };
-//       }
-//     }, current);
+export const hasResources = (resources: ResourcesNormalised, resourceCost: ResourcesNormalised): boolean => {
+  const y = resourceCost.allIds.reduce((prev, id) => {
+    const storageResource = resources.byId[id];
+    const costResource = resourceCost.byId[id];
 
-//     return {
-//       ...previous,
-//       // byId: newById
+    if (storageResource && costResource) {
+      if (storageResource.amount < costResource.amount) {
+        return false;
+      }
+    }
+    return prev;
+  }, true);
+  return y;
+  // const x = resources.reduce((prev, [resource, amountInStorage]): boolean => {
+  //   const index = resourceCost.findIndex(([id]) => id === resource);
+  //   if (index === -1) {
+  //     return false;
+  //   }
+  //   if (amountInStorage < resourceCost[index][RES_AMOUNT_TUPLE]) {
+  //     return false;
+  //   }
+  //   return prev;
+  // }, true);
+  // return x;
+};
 
-//     };
-//   },
-//   {
-//     allIds: [],
-//     byId: {},
-//   });
+export const hasRequirements = (maxPop: number, currentPop: number, resources: ResourcesNormalised, cost: BuildingCost): boolean => {
+  // Check available workers
+  const hasPop = hasPopulation(maxPop, currentPop, cost.population);
+  // Check resources
+  const hasRes = hasResources(resources, cost.resources);
 
-//   return x;
-// };
+  return hasPop && hasRes;
+};
 
-// console.log(addPartials2([]));
-// console.log(addPartials2([ex1]));
-// console.log(addPartials2([ex1, ex1]));
-// console.log(addPartials2([ex1, ex1, ex1, ex1]));
+interface HasAmountKey {
+  amount: number
+}
+export const assertZeroAmount = <O extends HasAmountKey>(obj: O | undefined): number => {
+  return obj?.amount ?? 0;
+};
+
+export const calculateTimeUntilResources = (currentResources: ResourcesNormalised, resourcesPerSecond: ResourcesNormalised, cost: BuildingCost): number => {
+  return cost.resources.allIds.reduce((timeUntil, resourceId) => {
+    const current = assertZeroAmount(currentResources.byId[resourceId]);
+    const perSecond = assertZeroAmount(resourcesPerSecond.byId[resourceId]);
+    const resource = cost.resources.byId[resourceId];
+    if (!resource) {
+      return 0;
+    }
+    const totalNeeded = resource.amount;
+    return Math.max(timeUntil, (totalNeeded - current) / perSecond);
+  }, 0);
+};

@@ -1,63 +1,7 @@
-import { Queues } from "../../types/types";
 import { ResourceId, UnitId, BuildingId } from "../game/constants";
-
-interface Resource {
-  id: ResourceId;
-  amount: number;
-}
-
-type Resources = {
-  [id in ResourceId]: Resource;
-};
-
-export interface ResourcesNormalised {
-  byId: Partial<Resources>,
-  allIds: ResourceId[]
-}
-
-interface Unit {
-  id: UnitId;
-  town: number;
-  total: number;
-}
-
-type Units = {
-  [id in UnitId]?: Unit;
-};
-
-export interface UnitsNormalised {
-  byId: Partial<Units>,
-  allIds: UnitId[]
-}
-
-interface Research {
-  id: UnitId;
-  level: number;
-}
-
-type Researchs = {
-  [id in UnitId]: Research;
-};
-
-export interface ResearchNormalised {
-  byId: Partial<Researchs>,
-  allIds: UnitId[]
-}
-
-interface Building {
-  id: BuildingId;
-  level: number;
-  queuedLevel: number;
-}
-
-type Buildings = {
-  [id in BuildingId]: Building
-};
-
-export interface BuildingsNormalised {
-  byId: Buildings,
-  allIds: BuildingId[]
-}
+import {
+  ResourcesNormalised, ResearchNormalised, BuildingsNormalised, UnitsNormalised, Queues,
+} from "./townStateTypes";
 
 // interface Normalised<ById, AllIds> {
 //   byId: ById,
@@ -208,7 +152,7 @@ const buildings: BuildingsNormalised = {
   ],
 };
 
-interface TownInterface {
+export interface TownInterface {
   id: string;
   name: string;
   resources: ResourcesNormalised;
@@ -222,12 +166,12 @@ interface TownInterface {
   unlocked: ResearchNormalised;
 }
 
-type TownIntersface = {
+type TownsInterface = {
   [id: string]: TownInterface
 };
 
-interface TownsNormalised {
-  byId: TownIntersface,
+export interface TownsNormalised {
+  byId: TownsInterface,
   allIds: string[]
 }
 

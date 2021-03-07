@@ -7,8 +7,8 @@ import { RootState } from "../store";
  * @param townId Town id
  */
 
-const selectPop = (state: RootState, townId: string) => (state.towns[townId].population);
-const selectMaxPop = (state: RootState, townId: string) => (state.towns[townId].maxPopulation);
+const selectPop = (state: RootState, townId: string) => (state.towns.byId[townId].population);
+const selectMaxPop = (state: RootState, townId: string) => (state.towns.byId[townId].maxPopulation);
 
 export const selectPops = createSelector(
   selectPop,

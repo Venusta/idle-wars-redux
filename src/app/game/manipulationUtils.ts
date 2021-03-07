@@ -1,13 +1,13 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable max-classes-per-file */
 /* eslint-disable arrow-body-style */
-import { Resources, ResourceTuple } from "../../types/types";
+import { ResourcesTuple, ResourceTuple } from "../../types/types";
 import { ResourceId, UnitId } from "./constants";
 import { Unit } from "./model/unit";
 
 type ResMap = Map<ResourceId, number>;
 
-export const addResourceArrays = (arrayOfResources: Resources[]): Resources => {
+export const addResourceArrays = (arrayOfResources: ResourcesTuple[]): ResourcesTuple => {
   const testMap: ResMap = new Map([]);
   arrayOfResources.flat().forEach(([resId, amount]) => {
     testMap.set(resId, (testMap.get(resId) ?? 0) + amount);
@@ -15,7 +15,7 @@ export const addResourceArrays = (arrayOfResources: Resources[]): Resources => {
   return Array.from(testMap.entries());
 };
 
-export const multiplyResourcesArray = (resArray: Resources, multi: number): Resources => resArray.map(([id, amt]) => ([id, amt * multi]));
+export const multiplyResourcesArray = (resArray: ResourcesTuple, multi: number): ResourcesTuple => resArray.map(([id, amt]) => ([id, amt * multi]));
 
 /**
  * * assumptions, townResources will have enough to be removed from
@@ -25,21 +25,21 @@ export const multiplyResourcesArray = (resArray: Resources, multi: number): Reso
  * * maybe index the arrays somehow so we know which resource is in what index
  * * letting us only loop over each array once instead of however many resources there are
  *  */
-export const subResources = (townResources: Resources, resourcesToSub: Resources): Resources => {
-  return townResources.map(([resourceId, amount]) => {
-    const index = resourcesToSub.findIndex(([townResource]) => townResource === resourceId); // ? cache this later
+// export const subResources = (townResources: ResourcesTuple, resourcesToSub: ResourcesTuple): ResourcesTuple => {
+//   return townResources.map(([resourceId, amount]) => {
+//     const index = resourcesToSub.findIndex(([townResource]) => townResource === resourceId); // ? cache this later
 
-    if (index === -1) {
-      // ? Nothing to subtract from this resource so just return the original amount
-      // console.warn(`[subResources] No resource found: ${resourceId}`);
-      return [resourceId, amount];
-    }
+//     if (index === -1) {
+//       // ? Nothing to subtract from this resource so just return the original amount
+//       // console.warn(`[subResources] No resource found: ${resourceId}`);
+//       return [resourceId, amount];
+//     }
 
-    const [, amountToRemove] = resourcesToSub[index];
+//     const [, amountToRemove] = resourcesToSub[index];
 
-    return [resourceId, amount - amountToRemove];
-  });
-};
+//     return [resourceId, amount - amountToRemove];
+//   });
+// };
 const getKeys = Object.keys as <T extends Record<string, unknown>>(obj: T) => Array<keyof T>;
 
 type RequireSome<T, K extends keyof T> = Required<Pick<T, K>> & T;
@@ -109,7 +109,7 @@ class CustomMap<O = ResList | UnitList> {
 // x.set(ResourceId.Timber, 45000);
 // console.log(x.get());
 
-const resources2: Resources = [
+const resources2: ResourcesTuple = [
   [ResourceId.Timber, 500],
   [ResourceId.Clay, 500],
   [ResourceId.Iron, 500],

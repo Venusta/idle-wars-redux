@@ -1,6 +1,6 @@
 import { RootState } from "../store";
 import { BuildingId } from "../game/constants";
-import { BuildingQueueItem } from "../../types/types";
+import { BuildingQueueItem } from "../slices/townStateTypes";
 
 /**
  * Selects the Building from state based on id
@@ -10,4 +10,4 @@ import { BuildingQueueItem } from "../../types/types";
  */
 export const selectBuildingQueue = (
   state: RootState, townId: string, buildingId: BuildingId,
-): BuildingQueueItem[] => (state.towns[townId].queues.buildings[buildingId]) ?? []; // todo hacky return something?
+): BuildingQueueItem[] => (state.towns.byId[townId].queues.buildings[buildingId]) ?? []; // todo hacky return something?

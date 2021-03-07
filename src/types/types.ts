@@ -13,20 +13,20 @@ export interface Building {
 // }
 
 export type ResourceTuple = [ResourceId, number];
-export type Resources = ResourceTuple[];
+export type ResourcesTuple = ResourceTuple[];
 
-export interface BuildingCost {
-  resources: Resources;
+export interface BuildingCostTuple {
+  resources: ResourcesTuple;
   population: number;
 }
 
 export interface UnitCost {
-  resources: Resources;
+  resources: ResourcesTuple;
   population: number;
 }
 
 export interface ResearchCost {
-  resources: Resources;
+  resources: ResourcesTuple;
 }
 
 export type UnitRequirements = {
@@ -55,43 +55,23 @@ export type Army = {
   [id in UnitId]?: number;
 };
 
-export interface BuildingQueueItem {
-  building: BuildingId;
-  duration: number;
-  completionTime: number;
-  level: number;
-}
+// export interface TownsInterface {
+//   [id: string]: TownInterface;
+// }
 
-export interface UnitQueueItem {
-  unit: UnitId;
-  startTime?: number;
-  recruitTimeMs: number;
-  amount: number;
-  recruited: number;
-}
-
-export type Queues = {
-  buildings: { [id in BuildingId]?: BuildingQueueItem[]; }
-  units: { [id in BuildingId]?: UnitQueueItem[]; }
-};
-
-export interface TownsInterface {
-  [id: string]: TownInterface;
-}
-
-export interface TownInterface {
-  id: string;
-  name: string;
-  resources: Resources;
-  rps: Resources;
-  queues: Queues;
-  population: number;
-  maxPopulation: number;
-  storageCapacity: number;
-  buildings: BuildingList;
-  units: UnitList;
-  unlocked: ResearchList;
-}
+// export interface TownInterface {
+//   id: string;
+//   name: string;
+//   resources: ResourcesTuple;
+//   rps: ResourcesTuple;
+//   queues: Queues;
+//   population: number;
+//   maxPopulation: number;
+//   storageCapacity: number;
+//   buildings: BuildingList;
+//   units: UnitList;
+//   unlocked: ResearchList;
+// }
 
 export interface ResourceProps {
   id: ResourceId;
@@ -112,7 +92,7 @@ export interface BuildingProps {
   id: BuildingId;
   name: string;
   description: string;
-  cost: BuildingCost;
+  cost: BuildingCostTuple;
   maxLevel: number;
   buildTime: number;
   requirements?: BuildingRequirements;
