@@ -3,9 +3,10 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { ResourcesTuple } from "../../types/types";
 import { baseBuildings } from "../game/buildings";
-import { BuildingId, ResourceId } from "../game/constants";
+import { BuildingId, ResourceId, UnitId } from "../game/constants";
 import { addResourceArrays } from "../game/manipulationUtils";
 import { ResourceBuilding } from "../game/model/resourceBuilding";
+import { baseUnits } from "../game/units";
 import { isBuildingId } from "../game/utility";
 import {
   addPartialResources, hasRequirements, multiplyResources, subResources,
@@ -29,6 +30,13 @@ interface StartBuildSomething {
   townId: string;
   buildingId: BuildingId;
   queueBuildingId: BuildingId;
+}
+
+interface StartRecruitSomething {
+  townId: string;
+  unitId: UnitId;
+  queueBuildingId: BuildingId;
+  amount: number;
 
 }
 
@@ -94,6 +102,43 @@ export const townSlice = createSlice({
         }
       }
     },
+
+    startRecruitSomething: (
+      towns, {
+        payload: {
+          townId, unitId, queueBuildingId, amount,
+        },
+      }: PayloadAction<StartRecruitSomething>,
+    ) => {
+      const town = towns.byId[townId];
+      const queueBuilding = town.buildings.byId[queueBuildingId];
+      const { cost } = baseUnits[unitId];
+      const recruitTimeMs = baseUnits[unitId].getRecruitTime(queueBuilding.level) * 1000;
+
+      // ✔ Check if there is enough resources + population
+      // ✖ Check if any building / research requirements are met
+
+      if (hasRequirements(town.maxPopulation, town.population, town.resources, cost)) {
+        town.resources = subResources(town.resources, cost.resources);
+
+        const unitQueue = town.queues.units[queueBuildingId];
+        if (unitQueue !== undefined) {
+          const startTime = Date.now(); // TODO calc it here TODODODODODODODO
+          unitQueue.push({
+            unit: unitId, recruitTimeMs, amount, recruited: 0, startTime,
+          });
+        } else {
+          console.error(`No unit queue exists for ${queueBuildingId} in town ${townId}, attempting to create it...`);
+          town.queues.units = {
+            ...town.queues.units,
+            [queueBuildingId]: [
+              { unit: unitId, recruitTimeMs, amount },
+            ],
+          };
+        }
+      }
+    },
+
   },
 
   extraReducers: (builder) => {

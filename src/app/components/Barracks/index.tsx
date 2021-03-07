@@ -42,35 +42,35 @@ const RecruitAmount = ({ unitId }: { unitId: UnitId }) => {
       townResourceIndexs.set(id, index);
     });
 
-    const howManyWeCanMake: ([UnitId, number] | [])[] = Object.values(formData).map((data) => {
-      if (data !== undefined) {
-        const [id, amountOfUnits] = data;
-        const unitResourceCost = baseUnits[id].cost.resources;
+    // const howManyWeCanMake: ([UnitId, number] | [])[] = Object.values(formData).map((data) => {
+    //   if (data !== undefined) {
+    //     const [id, amountOfUnits] = data;
+    //     const unitResourceCost = baseUnits[id].cost.resources;
 
-        const minUnitArray = unitResourceCost.map(([unitCostResId, unitCostResAmount]) => {
-          // get the index of that resource
-          const resourceIndex = townResourceIndexs.get(unitCostResId);
-          // check if the resource exists on the town
-          if (resourceIndex !== undefined) {
-            const multiplied = unitCostResAmount * amountOfUnits;
-            const remainder = townResources[resourceIndex][1] - multiplied;
+    //     const minUnitArray = unitResourceCost.map(([unitCostResId, unitCostResAmount]) => {
+    //       // get the index of that resource
+    //       const resourceIndex = townResourceIndexs.get(unitCostResId);
+    //       // check if the resource exists on the town
+    //       if (resourceIndex !== undefined) {
+    //         const multiplied = unitCostResAmount * amountOfUnits;
+    //         const remainder = townResources[resourceIndex][1] - multiplied;
 
-            // check we have enough in the town
-            if (remainder > 0) {
-              const makeWithX = Math.floor(remainder / unitCostResAmount);
-              return makeWithX;
-            }
-            // console.log(`Not enough resources for: ${id}`);
-            return 0;
-          }
-          // console.error("Resource not found on town state");
-          return 0;
-        });
-        return [id, Math.min(...minUnitArray)];
-      }
-      return [];
-    });
-    return howManyWeCanMake;
+    //         // check we have enough in the town
+    //         if (remainder > 0) {
+    //           const makeWithX = Math.floor(remainder / unitCostResAmount);
+    //           return makeWithX;
+    //         }
+    //         // console.log(`Not enough resources for: ${id}`);
+    //         return 0;
+    //       }
+    //       // console.error("Resource not found on town state");
+    //       return 0;
+    //     });
+    //     return [id, Math.min(...minUnitArray)];
+    //   }
+    //   return [];
+    // });
+    return 0;
   };
 
   // const x = canRecruitAmount(allFormData, resources);

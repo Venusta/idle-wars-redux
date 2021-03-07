@@ -20,7 +20,7 @@ export interface BuildingCostTuple {
   population: number;
 }
 
-export interface UnitCost {
+export interface UnitCostTuple {
   resources: ResourcesTuple;
   population: number;
 }

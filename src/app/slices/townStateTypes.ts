@@ -82,3 +82,8 @@ export interface BuildingCost {
   resources: ResourcesNormalised;
   population: number;
 }
+
+export interface UnitCost {
+  resources: ResourcesNormalised;
+  population: number;
+}

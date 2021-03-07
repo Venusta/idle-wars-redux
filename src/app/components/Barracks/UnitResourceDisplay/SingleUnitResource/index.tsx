@@ -15,7 +15,7 @@ interface Props {
 const ResouceAmount = ({ unitId, resourceId, multiplier = 1 }: Props) => {
   const { townId } = useParams<{ townId: string }>();
   const resource = useSelector((state: RootState) => selectResource(state, townId, resourceId));
-  const [, amount] = baseUnits[unitId].cost.resources.find(([res]) => res === resourceId) ?? [resourceId, 0];
+  const amount = baseUnits[unitId].cost.resources.byId[resourceId]?.amount ?? 0;
   const cost = amount * multiplier;
   // todo this might be broken
   return (

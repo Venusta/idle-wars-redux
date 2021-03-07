@@ -1,10 +1,12 @@
-import { UnitCost, ResearchCost, UnitRequirements } from "../../../types/types";
+import { ResearchCost, UnitCostTuple, UnitRequirements } from "../../../types/types";
+import { UnitCost } from "../../slices/townStateTypes";
+import { tupleToNormalisedResources } from "../../util/normalisedZone";
 import { UnitId, WorldSpeed } from "../constants";
 
 interface UnitProps {
   id: UnitId;
   name: string;
-  cost: UnitCost;
+  cost: UnitCostTuple;
   buildTime: number;
   speed: number;
   atkType: number;
@@ -37,7 +39,10 @@ export class Unit {
   }: UnitProps) {
     this.id = id;
     this.name = name;
-    this.cost = cost;
+    this.cost = {
+      population: cost.population,
+      resources: tupleToNormalisedResources(cost.resources),
+    };
     this.buildTime = buildTime;
     this.speed = speed;
     this.atkType = atkType;
