@@ -47,40 +47,50 @@ const RecruitAmount = ({ unitId }: { unitId: UnitId }) => {
     };
 
     // eslint-disable-next-line @typescript-eslint/no-shadow
-    const howManyWeCanMake: UnitsData = unlockedUnits.reduce((prev: UnitsData, unitId) => {
-      const data = formData[unitId];
-      // if (data !== undefined) {
-      const [id, amountOfUnits] = data ?? [unitId, 0];
-      const unitResourceCost = baseUnits[id].cost.resources;
+    // const howManyWeCanMake: UnitsData = unlockedUnits.reduce((prev: UnitsData, unitId) => {
+    //   const data = formData[unitId];
+    //   // if (data !== undefined) {
+    //   const [id, amountOfUnits] = data ?? [unitId, 0];
+    //   const unitResourceCost = baseUnits[id].cost.resources;
 
-      const minUnitArray = unitResourceCost.allIds.map((unitCostResId) => {
-        const unitCostResAmount = unitResourceCost.byId[unitCostResId]?.amount ?? 0;
+    //   const minUnitArray = unitResourceCost.allIds.map((unitCostResId) => {
+    //     const singleCloned = clonedRes[unitCostResId]; // ? can't clone, need immer
+    //     if (!singleCloned) {
+    //       return 0;
+    //     }
 
-        const multiplied = unitCostResAmount * amountOfUnits;
-        const remainder = (townResources.byId[unitCostResId]?.amount ?? 0) - multiplied;
+    //     const unitCostResAmount = unitResourceCost.byId[unitCostResId]?.amount ?? 0;
 
-        // check we have enough in the town
-        if (remainder > 0) {
-          const makeWithX = Math.floor(remainder / unitCostResAmount);
-          return makeWithX;
-        }
-        return 0;
-      });
-      return {
-        ...prev,
-        [id]: {
-          id,
-          amount: Math.min(...minUnitArray),
-        },
-      };
-    }, {});
+    //     const multiplied = unitCostResAmount * amountOfUnits;
+    //     const remainder = (singleCloned.amount) - multiplied;
 
-    return howManyWeCanMake;
+    //     // check we have enough in the town
+    //     if (remainder > 0) {
+    //       singleCloned.amount -= remainder;
+
+    //       const makeWithX = Math.floor(remainder / unitCostResAmount);
+    //       return makeWithX;
+    //     }
+    //     return 0;
+    //   });
+    //   return {
+    //     ...prev,
+    //     [id]: {
+    //       id,
+    //       amount: Math.min(...minUnitArray),
+    //     },
+    //   };
+    // }, {});
+
+    // return howManyWeCanMake;
   };
 
   const x = canRecruitAmount(allFormData, resources);
+  console.log(x);
+
   return (
-    <div className={Style.RecruitLabel}>{`(${(x[unitId]?.amount ?? 0)})`}</div>
+    // <div className={Style.RecruitLabel}>{`(${(x[unitId]?.amount ?? 0)})`}</div>
+    <div className={Style.RecruitLabel}>Fix me V2</div>
   );
 };
 
