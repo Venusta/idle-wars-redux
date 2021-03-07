@@ -174,18 +174,10 @@ export const townSlice = createSlice({
                       res.amount += newResourcesPerSecond - oldResourcesPerSecond;
                     }
                   });
-
-                  // const additionalRps: ResourcesNormalised = buildingData.creates.map((resId) => {
-                  //   return [resId, newResourcesPerSecond - oldResourcesPerSecond];
-                  // });
-                  // town.rps = addPartialResources(town.rps, [additionalRps]);
                 }
                 // Increment level
                 building.level += 1;
               }
-              //  else {
-              //   console.error(`${queueItem.building} was not a valid building id.`);
-              // }
             }
           });
         });

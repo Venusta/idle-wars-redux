@@ -4,17 +4,18 @@
 /* eslint-disable array-callback-return */
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { BuildingId, UnitId, ResourceId } from "../../game/constants";
+import { BuildingId, UnitId } from "../../game/constants";
 import { baseBuildings } from "../../game/buildings";
 import { baseUnits } from "../../game/units";
-
-import Style from "./style.module.css";
 import { UnitResourceDisplay as UnitResourceDisplayCell } from "./UnitResourceDisplay";
 import { RootState, useAppDispatch } from "../../store";
-import { selectResources, selectRecruitForm, selectRecruitForms } from "../../selectors";
+import {
+  selectResources, selectRecruitForm, selectRecruitForms, selectUnlockedUnits,
+} from "../../selectors";
 import { setUnitFormData, RecruitForm } from "../../slices/misc";
-import { ResourcesTuple } from "../../../types/types";
 import { xxx } from "../../util/normalisedZone";
+import { ResourcesNormalised } from "../../slices/townStateTypes";
+import Style from "./style.module.css";
 
 interface UnitRowProps {
   unitId: UnitId
@@ -34,57 +35,52 @@ const RecruitAmount = ({ unitId }: { unitId: UnitId }) => {
   const { townId } = useParams<{ townId: string }>();
   const resources = useSelector((state: RootState) => selectResources(state, townId));
   const allFormData = useSelector((state: RootState) => selectRecruitForms(state));
+  const unlockedUnits = useSelector((state: RootState) => selectUnlockedUnits(state, townId, BuildingId.Barracks));
 
-  const canRecruitAmount = (formData: RecruitForm, townResources: ResourcesTuple) => {
-    type IndexMap = Map<ResourceId, number>; // maybe store this on the state?
-    const townResourceIndexs: IndexMap = new Map([]);
-    townResources.forEach(([id], index) => {
-      townResourceIndexs.set(id, index);
-    });
+  const canRecruitAmount = (formData: RecruitForm, townResources: ResourcesNormalised) => {
+    interface SingleUnitData {
+      id: UnitId;
+      amount: number;
+    }
+    type UnitsData = {
+      [id in UnitId]?: SingleUnitData;
+    };
 
-    // const howManyWeCanMake: ([UnitId, number] | [])[] = Object.values(formData).map((data) => {
-    //   if (data !== undefined) {
-    //     const [id, amountOfUnits] = data;
-    //     const unitResourceCost = baseUnits[id].cost.resources;
+    // eslint-disable-next-line @typescript-eslint/no-shadow
+    const howManyWeCanMake: UnitsData = unlockedUnits.reduce((prev: UnitsData, unitId) => {
+      const data = formData[unitId];
+      // if (data !== undefined) {
+      const [id, amountOfUnits] = data ?? [unitId, 0];
+      const unitResourceCost = baseUnits[id].cost.resources;
 
-    //     const minUnitArray = unitResourceCost.map(([unitCostResId, unitCostResAmount]) => {
-    //       // get the index of that resource
-    //       const resourceIndex = townResourceIndexs.get(unitCostResId);
-    //       // check if the resource exists on the town
-    //       if (resourceIndex !== undefined) {
-    //         const multiplied = unitCostResAmount * amountOfUnits;
-    //         const remainder = townResources[resourceIndex][1] - multiplied;
+      const minUnitArray = unitResourceCost.allIds.map((unitCostResId) => {
+        const unitCostResAmount = unitResourceCost.byId[unitCostResId]?.amount ?? 0;
 
-    //         // check we have enough in the town
-    //         if (remainder > 0) {
-    //           const makeWithX = Math.floor(remainder / unitCostResAmount);
-    //           return makeWithX;
-    //         }
-    //         // console.log(`Not enough resources for: ${id}`);
-    //         return 0;
-    //       }
-    //       // console.error("Resource not found on town state");
-    //       return 0;
-    //     });
-    //     return [id, Math.min(...minUnitArray)];
-    //   }
-    //   return [];
-    // });
-    return 0;
+        const multiplied = unitCostResAmount * amountOfUnits;
+        const remainder = (townResources.byId[unitCostResId]?.amount ?? 0) - multiplied;
+
+        // check we have enough in the town
+        if (remainder > 0) {
+          const makeWithX = Math.floor(remainder / unitCostResAmount);
+          return makeWithX;
+        }
+        return 0;
+      });
+      return {
+        ...prev,
+        [id]: {
+          id,
+          amount: Math.min(...minUnitArray),
+        },
+      };
+    }, {});
+
+    return howManyWeCanMake;
   };
 
-  // const x = canRecruitAmount(allFormData, resources);
-
-  const findHelper = (idk: [], key: string) => {
-    const wtf = idk.find((id) => id === key);
-  };
-
-  // findHelper(x, unitId);
-
-  const y = xxx;
-  // ????????????????????????????????????? FIXXXXXXXXXX
+  const x = canRecruitAmount(allFormData, resources);
   return (
-    <div className={Style.RecruitLabel}>FIX ME</div>
+    <div className={Style.RecruitLabel}>{`(${(x[unitId]?.amount ?? 0)})`}</div>
   );
 };
 

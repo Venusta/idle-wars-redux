@@ -13,5 +13,6 @@ export * from "./selectRps";
 export * from "./selectSingleRps";
 export * from "./selectTown";
 export * from "./selectTowns";
-export * from "./selectUnits";
 export * from "./selectUnitQueue";
+export * from "./selectUnits";
+export * from "./selectUnlockedUnits";

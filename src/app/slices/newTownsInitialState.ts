@@ -77,11 +77,15 @@ const unlocked: ResearchNormalised = { // units / buildings maybe
     },
     [UnitId.Swordsman]: {
       id: UnitId.Swordsman,
-      level: 0,
+      level: 1,
     },
     [UnitId.Axeman]: {
       id: UnitId.Axeman,
-      level: 0,
+      level: 1,
+    },
+    [UnitId.Archer]: {
+      id: UnitId.Archer,
+      level: 1,
     },
   },
   allIds: [
