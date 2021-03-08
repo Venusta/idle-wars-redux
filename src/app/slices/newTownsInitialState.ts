@@ -9,7 +9,7 @@ import {
 //   allIds: AllIds[]
 // }
 const resources: ResourcesNormalised = {
-  byId: {
+  id: {
     [ResourceId.Timber]: {
       id: ResourceId.Timber,
       amount: 500,
@@ -23,14 +23,14 @@ const resources: ResourcesNormalised = {
       amount: 500,
     },
   },
-  allIds: [
+  all: [
     ResourceId.Timber,
     ResourceId.Clay,
     ResourceId.Iron,
   ],
 };
 const rps: ResourcesNormalised = {
-  byId: {
+  id: {
     [ResourceId.Timber]: {
       id: ResourceId.Timber,
       amount: 0,
@@ -44,15 +44,15 @@ const rps: ResourcesNormalised = {
       amount: 0,
     },
   },
-  allIds: [
+  all: [
     ResourceId.Timber,
     ResourceId.Clay,
     ResourceId.Iron,
   ],
 };
 
-const units = {
-  byId: {
+const units: UnitsNormalised = {
+  id: {
     [UnitId.SpearFighter]: {
       id: UnitId.SpearFighter,
       town: 100,
@@ -64,14 +64,14 @@ const units = {
       total: 200,
     },
   },
-  allIds: [
+  all: [
     UnitId.SpearFighter,
     UnitId.Swordsman,
   ],
 };
 
 const unlocked: ResearchNormalised = { // units / buildings maybe
-  byId: {
+  id: {
     [UnitId.SpearFighter]: {
       id: UnitId.SpearFighter,
       level: 1,
@@ -89,7 +89,7 @@ const unlocked: ResearchNormalised = { // units / buildings maybe
       level: 1,
     },
   },
-  allIds: [
+  all: [
     UnitId.SpearFighter,
     UnitId.Swordsman,
     UnitId.Axeman,
@@ -97,7 +97,7 @@ const unlocked: ResearchNormalised = { // units / buildings maybe
 };
 
 const buildings: BuildingsNormalised = {
-  byId: {
+  id: {
     [BuildingId.TimberCamp]: {
       id: BuildingId.TimberCamp,
       level: 0,
@@ -149,7 +149,7 @@ const buildings: BuildingsNormalised = {
       queuedLevel: 0,
     },
   },
-  allIds: [
+  all: [
     BuildingId.TimberCamp,
     BuildingId.ClayPit,
     BuildingId.IronMine,
@@ -182,8 +182,8 @@ type TownsInterface = {
 };
 
 export interface TownsNormalised {
-  byId: TownsInterface,
-  allIds: string[]
+  id: TownsInterface,
+  all: string[]
 }
 
 const testTown: TownInterface = {
@@ -220,10 +220,10 @@ const testTown3: TownInterface = {
 };
 
 export const initialState: TownsNormalised = {
-  byId: {
+  id: {
     "0": testTown,
     "1": testTown2,
     "2": testTown3,
   },
-  allIds: ["0", "1", "2"],
+  all: ["0", "1", "2"],
 };

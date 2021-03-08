@@ -10,4 +10,4 @@ import { UnitQueueItem } from "../../types/townStateTypes";
  */
 export const selectUnitQueue = (
   state: RootState, townId: string, buildingId: BuildingId,
-): UnitQueueItem[] => (state.towns.byId[townId].queues.units[buildingId]) ?? []; // todo hacky return something?
+): UnitQueueItem[] => (state.towns.id[townId].queues.units[buildingId]) ?? []; // todo hacky return something?

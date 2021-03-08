@@ -9,5 +9,5 @@ import { ResourceId } from "../game/constants";
  */
 // eslint-disable-next-line arrow-body-style
 export const selectSingleRps = (state: RootState, townId: string, resourceId: ResourceId): number => {
-  return state.towns.byId[townId].rps.byId[resourceId]?.amount ?? 0;
+  return state.towns.id[townId].rps.id[resourceId]?.amount ?? 0;
 };

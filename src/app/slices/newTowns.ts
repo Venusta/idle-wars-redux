@@ -42,24 +42,24 @@ export const townSlice = createSlice({
   initialState,
   reducers: {
     addResource: (towns, { payload: { townId, resourceId, amount } }: PayloadAction<AddResource>) => {
-      const resource = towns.byId[townId].resources.byId[resourceId];
+      const resource = towns.id[townId].resources.id[resourceId];
       if (resource === undefined) {
-        towns.byId[townId].resources.byId[resourceId] = {
+        towns.id[townId].resources.id[resourceId] = {
           id: resourceId,
           amount,
         };
-        towns.byId[townId].resources.allIds.push(resourceId);
+        towns.id[townId].resources.all.push(resourceId);
       } else {
         resource.amount += amount;
       }
     },
     addResources: (towns, { payload: { townId, resources } }: PayloadAction<AddResources>) => {
-      towns.byId[townId].resources = addPartialResources(towns.byId[townId].resources, [resources]);
+      towns.id[townId].resources = addPartialResources(towns.id[townId].resources, [resources]);
     },
     startBuildSomething: (towns, { payload: { townId, buildingId, queueBuildingId } }: PayloadAction<StartBuildSomething>) => {
-      const town = towns.byId[townId];
-      const building = town.buildings.byId[buildingId];
-      const queueBuilding = town.buildings.byId[queueBuildingId];
+      const town = towns.id[townId];
+      const building = town.buildings.id[buildingId];
+      const queueBuilding = town.buildings.id[queueBuildingId];
       const cost = baseBuildings[buildingId].getCost(building.queuedLevel);
       const buildTimeMs = baseBuildings[buildingId].getBuildTime(building.queuedLevel, queueBuilding.queuedLevel) * 1000;
 
@@ -107,8 +107,8 @@ export const townSlice = createSlice({
         },
       }: PayloadAction<StartRecruitSomething>,
     ) => {
-      const town = towns.byId[townId];
-      const queueBuilding = town.buildings.byId[queueBuildingId];
+      const town = towns.id[townId];
+      const queueBuilding = town.buildings.id[queueBuildingId];
       const { cost } = baseUnits[unitId];
       const recruitTimeMs = baseUnits[unitId].getRecruitTime(queueBuilding.level) * 1000;
 
@@ -143,7 +143,7 @@ export const townSlice = createSlice({
       // console.log("Processed tick in town slice!");
       // console.log(payload);
 
-      Object.values(towns.byId).forEach((town) => {
+      Object.values(towns.id).forEach((town) => {
         const resToAdd = multiplyResources(town.rps, payload.difference / 1000);
         town.resources = addPartialResources(town.resources, [resToAdd]);
 
@@ -159,7 +159,7 @@ export const townSlice = createSlice({
                 buildingQueue?.splice(index, 1);
 
                 // Update resource generation if the constructed building was a resource generation building
-                const building = town.buildings.byId[queueItem.building];
+                const building = town.buildings.id[queueItem.building];
                 const buildingData = baseBuildings[queueItem.building];
                 if (buildingData instanceof ResourceBuilding) {
                   const newResourcesPerSecond = buildingData.getResourceGeneration(building.level + 1);
@@ -167,7 +167,7 @@ export const townSlice = createSlice({
 
                   // ? rewrite IT MIGHT WORK AHHHHHHHHH
                   buildingData.creates.forEach((id) => {
-                    const res = town.rps.byId[id];
+                    const res = town.rps.id[id];
                     if (res !== undefined) {
                       res.amount += newResourcesPerSecond - oldResourcesPerSecond;
                     }
@@ -189,19 +189,19 @@ export const townSlice = createSlice({
 
               const timeNextUnit = queueItem.startTime + (queueItem.recruitTimeMs * (queueItem.recruited + 1));
               if (Date.now() > timeNextUnit) {
-                const unit = town.units.byId[queueItem.unit];
+                const unit = town.units.id[queueItem.unit];
 
                 if (unit !== undefined) {
                   unit.total += 1;
                   unit.town += 1;
                 } else {
                   // ? should work
-                  town.units.byId[queueItem.unit] = {
+                  town.units.id[queueItem.unit] = {
                     id: queueItem.unit,
                     total: 1,
                     town: 1,
                   };
-                  town.units.allIds.push(queueItem.unit);
+                  town.units.all.push(queueItem.unit);
                 }
                 queueItem.recruited += 1;
                 if (queueItem.recruited === queueItem.amount) {

@@ -43,7 +43,7 @@ export const Headquarters = (): JSX.Element => {
     const buildings = useSelector((state: RootState) => selectBuildings(state, townId));
     const resources = useSelector((state: RootState) => selectResources(state, townId));
     const rps = useSelector((state: RootState) => selectRps(state, townId));
-    const { level, queuedLevel } = buildings.byId[buildingId];
+    const { level, queuedLevel } = buildings.id[buildingId];
     const buildingData = baseBuildings[buildingId];
 
     const row = [

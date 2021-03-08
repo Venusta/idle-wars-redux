@@ -48,7 +48,7 @@ export const BuildingResourceDisplay = ({ buildingId, townId }: Props): JSX.Elem
   };
   return (
     <>
-      {multipliedCost.allIds.map((id) => <SingleBuildingResource key={id} amount={multipliedCost.byId[id]?.amount ?? 0} resourceId={id} townId={townId} />)}
+      {multipliedCost.all.map((id) => <SingleBuildingResource key={id} amount={multipliedCost.id[id]?.amount ?? 0} resourceId={id} townId={townId} />)}
       <SingleBuildingRequirements data={pop} imgId="timber" />
       <SingleBuildingRequirements data={time} imgId="timber" />
     </>

@@ -15,7 +15,7 @@ export const selectUnlockedUnits = (state: RootState, townId: string, buildingId
   if (buildingData instanceof UnitProductionBuilding) {
     const { creates } = buildingData;
     return creates.reduce((prev: UnitId[], id) => {
-      if ((state.towns.byId[townId].unlocked.byId[id]?.level ?? 0) > 0) {
+      if ((state.towns.id[townId].unlocked.id[id]?.level ?? 0) > 0) {
         return [...prev, id];
       }
       return prev;

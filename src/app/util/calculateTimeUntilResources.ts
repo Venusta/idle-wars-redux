@@ -1,10 +1,10 @@
 import { assertZeroAmount } from "./assertZeroAmount";
 import { BuildingCost, ResourcesNormalised } from "../../types/townStateTypes";
 
-export const calculateTimeUntilResources = (currentResources: ResourcesNormalised, resourcesPerSecond: ResourcesNormalised, cost: BuildingCost): number => cost.resources.allIds.reduce((timeUntil, resourceId) => {
-  const current = assertZeroAmount(currentResources.byId[resourceId]);
-  const perSecond = assertZeroAmount(resourcesPerSecond.byId[resourceId]);
-  const resource = cost.resources.byId[resourceId];
+export const calculateTimeUntilResources = (currentResources: ResourcesNormalised, resourcesPerSecond: ResourcesNormalised, cost: BuildingCost): number => cost.resources.all.reduce((timeUntil, resourceId) => {
+  const current = assertZeroAmount(currentResources.id[resourceId]);
+  const perSecond = assertZeroAmount(resourcesPerSecond.id[resourceId]);
+  const resource = cost.resources.id[resourceId];
   if (!resource) {
     return 0;
   }

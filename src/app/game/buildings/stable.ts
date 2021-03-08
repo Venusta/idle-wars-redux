@@ -19,5 +19,6 @@ export const stable = new UnitProductionBuilding({
     UnitId.Scout,
     UnitId.LightCavalry,
     UnitId.HeavyCavalry,
+    UnitId.MountedArcher,
   ],
 });

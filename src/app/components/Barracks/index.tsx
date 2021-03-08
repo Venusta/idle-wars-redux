@@ -53,15 +53,15 @@ const RecruitAmount = ({ unitId }: { unitId: UnitId }) => {
       const [id, amountOfUnits] = data ?? [unitId, 0];
       const unitResourceCost = baseUnits[id].cost.resources;
 
-      const minUnitArray = unitResourceCost.allIds.map((unitCostResId) => {
-        const unitCostResAmount = unitResourceCost.byId[unitCostResId]?.amount ?? 0;
+      const minUnitArray = unitResourceCost.all.map((unitCostResId) => {
+        const unitCostResAmount = unitResourceCost.id[unitCostResId]?.amount ?? 0;
 
         const multiplied = unitCostResAmount * amountOfUnits;
         remainder.set(unitCostResId, ((remainder.get(unitCostResId) ?? 0) - multiplied));
         // console.log(remainder);
 
         // check we have enough in the town
-        const spareResAmount = (townResources.byId[unitCostResId]?.amount ?? 0) + (remainder.get(unitCostResId) ?? 0);
+        const spareResAmount = (townResources.id[unitCostResId]?.amount ?? 0) + (remainder.get(unitCostResId) ?? 0);
         // console.log(spareResAmount);
 
         if (spareResAmount > 0) {
@@ -133,7 +133,7 @@ const RecruitColumnCell = ({ unitId }: { unitId: UnitId }) => (
     <RecruitAmount unitId={unitId} />
   </div>
 );
-  // todo own file
+// todo own file
 const UnitRow = ({ unitId }: UnitRowProps) => (
   <>
     <UnitColumnCell unitId={unitId} />

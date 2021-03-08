@@ -4,14 +4,14 @@ import { ResourcesNormalised } from "../../types/townStateTypes";
 
 export const addPartialResources = (state: ResourcesNormalised, toAdd: ResourcesNormalised[]): ResourcesNormalised => produce(state, (draftState) => {
   toAdd.forEach((resources) => {
-    resources.allIds.forEach((id) => {
-      const amount = resources.byId[id]?.amount ?? 0;
-      const draftResource = draftState.byId[id];
+    resources.all.forEach((id) => {
+      const amount = resources.id[id]?.amount ?? 0;
+      const draftResource = draftState.id[id];
       if (draftResource) {
         draftResource.amount += amount;
       } else {
-        draftState.allIds.push(id);
-        draftState.byId[id] = {
+        draftState.all.push(id);
+        draftState.id[id] = {
           id,
           amount,
         };
@@ -22,25 +22,25 @@ export const addPartialResources = (state: ResourcesNormalised, toAdd: Resources
 
 export const subResources = (townResources: ResourcesNormalised, resourcesToSub: ResourcesNormalised): ResourcesNormalised => {
   // not sure if this is the correct way round
-  const test = townResources.allIds.every((id) => resourcesToSub.allIds.includes(id));
+  const test = townResources.all.every((id) => resourcesToSub.all.includes(id));
   if (!test) {
     console.log("We don't have every resource type!!!");
     return townResources;
   }
 
   return produce(townResources, (draftState) => {
-    townResources.allIds.forEach((id) => {
-      const resource = draftState.byId[id];
+    townResources.all.forEach((id) => {
+      const resource = draftState.id[id];
       if (resource) {
-        resource.amount -= resourcesToSub.byId[id]?.amount ?? 0;
+        resource.amount -= resourcesToSub.id[id]?.amount ?? 0;
       }
     });
   });
 };
 
 export const multiplyResources = (resources: ResourcesNormalised, multiplier: number): ResourcesNormalised => produce(resources, (draftState) => {
-  resources.allIds.forEach((id) => {
-    const draftResource = draftState.byId[id];
+  resources.all.forEach((id) => {
+    const draftResource = draftState.id[id];
     if (draftResource) {
       draftResource.amount *= multiplier;
     }

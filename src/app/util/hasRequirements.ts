@@ -1,3 +1,4 @@
+/* eslint-disable arrow-body-style */
 import { BuildingCost, ResourcesNormalised } from "../../types/townStateTypes";
 
 export const hasPopulation = (maxPop: number, currentPop: number, popCost: number): boolean => {
@@ -8,9 +9,9 @@ export const hasPopulation = (maxPop: number, currentPop: number, popCost: numbe
 };
 
 export const hasResources = (resources: ResourcesNormalised, resourceCost: ResourcesNormalised): boolean => {
-  const y = resourceCost.allIds.reduce((prev, id) => {
-    const storageResource = resources.byId[id];
-    const costResource = resourceCost.byId[id];
+  return resourceCost.all.reduce((prev: boolean, id) => {
+    const storageResource = resources.id[id];
+    const costResource = resourceCost.id[id];
 
     if (storageResource && costResource) {
       if (storageResource.amount < costResource.amount) {
@@ -19,13 +20,10 @@ export const hasResources = (resources: ResourcesNormalised, resourceCost: Resou
     }
     return prev;
   }, true);
-  return y;
 };
 
 export const hasRequirements = (maxPop: number, currentPop: number, resources: ResourcesNormalised, cost: BuildingCost): boolean => {
-  // Check available workers
   const hasPop = hasPopulation(maxPop, currentPop, cost.population);
-  // Check resources
   const hasRes = hasResources(resources, cost.resources);
 
   return hasPop && hasRes;

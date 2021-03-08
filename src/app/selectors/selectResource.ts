@@ -9,5 +9,5 @@ import { ResourceId } from "../game/constants";
  * @param resourceId Resource id
  */
 export const selectResource = (state: RootState, townId: string, resourceId: ResourceId): number => {
-  return state.towns.byId[townId].resources.byId[resourceId]?.amount ?? 0;
+  return state.towns.id[townId].resources.id[resourceId]?.amount ?? 0;
 };

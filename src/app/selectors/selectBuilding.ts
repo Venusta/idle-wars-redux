@@ -8,4 +8,4 @@ import { BuildingId } from "../game/constants";
  * @param townId town id
  * @param buildingId building id
  */
-export const selectBuilding = (state: RootState, townId: string, buildingId: BuildingId): Building => (state.towns.byId[townId].buildings.byId[buildingId]);
+export const selectBuilding = (state: RootState, townId: string, buildingId: BuildingId): Building => (state.towns.id[townId].buildings.id[buildingId]);

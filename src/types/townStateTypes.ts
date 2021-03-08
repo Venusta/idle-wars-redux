@@ -10,8 +10,8 @@ export type Resources = {
 };
 
 export interface ResourcesNormalised {
-  byId: Partial<Resources>,
-  allIds: ResourceId[]
+  id: Partial<Resources>,
+  all: ResourceId[]
 }
 
 interface Unit {
@@ -25,8 +25,8 @@ type Units = {
 };
 
 export interface UnitsNormalised {
-  byId: Partial<Units>,
-  allIds: UnitId[]
+  id: Partial<Units>,
+  all: UnitId[]
 }
 
 interface Research {
@@ -39,8 +39,8 @@ type Researchs = {
 };
 
 export interface ResearchNormalised {
-  byId: Partial<Researchs>,
-  allIds: UnitId[]
+  id: Partial<Researchs>,
+  all: UnitId[]
 }
 
 interface Building {
@@ -54,8 +54,8 @@ type Buildings = {
 };
 
 export interface BuildingsNormalised {
-  byId: Buildings,
-  allIds: BuildingId[]
+  id: Buildings,
+  all: BuildingId[]
 }
 
 export interface BuildingQueueItem {

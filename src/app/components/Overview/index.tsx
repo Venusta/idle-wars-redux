@@ -11,7 +11,7 @@ export const Overview = (): JSX.Element => {
 
   const Resources = ({ resources }: { resources: ResourcesNormalised }): JSX.Element => (
     <div>
-      {Object.values(resources.byId).map((resource) => {
+      {Object.values(resources.id).map((resource) => {
         if (resource !== undefined) {
           return (
             <div>{`${resource.id}: ${resource.amount}`}</div>
@@ -25,7 +25,7 @@ export const Overview = (): JSX.Element => {
   return (
     <div className={Style.container}>
       {
-        Object.values(towns.byId).map(({ id, resources }) => (
+        Object.values(towns.id).map(({ id, resources }) => (
           <div key={id}>
             {`Town ${id}`}
             <Resources resources={resources} />
