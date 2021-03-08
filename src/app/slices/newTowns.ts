@@ -3,7 +3,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { baseBuildings } from "../game/buildings";
 import { BuildingId, ResourceId, UnitId } from "../game/constants";
-import { ResourceBuilding } from "../game/model/resourceBuilding";
+import { ResourceBuilding } from "../game/model/buildings/resourceBuilding";
 import { baseUnits } from "../game/units";
 import { hasRequirements } from "../util/hasRequirements";
 import { miscSlice } from "./misc";

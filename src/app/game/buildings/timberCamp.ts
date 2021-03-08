@@ -1,5 +1,5 @@
 import { BuildingId, ResourceId } from "../constants";
-import { ResourceBuilding } from "../model/resourceBuilding";
+import { ResourceBuilding } from "../model/buildings/resourceBuilding";
 
 export const timberCamp = new ResourceBuilding({
   id: BuildingId.TimberCamp,

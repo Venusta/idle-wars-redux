@@ -1,9 +1,9 @@
 /* eslint-disable arrow-body-style */
-import { BuildingProps, BuildingRequirements } from "../../../types/types";
-import { BuildingCost } from "../../../types/townStateTypes";
-import { multiplyResources } from "../../util";
-import { tupleToNormalisedResources } from "../../util/tupleToNormalisedResources";
-import { BuildingId, WorldSpeed } from "../constants";
+import { BuildingProps, BuildingRequirements } from "../../../../types/types";
+import { BuildingCost } from "../../../../types/townStateTypes";
+import { multiplyResources } from "../../../util";
+import { tupleToNormalisedResources } from "../../../util/tupleToNormalisedResources";
+import { BuildingId, WorldSpeed } from "../../constants";
 
 export class Building {
   id: BuildingId;

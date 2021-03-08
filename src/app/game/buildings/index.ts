@@ -1,10 +1,10 @@
 import { BuildingId } from "../constants";
-import { FarmBuilding } from "../model/farmBuilding";
-import { ProductionBuilding } from "../model/productionBuilding";
-import { ResourceBuilding } from "../model/resourceBuilding";
-import { StorageBuilding } from "../model/storageBuilding";
-import { UnitProductionBuilding } from "../model/unitProductionBuilding";
-import { ResearchBuilding } from "../model/researchBuilding";
+import { FarmBuilding } from "../model/buildings/farmBuilding";
+import { ProductionBuilding } from "../model/buildings/productionBuilding";
+import { ResourceBuilding } from "../model/buildings/resourceBuilding";
+import { StorageBuilding } from "../model/buildings/storageBuilding";
+import { UnitProductionBuilding } from "../model/buildings/unitProductionBuilding";
+import { ResearchBuilding } from "../model/buildings/researchBuilding";
 import { timberCamp } from "./timberCamp";
 import { clayPit } from "./clayPit";
 import { ironMine } from "./ironMine";

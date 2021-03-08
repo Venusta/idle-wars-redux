@@ -1,6 +1,6 @@
 import { Building } from "./building";
-import { ResearchBuildingProps } from "../../../types/types";
-import { UnitId } from "../constants";
+import { ResearchBuildingProps } from "../../../../types/types";
+import { UnitId } from "../../constants";
 
 export class ResearchBuilding extends Building {
   researches: Array<UnitId>;

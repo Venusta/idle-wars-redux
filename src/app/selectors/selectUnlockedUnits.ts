@@ -1,7 +1,7 @@
 /* eslint-disable arrow-body-style */
 import { baseBuildings } from "../game/buildings";
 import { BuildingId, UnitId } from "../game/constants";
-import { UnitProductionBuilding } from "../game/model/unitProductionBuilding";
+import { UnitProductionBuilding } from "../game/model/buildings/unitProductionBuilding";
 import { RootState } from "../store";
 
 /**

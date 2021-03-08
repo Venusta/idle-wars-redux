@@ -109,6 +109,9 @@ export interface ProductionBuildingProps extends BuildingProps {
 export interface UnitProductionBuildingProps extends BuildingProps {
   creates: Array<UnitId>;
 }
+export interface AcademyBuildingProps extends BuildingProps {
+  creates: Array<UnitId>;
+}
 
 export interface ResearchBuildingProps extends BuildingProps {
   researches: Array<UnitId>;

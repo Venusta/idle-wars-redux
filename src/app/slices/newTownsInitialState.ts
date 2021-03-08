@@ -1,7 +1,7 @@
 /* eslint-disable quote-props */
 import { ResourceId, UnitId, BuildingId } from "../game/constants";
 import {
-  ResourcesNormalised, ResearchNormalised, BuildingsNormalised, UnitsNormalised, Queues, Building,
+  ResourcesNormalised, ResearchNormalised, BuildingsNormalised, UnitsNormalised, Queues,
 } from "../../types/townStateTypes";
 
 // interface Normalised<ById, AllIds> {
@@ -96,6 +96,7 @@ const unlocked: ResearchNormalised = { // units / buildings maybe
   ],
 };
 
+// I think this can be gen at runtime
 const buildings: BuildingsNormalised = {
   id: {
     [BuildingId.TimberCamp]: {

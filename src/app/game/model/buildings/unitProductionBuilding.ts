@@ -1,6 +1,6 @@
 import { Building } from "./building";
-import { UnitId } from "../constants";
-import { UnitProductionBuildingProps } from "../../../types/types";
+import { UnitId } from "../../constants";
+import { UnitProductionBuildingProps } from "../../../../types/types";
 
 export class UnitProductionBuilding extends Building {
   creates: Array<UnitId>;

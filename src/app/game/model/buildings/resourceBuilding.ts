@@ -1,6 +1,6 @@
 import { Building } from "./building";
-import { BuildingProps } from "../../../types/types";
-import { ResourceId, WorldSpeed } from "../constants";
+import { BuildingProps } from "../../../../types/types";
+import { ResourceId, WorldSpeed } from "../../constants";
 
 interface Props extends BuildingProps {
   creates: ResourceId[]
