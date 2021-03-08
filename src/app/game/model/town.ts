@@ -90,6 +90,8 @@ export class Town {
       [BuildingId.Headquarters]: defaultBuilding(BuildingId.Headquarters, 1),
       [BuildingId.Smithy]: defaultBuilding(BuildingId.Smithy, 1),
       [BuildingId.Workshop]: defaultBuilding(BuildingId.Workshop, 1),
+      [BuildingId.Statue]: defaultBuilding(BuildingId.Statue, 0),
+      [BuildingId.Academy]: defaultBuilding(BuildingId.Academy, 0),
     };
   }
 

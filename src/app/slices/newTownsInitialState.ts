@@ -1,7 +1,7 @@
 /* eslint-disable quote-props */
 import { ResourceId, UnitId, BuildingId } from "../game/constants";
 import {
-  ResourcesNormalised, ResearchNormalised, BuildingsNormalised, UnitsNormalised, Queues,
+  ResourcesNormalised, ResearchNormalised, BuildingsNormalised, UnitsNormalised, Queues, Building,
 } from "../../types/townStateTypes";
 
 // interface Normalised<ById, AllIds> {
@@ -148,18 +148,30 @@ const buildings: BuildingsNormalised = {
       level: 0,
       queuedLevel: 0,
     },
+    [BuildingId.Statue]: {
+      id: BuildingId.Statue,
+      level: 0,
+      queuedLevel: 0,
+    },
+    [BuildingId.Academy]: {
+      id: BuildingId.Academy,
+      level: 0,
+      queuedLevel: 0,
+    },
   },
   all: [
-    BuildingId.TimberCamp,
-    BuildingId.ClayPit,
-    BuildingId.IronMine,
     BuildingId.Headquarters,
     BuildingId.Barracks,
     BuildingId.Stable,
+    BuildingId.Workshop,
+    BuildingId.Smithy,
+    BuildingId.Statue,
+    BuildingId.TimberCamp,
+    BuildingId.ClayPit,
+    BuildingId.IronMine,
     BuildingId.Farm,
     BuildingId.Warehouse,
-    BuildingId.Smithy,
-    BuildingId.Workshop,
+    BuildingId.Academy,
   ],
 };
 

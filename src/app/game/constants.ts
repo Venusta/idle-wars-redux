@@ -12,6 +12,8 @@ export enum BuildingId {
   Farm = "farm",
   Smithy = "smithy",
   Workshop = "workshop",
+  Statue = "statue",
+  Academy = "academy",
 }
 
 export enum UnitId {

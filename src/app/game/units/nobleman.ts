@@ -1,4 +1,4 @@
-import { ResourceId, UnitId } from "../constants";
+import { BuildingId, ResourceId, UnitId } from "../constants";
 import { Unit } from "../model/unit";
 
 export const nobleman = new Unit({
@@ -22,7 +22,7 @@ export const nobleman = new Unit({
   carries: 0,
   requirements: {
     buildings: {
-      // [BuildingId.Academy]: 1,
+      [BuildingId.Academy]: 1,
     },
     research: false,
   },

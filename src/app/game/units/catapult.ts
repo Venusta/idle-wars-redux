@@ -29,7 +29,7 @@ export const catapult = new Unit({
   },
   requirements: {
     buildings: {
-    // [BuildingId.Workshop]: 2,
+      [BuildingId.Workshop]: 2,
       [BuildingId.Smithy]: 12,
     },
     research: true,

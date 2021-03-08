@@ -1,4 +1,4 @@
-import { ResourceId, UnitId } from "../constants";
+import { BuildingId, ResourceId, UnitId } from "../constants";
 import { Unit } from "../model/unit";
 
 export const paladin = new Unit({
@@ -23,7 +23,7 @@ export const paladin = new Unit({
 
   requirements: {
     buildings: {
-      // [BuildingId.Statue]: 1,
+      [BuildingId.Statue]: 1,
     },
     research: false,
   },

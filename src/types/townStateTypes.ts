@@ -43,15 +43,13 @@ export interface ResearchNormalised {
   all: UnitId[]
 }
 
-interface Building {
+export interface Building {
   id: BuildingId;
   level: number;
   queuedLevel: number;
 }
 
-type Buildings = {
-  [id in BuildingId]: Building
-};
+type Buildings = Record<BuildingId, Building>;
 
 export interface BuildingsNormalised {
   id: Buildings,

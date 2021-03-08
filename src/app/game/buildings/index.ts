@@ -15,6 +15,8 @@ import { warehouse } from "./warehouse";
 import { farm } from "./farm";
 import { smithy } from "./smithy";
 import { workshop } from "./workshop";
+import { statue } from "./statue";
+import { academy } from "./academy";
 
 interface BaseBuildings { // TODO FIX useless :(
   timbercamp: ResourceBuilding;
@@ -29,7 +31,7 @@ interface BaseBuildings { // TODO FIX useless :(
   workshop: UnitProductionBuilding;
 }
 
-export const baseBuildings: BaseBuildings = {
+export const baseBuildings = {
   [BuildingId.TimberCamp]: timberCamp,
   [BuildingId.ClayPit]: clayPit,
   [BuildingId.IronMine]: ironMine,
@@ -40,4 +42,6 @@ export const baseBuildings: BaseBuildings = {
   [BuildingId.Farm]: farm,
   [BuildingId.Smithy]: smithy,
   [BuildingId.Workshop]: workshop,
+  [BuildingId.Statue]: statue,
+  [BuildingId.Academy]: academy,
 };
