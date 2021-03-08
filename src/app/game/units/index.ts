@@ -11,6 +11,7 @@ import { catapult } from "./catapult";
 import { Unit } from "../model/unit";
 import { paladin } from "./paladin";
 import { nobleman } from "./nobleman";
+import { mountedarcher } from "./mountedArcher";
 
 type BaseUnits = {
   [id in UnitId]: Unit;
@@ -28,4 +29,5 @@ export const baseUnits: BaseUnits = {
   [UnitId.Catapult]: catapult,
   [UnitId.Paladin]: paladin,
   [UnitId.Nobleman]: nobleman,
+  [UnitId.MountedArcher]: mountedarcher,
 };

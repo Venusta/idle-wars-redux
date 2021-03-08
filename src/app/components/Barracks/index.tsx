@@ -45,6 +45,7 @@ const RecruitAmount = ({ unitId }: { unitId: UnitId }) => {
     type ResMap = Map<ResourceId, number>;
     const remainder: ResMap = new Map([]);
 
+    // ?? todo fix this fucking method for the 9th time zzzzzzzzzzzzz
     // eslint-disable-next-line @typescript-eslint/no-shadow
     const howManyWeCanMake: UnitsData = unlockedUnits.reduce((prev: UnitsData, unitId) => {
       const data = formData[unitId];
@@ -87,8 +88,8 @@ const RecruitAmount = ({ unitId }: { unitId: UnitId }) => {
   // console.log(x);
 
   return (
-    <div className={Style.RecruitLabel}>{`(${(x[unitId]?.amount ?? 0)})`}</div>
-    // <div className={Style.RecruitLabel}>Fix me V2</div>
+    // <div className={Style.RecruitLabel}>{`(${(x[unitId]?.amount ?? 0)})`}</div>
+    <div className={Style.RecruitLabel}>Fix me V3</div>
   );
 };
 

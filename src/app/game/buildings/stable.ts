@@ -4,7 +4,7 @@ import { UnitProductionBuilding } from "../model/unitProductionBuilding";
 export const stable = new UnitProductionBuilding({
   id: BuildingId.Stable,
   name: "Stable",
-  description: "",
+  description: "In the stables you can recruit cavalry. The higher its level the faster the recruitment of the troops will be finished.",
   cost: {
     resources: [
       [ResourceId.Timber, 270],
@@ -18,5 +18,6 @@ export const stable = new UnitProductionBuilding({
   creates: [
     UnitId.Scout,
     UnitId.LightCavalry,
+    UnitId.HeavyCavalry,
   ],
 });

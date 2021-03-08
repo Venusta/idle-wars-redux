@@ -4,7 +4,7 @@ import { ResourceBuilding } from "../model/resourceBuilding";
 export const timberCamp = new ResourceBuilding({
   id: BuildingId.TimberCamp,
   name: "Timber Camp",
-  description: "",
+  description: "Outside of your village in the dark forests your lumberjacks cut massive trees to produce wood in the timber camp, which is needed for buildings and weapons. The higher its level the more wood is produced.",
   cost: {
     resources: [
       [ResourceId.Timber, 50],

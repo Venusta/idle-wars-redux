@@ -26,6 +26,7 @@ export enum UnitId {
   Catapult = "catapult",
   Paladin = "paladin",
   Nobleman = "nobleman",
+  MountedArcher = "mountedarcher",
 }
 
 export enum ResourceId {

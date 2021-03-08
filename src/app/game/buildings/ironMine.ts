@@ -4,7 +4,7 @@ import { ResourceBuilding } from "../model/resourceBuilding";
 export const ironMine = new ResourceBuilding({
   id: BuildingId.IronMine,
   name: "Iron Mine",
-  description: "",
+  description: "In the iron mine your workers dig the war-crucial iron. The higher its level the more iron is produced.",
   cost: {
     resources: [
       [ResourceId.Timber, 75],

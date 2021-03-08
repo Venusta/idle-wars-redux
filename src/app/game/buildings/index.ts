@@ -16,7 +16,7 @@ import { farm } from "./farm";
 import { smithy } from "./smithy";
 import { workshop } from "./workshop";
 
-interface BaseBuildings {
+interface BaseBuildings { // TODO FIX useless :(
   timbercamp: ResourceBuilding;
   claypit: ResourceBuilding;
   ironmine: ResourceBuilding;
@@ -29,7 +29,11 @@ interface BaseBuildings {
   workshop: UnitProductionBuilding;
 }
 
-export const baseBuildings: BaseBuildings = {
+type BaseBuildings2<TheTypeOfTheBuilding> = { // TODO with this
+  [id in BuildingId]: TheTypeOfTheBuilding;
+};
+
+export const baseBuildings = {
   [BuildingId.TimberCamp]: timberCamp,
   [BuildingId.ClayPit]: clayPit,
   [BuildingId.IronMine]: ironMine,
