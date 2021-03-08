@@ -1,11 +1,11 @@
 import { ResearchCost, UnitCostTuple } from "../../../types/types";
 import { UnitCost } from "../../../types/townStateTypes";
 import { tupleToNormalisedResources } from "../../util/tupleToNormalisedResources";
-import { BuildingId, UnitId, WorldSpeed } from "../constants";
+import { BuildingIdType, UnitId, WorldSpeed } from "../constants";
 
 type UnitRequirements = {
   buildings: {
-    [id in BuildingId]?: number;
+    [id in BuildingIdType]?: number;
   },
   research: boolean;
 };

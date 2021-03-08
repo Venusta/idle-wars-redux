@@ -1,12 +1,11 @@
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import { useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
 import {
   selectBuildingQueue, selectBuildings, selectResources, selectRps,
 } from "../../selectors";
 import { baseBuildings } from "../../game/buildings";
-import { BuildingId, HeadquartersQueueSlots } from "../../game/constants";
+import { BuildingId, BuildingIdType, HeadquartersQueueSlots } from "../../game/constants";
 import { RootState, useAppDispatch } from "../../store";
 import { BuildingResourceDisplay } from "./BuildingResourceDisplay";
 import { ConstructButton, InactiveButton } from "../Buttons";
@@ -15,6 +14,7 @@ import { startBuildSomething } from "../../slices/towns";
 import { BuildingInfo } from "./BuildingInfo";
 import Style from "./style.module.css";
 import { calculateTimeUntilResources } from "../../util/calculateTimeUntilResources";
+import { useMemoSelector } from "../hooks";
 
 export const Headquarters = (): JSX.Element => {
   const dispatch = useAppDispatch();
@@ -22,11 +22,11 @@ export const Headquarters = (): JSX.Element => {
   const hqId = BuildingId.Headquarters;
 
   // eslint-disable-next-line @typescript-eslint/no-shadow
-  const startConstruction = (townId: string, buildingId: BuildingId) => {
+  const startConstruction = (townId: string, buildingId: BuildingIdType) => {
     dispatch(startBuildSomething({ townId, buildingId, queueBuildingId: hqId }));
   };
 
-  const BuildingConstruct = ({ buildingId, queuedLevel }: { buildingId: BuildingId, queuedLevel: number }) => (
+  const BuildingConstruct = ({ buildingId, queuedLevel }: { buildingId: BuildingIdType, queuedLevel: number }) => (
     <div className={Style["building-grid-item"]}>
       <ConstructButton text={`Level ${queuedLevel}`} handleClick={() => startConstruction(townId, buildingId)} />
     </div>
@@ -38,11 +38,11 @@ export const Headquarters = (): JSX.Element => {
     </div>
   );
 
-  const BuildingRow = ({ buildingId }: { buildingId: BuildingId }) => {
-    const queue = useSelector((state: RootState) => selectBuildingQueue(state, townId, BuildingId.Headquarters));
-    const buildings = useSelector((state: RootState) => selectBuildings(state, townId));
-    const resources = useSelector((state: RootState) => selectResources(state, townId));
-    const rps = useSelector((state: RootState) => selectRps(state, townId));
+  const BuildingRow = ({ buildingId }: { buildingId: BuildingIdType }) => {
+    const queue = useMemoSelector((state) => selectBuildingQueue(state, townId, BuildingId.Headquarters));
+    const buildings = useMemoSelector((state) => selectBuildings(state, townId));
+    const resources = useMemoSelector((state) => selectResources(state, townId));
+    const rps = useMemoSelector((state) => selectRps(state, townId));
     const { level, queuedLevel } = buildings.id[buildingId];
     const buildingData = baseBuildings[buildingId];
 

@@ -1,4 +1,4 @@
-import { ResourceId, UnitId, BuildingId } from "../app/game/constants";
+import { ResourceId, UnitId, BuildingIdType } from "../app/game/constants";
 
 interface Resource {
   id: ResourceId;
@@ -38,20 +38,20 @@ export interface ResearchNormalised {
 }
 
 export interface Building {
-  id: BuildingId;
+  id: BuildingIdType;
   level: number;
   queuedLevel: number;
 }
 
-type Buildings = Record<BuildingId, Building>;
+type Buildings = Record<BuildingIdType, Building>;
 
 export interface BuildingsNormalised {
   id: Buildings,
-  all: BuildingId[]
+  all: BuildingIdType[]
 }
 
 export interface BuildingQueueItem {
-  building: BuildingId;
+  building: BuildingIdType;
   duration: number;
   completionTime: number;
   level: number;
@@ -66,8 +66,8 @@ export interface UnitQueueItem {
 }
 
 export type Queues = {
-  buildings: { [id in BuildingId]?: BuildingQueueItem[]; }
-  units: { [id in BuildingId]?: UnitQueueItem[]; }
+  buildings: { [id in BuildingIdType]?: BuildingQueueItem[]; }
+  units: { [id in BuildingIdType]?: UnitQueueItem[]; }
 };
 
 export interface BuildingCost {

@@ -2,11 +2,11 @@
 import { BuildingCost } from "../../../../types/townStateTypes";
 import { multiplyResources } from "../../../util";
 import { tupleToNormalisedResources } from "../../../util/tupleToNormalisedResources";
-import { BuildingId, WorldSpeed } from "../../constants";
+import { BuildingIdType, WorldSpeed } from "../../constants";
 import { BuildingProps, BuildingRequirements } from "./types";
 
 export class Building {
-  id: BuildingId;
+  id: BuildingIdType;
   name: string;
   description: string;
   private cost: BuildingCost;

@@ -1,5 +1,5 @@
 import { RootState } from "../store";
-import { BuildingId } from "../game/constants";
+import { BuildingIdType } from "../game/constants";
 import { UnitQueueItem } from "../../types/townStateTypes";
 
 /**
@@ -9,5 +9,5 @@ import { UnitQueueItem } from "../../types/townStateTypes";
  * @param buildingId: BuildingQueueId
  */
 export const selectUnitQueue = (
-  state: RootState, townId: string, buildingId: BuildingId,
+  state: RootState, townId: string, buildingId: BuildingIdType,
 ): UnitQueueItem[] => (state.towns.id[townId].queues.units[buildingId]) ?? []; // todo hacky return something?

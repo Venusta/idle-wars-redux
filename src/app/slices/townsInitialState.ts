@@ -33,15 +33,15 @@ const rps: ResourcesNormalised = {
   id: {
     [ResourceId.Timber]: {
       id: ResourceId.Timber,
-      amount: 0,
+      amount: 5,
     },
     [ResourceId.Clay]: {
       id: ResourceId.Clay,
-      amount: 0,
+      amount: 5,
     },
     [ResourceId.Iron]: {
       id: ResourceId.Iron,
-      amount: 0,
+      amount: 5,
     },
   },
   all: [

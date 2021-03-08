@@ -1,20 +1,31 @@
 export const WorldSpeed = 50;
 export const HeadquartersQueueSlots = 5;
 
-export enum BuildingId {
-  Headquarters = "headquarters",
-  TimberCamp = "timbercamp",
-  ClayPit = "claypit",
-  IronMine = "ironmine",
-  Barracks = "barracks",
-  Stable = "stable",
-  Warehouse = "warehouse",
-  Farm = "farm",
-  Smithy = "smithy",
-  Workshop = "workshop",
-  Statue = "statue",
-  Academy = "academy",
-}
+export const UnitProductionBuildingId = {
+  Barracks: "barracks",
+  Stable: "stable",
+  Workshop: "workshop",
+} as const;
+
+export const ResourceProductionBuildingId = {
+  TimberCamp: "timbercamp",
+  ClayPit: "claypit",
+  IronMine: "ironmine",
+} as const;
+
+export const Pleb = {
+  Headquarters: "headquarters",
+  Warehouse: "warehouse",
+  Farm: "farm",
+  Smithy: "smithy",
+  Statue: "statue", // special
+  Academy: "academy", // special
+} as const;
+
+export const BuildingId = { ...UnitProductionBuildingId, ...ResourceProductionBuildingId, ...Pleb };
+export type BuildingIdType = typeof BuildingId[keyof typeof BuildingId];
+
+export type UnitProductionBuildingIdType = typeof UnitProductionBuildingId[keyof typeof UnitProductionBuildingId];
 
 export enum UnitId {
   SpearFighter = "spearfighter",

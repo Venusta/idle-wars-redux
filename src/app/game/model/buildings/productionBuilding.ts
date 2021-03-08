@@ -1,13 +1,13 @@
 import { Building } from "./building";
-import { BuildingId } from "../../constants";
+import { BuildingIdType } from "../../constants";
 import { BuildingProps } from "./types";
 
 interface Props extends BuildingProps {
-  creates: Array<BuildingId>;
+  creates: Array<BuildingIdType>;
 }
 
 export class ProductionBuilding extends Building {
-  creates: Array<BuildingId>;
+  creates: Array<BuildingIdType>;
 
   constructor({
     id, name, description, cost, maxLevel, buildTime, creates,

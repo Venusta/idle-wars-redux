@@ -1,6 +1,8 @@
 /* eslint-disable no-param-reassign */
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { UnitId } from "../game/constants";
+import {
+  BuildingId, BuildingIdType, UnitId, UnitProductionBuildingIdType,
+} from "../game/constants";
 
 interface MiscState {
   timeLastProcessed: number
@@ -27,6 +29,46 @@ const initialState: MiscState = {
     recruit: {
       [UnitId.Archer]: [UnitId.Archer, 2],
     },
+  },
+};
+
+type TestUnit = {
+  [id in UnitId]?: {
+    id: UnitId;
+    amount: number;
+  };
+};
+
+type TestBuilding = {
+  [id in UnitProductionBuildingIdType]: TestUnit
+};
+
+interface Test {
+  recruit: {
+    id: TestBuilding
+    all: UnitProductionBuildingIdType[];
+  };
+}
+
+const forms: Test = {
+  recruit: {
+    id: {
+      [BuildingId.Barracks]: {
+        [UnitId.Archer]: {
+          id: UnitId.Archer,
+          amount: 2,
+        },
+      },
+      [BuildingId.Stable]: {
+        [UnitId.HeavyCavalry]: {
+          id: UnitId.HeavyCavalry,
+          amount: 2,
+        },
+      },
+      [BuildingId.Workshop]: {
+      },
+    },
+    all: [BuildingId.Barracks, BuildingId.Stable, BuildingId.Workshop],
   },
 };
 

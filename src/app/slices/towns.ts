@@ -2,7 +2,7 @@
 /* eslint-disable no-param-reassign */
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { baseBuildings } from "../game/buildings";
-import { BuildingId, ResourceId, UnitId } from "../game/constants";
+import { BuildingIdType, ResourceId, UnitId } from "../game/constants";
 import { ResourceBuilding } from "../game/model/buildings/resourceBuilding";
 import { baseUnits } from "../game/units";
 import { hasRequirements } from "../util/hasRequirements";
@@ -26,14 +26,14 @@ interface AddResources {
 
 interface StartBuildSomething {
   townId: string;
-  buildingId: BuildingId;
-  queueBuildingId: BuildingId;
+  buildingId: BuildingIdType;
+  queueBuildingId: BuildingIdType;
 }
 
 interface StartRecruitSomething {
   townId: string;
   unitId: UnitId;
-  queueBuildingId: BuildingId;
+  queueBuildingId: BuildingIdType;
   amount: number;
 }
 
@@ -53,9 +53,11 @@ export const townSlice = createSlice({
         resource.amount += amount;
       }
     },
+
     addResources: (towns, { payload: { townId, resources } }: PayloadAction<AddResources>) => {
       towns.id[townId].resources = addPartialResources(towns.id[townId].resources, [resources]);
     },
+
     startBuildSomething: (towns, { payload: { townId, buildingId, queueBuildingId } }: PayloadAction<StartBuildSomething>) => {
       const town = towns.id[townId];
       const building = town.buildings.id[buildingId];
@@ -111,12 +113,13 @@ export const townSlice = createSlice({
       const queueBuilding = town.buildings.id[queueBuildingId];
       const { cost } = baseUnits[unitId];
       const recruitTimeMs = baseUnits[unitId].getRecruitTime(queueBuilding.level) * 1000;
+      const totalCost = { resources: multiplyResources(cost.resources, amount), population: cost.population * amount };
 
       // ✔ Check if there is enough resources + population
       // ✖ Check if any building / research requirements are met
 
-      if (hasRequirements(town.maxPopulation, town.population, town.resources, cost)) {
-        town.resources = subResources(town.resources, cost.resources);
+      if (hasRequirements(town.maxPopulation, town.population, town.resources, totalCost)) {
+        town.resources = subResources(town.resources, totalCost.resources);
 
         const unitQueue = town.queues.units[queueBuildingId];
         if (unitQueue !== undefined) {
@@ -129,7 +132,9 @@ export const townSlice = createSlice({
           town.queues.units = {
             ...town.queues.units,
             [queueBuildingId]: [
-              { unit: unitId, recruitTimeMs, amount },
+              {
+                unit: unitId, recruitTimeMs, amount, recruited: 0,
+              },
             ],
           };
         }
@@ -222,4 +227,5 @@ export const {
   addResource,
   addResources,
   startBuildSomething,
+  startRecruitSomething,
 } = townSlice.actions;

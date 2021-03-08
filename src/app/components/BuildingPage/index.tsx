@@ -1,14 +1,14 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable jsx-a11y/alt-text */
-import { useParams } from 'react-router-dom';
-import { BuildingId } from '../../game/constants';
-import { BuildingHeader } from '../BuildingHeader';
-import { Headquarters } from '../Headquarters';
-import { SidebarQueue } from '../SidebarQueue';
+import { useParams } from "react-router-dom";
+import { BuildingId, BuildingIdType } from "../../game/constants";
+import { BuildingHeader } from "../BuildingHeader";
+import { Headquarters } from "../Headquarters";
+import { SidebarQueue } from "../SidebarQueue";
 import "./style.css";
 
-export const BuildingPage = () => {
-  const { buildingId } = useParams<{ townId: string, buildingId: BuildingId }>();
+const BuildingPage = () => {
+  const { buildingId } = useParams<{ townId: string, buildingId: BuildingIdType }>();
 
   switch (buildingId) {
     case BuildingId.Headquarters:
@@ -20,20 +20,20 @@ export const BuildingPage = () => {
             <SidebarQueue />
           </div>
         </>
-      )
+      );
 
     case BuildingId.Barracks:
       return (
         <>
           <BuildingHeader />
         </>
-      )
+      );
 
     default:
       return (
         <>
           <BuildingHeader />
         </>
-      )
+      );
   }
 };

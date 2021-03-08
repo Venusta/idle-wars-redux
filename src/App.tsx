@@ -1,10 +1,8 @@
 import { useEffect } from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
 import "./App.css";
-import { useDispatch, useSelector } from "react-redux";
 import { Headquarters } from "./app/components/Headquarters";
 import { ResourceDisplay } from "./app/components/ResourceDisplay";
-import { RootState } from "./app/store";
 import { Navbar } from "./app/components/Navbar";
 import { SidebarQueue } from "./app/components/SidebarQueue";
 import { BuildingHeader } from "./app/components/BuildingHeader";
@@ -17,6 +15,8 @@ import { active } from "./app/slices/misc";
 import { gameTick } from "./app/game/gameTick";
 import { Barracks } from "./app/components/Barracks";
 import { Overview } from "./app/components/Overview";
+import { useMemoSelector } from "./app/components/hooks";
+import { useAppDispatch } from "./app/store";
 
 interface MainContainerProps {
   children?: JSX.Element | JSX.Element[];
@@ -53,8 +53,8 @@ const MainContainer = ({ children }: MainContainerProps) => (
 );
 
 function App(): JSX.Element {
-  const dispatch = useDispatch();
-  const running = useSelector((state: RootState) => state.misc.running);
+  const dispatch = useAppDispatch();
+  const running = useMemoSelector((state) => state.misc.running);
 
   useEffect(() => {
     if (running) {

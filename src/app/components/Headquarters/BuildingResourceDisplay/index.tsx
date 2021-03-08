@@ -1,19 +1,18 @@
-import { useSelector } from "react-redux";
 import { baseBuildings } from "../../../game/buildings";
-import { BuildingId, ResourceId } from "../../../game/constants";
-import { RootState } from "../../../store";
+import { BuildingId, BuildingIdType, ResourceId } from "../../../game/constants";
 import { selectBuilding, selectResource } from "../../../selectors";
 import "./style.css";
 import { ResourcesNormalised } from "../../../../types/townStateTypes";
 import { multiplyResources } from "../../../util";
+import { useMemoSelector } from "../../hooks";
 
 interface Props {
-  buildingId: BuildingId
+  buildingId: BuildingIdType
   townId: string
 }
 
 const SingleBuildingResource = ({ amount, resourceId, townId }: { amount: number, resourceId: ResourceId, townId: string }) => {
-  const resource = useSelector((state: RootState) => selectResource(state, townId, resourceId));
+  const resource = useMemoSelector((state) => selectResource(state, townId, resourceId));
   return (
     <div className="brd-group">
       <img src={`${process.env.PUBLIC_URL}/resources/${resourceId}.png`} alt="" />
@@ -23,8 +22,8 @@ const SingleBuildingResource = ({ amount, resourceId, townId }: { amount: number
 };
 
 export const BuildingResourceDisplay = ({ buildingId, townId }: Props): JSX.Element => {
-  const headquarters = useSelector((state: RootState) => selectBuilding(state, townId, BuildingId.Headquarters));
-  const queuedBuilding = useSelector((state: RootState) => selectBuilding(state, townId, buildingId));
+  const headquarters = useMemoSelector((state) => selectBuilding(state, townId, BuildingId.Headquarters));
+  const queuedBuilding = useMemoSelector((state) => selectBuilding(state, townId, buildingId));
 
   const buildingData = baseBuildings[buildingId];
   const cost = buildingData.getCost(queuedBuilding.queuedLevel);

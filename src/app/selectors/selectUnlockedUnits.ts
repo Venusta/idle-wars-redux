@@ -1,6 +1,6 @@
 /* eslint-disable arrow-body-style */
 import { baseBuildings } from "../game/buildings";
-import { BuildingId, UnitId } from "../game/constants";
+import { BuildingIdType, UnitId } from "../game/constants";
 import { UnitProductionBuilding } from "../game/model/buildings/unitProductionBuilding";
 import { RootState } from "../store";
 
@@ -10,7 +10,7 @@ import { RootState } from "../store";
  * @param townId Town id
  * @param buildingId Building id
  */
-export const selectUnlockedUnits = (state: RootState, townId: string, buildingId: BuildingId): UnitId[] => {
+export const selectUnlockedUnits = (state: RootState, townId: string, buildingId: BuildingIdType): UnitId[] => {
   const buildingData = baseBuildings[buildingId];
   if (buildingData instanceof UnitProductionBuilding) {
     const { creates } = buildingData;

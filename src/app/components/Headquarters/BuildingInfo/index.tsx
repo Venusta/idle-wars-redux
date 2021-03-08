@@ -1,9 +1,9 @@
 import { Link, useParams } from "react-router-dom";
-import { BuildingId } from "../../../game/constants";
 import { baseBuildings } from "../../../game/buildings";
+import { BuildingIdType } from "../../../game/constants";
 import "./style.css";
 
-export const BuildingInfo = ({ buildingId, level = 0 }: { buildingId: BuildingId, level: number }): JSX.Element => {
+export const BuildingInfo = ({ buildingId, level = 0 }: { buildingId: BuildingIdType, level: number }): JSX.Element => {
   const { townId } = useParams<{ townId: string }>();
 
   const { name } = baseBuildings[buildingId];

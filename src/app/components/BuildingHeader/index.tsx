@@ -1,15 +1,14 @@
 import { useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { BuildingId } from "../../game/constants";
+import { BuildingIdType } from "../../game/constants";
 import { baseBuildings } from "../../game/buildings";
-import { RootState } from "../../store";
 import { selectBuildingLevel } from "../../selectors";
 import "./style.css";
+import { useMemoSelector } from "../hooks";
 
 export const BuildingHeader = (): JSX.Element => {
-  const { townId, buildingId } = useParams<{ townId: string, buildingId: BuildingId }>();
+  const { townId, buildingId } = useParams<{ townId: string, buildingId: BuildingIdType }>();
   const { name, description } = baseBuildings[buildingId];
-  const level = useSelector((state: RootState) => selectBuildingLevel(state, townId, buildingId));
+  const level = useMemoSelector((state) => selectBuildingLevel(state, townId, buildingId));
 
   return (
     <div className="building-header-title">

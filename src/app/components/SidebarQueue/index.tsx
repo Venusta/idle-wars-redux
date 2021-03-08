@@ -1,14 +1,13 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable react/no-array-index-key */
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { RootState } from "../../store";
 import { HeadquartersQueueSlots, BuildingId } from "../../game/constants";
 import Style from "./style.module.css";
 
 import { baseBuildings } from "../../game/buildings";
 import { selectBuildingQueue } from "../../selectors";
+import { useMemoSelector } from "../hooks";
 
 const ProgressBar = (props: { completionTime: number, duration: number }) => {
   const { completionTime, duration } = props;
@@ -35,7 +34,7 @@ const ProgressBar = (props: { completionTime: number, duration: number }) => {
 
 export const SidebarQueue = (): JSX.Element => {
   const { townId } = useParams<{ townId: string }>();
-  const buildingQueue = useSelector((state: RootState) => selectBuildingQueue(state, townId, BuildingId.Headquarters));
+  const buildingQueue = useMemoSelector((state) => selectBuildingQueue(state, townId, BuildingId.Headquarters));
   const emptySlots = HeadquartersQueueSlots - buildingQueue.length;
   // TODO make this update by itself?
 

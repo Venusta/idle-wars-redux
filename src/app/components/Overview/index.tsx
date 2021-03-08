@@ -1,12 +1,10 @@
-import { useSelector } from "react-redux";
 import { ResourcesNormalised } from "../../../types/townStateTypes";
-// import { useParams } from "react-router-dom";
 import { selectTowns } from "../../selectors";
-import { RootState } from "../../store";
+import { useMemoSelector } from "../hooks";
 import Style from "./style.module.css";
 
 export const Overview = (): JSX.Element => {
-  const towns = useSelector((state: RootState) => selectTowns(state));
+  const towns = useMemoSelector((state) => selectTowns(state));
   // Object.values(towns.byId)
 
   const Resources = ({ resources }: { resources: ResourcesNormalised }): JSX.Element => (

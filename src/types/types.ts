@@ -1,7 +1,7 @@
-import { BuildingId, UnitId, ResourceId } from "../app/game/constants";
+import { UnitId, ResourceId, BuildingIdType } from "../app/game/constants";
 
 export interface Building {
-  id: BuildingId;
+  id: BuildingIdType;
   level: number;
   queuedLevel: number;
 }

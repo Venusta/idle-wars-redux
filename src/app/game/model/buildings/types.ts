@@ -1,8 +1,8 @@
 import { ResourcesTuple } from "../../../../types/types";
-import { BuildingId } from "../../constants";
+import { BuildingIdType } from "../../constants";
 
 export type BuildingRequirements = {
-  [id in BuildingId]?: number
+  [id in BuildingIdType]?: number
 };
 
 interface BuildingCostTuple {
@@ -11,7 +11,7 @@ interface BuildingCostTuple {
 }
 
 export interface BuildingProps {
-  id: BuildingId;
+  id: BuildingIdType;
   name: string;
   description: string;
   cost: BuildingCostTuple;

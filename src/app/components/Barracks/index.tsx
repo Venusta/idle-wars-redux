@@ -1,6 +1,7 @@
 /* eslint-disable react/no-array-index-key */
 import { useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { batch } from "react-redux";
+import { AnyAction, Dispatch } from "@reduxjs/toolkit";
 import { BuildingId, ResourceId, UnitId } from "../../game/constants";
 import { baseBuildings } from "../../game/buildings";
 import { baseUnits } from "../../game/units";
@@ -10,8 +11,12 @@ import {
   selectResources, selectRecruitForm, selectRecruitForms, selectUnlockedUnits,
 } from "../../selectors";
 import { setUnitFormData, RecruitForm } from "../../slices/misc";
+import { startRecruitSomething } from "../../slices/towns";
 import { ResourcesNormalised } from "../../../types/townStateTypes";
 import Style from "./style.module.css";
+import { ConstructButton } from "../Buttons";
+import { selectUnitAmounts } from "../../selectors/selectUnitAmounts";
+import { useMemoSelector } from "../hooks";
 
 interface UnitRowProps {
   unitId: UnitId
@@ -29,9 +34,9 @@ const UnitColumnCell = ({ unitId }: UnitColumnProps) => (
 );
 const RecruitAmount = ({ unitId }: { unitId: UnitId }) => {
   const { townId } = useParams<{ townId: string }>();
-  const resources = useSelector((state: RootState) => selectResources(state, townId));
-  const allFormData = useSelector((state: RootState) => selectRecruitForms(state));
-  const unlockedUnits = useSelector((state: RootState) => selectUnlockedUnits(state, townId, BuildingId.Barracks));
+  const resources = useMemoSelector((state) => selectResources(state, townId));
+  const allFormData = useMemoSelector((state) => selectRecruitForms(state));
+  const unlockedUnits = useMemoSelector((state) => selectUnlockedUnits(state, townId, BuildingId.Barracks));
 
   const canRecruitAmount = (formData: RecruitForm, townResources: ResourcesNormalised) => {
     interface SingleUnitData {
@@ -99,8 +104,8 @@ interface PropsIn {
 
 const InputForm = ({ unitId }: PropsIn) => {
   const dispatch = useAppDispatch();
-  const formData = useSelector((state: RootState) => selectRecruitForm(state, unitId));
-  const allFormData = useSelector((state: RootState) => selectRecruitForms(state)); // TODO try not have this here
+  const formData = useMemoSelector((state) => selectRecruitForm(state, unitId));
+  const allFormData = useMemoSelector((state) => selectRecruitForms(state)); // TODO try not have this here
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     console.log(allFormData);
@@ -133,26 +138,57 @@ const RecruitColumnCell = ({ unitId }: { unitId: UnitId }) => (
     <RecruitAmount unitId={unitId} />
   </div>
 );
+
+const UnitAmountsCell = ({ unitId }: { unitId: UnitId }): JSX.Element => {
+  const { townId } = useParams<{ townId: string }>();
+  const { town, total } = useMemoSelector((state) => selectUnitAmounts(state, townId, unitId));
+  return (
+    <div className={Style.infoColumn}>{`${town}/${total}`}</div>
+  );
+};
+
 // todo own file
 const UnitRow = ({ unitId }: UnitRowProps) => (
   <>
     <UnitColumnCell unitId={unitId} />
     <UnitResourceDisplayCell unitId={unitId} />
-    <div className={Style.infoColumn}>10/300</div>
+    <UnitAmountsCell unitId={unitId} />
     <RecruitColumnCell unitId={unitId} />
   </>
 );
 
+const queueUnits = (dispatch: Dispatch<AnyAction>, townId: string, formData: RecruitForm) => {
+  batch(() => {
+    Object.values(formData).forEach((form) => {
+      if (form !== undefined) {
+        const [unitId, amount] = form;
+        console.log(`Queueing ${amount} of ${unitId}`);
+        dispatch(startRecruitSomething({
+          townId, unitId, queueBuildingId: BuildingId.Barracks, amount, // TODO un hard code from barrcks when we have an easy way to figure out where a unit is trained
+        }));
+      }
+    });
+  });
+};
+
 // TODO only show unlocked .filter
-export const Barracks = (): JSX.Element => (
-  <div className={Style.outer}>
-    <div className={Style.wrapper}>
-      <div className={Style.columnHeader}>Unit</div>
-      <div className={`${Style.columnHeader} ${Style.columnRequirements}`}>Requirements</div>
-      <div className={Style.columnHeader}>Village / Total</div>
-      <div className={Style.columnHeader}>Recruit</div>
-      {baseBuildings[BuildingId.Barracks].creates.map((id, index) => <UnitRow key={`${id}${index}`} unitId={id} />)}
-      <div className={Style.buttonRow}>Recruit button</div>
+export const Barracks = (): JSX.Element => {
+  const dispatch = useAppDispatch();
+  const { townId } = useParams<{ townId: string }>();
+  const allFormData = useMemoSelector((state) => selectRecruitForms(state)); // TODO try not have this here, should make component for button and do it in there i guess
+  return (
+    <div className={Style.outer}>
+      <div className={Style.wrapper}>
+        <div className={Style.columnHeader}>Unit</div>
+        <div className={`${Style.columnHeader} ${Style.columnRequirements}`}>Requirements</div>
+        <div className={Style.columnHeader}>Village / Total</div>
+        <div className={Style.columnHeader}>Recruit</div>
+        {baseBuildings[BuildingId.Barracks].creates.map((id, index) => <UnitRow key={`${id}${index}`} unitId={id} />)}
+        <ConstructButton
+          text="Recruit"
+          handleClick={() => queueUnits(dispatch, townId, allFormData)}
+        />
+      </div>
     </div>
-  </div>
-);
+  );
+};

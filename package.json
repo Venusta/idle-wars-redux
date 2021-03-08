@@ -73,7 +73,8 @@
       "@typescript-eslint/ban-ts-comment": "warn",
       "no-trailing-spaces": "warn",
       "no-restricted-syntax": "off",
-      "@typescript-eslint/restrict-template-expressions": "warn"
+      "@typescript-eslint/restrict-template-expressions": "warn",
+      "object-curly-newline": "warn"
     }
   },
   "browserslist": {
