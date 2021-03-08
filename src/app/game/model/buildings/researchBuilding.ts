@@ -1,13 +1,17 @@
 import { Building } from "./building";
-import { ResearchBuildingProps } from "../../../../types/types";
 import { UnitId } from "../../constants";
+import { BuildingProps } from "./types";
+
+interface Props extends BuildingProps {
+  researches: Array<UnitId>;
+}
 
 export class ResearchBuilding extends Building {
   researches: Array<UnitId>;
 
   constructor({
     id, name, description, cost, maxLevel, buildTime, researches,
-  }: ResearchBuildingProps) {
+  }: Props) {
     super({
       id, name, description, cost, maxLevel, buildTime,
     });

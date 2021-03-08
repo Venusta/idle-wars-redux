@@ -5,9 +5,7 @@ interface Resource {
   amount: number;
 }
 
-export type Resources = {
-  [id in ResourceId]: Resource;
-};
+export type Resources = Record<ResourceId, Resource>;
 
 export interface ResourcesNormalised {
   id: Partial<Resources>,
@@ -20,9 +18,7 @@ interface Unit {
   total: number;
 }
 
-type Units = {
-  [id in UnitId]?: Unit;
-};
+type Units = Record<UnitId, Unit>;
 
 export interface UnitsNormalised {
   id: Partial<Units>,
@@ -34,9 +30,7 @@ interface Research {
   level: number;
 }
 
-type Researchs = {
-  [id in UnitId]: Research;
-};
+type Researchs = Record<UnitId, Research>;
 
 export interface ResearchNormalised {
   id: Partial<Researchs>,

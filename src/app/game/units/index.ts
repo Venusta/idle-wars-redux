@@ -13,9 +13,7 @@ import { paladin } from "./paladin";
 import { nobleman } from "./nobleman";
 import { mountedarcher } from "./mountedArcher";
 
-type BaseUnits = {
-  [id in UnitId]: Unit;
-};
+type BaseUnits = Record<UnitId, Unit>;
 
 export const baseUnits: BaseUnits = {
   [UnitId.SpearFighter]: spearFighter,

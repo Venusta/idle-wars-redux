@@ -1,7 +1,14 @@
-import { ResearchCost, UnitCostTuple, UnitRequirements } from "../../../types/types";
+import { ResearchCost, UnitCostTuple } from "../../../types/types";
 import { UnitCost } from "../../../types/townStateTypes";
 import { tupleToNormalisedResources } from "../../util/tupleToNormalisedResources";
-import { UnitId, WorldSpeed } from "../constants";
+import { BuildingId, UnitId, WorldSpeed } from "../constants";
+
+type UnitRequirements = {
+  buildings: {
+    [id in BuildingId]?: number;
+  },
+  research: boolean;
+};
 
 interface UnitProps {
   id: UnitId;

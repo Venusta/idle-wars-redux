@@ -1,5 +1,5 @@
 import { Building } from "./building";
-import { BuildingProps } from "../../../../types/types";
+import { BuildingProps } from "./types";
 import { ResourceId, WorldSpeed } from "../../constants";
 
 interface Props extends BuildingProps {

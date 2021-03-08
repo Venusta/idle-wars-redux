@@ -1,9 +1,9 @@
 /* eslint-disable arrow-body-style */
-import { BuildingProps, BuildingRequirements } from "../../../../types/types";
 import { BuildingCost } from "../../../../types/townStateTypes";
 import { multiplyResources } from "../../../util";
 import { tupleToNormalisedResources } from "../../../util/tupleToNormalisedResources";
 import { BuildingId, WorldSpeed } from "../../constants";
+import { BuildingProps, BuildingRequirements } from "./types";
 
 export class Building {
   id: BuildingId;
@@ -40,22 +40,6 @@ export class Building {
       population,
     };
   }
-
-  // getCost(level: number): BuildingCostTuple {
-  //   // const resourceMod = 1.26;
-  //   // const populationMod = 1.17;
-
-  //   const resources: ResourcesTuple = this.cost.resources.map(([id, amount]) => [id, amount * (1.26 ** level)]);
-
-  //   let population = this.cost.population * (1.17 ** level);
-  //   if (level > 0) {
-  //     population -= this.cost.population * (1.17 ** (level - 1));
-  //   }
-  //   return { resources, population };
-  // }
-  // const timber = this.cost.resources.timber * (1.26 ** level);
-  // const clay = this.cost.resources.clay * (1.275 ** level);
-  // const iron = this.cost.resources.iron * (1.25 ** level);
 
   getBuildTime(buildingLevel: number, headquarterLevel: number): number {
     return (this.buildTime * 1.18 * 1.2 ** (Math.max(-13, buildingLevel - 14 / buildingLevel)) * (1.05 ** (-headquarterLevel))) / WorldSpeed;

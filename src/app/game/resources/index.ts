@@ -4,9 +4,7 @@ import { iron } from "./iron";
 import { ResourceId } from "../constants";
 import { Resource } from "./base/resource";
 
-type BaseResources = {
-  [id in ResourceId]: Resource;
-};
+type BaseResources = Record<ResourceId, Resource>;
 
 export const baseResources: BaseResources = {
   [ResourceId.Timber]: timber,

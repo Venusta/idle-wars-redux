@@ -1,5 +1,5 @@
 import { Building } from "./building";
-import { BuildingProps } from "../../../../types/types";
+import { BuildingProps } from "./types";
 
 export class StorageBuilding extends Building {
   constructor({
