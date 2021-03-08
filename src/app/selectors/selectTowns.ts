@@ -1,4 +1,4 @@
-import { TownsNormalised } from "../slices/newTownsInitialState";
+import { TownsNormalised } from "../slices/townsInitialState";
 import { RootState } from "../store";
 
 /**

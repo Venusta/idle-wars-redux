@@ -1,4 +1,4 @@
-import { TownInterface } from "../slices/newTownsInitialState";
+import { TownInterface } from "../slices/townsInitialState";
 import { RootState } from "../store";
 
 /**

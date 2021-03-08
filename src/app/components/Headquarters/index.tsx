@@ -10,7 +10,7 @@ import { BuildingId, HeadquartersQueueSlots } from "../../game/constants";
 import { RootState, useAppDispatch } from "../../store";
 import { BuildingResourceDisplay } from "./BuildingResourceDisplay";
 import { ConstructButton, InactiveButton } from "../Buttons";
-import { startBuildSomething } from "../../slices/newTowns";
+import { startBuildSomething } from "../../slices/towns";
 
 import { BuildingInfo } from "./BuildingInfo";
 import Style from "./style.module.css";

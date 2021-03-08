@@ -7,7 +7,7 @@ import { ResourceBuilding } from "../game/model/buildings/resourceBuilding";
 import { baseUnits } from "../game/units";
 import { hasRequirements } from "../util/hasRequirements";
 import { miscSlice } from "./misc";
-import { initialState } from "./newTownsInitialState";
+import { initialState } from "./townsInitialState";
 import { ResourcesNormalised } from "../../types/townStateTypes";
 import {
   addPartialResources, subResources, multiplyResources, isBuildingId,
