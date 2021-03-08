@@ -14,6 +14,7 @@ import { headquarters } from "./headquarters";
 import { warehouse } from "./warehouse";
 import { farm } from "./farm";
 import { smithy } from "./smithy";
+import { workshop } from "./workshop";
 
 interface BaseBuildings {
   timbercamp: ResourceBuilding;
@@ -25,6 +26,7 @@ interface BaseBuildings {
   warehouse: StorageBuilding;
   farm: FarmBuilding;
   smithy: ResearchBuilding;
+  workshop: UnitProductionBuilding;
 }
 
 export const baseBuildings: BaseBuildings = {
@@ -37,4 +39,5 @@ export const baseBuildings: BaseBuildings = {
   [BuildingId.Warehouse]: warehouse,
   [BuildingId.Farm]: farm,
   [BuildingId.Smithy]: smithy,
+  [BuildingId.Workshop]: workshop,
 };

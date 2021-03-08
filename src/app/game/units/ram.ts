@@ -29,7 +29,7 @@ export const ram = new Unit({
   },
   requirements: {
     buildings: {
-      // [BuildingId.Workshop]: 1,
+      [BuildingId.Workshop]: 1,
     },
     research: true,
   },

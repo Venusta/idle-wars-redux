@@ -1,4 +1,4 @@
-import { ResourceId, UnitId, BuildingId } from "../game/constants";
+import { ResourceId, UnitId, BuildingId } from "../app/game/constants";
 
 interface Resource {
   id: ResourceId;

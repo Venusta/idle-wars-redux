@@ -1,5 +1,4 @@
-import { ResourcesTuple } from "../../types/types";
-import { ResourcesNormalised } from "../slices/townStateTypes";
+import { ResourcesNormalised } from "../../types/townStateTypes";
 import { RootState } from "../store";
 
 /**

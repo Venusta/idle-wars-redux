@@ -1,6 +1,3 @@
-export const RES_AMOUNT_TUPLE = 1;
-export const RES_ID_TUPLE = 0;
-
 export const WorldSpeed = 50;
 export const HeadquartersQueueSlots = 5;
 
@@ -14,6 +11,7 @@ export enum BuildingId {
   Warehouse = "warehouse",
   Farm = "farm",
   Smithy = "smithy",
+  Workshop = "workshop",
 }
 
 export enum UnitId {
@@ -35,14 +33,3 @@ export enum ResourceId {
   Clay = "clay",
   Iron = "iron",
 }
-
-export type ResourceId2 = "timber" | "clay" | "iron";
-
-// export const BuildingNamesDictionary = {
-//   [BuildingId.Headquarters]: "Headquarters",
-//   [BuildingId.TimberCamp]: "Timber camp",
-//   [BuildingId.ClayPit]: "Clay pit",
-//   [BuildingId.IronMine]: "Iron mine",
-//   [BuildingId.Barracks]: "Bararcks",
-//   [BuildingId.Stable]: "Stable"
-// }

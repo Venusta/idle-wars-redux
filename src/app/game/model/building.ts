@@ -1,6 +1,6 @@
 /* eslint-disable arrow-body-style */
 import { BuildingProps, BuildingRequirements } from "../../../types/types";
-import { BuildingCost } from "../../slices/townStateTypes";
+import { BuildingCost } from "../../../types/townStateTypes";
 import { multiplyResources, tupleToNormalisedResources } from "../../util/normalisedZone";
 import { BuildingId, WorldSpeed } from "../constants";
 

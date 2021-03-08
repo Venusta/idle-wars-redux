@@ -22,9 +22,3 @@ export const barracks = new UnitProductionBuilding({
     UnitId.Archer,
   ],
 });
-
-// const derp = [
-//   [ResourceId.Timber, 500],
-//   [ResourceId.Clay, 500],
-//   [ResourceId.Iron, 500],
-// ];

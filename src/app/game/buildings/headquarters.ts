@@ -24,5 +24,7 @@ export const headquarters = new ProductionBuilding({
     BuildingId.Stable,
     BuildingId.Warehouse,
     BuildingId.Farm,
+    BuildingId.Smithy,
+    BuildingId.Workshop,
   ],
 });

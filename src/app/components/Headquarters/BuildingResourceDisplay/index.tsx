@@ -5,7 +5,7 @@ import { RootState } from "../../../store";
 import { selectBuilding, selectResource } from "../../../selectors";
 import "./style.css";
 import { multiplyResources } from "../../../util/normalisedZone";
-import { ResourcesNormalised } from "../../../slices/townStateTypes";
+import { ResourcesNormalised } from "../../../../types/townStateTypes";
 
 interface Props {
   buildingId: BuildingId

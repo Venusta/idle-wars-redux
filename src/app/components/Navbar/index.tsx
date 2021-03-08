@@ -10,7 +10,7 @@ export const Navbar = (): JSX.Element => {
     BuildingId.Headquarters,
     BuildingId.Barracks,
     BuildingId.Stable,
-    BuildingId.Warehouse,
+    BuildingId.Workshop,
     BuildingId.Smithy,
   ];
 

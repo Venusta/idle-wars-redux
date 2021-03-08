@@ -128,10 +128,10 @@ export const BattleReport = (): JSX.Element => (
       </SimpleBar>
     </ul>
     <div className={Style.container}>
-      <AttDefTable report={attacker} />
-      <AttDefTable report={attacker} />
-      <AttDefTable report={defender} />
-      <AttDefTable report={defender} />
+      <AttDefTable key="dfgadfg" report={attacker} />
+      <AttDefTable key="adfjkgjadnfg" report={attacker} />
+      <AttDefTable key="adfjkgnjdnfg" report={defender} />
+      <AttDefTable key="afjkgnjadnfg" report={defender} />
     </div>
   </div>
 );

@@ -1,4 +1,4 @@
-import { BuildingsNormalised } from "../slices/townStateTypes";
+import { BuildingsNormalised } from "../../types/townStateTypes";
 import { RootState } from "../store";
 
 /**

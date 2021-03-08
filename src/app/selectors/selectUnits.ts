@@ -1,4 +1,4 @@
-import { UnitsNormalised } from "../slices/townStateTypes";
+import { UnitsNormalised } from "../../types/townStateTypes";
 import { RootState } from "../store";
 
 /**

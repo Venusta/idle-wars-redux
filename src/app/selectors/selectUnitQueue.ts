@@ -1,6 +1,6 @@
 import { RootState } from "../store";
 import { BuildingId } from "../game/constants";
-import { UnitQueueItem } from "../slices/townStateTypes";
+import { UnitQueueItem } from "../../types/townStateTypes";
 
 /**
  * Selects the Building from state based on id

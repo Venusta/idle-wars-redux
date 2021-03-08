@@ -120,3 +120,7 @@ export type UnitLosses = {
     loss?: number;
   }
 };
+
+const getKeys = Object.keys as <T extends Record<string, unknown>>(obj: T) => Array<keyof T>;
+
+type RequireSome<T, K extends keyof T> = Required<Pick<T, K>> & T;

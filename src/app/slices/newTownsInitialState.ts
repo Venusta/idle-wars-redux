@@ -1,7 +1,7 @@
 import { ResourceId, UnitId, BuildingId } from "../game/constants";
 import {
   ResourcesNormalised, ResearchNormalised, BuildingsNormalised, UnitsNormalised, Queues,
-} from "./townStateTypes";
+} from "../../types/townStateTypes";
 
 // interface Normalised<ById, AllIds> {
 //   byId: ById,
@@ -142,6 +142,11 @@ const buildings: BuildingsNormalised = {
       level: 0,
       queuedLevel: 0,
     },
+    [BuildingId.Workshop]: {
+      id: BuildingId.Workshop,
+      level: 0,
+      queuedLevel: 0,
+    },
   },
   allIds: [
     BuildingId.TimberCamp,
@@ -153,6 +158,7 @@ const buildings: BuildingsNormalised = {
     BuildingId.Farm,
     BuildingId.Warehouse,
     BuildingId.Smithy,
+    BuildingId.Workshop,
   ],
 };
 

@@ -6,7 +6,7 @@ import {
 import { BuildingId, ResourceId, UnitId } from "../constants";
 import { baseBuildings } from "../buildings";
 import { isUnitId } from "../utility";
-import { Queues } from "../../slices/townStateTypes";
+import { Queues } from "../../../types/townStateTypes";
 
 const defaultResources: ResourcesTuple = [
   [ResourceId.Timber, 0],
@@ -90,6 +90,7 @@ export class Town {
       [BuildingId.Warehouse]: defaultBuilding(BuildingId.Warehouse, 1),
       [BuildingId.Headquarters]: defaultBuilding(BuildingId.Headquarters, 1),
       [BuildingId.Smithy]: defaultBuilding(BuildingId.Smithy, 1),
+      [BuildingId.Workshop]: defaultBuilding(BuildingId.Workshop, 1),
     };
   }
 

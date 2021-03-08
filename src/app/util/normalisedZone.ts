@@ -1,97 +1,8 @@
-/* eslint-disable @typescript-eslint/no-shadow */
 /* eslint-disable no-param-reassign */
 /* eslint-disable arrow-body-style */
 import produce from "immer";
 import { ResourcesTuple } from "../../types/types";
-import { ResourceId } from "../game/constants";
-import { BuildingCost, ResourcesNormalised } from "../slices/townStateTypes";
-
-type ResList = {
-  [id in ResourceId]: {
-    id: ResourceId,
-    amount: number,
-  }
-};
-export const ex1: ResourcesNormalised = {
-  byId: {
-    [ResourceId.Timber]: {
-      id: ResourceId.Timber,
-      amount: 500,
-    },
-    [ResourceId.Clay]: {
-      id: ResourceId.Clay,
-      amount: 500,
-    },
-    [ResourceId.Iron]: {
-      id: ResourceId.Iron,
-      amount: 500,
-    },
-  },
-  allIds: [
-    ResourceId.Timber,
-    ResourceId.Clay,
-    ResourceId.Iron,
-  ],
-};
-
-export const xxx = ex1.allIds;
-
-const addProp = (obj: ResourcesNormalised, key: ResourceId): ResourcesNormalised => {
-  return {
-    ...obj,
-    allIds: [...obj.allIds, key],
-    byId: {
-      ...obj.byId,
-      [key]: {
-        id: [key],
-        amount: 0,
-      },
-    },
-  };
-};
-
-export const addPartialResourcesOld = (p: ResourcesNormalised[]): ResourcesNormalised => {
-  let newObj: ResourcesNormalised = {
-    allIds: [],
-    byId: {},
-  };
-  p.forEach((resObj) => {
-    resObj.allIds.forEach((id) => {
-      const entry = resObj.byId[id];
-      if (entry) {
-        if (newObj.byId[id]) {
-          newObj.byId[id] = {
-            id,
-            amount: (newObj.byId[id]?.amount ?? 0) + entry.amount,
-          };
-        } else {
-          newObj = {
-            allIds: [
-              ...newObj.allIds,
-              id,
-            ],
-            byId: {
-              ...newObj.byId,
-              [id]: { id, amount: entry.amount },
-            },
-          };
-        }
-      }
-    });
-  });
-  return newObj;
-};
-
-const INITAL_STATE = {};
-const byId = produce((draft, action) => {
-  // eslint-disable-next-line default-case
-  // switch (action.type) {
-  //   case RECEIVE_PRODUCTS:
-  //     action.products.forEach((product: { id: string | number; }) => {
-  //       draft[product.id] = product;
-  //     });
-  // }
-}, INITAL_STATE);
+import { BuildingCost, ResourcesNormalised } from "../../types/townStateTypes";
 
 export const addPartialResources = (state: ResourcesNormalised, toAdd: ResourcesNormalised[]): ResourcesNormalised => {
   return produce(state, (draftState) => {
@@ -158,10 +69,6 @@ export const tupleToNormalisedResources = (resources: ResourcesTuple): Resources
   });
 };
 
-console.log(addPartialResources(ex1, [ex1]));
-console.log(addPartialResources(ex1, [ex1, ex1]));
-console.log(addPartialResources(ex1, [ex1, ex1, ex1, ex1]));
-
 export const hasPopulation = (maxPop: number, currentPop: number, popCost: number): boolean => {
   if (maxPop - currentPop < popCost) {
     return false;
@@ -182,17 +89,6 @@ export const hasResources = (resources: ResourcesNormalised, resourceCost: Resou
     return prev;
   }, true);
   return y;
-  // const x = resources.reduce((prev, [resource, amountInStorage]): boolean => {
-  //   const index = resourceCost.findIndex(([id]) => id === resource);
-  //   if (index === -1) {
-  //     return false;
-  //   }
-  //   if (amountInStorage < resourceCost[index][RES_AMOUNT_TUPLE]) {
-  //     return false;
-  //   }
-  //   return prev;
-  // }, true);
-  // return x;
 };
 
 export const hasRequirements = (maxPop: number, currentPop: number, resources: ResourcesNormalised, cost: BuildingCost): boolean => {
@@ -207,6 +103,7 @@ export const hasRequirements = (maxPop: number, currentPop: number, resources: R
 interface HasAmountKey {
   amount: number
 }
+
 export const assertZeroAmount = <O extends HasAmountKey>(obj: O | undefined): number => {
   return obj?.amount ?? 0;
 };

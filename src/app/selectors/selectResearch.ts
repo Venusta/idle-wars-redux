@@ -1,5 +1,4 @@
-import { ResearchList } from "../../types/types";
-import { ResearchNormalised } from "../slices/townStateTypes";
+import { ResearchNormalised } from "../../types/townStateTypes";
 import { RootState } from "../store";
 
 /**

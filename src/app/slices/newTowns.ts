@@ -11,7 +11,7 @@ import {
 } from "../util/normalisedZone";
 import { miscSlice } from "./misc";
 import { initialState } from "./newTownsInitialState";
-import { ResourcesNormalised } from "./townStateTypes";
+import { ResourcesNormalised } from "../../types/townStateTypes";
 
 interface AddResource {
   townId: string
@@ -35,7 +35,6 @@ interface StartRecruitSomething {
   unitId: UnitId;
   queueBuildingId: BuildingId;
   amount: number;
-
 }
 
 export const townSlice = createSlice({
