@@ -4,8 +4,8 @@ import { BuildingId, ResourceId } from "../../../game/constants";
 import { RootState } from "../../../store";
 import { selectBuilding, selectResource } from "../../../selectors";
 import "./style.css";
-import { multiplyResources } from "../../../util/normalisedZone";
 import { ResourcesNormalised } from "../../../../types/townStateTypes";
+import { multiplyResources } from "../../../util";
 
 interface Props {
   buildingId: BuildingId

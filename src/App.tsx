@@ -16,6 +16,7 @@ import { UnitId } from "./app/game/constants";
 import { active } from "./app/slices/misc";
 import { gameTick } from "./app/game/gameTick";
 import { Barracks } from "./app/components/Barracks";
+import { Overview } from "./app/components/Overview";
 
 interface MainContainerProps {
   children?: JSX.Element | JSX.Element[];
@@ -30,8 +31,9 @@ const MainContainer = ({ children }: MainContainerProps) => (
       <div className="header">
         <HeaderNavButton linkTo="/0/buildings/headquarters" text="Home" />
         {/* <HeaderNavButton linkTo={"/0/villages"} text="Villages" /> */}
-        <HeaderNavButton linkTo="/0/map" text="Map" />
+        <HeaderNavButton linkTo="/0/overview" text="Overview" />
         <HeaderNavButton linkTo="/0/reports" text="Reports" />
+        <HeaderNavButton linkTo="/0/map" text="Map" />
         <HeaderNavButton linkTo="/0/reports" text="Settings" />
       </div>
     </div>
@@ -97,9 +99,10 @@ function App(): JSX.Element {
           </MainContainer>
         </Route>
 
-        <Route exact path="/:townId/villages">
+        <Route exact path="/:townId/overview">
           <MainContainer>
-            <div>Villages for town</div>
+            <div>Overview</div>
+            <Overview />
           </MainContainer>
         </Route>
 

@@ -29,11 +29,7 @@ interface BaseBuildings { // TODO FIX useless :(
   workshop: UnitProductionBuilding;
 }
 
-type BaseBuildings2<TheTypeOfTheBuilding> = { // TODO with this
-  [id in BuildingId]: TheTypeOfTheBuilding;
-};
-
-export const baseBuildings = {
+export const baseBuildings: BaseBuildings = {
   [BuildingId.TimberCamp]: timberCamp,
   [BuildingId.ClayPit]: clayPit,
   [BuildingId.IronMine]: ironMine,

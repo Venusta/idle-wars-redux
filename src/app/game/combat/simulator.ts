@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { Army, UnitLosses } from "../../../types/types";
 import { baseUnits } from "../units";
-import { isUnitId } from "../utility";
 import { UnitId } from "../constants";
+import { isUnitId } from "../../util";
 
 interface BattleResult {
   attackerLosses: UnitLosses;

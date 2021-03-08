@@ -1,6 +1,6 @@
 import { ResearchCost, UnitCostTuple, UnitRequirements } from "../../../types/types";
 import { UnitCost } from "../../../types/townStateTypes";
-import { tupleToNormalisedResources } from "../../util/normalisedZone";
+import { tupleToNormalisedResources } from "../../util/tupleToNormalisedResources";
 import { UnitId, WorldSpeed } from "../constants";
 
 interface UnitProps {

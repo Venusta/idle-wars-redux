@@ -5,13 +5,13 @@ import { baseBuildings } from "../game/buildings";
 import { BuildingId, ResourceId, UnitId } from "../game/constants";
 import { ResourceBuilding } from "../game/model/resourceBuilding";
 import { baseUnits } from "../game/units";
-import { isBuildingId } from "../game/utility";
-import {
-  addPartialResources, hasRequirements, multiplyResources, subResources,
-} from "../util/normalisedZone";
+import { hasRequirements } from "../util/hasRequirements";
 import { miscSlice } from "./misc";
 import { initialState } from "./newTownsInitialState";
 import { ResourcesNormalised } from "../../types/townStateTypes";
+import {
+  addPartialResources, subResources, multiplyResources, isBuildingId,
+} from "../util";
 
 interface AddResource {
   townId: string
@@ -38,7 +38,7 @@ interface StartRecruitSomething {
 }
 
 export const townSlice = createSlice({
-  name: "misc",
+  name: "town",
   initialState,
   reducers: {
     addResource: (towns, { payload: { townId, resourceId, amount } }: PayloadAction<AddResource>) => {
@@ -153,6 +153,7 @@ export const townSlice = createSlice({
         Object.values(town.queues.buildings).forEach((buildingQueue) => {
           buildingQueue?.forEach((queueItem, index) => {
             if (Date.now() > queueItem.completionTime) {
+              // TODO REMOVE THIS AND DO THE QUEUE BYID / ALLIDS
               if (isBuildingId(queueItem.building)) {
                 // Remove finished building from queue
                 buildingQueue?.splice(index, 1);

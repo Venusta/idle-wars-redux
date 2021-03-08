@@ -5,7 +5,6 @@ import {
 } from "../../../types/types";
 import { BuildingId, ResourceId, UnitId } from "../constants";
 import { baseBuildings } from "../buildings";
-import { isUnitId } from "../utility";
 import { Queues } from "../../../types/townStateTypes";
 
 const defaultResources: ResourcesTuple = [
@@ -125,14 +124,14 @@ export class Town {
     console.log(this.units);
     const mergedDefences = { ...this.units };
 
-    Object.entries((army)).forEach(([unit, amount = 0]) => {
-      if (isUnitId(unit)) {
-        const newAmounts = { total: 0, town: 0 };
-        newAmounts.total += (mergedDefences[unit]?.total ?? 0) + amount;
-        newAmounts.town += (mergedDefences[unit]?.town ?? 0) + amount;
-        mergedDefences[unit] = { ...newAmounts };
-      }
-    });
+    // Object.entries((army)).forEach(([unit, amount = 0]) => {
+    //   if (isUnitId(unit)) {
+    //     const newAmounts = { total: 0, town: 0 };
+    //     newAmounts.total += (mergedDefences[unit]?.total ?? 0) + amount;
+    //     newAmounts.town += (mergedDefences[unit]?.town ?? 0) + amount;
+    //     mergedDefences[unit] = { ...newAmounts };
+    //   }
+    // });
 
     this.units = mergedDefences;
     console.log("After: ");

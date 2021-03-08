@@ -1,3 +1,4 @@
+/* eslint-disable quote-props */
 import { ResourceId, UnitId, BuildingId } from "../game/constants";
 import {
   ResourcesNormalised, ResearchNormalised, BuildingsNormalised, UnitsNormalised, Queues,
@@ -207,12 +208,22 @@ const testTown: TownInterface = {
   buildings,
 };
 
+const testTown2: TownInterface = {
+  ...testTown,
+  id: "1",
+  name: "Second village",
+};
+const testTown3: TownInterface = {
+  ...testTown,
+  id: "2",
+  name: "Third village",
+};
+
 export const initialState: TownsNormalised = {
   byId: {
-    // eslint-disable-next-line quote-props
     "0": testTown,
+    "1": testTown2,
+    "2": testTown3,
   },
-  allIds: [
-    "0",
-  ],
+  allIds: ["0", "1", "2"],
 };

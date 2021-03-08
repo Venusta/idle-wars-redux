@@ -14,7 +14,7 @@ import { startBuildSomething } from "../../slices/newTowns";
 
 import { BuildingInfo } from "./BuildingInfo";
 import Style from "./style.module.css";
-import { calculateTimeUntilResources } from "../../util/normalisedZone";
+import { calculateTimeUntilResources } from "../../util/calculateTimeUntilResources";
 
 export const Headquarters = (): JSX.Element => {
   const dispatch = useAppDispatch();
