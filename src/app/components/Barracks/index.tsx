@@ -16,7 +16,7 @@ import { startRecruitSomething } from "../../slices/towns";
 import { ResourcesNormalised } from "../../../types/townStateTypes";
 import Style from "./style.module.css";
 import { ConstructButton } from "../Buttons";
-import { makeSelectUnitAmounts } from "../../selectors/selectUnitAmounts";
+import { makeSelectUnitAmounts, makeSelectUnitAmounts2, makeSelectUnitAmounts3 } from "../../selectors/selectUnitAmounts";
 import { useMemoSelector, useMemoSelector2 } from "../hooks";
 
 interface UnitRowProps {
@@ -143,7 +143,7 @@ const RecruitColumnCell = ({ unitId }: { unitId: UnitId }) => (
 const UnitAmountsCell = ({ unitId }: { unitId: UnitId }): JSX.Element => {
   console.log("UnitAmountsCell Rendered");
   const { townId } = useParams<{ townId: string }>();
-  const selectUnitAmounts = useMemo(makeSelectUnitAmounts, []);
+  const selectUnitAmounts = useMemo(makeSelectUnitAmounts3, []);
   const { town, total } = useSelector((state: RootState) => selectUnitAmounts(state, townId, unitId));
 
   return (
