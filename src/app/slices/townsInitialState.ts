@@ -190,7 +190,7 @@ export interface TownInterface {
   unlocked: ResearchNormalised;
 }
 
-type TownsInterface = {
+export type TownsInterface = {
   [id: string]: TownInterface
 };
 

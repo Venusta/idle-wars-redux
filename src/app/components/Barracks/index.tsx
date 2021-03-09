@@ -1,6 +1,6 @@
 /* eslint-disable react/no-array-index-key */
 import { useParams } from "react-router-dom";
-import { batch, shallowEqual, useSelector } from "react-redux";
+import { batch, useSelector } from "react-redux";
 import { AnyAction, Dispatch } from "@reduxjs/toolkit";
 import { useMemo } from "react";
 import { BuildingId, ResourceId, UnitId } from "../../game/constants";
@@ -16,8 +16,8 @@ import { startRecruitSomething } from "../../slices/towns";
 import { ResourcesNormalised } from "../../../types/townStateTypes";
 import Style from "./style.module.css";
 import { ConstructButton } from "../Buttons";
-import { makeSelectUnitAmounts, makeSelectUnitAmounts2, makeSelectUnitAmounts3 } from "../../selectors/selectUnitAmounts";
-import { useMemoSelector, useMemoSelector2 } from "../hooks";
+import { makeSelectUnitAmounts } from "../../selectors/selectUnitAmounts";
+import { useMemoSelector } from "../hooks";
 
 interface UnitRowProps {
   unitId: UnitId
@@ -143,8 +143,11 @@ const RecruitColumnCell = ({ unitId }: { unitId: UnitId }) => (
 const UnitAmountsCell = ({ unitId }: { unitId: UnitId }): JSX.Element => {
   console.log("UnitAmountsCell Rendered");
   const { townId } = useParams<{ townId: string }>();
-  const selectUnitAmounts = useMemo(makeSelectUnitAmounts3, []);
-  const { town, total } = useSelector((state: RootState) => selectUnitAmounts(state, townId, unitId));
+  const select = useMemo(makeSelectUnitAmounts, []);
+  const { town, total } = useSelector((state: RootState) => select(state, townId, unitId));
+  // const { town, total } = useSelector((state: RootState) => selectUnitAmounts(state, townId, unitId));
+
+  // const { town, total } = useMemoSelector4(() => (state) => selectUnitAmounts2(state, townId, unitId));
 
   return (
     <div className={Style.infoColumn}>{`${town}/${total}`}</div>
