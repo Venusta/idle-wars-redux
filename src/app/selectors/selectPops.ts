@@ -13,8 +13,5 @@ export const selectMaxPop = (state: RootState, townId: string): number => (state
 export const selectPops = createSelector(
   selectPop,
   selectMaxPop,
-  (population, maxPopulation) => ({
-    population,
-    maxPopulation,
-  }),
+  (population, maxPopulation) => ({ population, maxPopulation }),
 );
