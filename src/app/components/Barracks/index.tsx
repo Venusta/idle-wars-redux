@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { batch, useSelector } from "react-redux";
 import { AnyAction, Dispatch } from "@reduxjs/toolkit";
 import { useMemo } from "react";
-import { BuildingId, ResourceId, UnitId } from "../../game/constants";
+import { BuildingId, ResourceIdType, UnitIdType } from "../../game/constants";
 import { baseBuildings } from "../../game/buildings";
 import { baseUnits } from "../../game/units";
 import { UnitResourceDisplay as UnitResourceDisplayCell } from "./UnitResourceDisplay";
@@ -16,14 +16,14 @@ import { startRecruitSomething } from "../../slices/towns";
 import { ResourcesNormalised } from "../../../types/townStateTypes";
 import Style from "./style.module.css";
 import { ConstructButton } from "../Buttons";
-import { makeSelectUnitAmounts, makeSelectUnitAmountsC } from "../../selectors/selectUnitAmounts";
+import { makeSelectUnitAmounts } from "../../selectors/selectUnitAmounts";
 import { useMemoSelector } from "../hooks";
 
 interface UnitRowProps {
-  unitId: UnitId
+  unitId: UnitIdType
 }
 interface UnitColumnProps {
-  unitId: UnitId
+  unitId: UnitIdType
 }
 
 // TODO make the div a link to show info of the unit
@@ -34,7 +34,7 @@ const UnitColumnCell = ({ unitId }: UnitColumnProps) => (
   </div>
 );
 
-const RecruitAmount = ({ unitId }: { unitId: UnitId }) => {
+const RecruitAmount = ({ unitId }: { unitId: UnitIdType }) => {
   const { townId } = useParams<{ townId: string }>();
   const resources = useMemoSelector((state) => selectResources(state, townId));
   const allFormData = useMemoSelector((state) => selectRecruitForms(state));
@@ -42,14 +42,14 @@ const RecruitAmount = ({ unitId }: { unitId: UnitId }) => {
 
   const canRecruitAmount = (formData: RecruitForm, townResources: ResourcesNormalised) => {
     interface SingleUnitData {
-      id: UnitId;
+      id: UnitIdType;
       amount: number;
     }
     type UnitsData = {
-      [id in UnitId]?: SingleUnitData;
+      [id in UnitIdType]?: SingleUnitData;
     };
 
-    type ResMap = Map<ResourceId, number>;
+    type ResMap = Map<ResourceIdType, number>;
     const remainder: ResMap = new Map([]);
 
     // ?? todo fix this fucking method for the 9th time zzzzzzzzzzzzz
@@ -101,7 +101,7 @@ const RecruitAmount = ({ unitId }: { unitId: UnitId }) => {
 };
 
 interface PropsIn {
-  unitId: UnitId
+  unitId: UnitIdType
 }
 
 const InputForm = ({ unitId }: PropsIn) => {
@@ -134,14 +134,14 @@ const InputForm = ({ unitId }: PropsIn) => {
 };
 
 // TODO do the input box, lift state up? then pass down to recruit amount
-const RecruitColumnCell = ({ unitId }: { unitId: UnitId }) => (
+const RecruitColumnCell = ({ unitId }: { unitId: UnitIdType }) => (
   <div className={Style.RecruitColumn}>
     <InputForm unitId={unitId} />
     <RecruitAmount unitId={unitId} />
   </div>
 );
 
-const UnitAmountsCell = ({ unitId }: { unitId: UnitId }): JSX.Element => {
+const UnitAmountsCell = ({ unitId }: { unitId: UnitIdType }): JSX.Element => {
   console.log("UnitAmountsCell Rendered");
   const { townId } = useParams<{ townId: string }>();
   // const select = useMemo(makeSelectUnitAmounts, []);

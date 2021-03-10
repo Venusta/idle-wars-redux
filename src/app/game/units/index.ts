@@ -1,4 +1,4 @@
-import { UnitId } from "../constants";
+import { UnitId, UnitIdType } from "../constants";
 import { axeman } from "./axeman";
 import { spearFighter } from "./spearFighter";
 import { swordsman } from "./swordsman";
@@ -13,7 +13,7 @@ import { paladin } from "./paladin";
 import { nobleman } from "./nobleman";
 import { mountedarcher } from "./mountedArcher";
 
-type BaseUnits = Record<UnitId, Unit>;
+type BaseUnits = Record<UnitIdType, Unit>;
 
 export const baseUnits: BaseUnits = {
   [UnitId.SpearFighter]: spearFighter,

@@ -1,5 +1,5 @@
-import { BuildingId, ResourceId, UnitId } from "../constants";
-import { UnitProductionBuilding } from "../model/buildings/unitProductionBuilding";
+import { BuildingId, ResourceId, UnitIdWorkshop } from "../constants";
+import { UnitProductionBuilding } from "../model/buildings";
 
 export const workshop = new UnitProductionBuilding({
   id: BuildingId.Workshop,
@@ -16,7 +16,7 @@ export const workshop = new UnitProductionBuilding({
   maxLevel: 30,
   buildTime: 300, // ?? fix
   creates: [
-    UnitId.Ram,
-    UnitId.Catapult,
+    UnitIdWorkshop.Ram,
+    UnitIdWorkshop.Catapult,
   ],
 });

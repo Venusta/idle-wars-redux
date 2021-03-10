@@ -1,9 +1,9 @@
 import Style from "./style.module.css";
-import { UnitId } from "../../../../game/constants";
+import { UnitIdType } from "../../../../game/constants";
 import { baseUnits } from "../../../../game/units";
 
 interface Props {
-  unitId: UnitId;
+  unitId: UnitIdType;
   multiplier: number;
 }
 // TODO icon

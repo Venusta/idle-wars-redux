@@ -1,5 +1,5 @@
-import { BuildingId, ResourceId, UnitId } from "../constants";
-import { UnitProductionBuilding } from "../model/buildings/unitProductionBuilding";
+import { BuildingId, ResourceId, UnitIdBarracks } from "../constants";
+import { UnitProductionBuilding } from "../model/buildings";
 
 export const barracks = new UnitProductionBuilding({
   id: BuildingId.Barracks,
@@ -16,9 +16,9 @@ export const barracks = new UnitProductionBuilding({
   maxLevel: 30,
   buildTime: 300,
   creates: [
-    UnitId.SpearFighter,
-    UnitId.Swordsman,
-    UnitId.Axeman,
-    UnitId.Archer,
+    UnitIdBarracks.SpearFighter,
+    UnitIdBarracks.Swordsman,
+    UnitIdBarracks.Axeman,
+    UnitIdBarracks.Archer,
   ],
 });

@@ -1,10 +1,10 @@
 import { useParams } from "react-router-dom";
-import { ResourceId } from "../../../game/constants";
 import { selectResource, selectSingleRps } from "../../../selectors";
 import Style from "./style.module.css";
 import { useMemoSelector } from "../../hooks";
+import { ResourceIdType } from "../../../game/constants";
 
-export const SingleResource = ({ id: resourceId }: { id: ResourceId }): JSX.Element => {
+export const SingleResource = ({ id: resourceId }: { id: ResourceIdType }): JSX.Element => {
   const { townId } = useParams<{ townId: string }>();
   const display = useMemoSelector((state) => state.misc.userSettings.resourceDisplayToggle);
   const rps = useMemoSelector((state) => selectSingleRps(state, townId, resourceId));

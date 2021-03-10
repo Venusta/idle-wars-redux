@@ -1,5 +1,5 @@
 import { baseBuildings } from "../../../game/buildings";
-import { BuildingId, BuildingIdType, ResourceId } from "../../../game/constants";
+import { BuildingId, BuildingIdType, ResourceIdType } from "../../../game/constants";
 import { selectBuilding, selectResource } from "../../../selectors";
 import "./style.css";
 import { ResourcesNormalised } from "../../../../types/townStateTypes";
@@ -11,7 +11,7 @@ interface Props {
   townId: string
 }
 
-const SingleBuildingResource = ({ amount, resourceId, townId }: { amount: number, resourceId: ResourceId, townId: string }) => {
+const SingleBuildingResource = ({ amount, resourceId, townId }: { amount: number, resourceId: ResourceIdType, townId: string }) => {
   const resource = useMemoSelector((state) => selectResource(state, townId, resourceId));
   return (
     <div className="brd-group">

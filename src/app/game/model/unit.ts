@@ -1,7 +1,7 @@
 import { ResearchCost, UnitCostTuple } from "../../../types/types";
 import { UnitCost } from "../../../types/townStateTypes";
 import { tupleToNormalisedResources } from "../../util/tupleToNormalisedResources";
-import { BuildingIdType, UnitId, WorldSpeed } from "../constants";
+import { BuildingIdType, UnitIdType, WorldSpeed } from "../constants";
 
 type UnitRequirements = {
   buildings: {
@@ -11,7 +11,7 @@ type UnitRequirements = {
 };
 
 interface UnitProps {
-  id: UnitId;
+  id: UnitIdType;
   name: string;
   cost: UnitCostTuple;
   buildTime: number;
@@ -27,7 +27,7 @@ interface UnitProps {
 }
 
 export class Unit {
-  id: UnitId;
+  id: UnitIdType;
   name: string;
   cost: UnitCost;
   buildTime: number;

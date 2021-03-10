@@ -1,5 +1,5 @@
 import { BuildingId, ResourceId } from "../constants";
-import { ProductionBuilding } from "../model/buildings/productionBuilding";
+import { ProductionBuilding } from "../model/buildings";
 
 export const headquarters = new ProductionBuilding({
   id: BuildingId.Headquarters,

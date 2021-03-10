@@ -1,12 +1,12 @@
 import { useParams } from "react-router-dom";
 import Style from "./style.module.css";
-import { UnitId, BuildingIdType } from "../../../../game/constants";
+import { BuildingIdType, UnitIdType } from "../../../../game/constants";
 import { baseUnits } from "../../../../game/units";
 import { selectBuilding } from "../../../../selectors";
 import { useMemoSelector } from "../../../hooks";
 
 interface Props {
-  unitId: UnitId;
+  unitId: UnitIdType;
   buildingId: BuildingIdType;
   multiplier: number;
 }

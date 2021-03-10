@@ -1,5 +1,5 @@
 import { BuildingId, ResourceId } from "../constants";
-import { ResourceBuilding } from "../model/buildings/resourceBuilding";
+import { ResourceBuilding } from "../model/buildings";
 
 export const clayPit = new ResourceBuilding({
   id: BuildingId.ClayPit,

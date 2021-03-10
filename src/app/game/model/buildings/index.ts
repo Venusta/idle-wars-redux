@@ -5,3 +5,4 @@ export * from "./researchBuilding";
 export * from "./resourceBuilding";
 export * from "./storageBuilding";
 export * from "./unitProductionBuilding";
+export * from "./statueBuilding";

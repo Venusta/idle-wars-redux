@@ -1,4 +1,4 @@
-import { UnitId, ResourceId, BuildingIdType } from "../app/game/constants";
+import { BuildingIdType, UnitIdType, ResourceIdType } from "../app/game/constants";
 
 export interface Building {
   id: BuildingIdType;
@@ -6,7 +6,7 @@ export interface Building {
   queuedLevel: number;
 }
 
-export type ResourceTuple = [ResourceId, number];
+export type ResourceTuple = [ResourceIdType, number];
 export type ResourcesTuple = ResourceTuple[];
 
 export interface UnitCostTuple {
@@ -19,11 +19,11 @@ export interface ResearchCost {
 }
 
 export type Army = {
-  [id in UnitId]?: number;
+  [id in UnitIdType]?: number;
 };
 
 export interface ResourceProps {
-  id: ResourceId;
+  id: ResourceIdType;
   name: string;
 }
 
@@ -34,7 +34,7 @@ export interface ResourceGenProps {
 }
 
 export type UnitLosses = {
-  [id in UnitId]?: {
+  [id in UnitIdType]?: {
     total: number;
     loss?: number;
   }

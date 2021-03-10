@@ -1,5 +1,5 @@
-import { BuildingId, ResourceId, UnitId } from "../constants";
-import { AcademyBuilding } from "../model/buildings/academyBuilding";
+import { BuildingId, ResourceId, UnitIdAcademy } from "../constants";
+import { AcademyBuilding } from "../model/buildings";
 
 export const academy = new AcademyBuilding({
   id: BuildingId.Academy,
@@ -16,6 +16,6 @@ export const academy = new AcademyBuilding({
   maxLevel: 1,
   buildTime: 3000,
   creates: [
-    UnitId.Nobleman,
+    UnitIdAcademy.Nobleman,
   ],
 });

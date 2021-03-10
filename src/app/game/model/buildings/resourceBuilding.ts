@@ -1,13 +1,13 @@
 import { Building } from "./building";
 import { BuildingProps } from "./types";
-import { ResourceId, WorldSpeed } from "../../constants";
+import { ResourceIdType, WorldSpeed } from "../../constants";
 
 interface Props extends BuildingProps {
-  creates: ResourceId[]
+  creates: ResourceIdType[]
 }
 
 export class ResourceBuilding extends Building {
-  creates: ResourceId[];
+  creates: ResourceIdType[];
 
   constructor({
     id, name, description, cost, maxLevel, buildTime, creates,

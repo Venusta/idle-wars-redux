@@ -1,13 +1,13 @@
 import { RootState } from "../store";
-import { ResourceId } from "../game/constants";
+import { ResourceIdType } from "../game/constants";
 
 /**
  * Selects the Towns rps from state
  * @param state RootState
  * @param townId Town id
- * @param resourceId: ResourceId
+ * @param resourceId: ResourceIdType
  */
 // eslint-disable-next-line arrow-body-style
-export const selectSingleRps = (state: RootState, townId: string, resourceId: ResourceId): number => {
+export const selectSingleRps = (state: RootState, townId: string, resourceId: ResourceIdType): number => {
   return state.towns.id[townId].rps.id[resourceId]?.amount ?? 0;
 };

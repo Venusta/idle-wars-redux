@@ -2,7 +2,7 @@
 /* eslint-disable no-param-reassign */
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { baseBuildings } from "../game/buildings";
-import { BuildingIdType, ResourceId, UnitId } from "../game/constants";
+import { BuildingIdType, ResourceIdType, UnitIdType } from "../game/constants";
 import { ResourceBuilding } from "../game/model/buildings/resourceBuilding";
 import { baseUnits } from "../game/units";
 import { hasRequirements } from "../util/hasRequirements";
@@ -15,7 +15,7 @@ import {
 
 interface AddResource {
   townId: string
-  resourceId: ResourceId
+  resourceId: ResourceIdType
   amount: number
 }
 
@@ -32,7 +32,7 @@ interface StartBuildSomething {
 
 interface StartRecruitSomething {
   townId: string;
-  unitId: UnitId;
+  unitId: UnitIdType;
   queueBuildingId: BuildingIdType;
   amount: number;
 }

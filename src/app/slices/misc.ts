@@ -1,7 +1,7 @@
 /* eslint-disable no-param-reassign */
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import {
-  BuildingId, BuildingIdType, UnitId, UnitProductionBuildingIdType,
+  BuildingId, UnitId, UnitIdType, UnitProductionBuildingIdType,
 } from "../game/constants";
 
 interface MiscState {
@@ -16,7 +16,7 @@ interface MiscState {
 }
 
 export type RecruitForm = {
-  [id in UnitId]?: [UnitId, number]
+  [id in UnitIdType]?: [UnitIdType, number]
 };
 
 const initialState: MiscState = {
@@ -33,8 +33,8 @@ const initialState: MiscState = {
 };
 
 type TestUnit = {
-  [id in UnitId]?: {
-    id: UnitId;
+  [id in UnitIdType]?: {
+    id: UnitIdType;
     amount: number;
   };
 };
@@ -77,7 +77,7 @@ interface TickPayload {
   now: number
 }
 interface UnitFormPayload {
-  unitId: UnitId
+  unitId: UnitIdType
   amount: number | undefined
 }
 

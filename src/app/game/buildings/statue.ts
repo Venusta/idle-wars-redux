@@ -1,7 +1,7 @@
-import { BuildingId, ResourceId, UnitId } from "../constants";
-import { UnitProductionBuilding } from "../model/buildings/unitProductionBuilding";
+import { BuildingId, ResourceId, UnitIdStatue } from "../constants";
+import { StatueBuilding } from "../model/buildings";
 
-export const statue = new UnitProductionBuilding({
+export const statue = new StatueBuilding({
   id: BuildingId.Statue,
   name: "Statue",
   description: "At the statue you can recruit a paladin if you do not have one yet. You can have only one paladin at a time. ",
@@ -16,6 +16,6 @@ export const statue = new UnitProductionBuilding({
   maxLevel: 1,
   buildTime: 300,
   creates: [
-    UnitId.Paladin,
+    UnitIdStatue.Paladin,
   ],
 });

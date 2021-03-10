@@ -1,13 +1,13 @@
-import { UnitIdAcademyType } from "../../constants";
+import { UnitIdStatueType } from "../../constants";
 import { Building } from "./building";
 import { BuildingProps } from "./types";
 
 interface Props extends BuildingProps {
-  creates: Array<UnitIdAcademyType>;
+  creates: Array<UnitIdStatueType>;
 }
 
-export class AcademyBuilding extends Building {
-  creates: Array<UnitIdAcademyType>;
+export class StatueBuilding extends Building {
+  creates: Array<UnitIdStatueType>;
 
   constructor({
     id, name, description, cost, maxLevel, buildTime, creates,

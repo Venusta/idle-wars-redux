@@ -1,11 +1,11 @@
-import { UnitId, ResourceId, BuildingId } from "../../../game/constants";
+import { ResourceId, BuildingId, UnitIdType } from "../../../game/constants";
 import { SingleUnitResource } from "./SingleUnitResource";
 import { SingleUnitPop } from "./SingleUnitPop";
 import { SingleUnitTime } from "./SingleUnitTime";
 import Style from "./style.module.css";
 
 interface Props {
-  unitId: UnitId
+  unitId: UnitIdType
 }
 
 export const UnitResourceDisplay = ({ unitId }: Props): JSX.Element => {
