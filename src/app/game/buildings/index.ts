@@ -1,4 +1,4 @@
-import { BuildingId } from "../constants";
+import { BuildingId, BuildingIdType } from "../constants";
 import { FarmBuilding } from "../model/buildings/farmBuilding";
 import { ProductionBuilding } from "../model/buildings/productionBuilding";
 import { ResourceBuilding } from "../model/buildings/resourceBuilding";
@@ -30,6 +30,8 @@ interface BaseBuildings { // TODO FIX useless :(
   smithy: ResearchBuilding;
   workshop: UnitProductionBuilding;
 }
+
+// type BaseBuildings = Record<BuildingIdType, ???>;
 
 export const baseBuildings = {
   [BuildingId.TimberCamp]: timberCamp,

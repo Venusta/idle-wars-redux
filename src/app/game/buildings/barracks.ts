@@ -15,10 +15,5 @@ export const barracks = new UnitProductionBuilding({
   },
   maxLevel: 30,
   buildTime: 300,
-  creates: [
-    UnitIdBarracks.SpearFighter,
-    UnitIdBarracks.Swordsman,
-    UnitIdBarracks.Axeman,
-    UnitIdBarracks.Archer,
-  ],
+  creates: UnitIdBarracks,
 });

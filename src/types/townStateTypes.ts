@@ -1,5 +1,5 @@
 import {
-  BuildingIdType, UnitIdType, UnitIdProduction, ResourceIdType,
+  BuildingIdType, UnitIdType, UnitIdProductionType, ResourceIdType,
 } from "../app/game/constants";
 
 interface Resource {
@@ -28,15 +28,15 @@ export interface UnitsNormalised {
 }
 
 interface Research {
-  id: UnitIdProduction;
+  id: UnitIdProductionType;
   level: number;
 }
 
-type Researchs = Record<UnitIdProduction, Research>;
+type Researchs = Record<UnitIdProductionType, Research>;
 
 export interface ResearchNormalised {
   id: Partial<Researchs>,
-  all: UnitIdProduction[]
+  all: UnitIdProductionType[]
 }
 
 export interface Building {

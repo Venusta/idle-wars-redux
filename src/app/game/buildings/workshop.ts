@@ -15,8 +15,5 @@ export const workshop = new UnitProductionBuilding({
   },
   maxLevel: 30,
   buildTime: 300, // ?? fix
-  creates: [
-    UnitIdWorkshop.Ram,
-    UnitIdWorkshop.Catapult,
-  ],
+  creates: UnitIdWorkshop,
 });

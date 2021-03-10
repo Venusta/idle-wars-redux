@@ -2,7 +2,7 @@
 import { useParams } from "react-router-dom";
 import { batch, useSelector } from "react-redux";
 import { AnyAction, Dispatch } from "@reduxjs/toolkit";
-import { useMemo } from "react";
+import React, { useMemo } from "react";
 import { BuildingId, ResourceIdType, UnitIdType } from "../../game/constants";
 import { baseBuildings } from "../../game/buildings";
 import { baseUnits } from "../../game/units";
@@ -144,22 +144,21 @@ const RecruitColumnCell = ({ unitId }: { unitId: UnitIdType }) => (
 const UnitAmountsCell = ({ unitId }: { unitId: UnitIdType }): JSX.Element => {
   console.log("UnitAmountsCell Rendered");
   const { townId } = useParams<{ townId: string }>();
-  // const select = useMemo(makeSelectUnitAmounts, []);
-  // const { town, total } = useSelector((state: RootState) => select(state, townId, unitId));
   const select = useMemo(makeSelectUnitAmounts, []);
   const { town, total } = useSelector((state: RootState) => select(state, townId, unitId));
   return (
     <div className={Style.infoColumn}>{`${town}/${total}`}</div>
-    // <div className={Style.infoColumn}>{`${4}/${4}`}</div>
   );
 };
+
+export const MemoizedComponent = React.memo(UnitAmountsCell);
 
 // todo own file
 const UnitRow = ({ unitId }: UnitRowProps) => (
   <>
     <UnitColumnCell unitId={unitId} />
     <UnitResourceDisplayCell unitId={unitId} />
-    <UnitAmountsCell unitId={unitId} />
+    <MemoizedComponent unitId={unitId} />
     <RecruitColumnCell unitId={unitId} />
   </>
 );

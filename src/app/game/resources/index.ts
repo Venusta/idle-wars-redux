@@ -2,7 +2,7 @@ import { timber } from "./timber";
 import { clay } from "./clay";
 import { iron } from "./iron";
 import { ResourceId, ResourceIdType } from "../constants";
-import { Resource } from "./base/resource";
+import { Resource } from "../model/resource";
 
 type BaseResources = Record<ResourceIdType, Resource>;
 

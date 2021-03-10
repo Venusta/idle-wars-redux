@@ -6,7 +6,7 @@ import {
 } from "../../selectors";
 import { baseBuildings } from "../../game/buildings";
 import { BuildingId, BuildingIdType, HeadquartersQueueSlots } from "../../game/constants";
-import { RootState, useAppDispatch } from "../../store";
+import { useAppDispatch } from "../../store";
 import { BuildingResourceDisplay } from "./BuildingResourceDisplay";
 import { ConstructButton, InactiveButton } from "../Buttons";
 import { startBuildSomething } from "../../slices/towns";

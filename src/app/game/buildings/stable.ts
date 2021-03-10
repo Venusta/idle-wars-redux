@@ -15,10 +15,5 @@ export const stable = new UnitProductionBuilding({
   },
   maxLevel: 30,
   buildTime: 300,
-  creates: [
-    UnitIdStable.Scout,
-    UnitIdStable.LightCavalry,
-    UnitIdStable.HeavyCavalry,
-    UnitIdStable.MountedArcher,
-  ],
+  creates: UnitIdStable,
 });

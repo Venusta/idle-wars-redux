@@ -1,13 +1,15 @@
 import { Building } from "./building";
-import { UnitIdProduction } from "../../constants";
+import {
+  UnitIdProductionType, UnitIdStable, UnitIdBarracks, UnitIdWorkshop,
+} from "../../constants";
 import { BuildingProps } from "./types";
 
 interface Props extends BuildingProps {
-  creates: Array<UnitIdProduction>;
+  creates: typeof UnitIdStable | typeof UnitIdBarracks | typeof UnitIdWorkshop;
 }
 
 export class UnitProductionBuilding extends Building {
-  creates: Array<UnitIdProduction>;
+  creates: UnitIdProductionType[];
 
   constructor({
     id, name, description, cost, maxLevel, buildTime, creates,
@@ -15,6 +17,6 @@ export class UnitProductionBuilding extends Building {
     super({
       id, name, description, cost, maxLevel, buildTime,
     });
-    this.creates = creates;
+    this.creates = Object.values(creates).map((value) => value);
   }
 }

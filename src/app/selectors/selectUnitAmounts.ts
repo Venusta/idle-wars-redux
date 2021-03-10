@@ -3,7 +3,7 @@
 import { createSelector } from "@reduxjs/toolkit";
 import { createCachedSelector } from "re-reselect";
 import { Unit } from "../../types/townStateTypes";
-import { UnitId, UnitIdType } from "../game/constants";
+import { UnitIdType } from "../game/constants";
 import { RootState } from "../store";
 
 /**
@@ -12,7 +12,9 @@ import { RootState } from "../store";
  * @param unitId UnitId
  */
 
-const getUnit = (state: RootState, townId: string, unitId: UnitIdType) => state.towns.id[townId].units.id[unitId];
+const getUnit = (state: RootState, townId: string, unitId: UnitIdType) => {
+  return state.towns.id[townId].units.id[unitId];
+};
 
 const getUnitsN = () => {
   console.log("[Once] GetUnitsN");

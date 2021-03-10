@@ -1,5 +1,5 @@
-import { ResourceProps } from "../../../../types/types";
-import { ResourceIdType } from "../../constants";
+import { ResourceProps } from "../../../types/types";
+import { ResourceIdType } from "../constants";
 
 export class Resource {
   id: ResourceIdType;

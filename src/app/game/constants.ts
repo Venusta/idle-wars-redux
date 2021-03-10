@@ -75,7 +75,7 @@ export type UnitIdWorkshopType = typeof UnitIdWorkshop[keyof typeof UnitIdWorksh
 export type UnitIdAcademyType = typeof UnitIdAcademy[keyof typeof UnitIdAcademy];
 export type UnitIdStatueType = typeof UnitIdStatue[keyof typeof UnitIdStatue];
 
-export type UnitIdProduction = UnitIdBarracksType | UnitIdStableType | UnitIdWorkshopType;
+export type UnitIdProductionType = UnitIdBarracksType | UnitIdStableType | UnitIdWorkshopType;
 
 export const ResourceId = {
   Timber: "timber",
