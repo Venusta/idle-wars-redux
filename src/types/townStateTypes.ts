@@ -12,7 +12,7 @@ export interface ResourcesNormalised {
   all: ResourceId[]
 }
 
-interface Unit {
+export interface Unit {
   id: UnitId;
   town: number;
   total: number;

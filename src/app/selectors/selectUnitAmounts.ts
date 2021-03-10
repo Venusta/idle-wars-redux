@@ -1,60 +1,34 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable arrow-body-style */
 import { createSelector } from "@reduxjs/toolkit";
-import { UnitsNormalised } from "../../types/townStateTypes";
+import { createCachedSelector } from "re-reselect";
+import { Unit } from "../../types/townStateTypes";
 import { UnitId } from "../game/constants";
-import { Unit } from "../game/model/unit";
-import { TownInterface, TownsInterface, TownsNormalised } from "../slices/townsInitialState";
 import { RootState } from "../store";
 
 /**
- * Selects the Towns rps from state
  * @param state RootState
- * @param townId Town id
+ * @param townId TownId
+ * @param unitId UnitId
  */
-export const selectUnitAmounts = (state: RootState, townId: string, unitId: UnitId): { town: number, total: number } => {
-  const { town, total } = state.towns.id[townId].units.id[unitId] ?? { town: 0, total: 0 };
-  console.log("AHHHHHHHHHH");
 
-  return { town, total };
+const getUnit = (state: RootState, townId: string, unitId: UnitId) => state.towns.id[townId].units.id[unitId];
+
+const getUnitsN = () => {
+  console.log("[Once] GetUnitsN");
+  return createSelector(
+    (state: RootState, townId: string, unitId: UnitId) => state.towns.id[townId].units.id[unitId],
+    (unit) => {
+      console.log("New Unit calced");
+      return unit;
+    },
+  );
 };
-
-// const test = (state: RootState, townId: string): number => (state.towns.id[townId].population);
-const getUnit = (state: RootState, townId: string, unitId: UnitId) => {
-  // console.log(`getUnit: ${unitId}`);
-  return state.towns.id[townId].units.id[unitId];
-};
-
-const getState = (state: RootState) => state;
-
-const getTowns = createSelector(
-  getState,
-  (state) => state.towns,
-);
-
-const getTown = createSelector(
-  getTowns,
-  (towns) => (id: string) => towns.id[id],
-);
-
-const getUnit2 = createSelector(
-  (state: RootState, townId: string, unitId: UnitId) => state.towns.id[townId].units.id[unitId],
-  (units) => units,
-);
-
-const getUnittt = createSelector(
-  (state: RootState, townId: string) => state.towns.id[townId].units,
-  (_: RootState, __: string, unitId: UnitId) => unitId,
-  (units: UnitsNormalised, unitId: UnitId) => {
-    // console.log("return");
-    return units.id[unitId];
-  },
-);
 
 export const makeSelectUnitAmounts = () => {
   console.log("[Once]: makeSelectUnitAmounts");
   return createSelector(
-    getUnit2,
+    [getUnit],
     (unit) => {
       console.log(`[Updt]: selectUnitAmount ID: ${unit?.id}`);
       const { town: inTown, total } = unit ?? { town: 0, total: 0 };
@@ -63,36 +37,19 @@ export const makeSelectUnitAmounts = () => {
   );
 };
 
-const makeSelectTownId = () => createSelector(
-  (state: RootState) => state.towns,
-  (_: any, townId: string) => townId,
-  (towns, townId) => {
-    return towns.id[townId];
-  },
-);
+const townsTypeSelector = (state: RootState) => state.towns;
+const townTypeSelector = (state: RootState, ownProps: { townId: string; }) => ownProps.townId;
+const unitTypeSelector = (state: RootState, ownProps: { unitId: UnitId; }) => ownProps.unitId;
 
-// function createParameterSelector<T>(selector: (params: T) => unknown) {
-//   return (state: RootState, params: T) => selector(params);
-//   // (state: RootState)   ???   => state.towns(params)
-// }
-
-// const getTowns2 = (state: RootState) => state.towns;
-
-// const getTownId2 = createParameterSelector<TownsNormalised>((params) => params.id);
-// const getUnitId2 = createParameterSelector<UnitsNormalised>((params) => params.id);
-
-export const makeSelectUnitId = () => {
-  console.log("[Once]: makeSelectUnitId");
-
-  return createSelector(
-    (state: RootState) => state.towns, // towns select
-    (state2: RootState, townId: string) => townId, // townid??? wtf
-    (state3: RootState, townId2: string, unitId: UnitId) => unitId, // unitId
-    (towns, townId, unitId) => {
-      const unit = towns.id[townId].units.id[unitId];
-      console.log(`[Updt]: selectUnitAmount ID: ${unit?.id}`);
-      const { town: inTown, total } = unit ?? { town: 0, total: 0 };
-      return { town: inTown, total };
-    },
-  );
+let count = 0;
+// const makeData = (towns: TownsNormalised, townId: string, unitId: UnitId) => {
+const makeData = (unit: Unit | undefined) => {
+  console.log(`-- recalculate: ${unit?.id} ${count += 1}`);
+  const { town: inTown, total } = unit ?? { town: 0, total: 0 };
+  return { town: inTown, total };
 };
+
+export const makeSelectUnitAmountsC = () => createCachedSelector(
+  (state: RootState, townId: string, unitId: UnitId) => state.towns.id[townId].units.id[unitId],
+  (unit) => makeData(unit),
+)((_state_, townId, unitId) => `${townId}:${unitId}`);
