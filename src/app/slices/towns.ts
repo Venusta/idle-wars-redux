@@ -2,11 +2,13 @@
 /* eslint-disable no-param-reassign */
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { baseBuildings } from "../game/buildings";
-import { BuildingIdType, ResourceIdType, UnitIdType } from "../game/constants";
+import {
+  BuildingIdType, ResourceIdType, UnitProductionBuildingIdType,
+} from "../game/constants";
 import { ResourceBuilding } from "../game/model/buildings/resourceBuilding";
 import { baseUnits } from "../game/units";
 import { hasRequirements } from "../util/hasRequirements";
-import { miscSlice } from "./misc";
+import { miscSlice, RecruitFormUnits } from "./misc";
 import { initialState } from "./townsInitialState";
 import { ResourcesNormalised } from "../../types/townStateTypes";
 import {
@@ -32,9 +34,8 @@ interface StartBuildSomething {
 
 interface StartRecruitSomething {
   townId: string;
-  unitId: UnitIdType;
-  queueBuildingId: BuildingIdType;
-  amount: number;
+  queueBuildingId: UnitProductionBuildingIdType;
+  formData: RecruitFormUnits;
 }
 
 export const townSlice = createSlice({
@@ -105,40 +106,50 @@ export const townSlice = createSlice({
     startRecruitSomething: (
       towns, {
         payload: {
-          townId, unitId, queueBuildingId, amount,
+          townId,
+          queueBuildingId,
+          formData,
         },
       }: PayloadAction<StartRecruitSomething>,
     ) => {
+      // todo send form data and process it
+      // formData.barracks
       const town = towns.id[townId];
       const queueBuilding = town.buildings.id[queueBuildingId];
-      const { cost } = baseUnits[unitId];
-      const recruitTimeMs = baseUnits[unitId].getRecruitTime(queueBuilding.level) * 1000;
-      const totalCost = { resources: multiplyResources(cost.resources, amount), population: cost.population * amount };
 
-      // ✔ Check if there is enough resources + population
-      // ✖ Check if any building / research requirements are met
+      Object.values(formData).forEach((unitData) => {
+        if (unitData !== undefined) {
+          const { unitId, amount } = unitData;
+          const { cost } = baseUnits[unitId];
+          const recruitTimeMs = baseUnits[unitId].getRecruitTime(queueBuilding.level) * 1000;
+          const totalCost = { resources: multiplyResources(cost.resources, amount), population: cost.population * amount };
 
-      if (hasRequirements(town.maxPopulation, town.population, town.resources, totalCost)) {
-        town.resources = subResources(town.resources, totalCost.resources);
+          // ✔ Check if there is enough resources + population
+          // ✖ Check if any building / research requirements are met
 
-        const unitQueue = town.queues.units[queueBuildingId];
-        if (unitQueue !== undefined) {
-          const startTime = Date.now(); // TODO calc it here TODODODODODODODO
-          unitQueue.push({
-            unit: unitId, recruitTimeMs, amount, recruited: 0, startTime,
-          });
-        } else {
-          console.error(`No unit queue exists for ${queueBuildingId} in town ${townId}, attempting to create it...`);
-          town.queues.units = {
-            ...town.queues.units,
-            [queueBuildingId]: [
-              {
+          if (hasRequirements(town.maxPopulation, town.population, town.resources, totalCost)) {
+            town.resources = subResources(town.resources, totalCost.resources);
+
+            const unitQueue = town.queues.units[queueBuildingId];
+            if (unitQueue !== undefined) {
+              // const startTime = Date.now(); // TODO calc it here TODODODODODODODO
+              unitQueue.push({
                 unit: unitId, recruitTimeMs, amount, recruited: 0,
-              },
-            ],
-          };
+              });
+            } else {
+              console.error(`No unit queue exists for ${queueBuildingId} in town ${townId}, attempting to create it...`);
+              town.queues.units = {
+                ...town.queues.units,
+                [queueBuildingId]: [
+                  {
+                    unit: unitId, recruitTimeMs, amount, recruited: 0,
+                  },
+                ],
+              };
+            }
+          }
         }
-      }
+      });
     },
 
   },

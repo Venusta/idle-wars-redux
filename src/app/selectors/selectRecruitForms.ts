@@ -1,8 +1,9 @@
 import { RootState } from "../store";
-import { RecruitForm } from "../slices/misc";
+import { RecruitFormUnits } from "../slices/misc";
+import { UnitProductionBuildingIdType } from "../game/constants";
 
 /**
  * Selects the recruit forms
  * @param state RootState
  */
-export const selectRecruitForms = (state: RootState): RecruitForm => (state.misc.forms.recruit);
+export const selectRecruitForms = (state: RootState, buildingId: UnitProductionBuildingIdType): RecruitFormUnits => state.misc.forms.recruit.id[buildingId];

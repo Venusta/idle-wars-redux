@@ -13,6 +13,10 @@ export const useMemoSelector2 = <Selected>(selector: () => (state: RootState) =>
   const select = useMemo(selector, [selector]);
   return useSelector(select, shallowEqual);
 };
+// export const useMemoSelector2 = (selector, ...params) => {
+//   const select = useMemo(selector, [selector]);
+//   return useSelector((state: RootState) => select(state, ...params));
+// };
 
 export const useMemoSelector3 = <Selector>(selector: () => (state: RootState) => Selector): Selector => {
   console.log("ahjjjj");
