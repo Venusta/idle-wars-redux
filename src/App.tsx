@@ -17,6 +17,7 @@ import { Barracks } from "./app/components/Barracks";
 import { Overview } from "./app/components/Overview";
 import { useMemoSelector } from "./app/components/hooks";
 import { useAppDispatch } from "./app/store";
+import { WorldMap } from "./app/components/WorldMap";
 
 interface MainContainerProps {
   children?: JSX.Element | JSX.Element[];
@@ -114,7 +115,7 @@ function App(): JSX.Element {
 
         <Route exact path="/:townId/map">
           <MainContainer>
-            <div>Map for town</div>
+            <WorldMap />
           </MainContainer>
         </Route>
 

@@ -133,7 +133,6 @@ const InputForm = ({ unitId }: PropsIn) => {
   );
 };
 
-// TODO do the input box, lift state up? then pass down to recruit amount
 const RecruitColumnCell = ({ unitId }: { unitId: UnitIdProductionType }) => (
   <div className={Style.RecruitColumn}>
     <InputForm unitId={unitId} />
@@ -165,8 +164,8 @@ const RecruitAllButton = (): JSX.Element => {
   const dispatch = useAppDispatch();
   const { townId } = useParams<{ townId: string }>();
   const formData = useMemoSelector((state) => selectRecruitFormsDataBuilding(state, BuildingId.Barracks));
-  // todo make formData an array?
 
+  // todo maybe make the selector return this format
   const data: RecruitFormQueueData[] = [{
     queueBuildingId: BuildingId.Barracks,
     formData,

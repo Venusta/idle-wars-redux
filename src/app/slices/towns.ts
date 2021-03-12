@@ -42,6 +42,8 @@ interface StartRecruitSomething {
   data: RecruitFormQueueData[]
 }
 
+// TODO NORMALISE TOWNS
+
 export const townSlice = createSlice({
   name: "town",
   initialState,
