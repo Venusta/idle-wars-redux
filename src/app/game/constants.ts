@@ -77,7 +77,7 @@ export type UnitIdStatueType = typeof UnitIdStatue[keyof typeof UnitIdStatue];
 
 export type UnitIdProductionType = UnitIdBarracksType | UnitIdStableType | UnitIdWorkshopType;
 
-export const UnitIdBarracksArray: readonly UnitIdBarracksType[] = [
+export const UnitIdBarracksArray = [
   UnitIdBarracks.SpearFighter,
   UnitIdBarracks.Swordsman,
   UnitIdBarracks.Axeman,

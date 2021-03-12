@@ -1,5 +1,7 @@
 import { Building } from "./building";
-import { UnitIdBarracksType, UnitIdProductionType, UnitIdStableType, UnitIdWorkshopType } from "../../constants";
+import {
+  UnitIdBarracksType, UnitIdProductionType, UnitIdStableType, UnitIdWorkshopType,
+} from "../../constants";
 import { BuildingProps } from "./types";
 
 interface Props extends BuildingProps {

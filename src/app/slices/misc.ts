@@ -1,7 +1,7 @@
 /* eslint-disable no-param-reassign */
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import {
-  BuildingId, UnitId, UnitIdProductionType, UnitProductionBuildingIdType,
+  UnitId, UnitIdProductionArray, UnitIdProductionType,
 } from "../game/constants";
 
 interface MiscState {
@@ -10,35 +10,26 @@ interface MiscState {
   userSettings: {
     resourceDisplayToggle: boolean
   }
-  forms: Forms
+  forms: FormsRecruit
 }
 
-export interface RecruitFormUnitData {
-  unitId: UnitIdProductionType;
-  amount: number;
+export interface FormsRecruitUnitData {
+  unitId: UnitIdProductionType
+  amount: number
 }
 
-export type RecruitFormUnits = {
-  [id in UnitIdProductionType]?: RecruitFormUnitData
-};
+export type FormsRecruitUnit = Record<UnitIdProductionType, FormsRecruitUnitData>;
 
-export type RecruitFormBuilding = {
-  [id in UnitProductionBuildingIdType]: RecruitFormUnits
-};
-
-export interface RecruitForms {
-  id: RecruitFormBuilding
-  all: UnitProductionBuildingIdType[];
+export interface FormsRecruitUnits {
+  id: Partial<FormsRecruitUnit>
+  all: readonly UnitIdProductionType[]
 }
 
-interface Forms {
-  recruit: RecruitForms
+interface FormsRecruit {
+  recruit: {
+    units: FormsRecruitUnits
+  }
 }
-
-// export interface BuildingsNormalised {
-//   id: Buildings,
-//   all: BuildingIdType[]
-// }
 
 const initialState: MiscState = {
   timeLastProcessed: Date.now(),
@@ -48,27 +39,51 @@ const initialState: MiscState = {
   },
   forms: {
     recruit: {
-      id: {
-        [BuildingId.Barracks]: {
-          [UnitId.Archer]: {
-            unitId: UnitId.Archer,
-            amount: 1,
-          },
+      units: {
+        id: {
+          // [UnitId.Archer]: {
+          //   id: UnitId.Archer,
+          //   amount: 0,
+          // },
           [UnitId.Swordsman]: {
             unitId: UnitId.Swordsman,
             amount: 1,
           },
-        },
-        [BuildingId.Stable]: {
+          // [UnitId.SpearFighter]: {
+          //   id: UnitId.SpearFighter,
+          //   amount: 0,
+          // },
           [UnitId.HeavyCavalry]: {
             unitId: UnitId.HeavyCavalry,
-            amount: 2,
+            amount: 1,
+          },
+          [UnitId.Scout]: {
+            unitId: UnitId.Scout,
+            amount: 1,
+          },
+          // [UnitId.Axeman]: {
+          //   id: UnitId.Axeman,
+          //   amount: 0,
+          // },
+          [UnitId.LightCavalry]: {
+            unitId: UnitId.LightCavalry,
+            amount: 1,
+          },
+          [UnitId.Ram]: {
+            unitId: UnitId.Ram,
+            amount: 1,
+          },
+          [UnitId.Catapult]: {
+            unitId: UnitId.Catapult,
+            amount: 1,
+          },
+          [UnitId.MountedArcher]: {
+            unitId: UnitId.MountedArcher,
+            amount: 1,
           },
         },
-        [BuildingId.Workshop]: {
-        },
+        all: UnitIdProductionArray,
       },
-      all: [BuildingId.Barracks, BuildingId.Stable, BuildingId.Workshop],
     },
   },
 };
@@ -80,7 +95,6 @@ interface TickPayload {
 
 interface UnitFormPayload {
   unitId: UnitIdProductionType
-  buildingId: UnitProductionBuildingIdType
   amount: number | undefined
 }
 
@@ -110,11 +124,11 @@ export const miscSlice = createSlice({
       console.log("setting to :", !userSettings.resourceDisplayToggle);
       userSettings.resourceDisplayToggle = !userSettings.resourceDisplayToggle;
     },
-    setUnitFormData: (misc, { payload: { buildingId, unitId, amount } }: PayloadAction<UnitFormPayload>) => {
+    setUnitFormData: (misc, { payload: { unitId, amount } }: PayloadAction<UnitFormPayload>) => {
       if (amount === undefined) {
-        delete misc.forms.recruit.id[buildingId][unitId];
+        delete misc.forms.recruit.units.id[unitId];
       } else {
-        misc.forms.recruit.id[buildingId][unitId] = {
+        misc.forms.recruit.units.id[unitId] = {
           unitId,
           amount,
         };

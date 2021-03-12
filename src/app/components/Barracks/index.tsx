@@ -1,21 +1,19 @@
 /* eslint-disable react/no-array-index-key */
 import { useParams } from "react-router-dom";
-import { batch, useSelector } from "react-redux";
-import { AnyAction, Dispatch } from "@reduxjs/toolkit";
+import { useSelector } from "react-redux";
 import React, { useMemo } from "react";
 import {
-  BuildingId, ResourceIdType, UnitIdProductionType, UnitIdType, UnitProductionBuildingIdType,
+  BuildingId, UnitIdProductionType, UnitIdType, UnitProductionBuildingIdType,
 } from "../../game/constants";
 import { baseBuildings } from "../../game/buildings";
 import { baseUnits } from "../../game/units";
 import { UnitResourceDisplay as UnitResourceDisplayCell } from "./UnitResourceDisplay";
 import { RootState, useAppDispatch } from "../../store";
 import {
-  selectResources, selectRecruitForm, selectRecruitForms, selectUnlockedUnits,
+  selectResources, selectRecruitForm, selectRecruitFormsDataBuilding, selectUnlockedUnits,
 } from "../../selectors";
-import { setUnitFormData, RecruitForms } from "../../slices/misc";
-import { startRecruitSomething } from "../../slices/towns";
-import { ResourcesNormalised } from "../../../types/townStateTypes";
+import { FormsRecruitUnitData, setUnitFormData } from "../../slices/misc";
+import { RecruitFormQueueData, startRecruitSomething } from "../../slices/towns";
 import Style from "./style.module.css";
 import { ConstructButton } from "../Buttons";
 import { makeSelectUnitAmounts } from "../../selectors/selectUnitAmounts";
@@ -39,7 +37,7 @@ const UnitColumnCell = ({ unitId }: UnitColumnProps) => (
 const RecruitAmount = ({ unitId }: { unitId: UnitIdProductionType }) => {
   const { townId } = useParams<{ townId: string }>();
   const resources = useMemoSelector((state) => selectResources(state, townId));
-  const barracksFormData = useMemoSelector((state) => selectRecruitForms(state, BuildingId.Barracks));
+  // const barracksFormData = useMemoSelector((state) => selectRecruitForms(state, BuildingId.Barracks));
   const unlockedUnits = useMemoSelector((state) => selectUnlockedUnits(state, townId, BuildingId.Barracks));
 
   // const canRecruitAmount = (formData: RecruitFormOld, townResources: ResourcesNormalised) => {
@@ -108,8 +106,8 @@ interface PropsIn {
 
 const InputForm = ({ unitId }: PropsIn) => {
   const dispatch = useAppDispatch();
-  const formData = useMemoSelector((state) => selectRecruitForm(state, BuildingId.Barracks, unitId));
-  const allFormData = useMemoSelector((state) => selectRecruitForms(state, BuildingId.Barracks)); // TODO try not have this here
+  const formData = useMemoSelector((state) => selectRecruitForm(state, unitId));
+  const allFormData = useMemoSelector((state) => selectRecruitFormsDataBuilding(state, BuildingId.Barracks)); // TODO try not have this here
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     console.log(allFormData);
@@ -120,11 +118,11 @@ const InputForm = ({ unitId }: PropsIn) => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
     if (value.length === 0) {
-      dispatch(setUnitFormData({ buildingId: BuildingId.Barracks, unitId, amount: undefined }));
+      dispatch(setUnitFormData({ unitId, amount: undefined }));
     }
     // eslint-disable-next-line @typescript-eslint/prefer-regexp-exec
     if (value.match(/^\d+$/)) {
-      if (parseInt(value, 10) <= 100000) dispatch(setUnitFormData({ buildingId: BuildingId.Barracks, unitId, amount: parseInt(value, 10) }));
+      if (parseInt(value, 10) <= 100000) dispatch(setUnitFormData({ unitId, amount: parseInt(value, 10) }));
     }
   };
 
@@ -166,12 +164,18 @@ const UnitRow = ({ unitId }: UnitRowProps) => (
 const RecruitAllButton = (): JSX.Element => {
   const dispatch = useAppDispatch();
   const { townId } = useParams<{ townId: string }>();
-  const formData = useMemoSelector((state) => selectRecruitForms(state, BuildingId.Barracks));
+  const formData = useMemoSelector((state) => selectRecruitFormsDataBuilding(state, BuildingId.Barracks));
   // todo make formData an array?
+
+  const data: RecruitFormQueueData[] = [{
+    queueBuildingId: BuildingId.Barracks,
+    formData,
+  }];
+
   return (
     <ConstructButton
       text="Recruit"
-      handleClick={() => dispatch(startRecruitSomething({ townId, queueBuildingId: BuildingId.Barracks, formData }))}
+      handleClick={() => dispatch(startRecruitSomething({ townId, data }))}
     />
   );
 };

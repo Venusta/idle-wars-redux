@@ -1,8 +1,5 @@
-import {
-  UnitIdProductionType,
-  UnitProductionBuildingIdType,
-} from "../game/constants";
-import { RecruitFormUnitData } from "../slices/misc";
+import { UnitIdProductionType } from "../game/constants";
+import { FormsRecruitUnitData } from "../slices/misc";
 import { RootState } from "../store";
 
 /**
@@ -13,6 +10,5 @@ import { RootState } from "../store";
 
 export const selectRecruitForm = (
   state: RootState,
-  buildingId: UnitProductionBuildingIdType,
   unitId: UnitIdProductionType,
-): RecruitFormUnitData | undefined => state.misc.forms.recruit.id[buildingId][unitId];
+): FormsRecruitUnitData | undefined => state.misc.forms.recruit.units.id[unitId];

@@ -8,7 +8,7 @@ import {
 import { ResourceBuilding } from "../game/model/buildings/resourceBuilding";
 import { baseUnits } from "../game/units";
 import { hasRequirements } from "../util/hasRequirements";
-import { miscSlice, RecruitFormUnits } from "./misc";
+import { FormsRecruitUnitData, miscSlice } from "./misc";
 import { initialState } from "./townsInitialState";
 import { ResourcesNormalised } from "../../types/townStateTypes";
 import {
@@ -32,10 +32,14 @@ interface StartBuildSomething {
   queueBuildingId: BuildingIdType;
 }
 
+export interface RecruitFormQueueData {
+  queueBuildingId: UnitProductionBuildingIdType
+  formData: FormsRecruitUnitData[];
+}
+
 interface StartRecruitSomething {
   townId: string;
-  queueBuildingId: UnitProductionBuildingIdType;
-  formData: RecruitFormUnits;
+  data: RecruitFormQueueData[]
 }
 
 export const townSlice = createSlice({
@@ -107,37 +111,22 @@ export const townSlice = createSlice({
       towns, {
         payload: {
           townId,
-          queueBuildingId,
-          formData,
+          data,
         },
       }: PayloadAction<StartRecruitSomething>,
     ) => {
       // todo send form data and process it
       // formData.barracks
       const town = towns.id[townId];
-      const queueBuilding = town.buildings.id[queueBuildingId];
+      // const queueBuilding = town.buildings.id[queueBuildingId];
 
-      // ? todo make the input an array of the formData thing
+      data.forEach((RecruitFormQueueData) => {
+        const { formData, queueBuildingId } = RecruitFormQueueData;
+        const queueBuilding = town.buildings.id[queueBuildingId];
 
-      /**
-       * * Loops over Object.values(formData) => unitData
-       * * unitData { unitId, amount }
-       * * queueBuildingId Needed to calculate time & find the queue to queue the units in
-       * ! queueBuildingId can't come from the unit itself
-       *
-       * ? Recruit building is maybe ui only? Just have it use the proper buildings still.
-       *
-       * ? Option 1: "createdBy" on the unit to get which building creates it
-       * *    This would require checking it with baseUnits[unitId].createdBy
-       * *    For the UI we would loop over baseBuildings[buildingId].creates
-       *
-       *
-       * ? Option 2: keep buildings on the forms
-       */
-
-      Object.values(formData).forEach((unitData) => {
-        if (unitData !== undefined) {
+        formData.forEach((unitData) => {
           const { unitId, amount } = unitData;
+
           const { cost } = baseUnits[unitId];
           const recruitTimeMs = baseUnits[unitId].getRecruitTime(queueBuilding.level) * 1000;
           const totalCost = { resources: multiplyResources(cost.resources, amount), population: cost.population * amount };
@@ -166,8 +155,65 @@ export const townSlice = createSlice({
               };
             }
           }
-        }
+        });
       });
+
+      /**
+       *
+       * * to get unit for x building
+       * TODO formSelector => basebuildings[id].creates .map (id) => units.id[id]
+       * * can just do this for each recruit building for the Recruit UI
+       *
+       * * Loops over Object.values(formData) => unitData
+       * * unitData { unitId, amount }
+       * * queueBuildingId Needed to calculate time & find the queue to queue the units in
+       * * queueBuildingId has to come with the dispatch
+       * ! queueBuildingId can't come from the unit itself
+       *
+       * ? Recruit building is maybe ui only? Just have it use the proper buildings still.
+       *
+       * ? Option 1: "createdBy" on the unit to get which building creates it
+       * !    Problematic with multiple buildings building the same unit
+       * *    This would require checking it with baseUnits[unitId].createdBy
+       * *    For the UI we would loop over baseBuildings[buildingId].creates
+       *
+       *
+       * ? Option 2: keep buildings on the forms
+       */
+
+      // Object.values(formData).forEach((unitData) => {
+      //   if (unitData !== undefined) {
+      //     const { unitId, amount } = unitData;
+      //     const { cost } = baseUnits[unitId];
+      //     const recruitTimeMs = baseUnits[unitId].getRecruitTime(queueBuilding.level) * 1000;
+      //     const totalCost = { resources: multiplyResources(cost.resources, amount), population: cost.population * amount };
+
+      //     // ✔ Check if there is enough resources + population
+      //     // ✖ Check if any building / research requirements are met
+
+      //     if (hasRequirements(town.maxPopulation, town.population, town.resources, totalCost)) {
+      //       town.resources = subResources(town.resources, totalCost.resources);
+
+      //       const unitQueue = town.queues.units[queueBuildingId];
+      //       if (unitQueue !== undefined) {
+      //         // const startTime = Date.now(); // TODO calc it here TODODODODODODODO
+      //         unitQueue.push({
+      //           unit: unitId, recruitTimeMs, amount, recruited: 0,
+      //         });
+      //       } else {
+      //         console.error(`No unit queue exists for ${queueBuildingId} in town ${townId}, attempting to create it...`);
+      //         town.queues.units = {
+      //           ...town.queues.units,
+      //           [queueBuildingId]: [
+      //             {
+      //               unit: unitId, recruitTimeMs, amount, recruited: 0,
+      //             },
+      //           ],
+      //         };
+      //       }
+      //     }
+      //   }
+      // });
     },
 
   },

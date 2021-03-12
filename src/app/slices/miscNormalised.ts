@@ -123,24 +123,21 @@ const getAllBuildingForms = formNew.buildings.all.map((id) => {
   return formNew.buildings.id[id];
 });
 
-type IDStuff<T extends UnitIdProductionType> = Record<T, {
-  id: T
-  amount?: number
-}>;
+interface FormsRecruitUnits {
+  id: Record<UnitIdProductionType, {
+    id: UnitIdProductionType
+    amount?: number
+  }>
+  all: UnitIdProductionType[]
+}
 
-interface FormsUnits {
+interface FormsRecruit {
   recruit: {
-    units: {
-      id: IDStuff<UnitIdProductionType>
-      all: UnitIdProductionType[]
-    }
+    units: FormsRecruitUnits
   }
 }
-// to get unit for x building
-// TODO formSelector => basebuildings[id].creates .map (id) => units.id[id]
-// can just do this for each recruit building for the Recruit UI
 
-const formsUnits: FormsUnits = {
+const formsUnits: FormsRecruit = {
   recruit: {
     units: {
       id: {
