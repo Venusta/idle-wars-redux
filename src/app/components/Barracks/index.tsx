@@ -163,46 +163,30 @@ const UnitRow = ({ unitId }: UnitRowProps) => (
   </>
 );
 
-const queueUnits = (dispatch: Dispatch<AnyAction>, townId: string, formData: RecruitForms) => {
-  // TODO SELECT FORM FOR ONE TYPE OF BUILDING, DISPATCH THAT ENTIRE FORM //capslock
-  // looping all buildings here will create a bug
-  /* dispatch(startRecruitSomething({
-    townId, formData[barracks]
-  })) */
-  batch(() => {
-    // formData.all.forEach((buildingId) => {
-    Object.values(formData.id[BuildingId.Barracks]).forEach((RecruitFormUnitData) => {
-      const data = RecruitFormUnitData;
-      if (data !== undefined) {
-        const { unitId, amount } = data;
-        console.log(`Queueing ${amount} of ${unitId}`);
-        // dispatch(startRecruitSomething({ townId, queueBuildingId: BuildingId.Barracks }));
-      }
-      // TODO un hard code from barrcks when we have an easy way to figure out where a unit is trained
-      // });
-    });
-  });
+const RecruitAllButton = (): JSX.Element => {
+  const dispatch = useAppDispatch();
+  const { townId } = useParams<{ townId: string }>();
+  const formData = useMemoSelector((state) => selectRecruitForms(state, BuildingId.Barracks));
+  // todo make formData an array?
+  return (
+    <ConstructButton
+      text="Recruit"
+      handleClick={() => dispatch(startRecruitSomething({ townId, queueBuildingId: BuildingId.Barracks, formData }))}
+    />
+  );
 };
 
 // TODO only show unlocked .filter
-export const Barracks = (): JSX.Element => {
-  const dispatch = useAppDispatch();
-  const { townId } = useParams<{ townId: string }>();
-  const formData = useMemoSelector((state) => selectRecruitForms(state, BuildingId.Barracks)); // TODO try not have this here, should make component for button and do it in there i guess
-  return (
-    <div className={Style.outer}>
-      <div className={Style.wrapper}>
-        <div className={Style.columnHeader}>Unit</div>
-        <div className={`${Style.columnHeader} ${Style.columnRequirements}`}>Requirements</div>
-        <div className={Style.columnHeader}>Village / Total</div>
-        <div className={Style.columnHeader}>Recruit</div>
-        {baseBuildings[BuildingId.Barracks].creates.map((id, index) => <UnitRow key={`${id}${index}`} unitId={id} />)}
-        <ConstructButton
-          text="Recruit"
-          handleClick={() => dispatch(startRecruitSomething({ townId, queueBuildingId: BuildingId.Barracks, formData }))}
 
-        />
-      </div>
+export const Barracks = (): JSX.Element => (
+  <div className={Style.outer}>
+    <div className={Style.wrapper}>
+      <div className={Style.columnHeader}>Unit</div>
+      <div className={`${Style.columnHeader} ${Style.columnRequirements}`}>Requirements</div>
+      <div className={Style.columnHeader}>Village / Total</div>
+      <div className={Style.columnHeader}>Recruit</div>
+      {baseBuildings[BuildingId.Barracks].creates.map((id, index) => <UnitRow key={`${id}${index}`} unitId={id} />)}
+      <RecruitAllButton />
     </div>
-  );
-};
+  </div>
+);

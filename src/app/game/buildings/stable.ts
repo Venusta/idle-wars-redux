@@ -1,4 +1,4 @@
-import { BuildingId, ResourceId, UnitIdStable } from "../constants";
+import { BuildingId, ResourceId, UnitIdStableArray } from "../constants";
 import { UnitProductionBuilding } from "../model/buildings";
 
 export const stable = new UnitProductionBuilding({
@@ -15,5 +15,5 @@ export const stable = new UnitProductionBuilding({
   },
   maxLevel: 30,
   buildTime: 300,
-  creates: UnitIdStable,
+  creates: UnitIdStableArray,
 });

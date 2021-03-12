@@ -77,6 +77,31 @@ export type UnitIdStatueType = typeof UnitIdStatue[keyof typeof UnitIdStatue];
 
 export type UnitIdProductionType = UnitIdBarracksType | UnitIdStableType | UnitIdWorkshopType;
 
+export const UnitIdBarracksArray: readonly UnitIdBarracksType[] = [
+  UnitIdBarracks.SpearFighter,
+  UnitIdBarracks.Swordsman,
+  UnitIdBarracks.Axeman,
+  UnitIdBarracks.Archer,
+] as const;
+
+export const UnitIdStableArray = [
+  UnitIdStable.Scout,
+  UnitIdStable.LightCavalry,
+  UnitIdStable.HeavyCavalry,
+  UnitIdStable.MountedArcher,
+] as const;
+
+export const UnitIdWorkshopArray = [
+  UnitIdWorkshop.Ram,
+  UnitIdWorkshop.Catapult,
+] as const;
+
+export const UnitIdProductionArray = [
+  ...UnitIdBarracksArray,
+  ...UnitIdStableArray,
+  ...UnitIdWorkshopArray,
+] as const;
+
 export const ResourceId = {
   Timber: "timber",
   Clay: "clay",

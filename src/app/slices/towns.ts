@@ -117,6 +117,24 @@ export const townSlice = createSlice({
       const town = towns.id[townId];
       const queueBuilding = town.buildings.id[queueBuildingId];
 
+      // ? todo make the input an array of the formData thing
+
+      /**
+       * * Loops over Object.values(formData) => unitData
+       * * unitData { unitId, amount }
+       * * queueBuildingId Needed to calculate time & find the queue to queue the units in
+       * ! queueBuildingId can't come from the unit itself
+       *
+       * ? Recruit building is maybe ui only? Just have it use the proper buildings still.
+       *
+       * ? Option 1: "createdBy" on the unit to get which building creates it
+       * *    This would require checking it with baseUnits[unitId].createdBy
+       * *    For the UI we would loop over baseBuildings[buildingId].creates
+       *
+       *
+       * ? Option 2: keep buildings on the forms
+       */
+
       Object.values(formData).forEach((unitData) => {
         if (unitData !== undefined) {
           const { unitId, amount } = unitData;

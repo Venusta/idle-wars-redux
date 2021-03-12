@@ -1,4 +1,4 @@
-import { BuildingId, ResourceId, UnitIdWorkshop } from "../constants";
+import { BuildingId, ResourceId, UnitIdWorkshopArray } from "../constants";
 import { UnitProductionBuilding } from "../model/buildings";
 
 export const workshop = new UnitProductionBuilding({
@@ -15,5 +15,5 @@ export const workshop = new UnitProductionBuilding({
   },
   maxLevel: 30,
   buildTime: 300, // ?? fix
-  creates: UnitIdWorkshop,
+  creates: UnitIdWorkshopArray,
 });
