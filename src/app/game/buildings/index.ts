@@ -1,4 +1,4 @@
-import { BuildingId, BuildingIdType } from "../constants";
+import { BuildingId } from "../constants";
 import { FarmBuilding } from "../model/buildings/farmBuilding";
 import { ProductionBuilding } from "../model/buildings/productionBuilding";
 import { ResourceBuilding } from "../model/buildings/resourceBuilding";
