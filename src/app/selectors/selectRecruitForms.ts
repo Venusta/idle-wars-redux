@@ -1,9 +1,29 @@
 /* eslint-disable function-paren-newline */
 import { createSelector } from "@reduxjs/toolkit";
+import memoize from "lodash.memoize";
 import { RootState } from "../store";
 import { UnitProductionBuildingIdType } from "../game/constants";
 import { FormsRecruitUnitData } from "../slices/misc";
 import { baseBuildings } from "../game/buildings";
+
+const unitFormsSelector = (state: RootState) => state.misc.forms.recruit.units.id;
+
+export const buildingFormsSelector = createSelector(
+  unitFormsSelector,
+  (unitForms) => memoize(
+    (buildingId: UnitProductionBuildingIdType) => {
+      console.log("SDFsdfadfg");
+      
+      return baseBuildings[buildingId].creates.reduce(
+        (prev: FormsRecruitUnitData[], unitId) => {
+          const data = unitForms[unitId];
+          if (data === undefined) return prev;
+
+          return [...prev, data];
+        }, []);
+    },
+  ),
+);
 
 /**
  * Selects the recruit forms

@@ -11,7 +11,7 @@ import { baseUnits } from "../../game/units";
 import { UnitResourceDisplay as UnitResourceDisplayCell } from "./UnitResourceDisplay";
 import { RootState, useAppDispatch } from "../../store";
 import {
-  selectResources, selectRecruitForm, selectRecruitFormsDataBuilding, selectUnlockedUnits, makeselectRecruitFormsDataBuilding,
+  selectResources, selectRecruitForm, selectRecruitFormsDataBuilding, selectUnlockedUnits, makeselectRecruitFormsDataBuilding, buildingFormsSelector,
 } from "../../selectors";
 import { FormsRecruitUnitData, setUnitFormData } from "../../slices/misc";
 import { RecruitFormQueueData, startRecruitSomething } from "../../slices/towns";
@@ -64,9 +64,11 @@ const calculateMaxAdditionalRecruits = (unitId: UnitIdProductionType, resources:
 const RecruitAmount = ({ unitId }: { unitId: UnitIdProductionType }) => {
   const dispatch = useAppDispatch();
   const { townId } = useParams<{ townId: string }>();
+  
+  // const select = useMemo(makeselectRecruitFormsDataBuilding, []);
+  // const barracksFormData = useSelector((state: RootState) => select(state, BuildingId.Barracks));
 
-  const select = useMemo(makeselectRecruitFormsDataBuilding, []);
-  const barracksFormData = useSelector((state: RootState) => select(state, BuildingId.Barracks));
+  const barracksFormData = useSelector((state: RootState) => buildingFormsSelector(state)(BuildingId.Barracks));
   const resources = useSelector((state: RootState) => selectResources(state, townId));
 
   const totalCost = calculateTotalCost(barracksFormData);
@@ -87,6 +89,7 @@ const RecruitAmount = ({ unitId }: { unitId: UnitIdProductionType }) => {
   return (
     // eslint-disable-next-line jsx-a11y/click-events-have-key-events
     <div className={Style.RecruitLabel} onClick={(e) => handleClick(e)} role="button" tabIndex={0}>{`(${maxAdditionalAmount})`}</div>
+    // <div className={Style.RecruitLabel}>( test )</div>
   );
 };
 

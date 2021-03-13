@@ -14,7 +14,7 @@ export const gameTick = (): void => {
 
   dispatch(tick({ difference, now }));
 
-  // setTimeout(() => {
-  //   gameTick();
-  // }, 1000);
+  setTimeout(() => {
+    gameTick();
+  }, 1000);
 };

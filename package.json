@@ -15,6 +15,7 @@
     "@types/react-router-dom": "^5.1.7",
     "@types/simplebar": "^5.1.1",
     "immer": "^8.0.1",
+    "lodash.memoize": "^4.1.2",
     "re-reselect": "^4.0.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
@@ -91,6 +92,7 @@
     ]
   },
   "devDependencies": {
+    "@types/lodash.memoize": "^4.1.6",
     "@typescript-eslint/eslint-plugin": "^4.15.2",
     "eslint-config-airbnb-typescript": "^12.3.1",
     "eslint-plugin-import": "^2.22.1",
