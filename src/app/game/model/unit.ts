@@ -1,12 +1,19 @@
-import { ResearchCost, UnitCostTuple } from "../../../types/types";
+import { ResourcesTuple } from "../../../types/types";
 import { UnitCost } from "../../../types/townStateTypes";
 import { tupleToNormalisedResources } from "../../util/tupleToNormalisedResources";
 import { BuildingIdType, UnitIdType, WorldSpeed } from "../constants";
 
+interface UnitCostTuple {
+  resources: ResourcesTuple;
+  population: number;
+}
+
+interface ResearchCost {
+  resources: ResourcesTuple;
+}
+
 type UnitRequirements = {
-  buildings: {
-    [id in BuildingIdType]?: number;
-  },
+  buildings: Partial<Record<BuildingIdType, number>>
   research: boolean;
 };
 

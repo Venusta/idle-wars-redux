@@ -1,4 +1,4 @@
-import { Building } from "../../types/types";
+import { BuildingDataType } from "../../types/townStateTypes";
 import { BuildingIdType } from "../game/constants";
 import { RootState } from "../store";
 
@@ -8,4 +8,4 @@ import { RootState } from "../store";
  * @param townId town id
  * @param buildingId building id
  */
-export const selectBuilding = (state: RootState, townId: string, buildingId: BuildingIdType): Building => (state.towns.id[townId].buildings.id[buildingId]);
+export const selectBuilding = (state: RootState, townId: string, buildingId: BuildingIdType): BuildingDataType => (state.towns.id[townId].buildings.id[buildingId]);

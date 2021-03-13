@@ -20,9 +20,9 @@ export const addPartialResources = (state: ResourcesNormalised, toAdd: Resources
   });
 });
 
-export const subResources = (townResources: ResourcesNormalised, resourcesToSub: ResourcesNormalised): ResourcesNormalised => {
+export const subResourcesFromTown = (townResources: ResourcesNormalised, resourcesToSub: ResourcesNormalised): ResourcesNormalised => {
   // not sure if this is the correct way round
-  const test = townResources.all.every((id) => resourcesToSub.all.includes(id));
+  const test = resourcesToSub.all.every((id) => townResources.all.includes(id));
   if (!test) {
     console.log("We don't have every resource type!!!");
     return townResources;

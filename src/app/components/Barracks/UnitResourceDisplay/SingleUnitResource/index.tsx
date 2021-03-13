@@ -1,9 +1,10 @@
 import { useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
 import { ResourceIdType, UnitIdType } from "../../../../game/constants";
 import { selectResource } from "../../../../selectors";
 import Style from "./style.module.css";
 import { baseUnits } from "../../../../game/units";
-import { useMemoSelector } from "../../../hooks";
+import { RootState } from "../../../../store";
 
 interface Props {
   unitId: UnitIdType
@@ -13,7 +14,7 @@ interface Props {
 
 const ResouceAmount = ({ unitId, resourceId, multiplier = 1 }: Props) => {
   const { townId } = useParams<{ townId: string }>();
-  const resource = useMemoSelector((state) => selectResource(state, townId, resourceId));
+  const resource = useSelector((state: RootState) => selectResource(state, townId, resourceId));
   const amount = baseUnits[unitId].cost.resources.id[resourceId]?.amount ?? 0;
   const cost = amount * multiplier;
   // todo this might be broken

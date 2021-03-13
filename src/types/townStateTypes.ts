@@ -16,7 +16,7 @@ export interface ResourcesNormalised {
 
 export interface Unit {
   id: UnitIdType;
-  town: number;
+  home: number;
   total: number;
 }
 
@@ -39,13 +39,13 @@ export interface ResearchNormalised {
   all: UnitIdProductionType[]
 }
 
-export interface Building {
+export interface BuildingDataType {
   id: BuildingIdType;
   level: number;
   queuedLevel: number;
 }
 
-type Buildings = Record<BuildingIdType, Building>;
+type Buildings = Record<BuildingIdType, BuildingDataType>;
 
 export interface BuildingsNormalised {
   id: Buildings,
@@ -68,8 +68,10 @@ export interface UnitQueueItem {
 }
 
 export type Queues = {
-  buildings: { [id in BuildingIdType]?: BuildingQueueItem[]; }
-  units: { [id in BuildingIdType]?: UnitQueueItem[]; }
+  // buildings: { [id in BuildingIdType]?: BuildingQueueItem[]; }
+  // units: { [id in BuildingIdType]?: UnitQueueItem[]; }
+  buildings: Partial<Record<BuildingIdType, BuildingQueueItem[]>>
+  units: Partial<Record<BuildingIdType, UnitQueueItem[]>>
 };
 
 export interface BuildingCost {

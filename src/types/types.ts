@@ -1,38 +1,14 @@
-import { BuildingIdType, UnitIdType, ResourceIdType } from "../app/game/constants";
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { UnitIdType, ResourceIdType } from "../app/game/constants";
 
-export interface Building {
-  id: BuildingIdType;
-  level: number;
-  queuedLevel: number;
-}
+export type ResourcesTuple = [ResourceIdType, number][];
 
-export type ResourceTuple = [ResourceIdType, number];
-export type ResourcesTuple = ResourceTuple[];
-
-export interface UnitCostTuple {
-  resources: ResourcesTuple;
-  population: number;
-}
-
-export interface ResearchCost {
-  resources: ResourcesTuple;
-}
-
+// TODO NORMALISE!
 export type Army = {
   [id in UnitIdType]?: number;
 };
 
-export interface ResourceProps {
-  id: ResourceIdType;
-  name: string;
-}
-
-export interface ResourceGenProps {
-  timber?: number;
-  clay?: number;
-  iron?: number;
-}
-
+// TODO NORMALISE!
 export type UnitLosses = {
   [id in UnitIdType]?: {
     total: number;

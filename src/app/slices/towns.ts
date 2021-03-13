@@ -12,7 +12,7 @@ import { FormsRecruitUnitData, miscSlice } from "./misc";
 import { initialState } from "./townsInitialState";
 import { ResourcesNormalised } from "../../types/townStateTypes";
 import {
-  addPartialResources, subResources, multiplyResources, isBuildingId,
+  addPartialResources, subResourcesFromTown, multiplyResources, isBuildingId,
 } from "../util";
 
 interface AddResource {
@@ -77,7 +77,7 @@ export const townSlice = createSlice({
 
       if (hasRequirements(town.maxPopulation, town.population, town.resources, cost)) {
         // * remove resources
-        town.resources = subResources(town.resources, cost.resources);
+        town.resources = subResourcesFromTown(town.resources, cost.resources);
 
         building.queuedLevel += 1;
         town.population += cost.population ?? 0;
@@ -137,7 +137,7 @@ export const townSlice = createSlice({
           // ✖ Check if any building / research requirements are met
 
           if (hasRequirements(town.maxPopulation, town.population, town.resources, totalCost)) {
-            town.resources = subResources(town.resources, totalCost.resources);
+            town.resources = subResourcesFromTown(town.resources, totalCost.resources);
 
             const unitQueue = town.queues.units[queueBuildingId];
             if (unitQueue !== undefined) {
@@ -275,13 +275,13 @@ export const townSlice = createSlice({
 
                 if (unit !== undefined) {
                   unit.total += 1;
-                  unit.town += 1;
+                  unit.home += 1;
                 } else {
                   // ? should work
                   town.units.id[queueItem.unit] = {
                     id: queueItem.unit,
                     total: 1,
-                    town: 1,
+                    home: 1,
                   };
                   town.units.all.push(queueItem.unit);
                 }

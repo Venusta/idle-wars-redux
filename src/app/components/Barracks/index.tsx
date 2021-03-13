@@ -1,16 +1,17 @@
+/* eslint-disable arrow-body-style */
 /* eslint-disable react/no-array-index-key */
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import React, { useMemo } from "react";
 import {
-  BuildingId, UnitIdProductionType, UnitIdType, UnitProductionBuildingIdType,
+  BuildingId, ResourceId, UnitIdProductionType, UnitIdType,
 } from "../../game/constants";
 import { baseBuildings } from "../../game/buildings";
 import { baseUnits } from "../../game/units";
 import { UnitResourceDisplay as UnitResourceDisplayCell } from "./UnitResourceDisplay";
 import { RootState, useAppDispatch } from "../../store";
 import {
-  selectResources, selectRecruitForm, selectRecruitFormsDataBuilding, selectUnlockedUnits,
+  selectResources, selectRecruitForm, selectRecruitFormsDataBuilding, selectUnlockedUnits, makeselectRecruitFormsDataBuilding,
 } from "../../selectors";
 import { FormsRecruitUnitData, setUnitFormData } from "../../slices/misc";
 import { RecruitFormQueueData, startRecruitSomething } from "../../slices/towns";
@@ -18,6 +19,8 @@ import Style from "./style.module.css";
 import { ConstructButton } from "../Buttons";
 import { makeSelectUnitAmounts } from "../../selectors/selectUnitAmounts";
 import { useMemoSelector } from "../hooks";
+import { addPartialResources, multiplyResources, subResourcesFromTown } from "../../util";
+import { ResourcesNormalised } from "../../../types/townStateTypes";
 
 interface UnitRowProps {
   unitId: UnitIdProductionType
@@ -34,69 +37,56 @@ const UnitColumnCell = ({ unitId }: UnitColumnProps) => (
   </div>
 );
 
+const calculateTotalCost = (formData: FormsRecruitUnitData[]) => {
+  return formData.reduce((accumulatedCost: ResourcesNormalised, { unitId, amount }) => {
+    const unitResourceCost = multiplyResources(baseUnits[unitId].cost.resources, amount);
+    return addPartialResources(accumulatedCost, [unitResourceCost]);
+  }, {
+    id: {},
+    all: [],
+  });
+};
+
+const calculateMaxAdditionalRecruits = (unitId: UnitIdProductionType, resources: ResourcesNormalised): number => {
+  const unitResourceCost = baseUnits[unitId].cost.resources;
+  const maxRecruitAmount: number = Object.values(resources.id).reduce((maxAmount, resource) => {
+    if (resource !== undefined) {
+      const unitCost = unitResourceCost.id[resource.id];
+      if (unitCost !== undefined) {
+        return Math.min(maxAmount, Math.floor(resource.amount / unitCost.amount));
+      }
+    }
+    return 0;
+  }, Infinity);
+  return maxRecruitAmount;
+};
+
 const RecruitAmount = ({ unitId }: { unitId: UnitIdProductionType }) => {
+  const dispatch = useAppDispatch();
   const { townId } = useParams<{ townId: string }>();
-  const resources = useMemoSelector((state) => selectResources(state, townId));
-  // const barracksFormData = useMemoSelector((state) => selectRecruitForms(state, BuildingId.Barracks));
-  const unlockedUnits = useMemoSelector((state) => selectUnlockedUnits(state, townId, BuildingId.Barracks));
 
-  // const canRecruitAmount = (formData: RecruitFormOld, townResources: ResourcesNormalised) => {
-  //   interface SingleUnitData {
-  //     id: UnitIdProductionType;
-  //     amount: number;
-  //   }
-  //   type UnitsData = {
-  //     [id in UnitIdProductionType]?: SingleUnitData;
-  //   };
+  const select = useMemo(makeselectRecruitFormsDataBuilding, []);
+  const barracksFormData = useSelector((state: RootState) => select(state, BuildingId.Barracks));
+  const resources = useSelector((state: RootState) => selectResources(state, townId));
 
-  //   type ResMap = Map<ResourceIdType, number>;
-  //   const remainder: ResMap = new Map([]);
+  const totalCost = calculateTotalCost(barracksFormData);
+  const remainingResources = subResourcesFromTown(resources, totalCost);
 
-  //   // ?? todo fix this fucking method for the 9th time zzzzzzzzzzzzz
-  //   // eslint-disable-next-line @typescript-eslint/no-shadow
-  //   const howManyWeCanMake: UnitsData = unlockedUnits.reduce((prev: UnitsData, unitId) => {
-  //     const data = formData[unitId];
+  const maxAdditionalAmount = calculateMaxAdditionalRecruits(unitId, remainingResources);
 
-  //     const [id, amountOfUnits] = data ?? [unitId, 0];
-  //     const unitResourceCost = baseUnits[id].cost.resources;
-
-  //     const minUnitArray = unitResourceCost.all.map((unitCostResId) => {
-  //       const unitCostResAmount = unitResourceCost.id[unitCostResId]?.amount ?? 0;
-
-  //       const multiplied = unitCostResAmount * amountOfUnits;
-  //       remainder.set(unitCostResId, ((remainder.get(unitCostResId) ?? 0) - multiplied));
-  //       // console.log(remainder);
-
-  //       // check we have enough in the town
-  //       const spareResAmount = (townResources.id[unitCostResId]?.amount ?? 0) + (remainder.get(unitCostResId) ?? 0);
-  //       // console.log(spareResAmount);
-
-  //       if (spareResAmount > 0) {
-  //         const makeWithX = Math.floor(spareResAmount / unitCostResAmount);
-  //         return makeWithX;
-  //       }
-  //       return 0;
-  //     });
-  //     // console.log(`${unitId}: ${Math.min(...minUnitArray)}`);
-
-  //     return {
-  //       ...prev,
-  //       [id]: {
-  //         id,
-  //         amount: Math.min(...minUnitArray),
-  //       },
-  //     };
-  //   }, {});
-
-  //   return howManyWeCanMake;
-  // };
-
-  // const x = canRecruitAmount(allFormData, resources);
-  // console.log(x);
+  const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    if (maxAdditionalAmount === 0) {
+      dispatch(setUnitFormData({ unitId, amount: undefined }));
+    } else {
+      const newFormAmount = (barracksFormData.find(({ unitId: id }) => id === unitId)?.amount ?? 0) + maxAdditionalAmount;
+      dispatch(setUnitFormData({ unitId, amount: newFormAmount }));
+    }
+  };
 
   return (
-    // <div className={Style.RecruitLabel}>{`(${(x[unitId]?.amount ?? 0)})`}</div>
-    <div className={Style.RecruitLabel}>Fix me V3</div>
+    // eslint-disable-next-line jsx-a11y/click-events-have-key-events
+    <div className={Style.RecruitLabel} onClick={(e) => handleClick(e)} role="button" tabIndex={0}>{`(${maxAdditionalAmount})`}</div>
   );
 };
 
@@ -144,9 +134,9 @@ const UnitAmountsCell = ({ unitId }: { unitId: UnitIdType }): JSX.Element => {
   console.log("UnitAmountsCell Rendered");
   const { townId } = useParams<{ townId: string }>();
   const select = useMemo(makeSelectUnitAmounts, []);
-  const { town, total } = useSelector((state: RootState) => select(state, townId, unitId));
+  const { home, total } = useSelector((state: RootState) => select(state, townId, unitId));
   return (
-    <div className={Style.infoColumn}>{`${town}/${total}`}</div>
+    <div className={Style.infoColumn}>{`${home}/${total}`}</div>
   );
 };
 

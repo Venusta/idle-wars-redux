@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/restrict-template-expressions */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable arrow-body-style */
 import { createSelector } from "@reduxjs/toolkit";
@@ -33,8 +35,8 @@ export const makeSelectUnitAmounts = () => {
     [getUnit],
     (unit) => {
       console.log(`[Updt]: selectUnitAmount ID: ${unit?.id}`);
-      const { town: inTown, total } = unit ?? { town: 0, total: 0 };
-      return { town: inTown, total };
+      const { home, total } = unit ?? { home: 0, total: 0 };
+      return { home, total };
     },
   );
 };
@@ -47,7 +49,7 @@ let count = 0;
 // const makeData = (towns: TownsNormalised, townId: string, unitId: UnitId) => {
 const makeData = (unit: Unit | undefined) => {
   console.log(`-- recalculate: ${unit?.id} ${count += 1}`);
-  const { town: inTown, total } = unit ?? { town: 0, total: 0 };
+  const { home: inTown, total } = unit ?? { home: 0, total: 0 };
   return { town: inTown, total };
 };
 

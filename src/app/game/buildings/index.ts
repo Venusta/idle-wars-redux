@@ -18,6 +18,7 @@ import { workshop } from "./workshop";
 import { statue } from "./statue";
 import { academy } from "./academy";
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 interface BaseBuildings { // TODO FIX useless :(
   timbercamp: ResourceBuilding;
   claypit: ResourceBuilding;

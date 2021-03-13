@@ -55,12 +55,12 @@ const units: UnitsNormalised = {
   id: {
     [UnitId.SpearFighter]: {
       id: UnitId.SpearFighter,
-      town: 100,
+      home: 100,
       total: 200,
     },
     [UnitId.Swordsman]: {
       id: UnitId.Swordsman,
-      town: 200,
+      home: 200,
       total: 200,
     },
   },
