@@ -1,7 +1,7 @@
 /* eslint-disable no-param-reassign */
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import {
-  UnitId, UnitIdProductionArray, UnitIdProductionType,
+  UnitId, UnitIdProductionArray, UnitIdProductionType, BuildingIdRecruitType,
 } from "../game/constants";
 
 interface MiscState {
@@ -10,6 +10,10 @@ interface MiscState {
   userSettings: {
     resourceDisplayToggle: boolean
   }
+  data: {
+    currentTown: string,
+    currentPage: BuildingIdRecruitType,
+  },
   forms: FormsRecruit
 }
 
@@ -25,8 +29,18 @@ export interface FormsRecruitUnits {
   all: readonly UnitIdProductionType[]
 }
 
+// interface FormsRecruitBuildings {
+//   id: Record<
+//   BuildingIdRecruitType, {
+//     id: BuildingIdRecruitType
+//     units: readonly UnitIdProductionType[]
+//   }>,
+//   all: BuildingIdRecruitType[]
+// }
+
 interface FormsRecruit {
   recruit: {
+    // buildings: FormsRecruitBuildings
     units: FormsRecruitUnits
   }
 }
@@ -37,8 +51,33 @@ const initialState: MiscState = {
   userSettings: {
     resourceDisplayToggle: true,
   },
+  data: {
+    currentTown: "0",
+    currentPage: "barracks",
+  },
   forms: {
     recruit: {
+      // buildings: {
+      //   id: {
+      //     [RecruitBuilding]: {
+      //       id: RecruitBuilding,
+      //       units: UnitIdProductionArray,
+      //     },
+      //     [BuildingId.Barracks]: {
+      //       id: BuildingId.Barracks,
+      //       units: UnitIdBarracksArray,
+      //     },
+      //     [BuildingId.Stable]: {
+      //       id: BuildingId.Stable,
+      //       units: UnitIdStableArray,
+      //     },
+      //     [BuildingId.Workshop]: {
+      //       id: BuildingId.Workshop,
+      //       units: UnitIdWorkshopArray,
+      //     },
+      //   },
+      //   all: [BuildingId.Barracks, BuildingId.Stable, BuildingId.Workshop, RecruitBuilding],
+      // },
       units: {
         id: {
           // [UnitId.Archer]: {
@@ -97,6 +136,9 @@ interface UnitFormPayload {
   unitId: UnitIdProductionType
   amount: number | undefined
 }
+interface SetCurrentPagePayload {
+  pageId: BuildingIdRecruitType
+}
 
 export const miscSlice = createSlice({
   name: "misc",
@@ -134,6 +176,9 @@ export const miscSlice = createSlice({
         };
       }
     },
+    setCurrentPage: (misc, { payload: { pageId } }: PayloadAction<SetCurrentPagePayload>) => {
+      misc.data.currentPage = pageId;
+    },
   },
 });
 
@@ -142,4 +187,5 @@ export const {
   active,
   toggleResourceDisplay,
   setUnitFormData,
+  setCurrentPage,
 } = miscSlice.actions;

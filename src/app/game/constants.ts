@@ -28,10 +28,14 @@ export const BuildingId = {
   ...BasicBuildingId,
 } as const;
 
+export const RecruitBuilding = "recruit" as const;
+
 export type BuildingIdType = typeof BuildingId[keyof typeof BuildingId];
-export type UnitProductionBuildingIdType = typeof UnitProductionBuildingId[keyof typeof UnitProductionBuildingId];
-export type ResourceProductionBuildingIdType = typeof ResourceProductionBuildingId[keyof typeof ResourceProductionBuildingId];
-export type BasicBuildingIdType = typeof BasicBuildingId[keyof typeof BasicBuildingId];
+export type BuildingIdUnitProductionType = typeof UnitProductionBuildingId[keyof typeof UnitProductionBuildingId];
+export type BuildingIdResourceProductionType = typeof ResourceProductionBuildingId[keyof typeof ResourceProductionBuildingId];
+export type BuildingIdBasicType = typeof BasicBuildingId[keyof typeof BasicBuildingId];
+
+export type BuildingIdRecruitType = BuildingIdUnitProductionType | typeof RecruitBuilding;
 
 export const UnitIdBarracks = {
   SpearFighter: "spearfighter",
@@ -76,6 +80,7 @@ export type UnitIdAcademyType = typeof UnitIdAcademy[keyof typeof UnitIdAcademy]
 export type UnitIdStatueType = typeof UnitIdStatue[keyof typeof UnitIdStatue];
 
 export type UnitIdProductionType = UnitIdBarracksType | UnitIdStableType | UnitIdWorkshopType;
+// export type UnitIdRecruitType = UnitIdProductionType[];
 
 export const UnitIdBarracksArray = [
   UnitIdBarracks.SpearFighter,
@@ -109,3 +114,30 @@ export const ResourceId = {
 } as const;
 
 export type ResourceIdType = typeof ResourceId[keyof typeof ResourceId];
+
+// ? below to new file
+
+type FormsRecruitBuildings = Record<
+BuildingIdRecruitType, {
+  id: BuildingIdRecruitType
+  units: readonly UnitIdProductionType[]
+}>;
+
+export const FormUiStuff: FormsRecruitBuildings = {
+  [RecruitBuilding]: {
+    id: RecruitBuilding,
+    units: UnitIdProductionArray,
+  },
+  [BuildingId.Barracks]: {
+    id: BuildingId.Barracks,
+    units: UnitIdBarracksArray,
+  },
+  [BuildingId.Stable]: {
+    id: BuildingId.Stable,
+    units: UnitIdStableArray,
+  },
+  [BuildingId.Workshop]: {
+    id: BuildingId.Workshop,
+    units: UnitIdWorkshopArray,
+  },
+};

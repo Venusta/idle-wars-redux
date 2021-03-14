@@ -1,9 +1,10 @@
 import { ResourcesNormalised } from "../../../types/townStateTypes";
 import { selectTowns } from "../../selectors";
-import { useMemoSelector } from "../hooks";
+import { useCurrentpage, useMemoSelector } from "../hooks";
 import Style from "./style.module.css";
 
 export const Overview = (): JSX.Element => {
+  useCurrentpage("recruit");
   const towns = useMemoSelector((state) => selectTowns(state));
   // Object.values(towns.byId)
 

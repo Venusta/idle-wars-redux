@@ -3,7 +3,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { baseBuildings } from "../game/buildings";
 import {
-  BuildingIdType, ResourceIdType, UnitProductionBuildingIdType,
+  BuildingIdType, ResourceIdType, BuildingIdUnitProductionType,
 } from "../game/constants";
 import { ResourceBuilding } from "../game/model/buildings/resourceBuilding";
 import { baseUnits } from "../game/units";
@@ -33,7 +33,7 @@ interface StartBuildSomething {
 }
 
 export interface RecruitFormQueueData {
-  queueBuildingId: UnitProductionBuildingIdType
+  queueBuildingId: BuildingIdUnitProductionType
   formData: FormsRecruitUnitData[];
 }
 

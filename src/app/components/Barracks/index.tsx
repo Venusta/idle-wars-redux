@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 /* eslint-disable arrow-body-style */
 /* eslint-disable react/no-array-index-key */
 import { useParams } from "react-router-dom";
@@ -11,14 +12,14 @@ import { baseUnits } from "../../game/units";
 import { UnitResourceDisplay as UnitResourceDisplayCell } from "./UnitResourceDisplay";
 import { RootState, useAppDispatch } from "../../store";
 import {
-  selectResources, selectRecruitForm, selectRecruitFormsDataBuilding, buildingFormsSelector,
+  selectResources, selectRecruitForm, selectRecruitFormsDataBuilding, createBuildingFormsSelector,
 } from "../../selectors";
 import { FormsRecruitUnitData, setUnitFormData } from "../../slices/misc";
 import { RecruitFormQueueData, startRecruitSomething } from "../../slices/towns";
 import Style from "./style.module.css";
 import { ConstructButton } from "../Buttons";
 import { makeSelectUnitAmounts } from "../../selectors/selectUnitAmounts";
-import { useMemoSelector } from "../hooks";
+import { useCurrentpage, useMemoSelector } from "../hooks";
 import { addPartialResources, multiplyResources, subResourcesFromTown } from "../../util";
 import { ResourcesNormalised } from "../../../types/townStateTypes";
 
@@ -68,7 +69,13 @@ const RecruitAmount = ({ unitId }: { unitId: UnitIdProductionType }) => {
   // const select = useMemo(makeselectRecruitFormsDataBuilding, []);
   // const barracksFormData = useSelector((state: RootState) => select(state, BuildingId.Barracks));
 
-  const barracksFormData = useSelector((state: RootState) => buildingFormsSelector(state)(BuildingId.Barracks));
+  // const barracksFormData = useSelector((state: RootState) => buildingFormsSelector(state)(BuildingId.Barracks));
+  const barracksFormData = useSelector((state: RootState) => createBuildingFormsSelector(state, BuildingId.Barracks));
+  // const barracksFormData = useSelector((state: RootState) => createBuildingFormsSelector2(state));
+
+  // // @ts-ignore: Unreachable code error
+  // console.log(Object.keys(createBuildingFormsSelector.cache._cache));
+
   const resources = useSelector((state: RootState) => selectResources(state, townId));
 
   const totalCost = calculateTotalCost(barracksFormData);
@@ -174,15 +181,18 @@ const RecruitAllButton = (): JSX.Element => {
 
 // TODO only show unlocked .filter
 
-export const Barracks = (): JSX.Element => (
-  <div className={Style.outer}>
-    <div className={Style.wrapper}>
-      <div className={Style.columnHeader}>Unit</div>
-      <div className={`${Style.columnHeader} ${Style.columnRequirements}`}>Requirements</div>
-      <div className={Style.columnHeader}>Village / Total</div>
-      <div className={Style.columnHeader}>Recruit</div>
-      {baseBuildings[BuildingId.Barracks].creates.map((id, index) => <UnitRow key={`${id}${index}`} unitId={id} />)}
-      <RecruitAllButton />
+export const Barracks = (): JSX.Element => {
+  useCurrentpage("barracks");
+  return (
+    <div className={Style.outer}>
+      <div className={Style.wrapper}>
+        <div className={Style.columnHeader}>Unit</div>
+        <div className={`${Style.columnHeader} ${Style.columnRequirements}`}>Requirements</div>
+        <div className={Style.columnHeader}>Village / Total</div>
+        <div className={Style.columnHeader}>Recruit</div>
+        {baseBuildings[BuildingId.Barracks].creates.map((id, index) => <UnitRow key={`${id}${index}`} unitId={id} />)}
+        <RecruitAllButton />
+      </div>
     </div>
-  </div>
-);
+  );
+};

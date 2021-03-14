@@ -1,6 +1,6 @@
 /* eslint-disable no-useless-computed-key */
 import {
-  BuildingId, UnitId, UnitIdBarracksType, UnitIdProductionType, UnitIdStableType, UnitIdType, UnitIdWorkshopType, UnitProductionBuildingIdType,
+  BuildingId, UnitId, UnitIdBarracksType, UnitIdProductionType, UnitIdStableType, UnitIdType, UnitIdWorkshopType, BuildingIdUnitProductionType,
 } from "../game/constants";
 
 const form = {
@@ -48,22 +48,22 @@ const form = {
 };
 
 interface FBData {
-  id: UnitProductionBuildingIdType
+  id: BuildingIdUnitProductionType
   units: UnitIdType[]
 }
 
 interface FBNormalised {
-  id: Record<UnitProductionBuildingIdType, FBData>
+  id: Record<BuildingIdUnitProductionType, FBData>
 }
 
 interface FormNew {
   buildings: {
     id: Record<
-    UnitProductionBuildingIdType, {
-      id: UnitProductionBuildingIdType
+    BuildingIdUnitProductionType, {
+      id: BuildingIdUnitProductionType
       units: UnitIdBarracksType[] | UnitIdStableType[] | UnitIdWorkshopType[]
     }>,
-    all: UnitProductionBuildingIdType[]
+    all: BuildingIdUnitProductionType[]
   },
   units: {
     id: Partial<Record<

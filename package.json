@@ -77,7 +77,6 @@
       "no-restricted-syntax": "off",
       "@typescript-eslint/restrict-template-expressions": "warn",
       "object-curly-newline": "warn",
-  
       "react/no-children-prop": "error",
       "react/no-danger-with-children": "error",
       "react/no-deprecated": "error",
