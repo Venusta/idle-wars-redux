@@ -29,6 +29,7 @@ const resources: ResourcesNormalised = {
     ResourceId.Iron,
   ],
 };
+
 const rps: ResourcesNormalised = {
   id: {
     [ResourceId.Timber]: {

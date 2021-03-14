@@ -28,7 +28,13 @@ const buildingFormsSelector = createSelector(
   },
 );
 
-export const createBuildingFormsSelector = createCachedSelector(
+/**
+ * Selects the recruit forms
+ * @param state RootState
+ * @param buildingId: UnitProductionBuildingIdType
+ */
+
+export const selectRecruitFormsDataBuilding = createCachedSelector(
   unitFormsSelector,
   (state: RootState, buildingId: BuildingIdRecruitType) => buildingId,
   (unitForms, buildingId: BuildingIdRecruitType) => {
@@ -46,12 +52,7 @@ export const createBuildingFormsSelector = createCachedSelector(
   (_state_, buildingId) => buildingId,
 );
 
-/**
- * Selects the recruit forms
- * @param state RootState
- * @param buildingId: UnitProductionBuildingIdType
- */
-export const selectRecruitFormsDataBuilding = (
+const selectRecruitFormsDataBuildingOld = (
   state: RootState,
   buildingId: BuildingIdUnitProductionType,
 ): FormsRecruitUnitData[] => baseBuildings[buildingId].creates.reduce(

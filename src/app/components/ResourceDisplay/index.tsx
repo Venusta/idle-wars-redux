@@ -7,13 +7,13 @@ import { ResourceId } from "../../game/constants";
 import Style from "./style.module.css";
 import { toggleResourceDisplay } from "../../slices/misc";
 import { SingleResource } from "./SingleResource";
-import { useMemoSelector } from "../hooks";
+import { useStateSelector } from "../hooks";
 
 export const ResourceDisplay = (): JSX.Element => {
   const { townId } = useParams<{ townId: string }>();
   const dispatch = useAppDispatch();
-  const { population, maxPopulation } = useMemoSelector((state) => selectPops(state, townId));
-  const storageCapacity = useMemoSelector((state) => state.towns.id[townId].storageCapacity);
+  const { population, maxPopulation } = useStateSelector((state) => selectPops(state, townId));
+  const storageCapacity = useStateSelector((state) => state.towns.id[townId].storageCapacity);
 
   const handleToggle = () => {
     dispatch(toggleResourceDisplay());

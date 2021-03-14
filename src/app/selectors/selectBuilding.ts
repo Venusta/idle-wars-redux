@@ -8,4 +8,8 @@ import { RootState } from "../store";
  * @param townId town id
  * @param buildingId building id
  */
-export const selectBuilding = (state: RootState, townId: string, buildingId: BuildingIdType): BuildingDataType => (state.towns.id[townId].buildings.id[buildingId]);
+export const selectBuilding = (
+  state: RootState,
+  townId: string,
+  buildingId: BuildingIdType,
+): BuildingDataType => state.towns.id[townId].buildings.id[buildingId];

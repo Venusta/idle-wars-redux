@@ -14,7 +14,7 @@ import { startBuildSomething } from "../../slices/towns";
 import { BuildingInfo } from "./BuildingInfo";
 import Style from "./style.module.css";
 import { calculateTimeUntilResources } from "../../util/calculateTimeUntilResources";
-import { useMemoSelector } from "../hooks";
+import { useStateSelector } from "../hooks";
 
 export const Headquarters = (): JSX.Element => {
   const dispatch = useAppDispatch();
@@ -39,10 +39,10 @@ export const Headquarters = (): JSX.Element => {
   );
 
   const BuildingRow = ({ buildingId }: { buildingId: BuildingIdType }) => {
-    const queue = useMemoSelector((state) => selectBuildingQueue(state, townId, BuildingId.Headquarters));
-    const buildings = useMemoSelector((state) => selectBuildings(state, townId));
-    const resources = useMemoSelector((state) => selectResources(state, townId));
-    const rps = useMemoSelector((state) => selectRps(state, townId));
+    const queue = useStateSelector((state) => selectBuildingQueue(state, townId, BuildingId.Headquarters));
+    const buildings = useStateSelector((state) => selectBuildings(state, townId));
+    const resources = useStateSelector((state) => selectResources(state, townId));
+    const rps = useStateSelector((state) => selectRps(state, townId));
     const { level, queuedLevel } = buildings.id[buildingId];
     const buildingData = baseBuildings[buildingId];
 

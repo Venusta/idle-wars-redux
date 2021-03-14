@@ -1,10 +1,10 @@
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { ResourceIdType, UnitIdType } from "../../../../game/constants";
-import { selectResource } from "../../../../selectors";
-import Style from "./style.module.css";
 import { baseUnits } from "../../../../game/units";
 import { RootState } from "../../../../store";
+import { selectEnoughResource } from "../../../../selectors";
+import Style from "./style.module.css";
 
 interface Props {
   unitId: UnitIdType
@@ -12,20 +12,21 @@ interface Props {
   multiplier: number
 }
 
-const ResouceAmount = ({ unitId, resourceId, multiplier = 1 }: Props) => {
+const ResourceAmount = ({ unitId, resourceId, multiplier = 1 }: Props) => {
   const { townId } = useParams<{ townId: string }>();
-  const resource = useSelector((state: RootState) => selectResource(state, townId, resourceId));
   const amount = baseUnits[unitId].cost.resources.id[resourceId]?.amount ?? 0;
   const cost = amount * multiplier;
-  // todo this might be broken
+
+  const enoughResources = useSelector((state: RootState) => selectEnoughResource(state, townId, resourceId)(cost));
+
   return (
-    <div className={`${resource < cost ? `${Style.dangerText}` : ""}`}>{cost.toFixed(0)}</div>
+    <div className={`${enoughResources ? "" : `${Style.dangerText}`}`}>{cost.toFixed(0)}</div>
   );
 };
 
 export const SingleUnitResource = ({ unitId, resourceId, multiplier = 1 }: Props): JSX.Element => (
   <div className={Style.container}>
     <img alt="" src={`${process.env.PUBLIC_URL}/resources/${resourceId}.png`} />
-    <ResouceAmount multiplier={multiplier} resourceId={resourceId} unitId={unitId} />
+    <ResourceAmount multiplier={multiplier} resourceId={resourceId} unitId={unitId} />
   </div>
 );

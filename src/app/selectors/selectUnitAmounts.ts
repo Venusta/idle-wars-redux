@@ -31,24 +31,21 @@ const getUnitsN = () => {
 
 export const makeSelectUnitAmounts = () => {
   console.log("[Once]: makeSelectUnitAmounts");
-  return createSelector(
-    [getUnit],
-    (unit) => {
-      console.log(`[Updt]: selectUnitAmount ID: ${unit?.id}`);
-      const { home, total } = unit ?? { home: 0, total: 0 };
-      return { home, total };
-    },
-  );
+  return createSelector([getUnit], (unit) => {
+    console.log(`[Updt]: selectUnitAmount ID: ${unit?.id}`);
+    const { home, total } = unit ?? { home: 0, total: 0 };
+    return { home, total };
+  });
 };
 
 const townsTypeSelector = (state: RootState) => state.towns;
-const townTypeSelector = (state: RootState, ownProps: { townId: string; }) => ownProps.townId;
-const unitTypeSelector = (state: RootState, ownProps: { unitId: UnitIdType; }) => ownProps.unitId;
+const townTypeSelector = (state: RootState, ownProps: { townId: string }) => ownProps.townId;
+const unitTypeSelector = (state: RootState, ownProps: { unitId: UnitIdType }) => ownProps.unitId;
 
 let count = 0;
 // const makeData = (towns: TownsNormalised, townId: string, unitId: UnitId) => {
 const makeData = (unit: Unit | undefined) => {
-  console.log(`-- recalculate: ${unit?.id} ${count += 1}`);
+  console.log(`-- recalculate: ${unit?.id} ${(count += 1)}`);
   const { home: inTown, total } = unit ?? { home: 0, total: 0 };
   return { town: inTown, total };
 };

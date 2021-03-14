@@ -6,4 +6,7 @@ import { RootState } from "../store";
  * @param state RootState
  * @param townId Town id
  */
-export const selectUnits = (state: RootState, townId: string): UnitsNormalised => (state.towns.id[townId].units);
+export const selectUnits = (
+  state: RootState,
+  townId: string,
+): UnitsNormalised => state.towns.id[townId].units;

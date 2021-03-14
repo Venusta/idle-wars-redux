@@ -12,14 +12,14 @@ import { baseUnits } from "../../game/units";
 import { UnitResourceDisplay as UnitResourceDisplayCell } from "./UnitResourceDisplay";
 import { RootState, useAppDispatch } from "../../store";
 import {
-  selectResources, selectRecruitForm, selectRecruitFormsDataBuilding, createBuildingFormsSelector,
+  selectResources, selectRecruitForm, selectRecruitFormsDataBuilding,
 } from "../../selectors";
 import { FormsRecruitUnitData, setUnitFormData } from "../../slices/misc";
 import { RecruitFormQueueData, startRecruitSomething } from "../../slices/towns";
 import Style from "./style.module.css";
 import { ConstructButton } from "../Buttons";
 import { makeSelectUnitAmounts } from "../../selectors/selectUnitAmounts";
-import { useCurrentpage, useMemoSelector } from "../hooks";
+import { useCurrentpage, useStateSelector } from "../hooks";
 import { addPartialResources, multiplyResources, subResourcesFromTown } from "../../util";
 import { ResourcesNormalised } from "../../../types/townStateTypes";
 
@@ -66,16 +66,7 @@ const RecruitAmount = ({ unitId }: { unitId: UnitIdProductionType }) => {
   const dispatch = useAppDispatch();
   const { townId } = useParams<{ townId: string }>();
 
-  // const select = useMemo(makeselectRecruitFormsDataBuilding, []);
-  // const barracksFormData = useSelector((state: RootState) => select(state, BuildingId.Barracks));
-
-  // const barracksFormData = useSelector((state: RootState) => buildingFormsSelector(state)(BuildingId.Barracks));
-  const barracksFormData = useSelector((state: RootState) => createBuildingFormsSelector(state, BuildingId.Barracks));
-  // const barracksFormData = useSelector((state: RootState) => createBuildingFormsSelector2(state));
-
-  // // @ts-ignore: Unreachable code error
-  // console.log(Object.keys(createBuildingFormsSelector.cache._cache));
-
+  const barracksFormData = useSelector((state: RootState) => selectRecruitFormsDataBuilding(state, BuildingId.Barracks));
   const resources = useSelector((state: RootState) => selectResources(state, townId));
 
   const totalCost = calculateTotalCost(barracksFormData);
@@ -96,7 +87,6 @@ const RecruitAmount = ({ unitId }: { unitId: UnitIdProductionType }) => {
   return (
     // eslint-disable-next-line jsx-a11y/click-events-have-key-events
     <div className={Style.RecruitLabel} onClick={(e) => handleClick(e)} role="button" tabIndex={0}>{`(${maxAdditionalAmount})`}</div>
-    // <div className={Style.RecruitLabel}>( test )</div>
   );
 };
 
@@ -106,8 +96,8 @@ interface PropsIn {
 
 const InputForm = ({ unitId }: PropsIn) => {
   const dispatch = useAppDispatch();
-  const formData = useMemoSelector((state) => selectRecruitForm(state, unitId));
-  const allFormData = useMemoSelector((state) => selectRecruitFormsDataBuilding(state, BuildingId.Barracks)); // TODO try not have this here
+  const formData = useStateSelector((state) => selectRecruitForm(state, unitId));
+  const allFormData = useStateSelector((state) => selectRecruitFormsDataBuilding(state, BuildingId.Barracks)); // TODO try not have this here
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     console.log(allFormData);
@@ -163,7 +153,7 @@ const UnitRow = ({ unitId }: UnitRowProps) => (
 const RecruitAllButton = (): JSX.Element => {
   const dispatch = useAppDispatch();
   const { townId } = useParams<{ townId: string }>();
-  const formData = useMemoSelector((state) => selectRecruitFormsDataBuilding(state, BuildingId.Barracks));
+  const formData = useStateSelector((state) => selectRecruitFormsDataBuilding(state, BuildingId.Barracks));
 
   // todo maybe make the selector return this format
   const data: RecruitFormQueueData[] = [{

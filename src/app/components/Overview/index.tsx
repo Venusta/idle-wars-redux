@@ -1,11 +1,10 @@
 import { ResourcesNormalised } from "../../../types/townStateTypes";
 import { selectTowns } from "../../selectors";
-import { useCurrentpage, useMemoSelector } from "../hooks";
+import { useStateSelector } from "../hooks";
 import Style from "./style.module.css";
 
 export const Overview = (): JSX.Element => {
-  useCurrentpage("recruit");
-  const towns = useMemoSelector((state) => selectTowns(state));
+  const towns = useStateSelector((state) => selectTowns(state));
   // Object.values(towns.byId)
 
   const Resources = ({ resources }: { resources: ResourcesNormalised }): JSX.Element => (

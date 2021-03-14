@@ -6,4 +6,7 @@ import { RootState } from "../store";
  * @param state RootState
  * @param townId Town id
  */
-export const selectResearch = (state: RootState, townId: string): ResearchNormalised => (state.towns.id[townId].unlocked);
+export const selectResearch = (
+  state: RootState,
+  townId: string,
+): ResearchNormalised => state.towns.id[townId].unlocked;

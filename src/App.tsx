@@ -15,7 +15,7 @@ import { active } from "./app/slices/misc";
 import { gameTick } from "./app/game/gameTick";
 import { Barracks } from "./app/components/Barracks";
 import { Overview } from "./app/components/Overview";
-import { useMemoSelector } from "./app/components/hooks";
+import { useStateSelector } from "./app/components/hooks";
 import { useAppDispatch } from "./app/store";
 import { WorldMap } from "./app/components/WorldMap";
 
@@ -55,7 +55,7 @@ const MainContainer = ({ children }: MainContainerProps) => (
 
 function App(): JSX.Element {
   const dispatch = useAppDispatch();
-  const running = useMemoSelector((state) => state.misc.running);
+  const running = useStateSelector((state) => state.misc.running);
 
   useEffect(() => {
     if (running) {

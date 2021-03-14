@@ -3,12 +3,12 @@ import { BuildingIdType } from "../../game/constants";
 import { baseBuildings } from "../../game/buildings";
 import { selectBuildingLevel } from "../../selectors";
 import "./style.css";
-import { useMemoSelector } from "../hooks";
+import { useStateSelector } from "../hooks";
 
 export const BuildingHeader = (): JSX.Element => {
   const { townId, buildingId } = useParams<{ townId: string, buildingId: BuildingIdType }>();
   const { name, description } = baseBuildings[buildingId];
-  const level = useMemoSelector((state) => selectBuildingLevel(state, townId, buildingId));
+  const level = useStateSelector((state) => selectBuildingLevel(state, townId, buildingId));
 
   return (
     <div className="building-header-title">

@@ -16,5 +16,5 @@ export const gameTick = (): void => {
 
   setTimeout(() => {
     gameTick();
-  }, 5000);
+  }, 1000);
 };

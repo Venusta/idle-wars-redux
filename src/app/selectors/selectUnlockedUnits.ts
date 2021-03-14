@@ -8,9 +8,14 @@ import { RootState } from "../store";
  * Selects the Towns rps from state
  * @param state RootState
  * @param townId Town id
- * @param buildingId Building id
+ * @param buildingId BuildingIdType
  */
-export const selectUnlockedUnits = (state: RootState, townId: string, buildingId: BuildingIdType): UnitIdProductionType[] => {
+// TODO cache thingy
+export const selectUnlockedUnits = (
+  state: RootState,
+  townId: string,
+  buildingId: BuildingIdType,
+): UnitIdProductionType[] => {
   const buildingData = baseBuildings[buildingId];
   if (buildingData instanceof UnitProductionBuilding) {
     const { creates } = buildingData;

@@ -3,7 +3,7 @@ import { useMemo } from "react";
 import { useSelector, shallowEqual } from "react-redux";
 import { RootState } from "../../store";
 
-export const useMemoSelector = <Selected>(selector: (state: RootState) => Selected): Selected => {
+export const useMemoSelectorOld = <Selected>(selector: (state: RootState) => Selected): Selected => {
   const select = useMemo(() => selector, [selector]);
   const x = useSelector(select, shallowEqual);
   return x;

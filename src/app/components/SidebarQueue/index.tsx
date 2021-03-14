@@ -7,7 +7,7 @@ import Style from "./style.module.css";
 
 import { baseBuildings } from "../../game/buildings";
 import { selectBuildingQueue } from "../../selectors";
-import { useMemoSelector } from "../hooks";
+import { useStateSelector } from "../hooks";
 
 const ProgressBar = (props: { completionTime: number, duration: number }) => {
   const { completionTime, duration } = props;
@@ -34,7 +34,7 @@ const ProgressBar = (props: { completionTime: number, duration: number }) => {
 
 export const SidebarQueue = (): JSX.Element => {
   const { townId } = useParams<{ townId: string }>();
-  const buildingQueue = useMemoSelector((state) => selectBuildingQueue(state, townId, BuildingId.Headquarters));
+  const buildingQueue = useStateSelector((state) => selectBuildingQueue(state, townId, BuildingId.Headquarters));
   const emptySlots = HeadquartersQueueSlots - buildingQueue.length;
   // TODO make this update by itself?
 

@@ -2,6 +2,7 @@ export * from "./selectBuilding";
 export * from "./selectBuildingLevel";
 export * from "./selectBuildingQueue";
 export * from "./selectBuildings";
+export * from "./selectEnoughResource";
 export * from "./selectLastTick";
 export * from "./selectPops";
 export * from "./selectRecruitForm";

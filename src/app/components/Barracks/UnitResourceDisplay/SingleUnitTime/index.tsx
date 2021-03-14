@@ -3,7 +3,7 @@ import Style from "./style.module.css";
 import { BuildingIdType, UnitIdType } from "../../../../game/constants";
 import { baseUnits } from "../../../../game/units";
 import { selectBuilding } from "../../../../selectors";
-import { useMemoSelector } from "../../../hooks";
+import { useStateSelector } from "../../../hooks";
 
 interface Props {
   unitId: UnitIdType;
@@ -13,7 +13,7 @@ interface Props {
 // TODO icon
 export const SingleUnitTime = ({ unitId, buildingId, multiplier = 1 }: Props): JSX.Element => {
   const { townId } = useParams<{ townId: string }>();
-  const building = useMemoSelector((state) => selectBuilding(state, townId, buildingId));
+  const building = useStateSelector((state) => selectBuilding(state, townId, buildingId));
 
   const time = baseUnits[unitId].getRecruitTime(building.level) * multiplier;
   const formattedTime = new Date(time * 1000).toISOString().substr(11, 8);

@@ -8,6 +8,10 @@ import { RootState } from "../store";
  * @param townId Town id
  * @param resourceId ResourceIdType
  */
-export const selectResource = (state: RootState, townId: string, resourceId: ResourceIdType): number => {
+export const selectResource = (
+  state: RootState,
+  townId: string,
+  resourceId: ResourceIdType,
+): number => {
   return state.towns.id[townId].resources.id[resourceId]?.amount ?? 0;
 };
