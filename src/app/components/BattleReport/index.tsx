@@ -64,9 +64,15 @@ const AttDefTable = ({ report }: { report: Report }) => {
     const { id } = baseUnits[key];
     return (
       <>
-        <img key={`${key}img1`} className={`${Style.unitIcon} ${total === 0 ? Style.fade : ""}`} src={`${process.env.PUBLIC_URL}/units/unit_${id}.png`} title={id} alt="" />
-        <SingleItem amount={total} key={`${key}quantity1`} />
-        <SingleItem amount={loss} key={`${key}loss1`} />
+        <img
+          key={`${key}img1`}
+          alt=""
+          className={`${Style.unitIcon} ${total === 0 ? Style.fade : ""}`}
+          src={`${process.env.PUBLIC_URL}/units/unit_${id}.png`}
+          title={id}
+        />
+        <SingleItem key={`${key}quantity1`} amount={total} />
+        <SingleItem key={`${key}loss1`} amount={loss} />
       </>
     );
   });
@@ -95,7 +101,7 @@ const AttDefTable = ({ report }: { report: Report }) => {
 export const BattleReport = (): JSX.Element => (
   <div className={Style.outer}>
     <ul className={Style.reportSelector}>
-      <SimpleBar autoHide={false} forceVisible="y" className={Style.simpleBar}>
+      <SimpleBar autoHide={false} className={Style.simpleBar} forceVisible="y">
         <li className={Style.listItem}>Report with a longer than usual name</li>
         <li className={Style.listItem}>Report 2</li>
         <li className={Style.listItem}>Report 3</li>

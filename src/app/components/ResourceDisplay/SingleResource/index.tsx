@@ -12,7 +12,7 @@ export const SingleResource = ({ id: resourceId }: { id: ResourceIdType }): JSX.
 
   return (
     <div className={Style.inner} title={display ? `${rps.toFixed(2)}/s` : `${(resource).toFixed(0)}`}>
-      <img className={Style.icon} src={`${process.env.PUBLIC_URL}/resources/${resourceId}.png`} alt="" />
+      <img alt="" className={Style.icon} src={`${process.env.PUBLIC_URL}/resources/${resourceId}.png`} />
       <div className={Style.displayText}>{display ? `${(resource).toFixed(0)}` : `${rps.toFixed(2)}/s`}</div>
     </div>
   );

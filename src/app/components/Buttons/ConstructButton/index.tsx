@@ -5,4 +5,12 @@ interface ButtonProps {
   handleClick: () => void;
 }
 
-export const ConstructButton = ({ text, handleClick }: ButtonProps): JSX.Element => <button type="button" onClick={() => handleClick()} className="button-style">{text}</button>;
+export const ConstructButton = ({ text, handleClick }: ButtonProps): JSX.Element => (
+  <button
+    className="button-style"
+    onClick={() => handleClick()}
+    type="button"
+  >
+    {text}
+  </button>
+);

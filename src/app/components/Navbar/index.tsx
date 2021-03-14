@@ -20,7 +20,12 @@ export const Navbar = (): JSX.Element => {
       {
         navBuildings.map((buildingId: BuildingIdType) => (
           <div key={buildingId}>
-            <Link to={`/${townId}/buildings/${buildingId}`} className={`${Style.text} ${buildingId === buildingPageId ? Style.active : ""}`}>{baseBuildings[buildingId].name}</Link>
+            <Link
+              className={`${Style.text} ${buildingId === buildingPageId ? Style.active : ""}`}
+              to={`/${townId}/buildings/${buildingId}`}
+            >
+              {baseBuildings[buildingId].name}
+            </Link>
           </div>
         ))
       }

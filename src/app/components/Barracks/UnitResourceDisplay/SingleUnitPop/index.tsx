@@ -13,7 +13,7 @@ export const SingleUnitPop = ({ unitId, multiplier = 1 }: Props): JSX.Element =>
 
   return (
     <div className={Style.container}>
-      <img className={Style.logo} src={`${process.env.PUBLIC_URL}/knight.svg`} alt="" />
+      <img alt="" className={Style.logo} src={`${process.env.PUBLIC_URL}/knight.svg`} />
       <div>{cost}</div>
     </div>
   );

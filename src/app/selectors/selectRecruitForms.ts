@@ -13,7 +13,7 @@ export const buildingFormsSelector = createSelector(
   (unitForms) => memoize(
     (buildingId: UnitProductionBuildingIdType) => {
       console.log("SDFsdfadfg");
-      
+
       return baseBuildings[buildingId].creates.reduce(
         (prev: FormsRecruitUnitData[], unitId) => {
           const data = unitForms[unitId];

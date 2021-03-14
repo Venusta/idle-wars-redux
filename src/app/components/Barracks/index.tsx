@@ -4,14 +4,14 @@ import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import React, { useMemo } from "react";
 import {
-  BuildingId, ResourceId, UnitIdProductionType, UnitIdType,
+  BuildingId, UnitIdProductionType, UnitIdType,
 } from "../../game/constants";
 import { baseBuildings } from "../../game/buildings";
 import { baseUnits } from "../../game/units";
 import { UnitResourceDisplay as UnitResourceDisplayCell } from "./UnitResourceDisplay";
 import { RootState, useAppDispatch } from "../../store";
 import {
-  selectResources, selectRecruitForm, selectRecruitFormsDataBuilding, selectUnlockedUnits, makeselectRecruitFormsDataBuilding, buildingFormsSelector,
+  selectResources, selectRecruitForm, selectRecruitFormsDataBuilding, buildingFormsSelector,
 } from "../../selectors";
 import { FormsRecruitUnitData, setUnitFormData } from "../../slices/misc";
 import { RecruitFormQueueData, startRecruitSomething } from "../../slices/towns";
@@ -32,7 +32,7 @@ interface UnitColumnProps {
 // TODO make the div a link to show info of the unit
 const UnitColumnCell = ({ unitId }: UnitColumnProps) => (
   <div className={Style.unitColumn}>
-    <img src={`${process.env.PUBLIC_URL}/units/${unitId}.png`} alt="" />
+    <img alt="" src={`${process.env.PUBLIC_URL}/units/${unitId}.png`} />
     <div className={Style.unitColumnName}>{baseUnits[unitId].name}</div>
   </div>
 );
@@ -64,7 +64,7 @@ const calculateMaxAdditionalRecruits = (unitId: UnitIdProductionType, resources:
 const RecruitAmount = ({ unitId }: { unitId: UnitIdProductionType }) => {
   const dispatch = useAppDispatch();
   const { townId } = useParams<{ townId: string }>();
-  
+
   // const select = useMemo(makeselectRecruitFormsDataBuilding, []);
   // const barracksFormData = useSelector((state: RootState) => select(state, BuildingId.Barracks));
 
@@ -121,7 +121,7 @@ const InputForm = ({ unitId }: PropsIn) => {
 
   return (
     <form onSubmit={(e) => handleSubmit(e)}>
-      <input id={unitId} type="text" value={formData === undefined ? "" : formData.amount} onChange={(e) => handleChange(e)} />
+      <input id={unitId} onChange={(e) => handleChange(e)} type="text" value={formData === undefined ? "" : formData.amount} />
     </form>
   );
 };
@@ -166,8 +166,8 @@ const RecruitAllButton = (): JSX.Element => {
 
   return (
     <ConstructButton
-      text="Recruit"
       handleClick={() => dispatch(startRecruitSomething({ townId, data }))}
+      text="Recruit"
     />
   );
 };

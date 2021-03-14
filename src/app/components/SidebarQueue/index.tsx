@@ -27,7 +27,7 @@ const ProgressBar = (props: { completionTime: number, duration: number }) => {
   }, [completionTime, duration, percent]);
   return (
     <div className={Style.progressBar}>
-      <div style={fillerStyles} className={Style.progressBarFill} />
+      <div className={Style.progressBarFill} style={fillerStyles} />
     </div>
   );
 };

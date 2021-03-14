@@ -6,4 +6,12 @@ interface ButtonProps {
   linkTo: string;
 }
 
-export const HeaderNavButton = ({ text, linkTo }: ButtonProps): JSX.Element => <Link to={linkTo} type="button" className={`${Style.buttonStyle} link`}>{text}</Link>;
+export const HeaderNavButton = ({ text, linkTo }: ButtonProps): JSX.Element => (
+  <Link
+    className={`${Style.buttonStyle} link`}
+    to={linkTo}
+    type="button"
+  >
+    {text}
+  </Link>
+);

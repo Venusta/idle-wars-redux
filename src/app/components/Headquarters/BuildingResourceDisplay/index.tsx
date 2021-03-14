@@ -15,7 +15,7 @@ const SingleBuildingResource = ({ amount, resourceId, townId }: { amount: number
   const resource = useMemoSelector((state) => selectResource(state, townId, resourceId));
   return (
     <div className="brd-group">
-      <img src={`${process.env.PUBLIC_URL}/resources/${resourceId}.png`} alt="" />
+      <img alt="" src={`${process.env.PUBLIC_URL}/resources/${resourceId}.png`} />
       <div className={`brd-display ${resource < amount ? "dangerText" : ""}`}>{amount.toFixed(0)}</div>
     </div>
   );
@@ -40,7 +40,7 @@ export const BuildingResourceDisplay = ({ buildingId, townId }: Props): JSX.Elem
     }
     return (
       <div className="brd-group">
-        <img src={`${process.env.PUBLIC_URL}/resources/${imgId}.png`} alt="" />
+        <img alt="" src={`${process.env.PUBLIC_URL}/resources/${imgId}.png`} />
         <div className="brd-display">{data}</div>
       </div>
     );

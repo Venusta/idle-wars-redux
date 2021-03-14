@@ -9,9 +9,9 @@ export const BuildingInfo = ({ buildingId, level = 0 }: { buildingId: BuildingId
   const { name } = baseBuildings[buildingId];
   return (
     <div className="buildings-column">
-      <img className="building-info-img" src={`${process.env.PUBLIC_URL}/buildings/${buildingId}.png`} title={name} alt="" />
+      <img alt="" className="building-info-img" src={`${process.env.PUBLIC_URL}/buildings/${buildingId}.png`} title={name} />
       <div className="building-info-details">
-        <Link to={`/${townId}/buildings/${buildingId}`} className="link">{name}</Link>
+        <Link className="link" to={`/${townId}/buildings/${buildingId}`}>{name}</Link>
         <div className="smoll">{`Level ${level}`}</div>
       </div>
     </div>

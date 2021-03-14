@@ -28,7 +28,7 @@ export const Headquarters = (): JSX.Element => {
 
   const BuildingConstruct = ({ buildingId, queuedLevel }: { buildingId: BuildingIdType, queuedLevel: number }) => (
     <div className={Style["building-grid-item"]}>
-      <ConstructButton text={`Level ${queuedLevel}`} handleClick={() => startConstruction(townId, buildingId)} />
+      <ConstructButton handleClick={() => startConstruction(townId, buildingId)} text={`Level ${queuedLevel}`} />
     </div>
   );
 

@@ -15,7 +15,7 @@ export const WorldMap = (): JSX.Element => {
     <div className={Style.container}>
       {
         townIds.map((id) => (
-          <div className={Style.clicky} key={id} onClick={(e) => handleClick(e, id)} role="button" tabIndex={0}>
+          <div key={id} className={Style.clicky} onClick={(e) => handleClick(e, id)} role="button" tabIndex={0}>
             {`Town ${id}`}
           </div>
         ))

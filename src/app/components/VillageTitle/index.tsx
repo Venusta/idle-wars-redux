@@ -14,7 +14,7 @@ interface Props {
 
 const VillageMenuItem = ({ townId, children }: Props) => (
   <div className={Style.basicContainer}>
-    <Link to={`/${townId}/buildings/${BuildingId.Headquarters}`} className="link">{children}</Link>
+    <Link className="link" to={`/${townId}/buildings/${BuildingId.Headquarters}`}>{children}</Link>
     <span>&nbsp;</span>
     <div>(489|489) K44</div>
   </div>
@@ -24,7 +24,7 @@ const DropDownMenu = ({ styles }: { styles: boolean }) => {
   const blah = 20;
   return (
     <div className={`${Style.sq} ${styles ? Style.hide : ""}`}>
-      {[...Array(blah)].map((e, index) => <VillageMenuItem townId="0" key={index}>{`Test village ${index}`}</VillageMenuItem>)}
+      {[...Array(blah)].map((e, index) => <VillageMenuItem key={index} townId="0">{`Test village ${index}`}</VillageMenuItem>)}
     </div>
   );
 };
@@ -38,9 +38,9 @@ export const VillageTitle = (): JSX.Element => {
 
   return (
     <div className={Style.container}>
-      <Link to={`/${townId}/buildings/${BuildingId.Headquarters}`} className="link">Test village</Link>
+      <Link className="link" to={`/${townId}/buildings/${BuildingId.Headquarters}`}>Test village</Link>
       <span>&nbsp;</span>
-      <div onMouseOver={() => handleMouseEvent(false)} onMouseLeave={() => handleMouseEvent(true)}>
+      <div onMouseLeave={() => handleMouseEvent(true)} onMouseOver={() => handleMouseEvent(false)}>
         (489|489) K44
         <DropDownMenu styles={hide} />
       </div>

@@ -5,7 +5,6 @@ import { SingleUnitPop } from "./SingleUnitPop";
 import { SingleUnitTime } from "./SingleUnitTime";
 import { selectRecruitForm } from "../../../selectors";
 import { RootState } from "../../../store";
-import Style from "./style.module.css";
 
 interface Props {
   unitId: UnitIdProductionType
@@ -17,11 +16,11 @@ export const UnitResourceDisplay = ({ unitId }: Props): JSX.Element => {
   // todo maybe return as div
   return (
     <>
-      <SingleUnitResource unitId={unitId} multiplier={amount} resourceId={ResourceId.Timber} />
-      <SingleUnitResource unitId={unitId} multiplier={amount} resourceId={ResourceId.Clay} />
-      <SingleUnitResource unitId={unitId} multiplier={amount} resourceId={ResourceId.Iron} />
-      <SingleUnitPop unitId={unitId} multiplier={amount} />
-      <SingleUnitTime unitId={unitId} multiplier={amount} buildingId={BuildingId.Barracks} />
+      <SingleUnitResource multiplier={amount} resourceId={ResourceId.Timber} unitId={unitId} />
+      <SingleUnitResource multiplier={amount} resourceId={ResourceId.Clay} unitId={unitId} />
+      <SingleUnitResource multiplier={amount} resourceId={ResourceId.Iron} unitId={unitId} />
+      <SingleUnitPop multiplier={amount} unitId={unitId} />
+      <SingleUnitTime buildingId={BuildingId.Barracks} multiplier={amount} unitId={unitId} />
     </>
   );
 };

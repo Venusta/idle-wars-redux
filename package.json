@@ -76,7 +76,18 @@
       "no-trailing-spaces": "warn",
       "no-restricted-syntax": "off",
       "@typescript-eslint/restrict-template-expressions": "warn",
-      "object-curly-newline": "warn"
+      "object-curly-newline": "warn",
+  
+      "react/no-children-prop": "error",
+      "react/no-danger-with-children": "error",
+      "react/no-deprecated": "error",
+      "react/no-render-return-value": "error",
+      "react/no-string-refs": "error",
+      "react/jsx-key": "warn",
+      "react/jsx-no-duplicate-props": "warn",
+      "react/jsx-no-bind": "error",
+      "react/jsx-sort-default-props": "warn",
+      "react/jsx-sort-props": "warn"
     }
   },
   "browserslist": {

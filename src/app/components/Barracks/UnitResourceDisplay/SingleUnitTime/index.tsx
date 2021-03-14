@@ -20,7 +20,7 @@ export const SingleUnitTime = ({ unitId, buildingId, multiplier = 1 }: Props): J
 
   return (
     <div className={Style.container}>
-      <img className={Style.logo} src={`${process.env.PUBLIC_URL}/clock.svg`} alt="" />
+      <img alt="" className={Style.logo} src={`${process.env.PUBLIC_URL}/clock.svg`} />
       <div>{formattedTime}</div>
     </div>
   );
