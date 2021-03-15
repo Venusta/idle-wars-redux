@@ -21,6 +21,19 @@ const SingleBuildingResource = ({ amount, resourceId, townId }: { amount: number
   );
 };
 
+const SingleBuildingRequirements = ({ data, imgId }: { data: string | number, imgId: string }) => {
+  if (typeof data === "number") {
+    // eslint-disable-next-line no-param-reassign
+    data = data.toFixed(0);
+  }
+  return (
+    <div className="brd-group">
+      <img alt="" src={`${process.env.PUBLIC_URL}/resources/${imgId}.png`} />
+      <div className="brd-display">{data}</div>
+    </div>
+  );
+};
+
 export const BuildingResourceDisplay = ({ buildingId, townId }: Props): JSX.Element => {
   const headquarters = useStateSelector((state) => selectBuilding(state, townId, BuildingId.Headquarters));
   const queuedBuilding = useStateSelector((state) => selectBuilding(state, townId, buildingId));
@@ -32,19 +45,6 @@ export const BuildingResourceDisplay = ({ buildingId, townId }: Props): JSX.Elem
   const pop = cost.population * multiplier;
   const time = new Date(buildingData.getBuildTime(queuedBuilding.queuedLevel, headquarters.level) * 1000).toISOString().substr(11, 8);
 
-  // todo move
-  const SingleBuildingRequirements = ({ data, imgId }: { data: string | number, imgId: string }) => {
-    if (typeof data === "number") {
-      // eslint-disable-next-line no-param-reassign
-      data = data.toFixed(0);
-    }
-    return (
-      <div className="brd-group">
-        <img alt="" src={`${process.env.PUBLIC_URL}/resources/${imgId}.png`} />
-        <div className="brd-display">{data}</div>
-      </div>
-    );
-  };
   return (
     <>
       {multipliedCost.all.map((id) => <SingleBuildingResource key={id} amount={multipliedCost.id[id]?.amount ?? 0} resourceId={id} townId={townId} />)}
