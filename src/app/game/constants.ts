@@ -22,10 +22,15 @@ export const BasicBuildingId = {
   Academy: "academy", // special
 } as const;
 
+export const SpecialBuildingId = {
+  LumberCamp: "lumbercamp",
+} as const;
+
 export const BuildingId = {
   ...UnitProductionBuildingId,
   ...ResourceProductionBuildingId,
   ...BasicBuildingId,
+  ...SpecialBuildingId,
 } as const;
 
 export const RecruitBuilding = "recruit" as const;
@@ -64,6 +69,10 @@ export const UnitIdStatue = {
   Paladin: "paladin",
 } as const;
 
+export const GathererId = {
+  Lumberjack: "lumberjack",
+} as const;
+
 export const UnitId = {
   ...UnitIdBarracks,
   ...UnitIdStable,
@@ -78,6 +87,8 @@ export type UnitIdStableType = typeof UnitIdStable[keyof typeof UnitIdStable];
 export type UnitIdWorkshopType = typeof UnitIdWorkshop[keyof typeof UnitIdWorkshop];
 export type UnitIdAcademyType = typeof UnitIdAcademy[keyof typeof UnitIdAcademy];
 export type UnitIdStatueType = typeof UnitIdStatue[keyof typeof UnitIdStatue];
+
+export type UnitIdGathererType = typeof GathererId[keyof typeof GathererId];
 
 export type UnitIdProductionType = UnitIdBarracksType | UnitIdStableType | UnitIdWorkshopType;
 // export type UnitIdRecruitType = UnitIdProductionType[];
@@ -99,6 +110,10 @@ export const UnitIdStableArray = [
 export const UnitIdWorkshopArray = [
   UnitIdWorkshop.Ram,
   UnitIdWorkshop.Catapult,
+] as const;
+
+export const UnitIdGathererArray = [
+  GathererId.Lumberjack,
 ] as const;
 
 export const UnitIdProductionArray = [
@@ -140,4 +155,13 @@ export const FormUiStuff: FormsRecruitBuildings = {
     id: BuildingId.Workshop,
     units: UnitIdWorkshopArray,
   },
-};
+} as const;
+
+export const navBarBuildings = [
+  BuildingId.LumberCamp,
+  BuildingId.Headquarters,
+  BuildingId.Barracks,
+  BuildingId.Stable,
+  BuildingId.Workshop,
+  BuildingId.Smithy,
+] as const;

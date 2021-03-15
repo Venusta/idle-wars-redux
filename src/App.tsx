@@ -18,6 +18,7 @@ import { Overview } from "./app/components/Overview";
 import { useStateSelector } from "./app/components/hooks";
 import { useAppDispatch } from "./app/store";
 import { WorldMap } from "./app/components/WorldMap";
+import { LumberCamp } from "./app/components/LumberCamp";
 
 interface MainContainerProps {
   children?: JSX.Element | JSX.Element[];
@@ -135,6 +136,10 @@ function App(): JSX.Element {
 
               <Route exact path="/:townId/buildings/barracks">
                 <Barracks />
+              </Route>
+
+              <Route exact path="/:townId/buildings/lumbercamp">
+                <LumberCamp />
               </Route>
 
             </Switch>

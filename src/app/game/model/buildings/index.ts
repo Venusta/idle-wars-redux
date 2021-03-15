@@ -6,3 +6,4 @@ export * from "./resourceBuilding";
 export * from "./storageBuilding";
 export * from "./unitProductionBuilding";
 export * from "./statueBuilding";
+export * from "./gathererProductionBuilding";

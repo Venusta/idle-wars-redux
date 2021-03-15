@@ -16,6 +16,7 @@ export const headquarters = new ProductionBuilding({
   maxLevel: 30,
   buildTime: 300,
   creates: [
+    BuildingId.LumberCamp,
     BuildingId.Headquarters,
     BuildingId.Barracks,
     BuildingId.Stable,

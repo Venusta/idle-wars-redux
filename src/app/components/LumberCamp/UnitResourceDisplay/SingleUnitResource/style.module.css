@@ -1,0 +1,9 @@
+.container {
+  display: flex;
+  align-items: center;
+  padding: 0px 2px;
+}
+
+.dangerText {
+  color: var(--danger-text);
+}

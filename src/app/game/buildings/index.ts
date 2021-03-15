@@ -17,6 +17,7 @@ import { smithy } from "./smithy";
 import { workshop } from "./workshop";
 import { statue } from "./statue";
 import { academy } from "./academy";
+import { lumberCamp } from "./lumberCamp";
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 interface BaseBuildings { // TODO FIX useless :(
@@ -47,4 +48,5 @@ export const baseBuildings = {
   [BuildingId.Workshop]: workshop,
   [BuildingId.Statue]: statue,
   [BuildingId.Academy]: academy,
+  [BuildingId.LumberCamp]: lumberCamp,
 };

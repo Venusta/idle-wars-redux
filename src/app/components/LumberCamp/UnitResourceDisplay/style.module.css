@@ -1,0 +1,16 @@
+.brd-group {
+  display: flex;
+  align-items: center;
+  padding: 0px 2px;
+}
+
+.brd-group > img {
+  margin: 0px 3px;
+}
+
+.brd-container {
+  grid-column: 2/7;
+  display: contents;
+  column-gap: 2px;
+  padding: 3px;
+}

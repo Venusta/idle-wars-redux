@@ -1,7 +1,9 @@
 /* eslint-disable quote-props */
-import { ResourceId, UnitId, BuildingId } from "../game/constants";
 import {
-  ResourcesNormalised, ResearchNormalised, BuildingsNormalised, UnitsNormalised, Queues,
+  ResourceId, UnitId, BuildingId, GathererId,
+} from "../game/constants";
+import {
+  ResourcesNormalised, ResearchNormalised, BuildingsNormalised, UnitsNormalised, Queues, GatherersNormalised,
 } from "../../types/townStateTypes";
 
 // interface Normalised<ById, AllIds> {
@@ -71,6 +73,19 @@ const units: UnitsNormalised = {
   ],
 };
 
+const gatherers: GatherersNormalised = {
+  id: {
+    [GathererId.Lumberjack]: {
+      id: GathererId.Lumberjack,
+      home: 2,
+      total: 2,
+    },
+  },
+  all: [
+    GathererId.Lumberjack,
+  ],
+};
+
 const unlocked: ResearchNormalised = { // units / buildings maybe
   id: {
     [UnitId.SpearFighter]: {
@@ -100,6 +115,11 @@ const unlocked: ResearchNormalised = { // units / buildings maybe
 // I think this can be gen at runtime
 const buildings: BuildingsNormalised = {
   id: {
+    [BuildingId.LumberCamp]: {
+      id: BuildingId.LumberCamp,
+      level: 0,
+      queuedLevel: 0,
+    },
     [BuildingId.TimberCamp]: {
       id: BuildingId.TimberCamp,
       level: 0,
@@ -188,6 +208,7 @@ export interface TownInterface {
   storageCapacity: number;
   buildings: BuildingsNormalised;
   units: UnitsNormalised;
+  gatherers: GatherersNormalised;
   unlocked: ResearchNormalised;
 }
 
@@ -214,6 +235,7 @@ const testTown: TownInterface = {
     },
     units: {},
   },
+  gatherers,
   population: 400,
   maxPopulation: 900,
   storageCapacity: 20000,

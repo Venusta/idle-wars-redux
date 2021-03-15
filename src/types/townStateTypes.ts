@@ -1,5 +1,5 @@
 import {
-  BuildingIdType, UnitIdType, UnitIdProductionType, ResourceIdType,
+  BuildingIdType, UnitIdType, UnitIdProductionType, ResourceIdType, UnitIdGathererType,
 } from "../app/game/constants";
 
 interface Resource {
@@ -25,6 +25,18 @@ type Units = Record<UnitIdType, Unit>;
 export interface UnitsNormalised {
   id: Partial<Units>,
   all: UnitIdType[]
+}
+export interface Gatherer {
+  id: UnitIdGathererType;
+  home: number;
+  total: number;
+}
+
+type Gatherers = Record<UnitIdGathererType, Gatherer>;
+
+export interface GatherersNormalised {
+  id: Partial<Gatherers>,
+  all: UnitIdGathererType[]
 }
 
 interface Research {

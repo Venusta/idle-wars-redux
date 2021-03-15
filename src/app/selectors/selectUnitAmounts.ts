@@ -33,7 +33,7 @@ export const makeSelectUnitAmounts = () => {
   console.log("[Once]: makeSelectUnitAmounts");
   return createSelector([getUnit], (unit) => {
     console.log(`[Updt]: selectUnitAmount ID: ${unit?.id}`);
-    const { home, total } = unit ?? { home: 0, total: 0 };
+    const { home, total } = unit ?? { home: -2, total: -2 };
     return { home, total };
   });
 };
