@@ -1,8 +1,0 @@
-.queueContainer {
-  display: flex;
-  justify-content: center;
-  justify-items: center;
-  justify-self: center;
-  /* background-color: rgba(0, 0, 255, 0.685); */
-  min-width: fit-content;
-}
